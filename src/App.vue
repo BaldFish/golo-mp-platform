@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    app
   </div>
 </template>
 
@@ -32,6 +33,14 @@
 </script>
 
 <style scoped lang="stylus">
-
+#app{
+  box-sizing border-box
+  margin 0
+  padding 0
+  width 750px
+  height 750px
+  font-size 30px
+  border 1px solid black
+}
 </style>
 
