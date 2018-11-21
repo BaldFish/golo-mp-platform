@@ -6,6 +6,7 @@ import router from './router';
 import Vuex from 'vuex';
 import 'lib-flexible'
 import $ from 'jquery';
+import '@/common/stylus/index.styl';
 
 Vue.use(Vuex);
 

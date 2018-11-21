@@ -37,10 +37,10 @@
   box-sizing border-box
   margin 0
   padding 0
-  width 750px
+  width 750px; /*no*/
   height 750px
-  font-size 30px
-  border 1px solid black
+  font-size 30px; /*px*/
+  border 1px solid black; /*no*/
 }
 </style>
 
