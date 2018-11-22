@@ -5,30 +5,27 @@
     </div>
     <div class="footer_wrap">
       <ul>
-        <li>
-          <a href="/reportQuery">
-            <img src="@/common/images/baogaochaxun_dj.png" alt="">
-            <p>报告查询</p>
-          </a>
+        <li v-for="(item,index) of tabsParam" :class="{'active': index===nowIndex,}" @click="tabChange(index)">
+          <img :src="item.img" alt="">
+          <p>{{item.text}}</p>
+        </li>
+        <!--<li>
+          &lt;!&ndash;<img src="@/common/images/baogaochaxun_dj.png" alt="">&ndash;&gt;
+          <span></span>
+          <p>订单</p>
         </li>
         <li>
-          <a href="/order">
-            <img src="@/common/images/baogaochaxun_dj.png" alt="">
-            <p>订单</p>
-          </a>
-        </li>
-        <li>
-          <a href="/personalCenter">
-            <img src="@/common/images/baogaochaxun_dj.png" alt="">
-            <p>个人中心</p>
-          </a>
-        </li>
+          &lt;!&ndash;<img src="@/common/images/baogaochaxun_dj.png" alt="">&ndash;&gt;
+          <span></span>
+          <p>个人中心</p>
+        </li>-->
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+  import _ from 'lodash'
   export default {
     name: 'App',
     components: {},
@@ -40,22 +37,70 @@
     data() {
       return {
         isRouterAlive: true,
+        tabsParam: [
+          {img: require("@/common/images/baogaochaxun_dj.png"), text: "报告查询"},
+          {img: "", text: "订单"},
+          {img: "", text: "个人中心"}
+        ],
+        nowIndex: 0,
       }
     },
     beforeMount() {
+      //this.tabsParam[0] = {img: require("@/common/images/baogaochaxun_dj.png"), text: "报告查询"}
     },
     mounted() {
     },
     beforeUpdate() {
     },
-    computed: {},
-    watch: {},
+    computed: {
+    a:function () {
+      return window.location.href
+    }
+    },
+    watch: {
+      a:function(){
+        console.log(a)
+        if (_.includes(a, "reportQuery",1)) {
+          console.log(true)
+        }
+      },
+      $route(to,from) {
+      }
+    },
     methods: {
       reload() {
         this.isRouterAlive = false;
         this.$nextTick(() => {
           this.isRouterAlive = true
         })
+      },
+      reportQuery() {
+        console.log(1)
+      },
+      tabChange(index) {
+        this.nowIndex = index;
+        if (index === 0) {
+          this.tabsParam=[
+            {img: require("@/common/images/baogaochaxun_dj.png"), text: "报告查询"},
+            {img: "", text: "订单"},
+            {img: "", text: "个人中心"}
+          ];
+          this.$router.push('/reportQuery');
+        }else if(index === 1){
+          this.tabsParam=[
+            {img: "", text: "报告查询"},
+            {img: require("@/common/images/baogaochaxun_dj.png"), text: "订单"},
+            {img: "", text: "个人中心"}
+          ];
+          this.$router.push('/order');
+        }else if(index === 2){
+          this.tabsParam=[
+            {img: "", text: "报告查询"},
+            {img: "", text: "订单"},
+            {img: require("@/common/images/baogaochaxun_dj.png"), text: "个人中心"}
+          ];
+          this.$router.push('/personalCenter');
+        }
       },
     }
   }
@@ -87,24 +132,23 @@
       ul {
         font-size 0
         li {
+          margin-top 10px
           display inline-block
           width 33.333%
           text-align center
-          a {
-            font-size 0
-            img {
-              width 48px
-              height 40px
-            }
-            p {
-              font-size 28px; /*px*/
-              color #333333
-            }
+          font-size 0
+          img {
+            width 48px
+            height 40px
           }
-          a:active, a:visited {
-            p {
-              color #5226f3
-            }
+          p {
+            font-size 28px; /*px*/
+            color #333333
+          }
+        }
+        .active {
+          p {
+            color red
           }
         }
       }
