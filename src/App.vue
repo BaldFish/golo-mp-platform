@@ -4,9 +4,26 @@
       <router-view class="main" v-if="isRouterAlive"></router-view>
     </div>
     <div class="footer_wrap">
-      <router-link to="/reportQuery">报告查询</router-link>
-      <router-link to="/order">订单</router-link>
-      <router-link to="/personalCenter">个人中心</router-link>
+      <ul>
+        <li>
+          <a href="/reportQuery">
+            <img src="@/common/images/baogaochaxun_dj.png" alt="">
+            <p>报告查询</p>
+          </a>
+        </li>
+        <li>
+          <a href="/order">
+            <img src="@/common/images/baogaochaxun_dj.png" alt="">
+            <p>订单</p>
+          </a>
+        </li>
+        <li>
+          <a href="/personalCenter">
+            <img src="@/common/images/baogaochaxun_dj.png" alt="">
+            <p>个人中心</p>
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -22,7 +39,7 @@
     },
     data() {
       return {
-        isRouterAlive:true,
+        isRouterAlive: true,
       }
     },
     beforeMount() {
@@ -31,10 +48,8 @@
     },
     beforeUpdate() {
     },
-    computed: {
-    },
-    watch: {
-    },
+    computed: {},
+    watch: {},
     methods: {
       reload() {
         this.isRouterAlive = false;
@@ -60,13 +75,39 @@
       min-width 640px
     }
     .footer_wrap {
-      border solid 1px #e5e5e5;/*no*/
-      width 100%
+      box-sizing border-box
+      border-top solid 1px #e5e5e5; /*no*/
+      width 750px
       height 98px
       min-width 640px
       position fixed
       bottom 0
       left 0
+      background-color bisque
+      ul {
+        font-size 0
+        li {
+          display inline-block
+          width 33.333%
+          text-align center
+          a {
+            font-size 0
+            img {
+              width 48px
+              height 40px
+            }
+            p {
+              font-size 28px; /*px*/
+              color #333333
+            }
+          }
+          a:active, a:visited {
+            p {
+              color #5226f3
+            }
+          }
+        }
+      }
     }
   }
 </style>
