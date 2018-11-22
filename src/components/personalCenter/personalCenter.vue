@@ -1,24 +1,27 @@
 <template>
-  <div class="home">
+  <div class="personalCenter">
+    personalCenter
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
   export default {
-    name: "home",
+    name: "personalCenter",
     components: {},
     data() {
-      return {
-      }
+      return {}
+    },
+    created() {
     },
     mounted() {
     },
     watch: {},
     computed: {},
-    methods: {
-    },
+    methods: {},
   }
 </script>
 
 <style scoped lang="stylus">
+
 </style>
