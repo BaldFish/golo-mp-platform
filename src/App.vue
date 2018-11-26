@@ -118,14 +118,14 @@
       min-width 640px
     }
     .footer_wrap {
-      
       width 100%
       margin 0 auto
       min-width 640px
       position fixed
       bottom 0
       left 0
-      ul {
+      background-color #ffffff
+      .footer {
         font-size 0
         box-sizing border-box
         border-top solid 1px #e5e5e5; /*no*/
