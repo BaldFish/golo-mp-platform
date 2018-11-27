@@ -81,6 +81,7 @@
         </div>
       </div>
     </section>
+    <p class="cooperation">商务合作联系电话：010-13523333333</p>
   </div>
 </template>
 
@@ -211,6 +212,8 @@
             border-left 1px solid #bfbfbf; /*no*/
             margin-right 20px
             img{
+              width: 46px;
+              height: 36px;
               margin-left 32px
             }
           }
@@ -273,6 +276,8 @@
         }
         .engine-li{
           img{
+            width: 40px;
+            height: 40px;
             float right
             margin-right 20px
           }
@@ -323,10 +328,11 @@
     }
   }
   .sec-notice{
-    margin: 64px 23px 150px 23px;
+    margin: 64px 23px 0 23px;
     .report-title{
       font-size: 28px; /*px*/
       color: #5226f3;
+      height: 40px;
       line-height 40px
       i{
         width: 40px;
@@ -362,6 +368,7 @@
     .help-title{
       font-size: 28px; /*px*/
       color: #5226f3;
+      height: 40px;
       line-height 40px
       i{
         width: 40px;
@@ -390,5 +397,12 @@
         font-size: 24px; /*px*/
       }
     }
+  }
+  .cooperation{
+    margin: 50px 0 150px 0
+    text-align center
+    font-weight 700
+    font-size:30px; /*px*/
+    color #333333
   }
 </style>
