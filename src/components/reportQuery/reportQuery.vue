@@ -44,7 +44,7 @@
     components: {},
     data() {
       return {
-        slides: [require('@/common/images/banner_chekuang.png'), require('@/common/images/banner_licheng.png')],
+        slides: [require('@/common/images/banner_chakuang.png'), require('@/common/images/banner_licheng.png')],
       }
     },
     beforeMount() {

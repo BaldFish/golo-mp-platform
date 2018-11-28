@@ -81,24 +81,12 @@
     created() {
     },
     mounted() {
-      /* //拍照提示20秒消失
-     let me = this;
-     me.isHidden = false;
-     let timeOut = window.setTimeout(function () {
-       console.log("655555")
-       me.isHidden = true;
-
-     }, 1000 * 1);
-     window.clearTimeout(timeOut);*/
-
-
-      /*//循环执行，每隔1秒钟执行一次 1000
-      var t1=window.setInterval(refreshCount, 1000);
-      function refreshCount() {
-        console.log("ready");
-      }
-      //去掉定时器的方法
-      window.clearInterval(t1);*/
+      window.clearTimeout(timeOut);
+      //拍照提示20秒消失
+      let that = this;
+      let timeOut = window.setTimeout(function () {
+        that.isHidden = true;
+      }, 1000 * 20);
     },
     watch: {},
     computed: {
@@ -110,15 +98,10 @@
           this.carFrame = val.toUpperCase();
         }
       },
-
-
-
     },
     methods: {
       closeNotice(){
         this.isHidden = true;
-
-        console.log(this.carFrameNum)
       },
 
     },

@@ -24,11 +24,11 @@
             <div style="clear: both"></div>
           </div>
         </div>
-
+        
         <div class="check-more" v-if="isShow" @click="showMore">
           <p><span>— —&nbsp;</span>点击展开选填信息<span>&nbsp;— —</span></p>
         </div>
-
+        
         <div class="sec-form-box" v-else>
           <ul>
             <li class="license-li">
@@ -91,55 +91,38 @@
     components: {},
     data() {
       return {
-        isHidden:false,
-        isShow:true,
-        carFrame:'',
-
+        isHidden: false,
+        isShow: true,
+        carFrame: '',
+        //timeOut:"",
       }
     },
     created() {
     },
     mounted() {
-      /* //拍照提示20秒消失
-     let me = this;
-     me.isHidden = false;
-     let timeOut = window.setTimeout(function () {
-       console.log("655555")
-       me.isHidden = true;
-
-     }, 1000 * 1);
-     window.clearTimeout(timeOut);*/
-
-
-      /*//循环执行，每隔1秒钟执行一次 1000
-      var t1=window.setInterval(refreshCount, 1000);
-      function refreshCount() {
-        console.log("ready");
-      }
-      //去掉定时器的方法
-      window.clearInterval(t1);*/
+      window.clearTimeout(timeOut);
+      //拍照提示20秒消失
+      let that = this;
+      let timeOut = window.setTimeout(function () {
+        that.isHidden = true;
+      }, 1000 * 20);
     },
     watch: {},
     computed: {
-      carFrameNum : {
-        get: function(){
+      carFrameNum: {
+        get: function () {
           return this.carFrame;
         },
-        set : function(val){
+        set: function (val) {
           this.carFrame = val.toUpperCase();
         }
       },
-
-
-
     },
     methods: {
-      closeNotice(){
+      closeNotice() {
         this.isHidden = true;
-
-        console.log(this.carFrameNum)
       },
-      showMore(){
+      showMore() {
         this.isShow = false;
       }
     },
@@ -147,13 +130,14 @@
 </script>
 
 <style scoped lang="stylus">
-  .sec-form{
+  .sec-form {
     width: 688px;
     height: auto;
     box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.09);
     border-radius: 30px;
-    margin:0 auto;
-    .camera-notice{
+    margin: 0 auto;
+    
+    .camera-notice {
       font-size: 20px; /*px*/
       color: #333333;
       text-align center
@@ -166,11 +150,13 @@
       position: relative;
       bottom: 24px;
       right: 16px;
-      p{
+      
+      p {
         float left
         margin-left 20px
       }
-      i{
+      
+      i {
         width: 17px;
         height: 17px;
         display inline-block
@@ -181,88 +167,106 @@
         margin-right 14px
       }
     }
-    .hidden{
+    
+    .hidden {
       visibility hidden
     }
-    .sec-container{
+    
+    .sec-container {
       height: auto;
       padding: 52px 30px 0 30px;
       position relative
       bottom: 60px
-      .car-frame{
-        .car-frame-input{
+      
+      .car-frame {
+        .car-frame-input {
           border-bottom 1px solid #e5e5e5; /*no*/
           padding-bottom 28px
-          .frame-input{
+          
+          .frame-input {
             float left
-            label{
+            
+            label {
               font-size: 28px; /*px*/
               color: #333333;
               margin-right 64px
             }
-            input{
+            
+            input {
               font-size: 26px; /*px*/
               color: #333333;
               outline: none;
               width: 270px;
             }
           }
-          .camera-box{
+          
+          .camera-box {
             float right
             border-left 1px solid #bfbfbf; /*no*/
             margin-right 20px
-            img{
+            
+            img {
               width: 46px;
               height: 36px;
               margin-left 32px
             }
           }
         }
-        .car-frame-notice{
+        
+        .car-frame-notice {
           font-size: 20px; /*px*/
           color: #999999;
           margin-top 24px
-          span{
+          
+          span {
             color: #5226f3;
           }
-          p:nth-child(1){
+          
+          p:nth-child(1) {
             float left
           }
-          p:nth-child(2){
+          
+          p:nth-child(2) {
             float right
           }
         }
-
+        
       }
-      .check-more{
+      
+      .check-more {
         font-size: 24px; /*px*/
         color: #999999;
         text-align center
         margin-top 58px
       }
-      .sec-form-box{
-        li{
+      
+      .sec-form-box {
+        li {
           margin-top: 56px;
           padding-bottom 28px
           border-bottom 1px solid #e5e5e5; /*no*/
-          label{
+          
+          label {
             font-size: 28px; /*px*/
             color: #333333;
             margin-right 64px
           }
-          input{
+          
+          input {
             font-size: 26px; /*px*/
             color: #333333;
             outline: none;
             width: 270px;
           }
         }
-        .license-li{
-          label{
+        
+        .license-li {
+          label {
             float left
             margin-right 24px
           }
-          .license{
+          
+          .license {
             float left
             width: 40px;
             height: 40px;
@@ -274,8 +278,9 @@
             margin-right: 7px;
           }
         }
-        .engine-li{
-          img{
+        
+        .engine-li {
+          img {
             width: 40px;
             height: 40px;
             float right
@@ -283,8 +288,8 @@
           }
         }
       }
-
-      .submit{
+      
+      .submit {
         width: 630px;
         height: 84px;
         background-color: #5226f3;
@@ -295,46 +300,55 @@
         outline none
         margin: 70px 0 32px 0;
       }
-      .agree-contract{
+      
+      .agree-contract {
         line-height: 40px;
-        height:40px
+        height: 40px
         width: 520px
         margin: 0 auto
-        input{
+        
+        input {
           display none
         }
-        i{
+        
+        i {
           width: 40px;
           height: 40px;
           display inline-block
-          background:url("../../../common/images/unchecked.jpg") no-repeat center;
+          background: url("../../../common/images/unchecked.jpg") no-repeat center;
           background-size 100% 100%
           margin-right 20px
           float left
         }
-        input:checked + i{
-          background:url("../../../common/images/checked.png") no-repeat center;
+        
+        input:checked + i {
+          background: url("../../../common/images/checked.png") no-repeat center;
           background-size 100% 100%
         }
-        p{
+        
+        p {
           font-size: 22px; /*px*/
           color: #333333;
           float left
-          span{
+          
+          span {
             color: #5226f3;
           }
         }
       }
     }
   }
-  .sec-notice{
+  
+  .sec-notice {
     margin: 64px 23px 0 23px;
-    .report-title{
+    
+    .report-title {
       font-size: 28px; /*px*/
       color: #5226f3;
       height: 40px;
       line-height 40px
-      i{
+      
+      i {
         width: 40px;
         height: 40px;
         display inline-block
@@ -343,14 +357,17 @@
         float left
         margin-right 20px
       }
-      p{
+      
+      p {
         float left
       }
     }
-    .report-box{
+    
+    .report-box {
       padding: 35px 35px 77px 35px
       text-align: center;
-      input{
+      
+      input {
         width: 180px;
         height: 60px;
         line-height 60px
@@ -361,16 +378,19 @@
         background-color #ffffff
         outline none
       }
-      .standard-report{
+      
+      .standard-report {
         margin-right 100px
       }
     }
-    .help-title{
+    
+    .help-title {
       font-size: 28px; /*px*/
       color: #5226f3;
       height: 40px;
       line-height 40px
-      i{
+      
+      i {
         width: 40px;
         height: 40px;
         display inline-block
@@ -379,11 +399,13 @@
         float left
         margin-right 20px
       }
-      p{
+      
+      p {
         float left
       }
     }
-    .help-box{
+    
+    .help-box {
       width: 624px;
       height: auto;
       background-color: #f7f7f7;
@@ -393,16 +415,18 @@
       line-height normal
       padding: 36px 40px
       margin-top 30px
-      span{
+      
+      span {
         font-size: 24px; /*px*/
       }
     }
   }
-  .cooperation{
+  
+  .cooperation {
     margin: 50px 0 150px 0
     text-align center
     font-weight 700
-    font-size:30px; /*px*/
+    font-size: 30px; /*px*/
     color #333333
   }
 </style>
