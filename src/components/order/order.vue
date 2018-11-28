@@ -50,7 +50,6 @@
     ul{
       font-size 0
       text-align center
-      margin-bottom 66px
       background-color: #f8f8f8;
       height 90px
       li{
@@ -77,7 +76,7 @@
           .text{
             color: #5226f3;
             border-bottom 2px solid #5226f3;/*no*/
-            
+
           }
         }
       }
