@@ -1,6 +1,6 @@
 <template>
   <div class="submitViolation">
-    
+    submitViolation
   </div>
 </template>
 

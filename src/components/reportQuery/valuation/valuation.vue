@@ -57,7 +57,7 @@
     computed: {},
     methods: {
       search(){
-        this.$router.push('/valuation')
+        this.$router.push('/submitValuation')
       },
     },
   }

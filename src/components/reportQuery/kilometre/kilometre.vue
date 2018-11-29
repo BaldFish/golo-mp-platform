@@ -75,7 +75,6 @@
       return {
         isHidden: false,
         carFrame: '',
-        
       }
     },
     created() {
@@ -104,7 +103,7 @@
         this.isHidden = true;
       },
       search() {
-        this.$router.push('/kilometre')
+        this.$router.push('/submitKilometre')
       },
     },
   }

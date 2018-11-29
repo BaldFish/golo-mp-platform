@@ -1,6 +1,6 @@
 <template>
   <div class="submitValuation">
-    
+    submitValuation
   </div>
 </template>
 

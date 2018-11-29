@@ -107,7 +107,7 @@
         this.isHidden = true;
       },
       search() {
-        this.$router.push('/violation')
+        this.$router.push('/submitViolation')
       },
     },
   }
