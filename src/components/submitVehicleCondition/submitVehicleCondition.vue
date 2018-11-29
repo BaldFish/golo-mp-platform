@@ -1,6 +1,6 @@
 <template>
   <div class="submitVehicleCondition">
-    
+    submitVehicleCondition
   </div>
 </template>
 

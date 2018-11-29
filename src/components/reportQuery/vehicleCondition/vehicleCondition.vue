@@ -19,8 +19,8 @@
             <div style="clear: both"></div>
           </div>
           <div class="car-frame-notice">
-            <p>已输入&nbsp;<span>{{carFrameNum.length}}</span>&nbsp;位，还差&nbsp;<span>{{17 - carFrameNum.length}}</span>&nbsp;位</p>
-            <p>车架号从哪里查？</p>
+            <p class="fl">已输入&nbsp;<span>{{carFrameNum.length}}</span>&nbsp;位，还差&nbsp;<span>{{17 - carFrameNum.length}}</span>&nbsp;位</p>
+            <router-link to="/VINExample" class="fr">车架号从哪里查？</router-link>
             <div style="clear: both"></div>
           </div>
         </div>
@@ -45,7 +45,7 @@
             </li>
           </ul>
         </div>
-        <input class="submit" type="button" value="开始查询">
+        <input class="submit" type="button" value="开始查询" @click="search">
         <div class="agree-contract">
           <label>
             <input type="checkbox">
@@ -64,10 +64,10 @@
         </div>
         <div style="clear: both"></div>
         <div class="report-box">
-          <router-link to="/#">
+          <router-link to="/standardReport">
             <input class="standard-report" type="button" value="标准版报告样例">
           </router-link>
-          <router-link to="/#">
+          <router-link to="/fullReport">
             <input type="button" value="完整版报告样例">
           </router-link>
         </div>
@@ -124,7 +124,10 @@
       },
       showMore() {
         this.isShow = false;
-      }
+      },
+      search(){
+        this.$router.push('/submitVehicleCondition')
+      },
     },
   }
 </script>
@@ -221,13 +224,9 @@
           span {
             color: #5226f3;
           }
-          
-          p:nth-child(1) {
-            float left
-          }
-          
-          p:nth-child(2) {
-            float right
+          a{
+            font-size: 20px; /*px*/
+            color: #999999;
           }
         }
         

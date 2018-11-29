@@ -27,7 +27,7 @@
             </li>
           </ul>
         </div>
-        <input class="submit" type="button" value="免费估价">
+        <input class="submit" type="button" value="免费估价" @click="search">
         <div class="agree-contract">
           <label>
             <input type="checkbox">
@@ -55,7 +55,11 @@
     },
     watch: {},
     computed: {},
-    methods: {},
+    methods: {
+      search(){
+        this.$router.push('/valuation')
+      },
+    },
   }
 </script>
 

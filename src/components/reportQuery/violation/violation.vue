@@ -19,8 +19,8 @@
             <div style="clear: both"></div>
           </div>
           <div class="car-frame-notice">
-            <p>已输入&nbsp;<span>{{carFrameNum.length}}</span>&nbsp;位，还差&nbsp;<span>{{17 - carFrameNum.length}}</span>&nbsp;位</p>
-            <p>车架号从哪里查？</p>
+            <p class="fl">已输入&nbsp;<span>{{carFrameNum.length}}</span>&nbsp;位，还差&nbsp;<span>{{17 - carFrameNum.length}}</span>&nbsp;位</p>
+            <router-link to="/VINExample" class="fr">车架号从哪里查？</router-link>
             <div style="clear: both"></div>
           </div>
         </div>
@@ -55,7 +55,7 @@
             </li>
           </ul>
         </div>
-        <input class="submit" type="button" value="开始查询">
+        <input class="submit" type="button" value="开始查询" @click="search">
         <div class="agree-contract">
           <label>
             <input type="checkbox">
@@ -76,9 +76,9 @@
     components: {},
     data() {
       return {
-        isHidden:false,
-        carFrame:'',
-
+        isHidden: false,
+        carFrame: '',
+        
       }
     },
     created() {
@@ -93,31 +93,35 @@
     },
     watch: {},
     computed: {
-      carFrameNum : {
-        get: function(){
+      carFrameNum: {
+        get: function () {
           return this.carFrame;
         },
-        set : function(val){
+        set: function (val) {
           this.carFrame = val.toUpperCase();
         }
       },
     },
     methods: {
-      closeNotice(){
+      closeNotice() {
         this.isHidden = true;
+      },
+      search() {
+        this.$router.push('/violation')
       },
     },
   }
 </script>
 
 <style scoped lang="stylus">
-  .sec-form{
+  .sec-form {
     width: 688px;
     height: auto;
     box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.09);
     border-radius: 30px;
-    margin:0 auto;
-    .camera-notice{
+    margin: 0 auto;
+    
+    .camera-notice {
       font-size: 20px; /*px*/
       color: #333333;
       text-align center
@@ -130,11 +134,13 @@
       position: relative;
       bottom: 24px;
       right: 16px;
-      p{
+      
+      p {
         float left
         margin-left 20px
       }
-      i{
+      
+      i {
         width: 17px;
         height: 17px;
         display inline-block
@@ -145,82 +151,96 @@
         margin-right 14px
       }
     }
-    .hidden{
+    
+    .hidden {
       visibility hidden
     }
-    .sec-container{
+    
+    .sec-container {
       height: auto;
       padding: 52px 30px 0 30px;
       position relative
       bottom: 60px
-      .car-frame{
-        .car-frame-input{
+      
+      .car-frame {
+        .car-frame-input {
           border-bottom 1px solid #e5e5e5; /*no*/
           padding-bottom 28px
-          .frame-input{
+          
+          .frame-input {
             float left
-            label{
+            
+            label {
               font-size: 28px; /*px*/
               color: #333333;
               margin-right 64px
             }
-            input{
+            
+            input {
               font-size: 26px; /*px*/
               color: #333333;
               outline: none;
               width: 270px;
             }
           }
-          .camera-box{
+          
+          .camera-box {
             float right
             border-left 1px solid #bfbfbf; /*no*/
             margin-right 20px
-            img{
+            
+            img {
               width: 46px;
               height: 36px;
               margin-left 32px
             }
           }
         }
-        .car-frame-notice{
+        
+        .car-frame-notice {
           font-size: 20px; /*px*/
           color: #999999;
           margin-top 24px
-          span{
+          
+          span {
             color: #5226f3;
           }
-          p:nth-child(1){
-            float left
-          }
-          p:nth-child(2){
-            float right
+          
+          a {
+            font-size: 20px; /*px*/
+            color: #999999;
           }
         }
-
+        
       }
-      .sec-form-box{
-        li{
+      
+      .sec-form-box {
+        li {
           margin-top: 56px;
           padding-bottom 28px
           border-bottom 1px solid #e5e5e5; /*no*/
-          label{
+          
+          label {
             font-size: 28px; /*px*/
             color: #333333;
             margin-right 64px
           }
-          input{
+          
+          input {
             font-size: 26px; /*px*/
             color: #333333;
             outline: none;
             width: 270px;
           }
         }
-        .license-li{
-          label{
+        
+        .license-li {
+          label {
             float left
             margin-right 24px
           }
-          .license{
+          
+          .license {
             float left
             width: 40px;
             height: 40px;
@@ -232,25 +252,30 @@
             margin-right: 7px;
           }
         }
-        .engine-li{
-          img{
+        
+        .engine-li {
+          img {
             width: 40px;
             height: 40px;
             float right
             margin-right 20px
           }
         }
-        .carType-li{
+        
+        .carType-li {
           border-bottom none
-          label{
+          
+          label {
             float left
             height: 40px;
             line-height 40px
           }
-          .radio-box{
+          
+          .radio-box {
             font-size: 24px; /*px*/
             color: #333333;
-            label{
+            
+            label {
               margin: 0
               width: 200px
               height: 40px;
@@ -258,10 +283,12 @@
               display inline-block
               float left
             }
-            input{
+            
+            input {
               display none
             }
-            i{
+            
+            i {
               width: 40px;
               height: 40px;
               display inline-block
@@ -270,15 +297,16 @@
               background url("../../../common/images/radio_unchecked.png") no-repeat center
               background-size 100% 100%
             }
-            input:checked + i{
+            
+            input:checked + i {
               background url("../../../common/images/radio_checked.png") no-repeat center
               background-size 100% 100%
             }
           }
         }
       }
-
-      .submit{
+      
+      .submit {
         width: 630px;
         height: 84px;
         background-color: #5226f3;
@@ -289,43 +317,50 @@
         outline none
         margin: 70px 0 32px 0;
       }
-      .agree-contract{
+      
+      .agree-contract {
         line-height: 40px;
-        height:40px
+        height: 40px
         width: 520px
         margin: 0 auto
-        input{
+        
+        input {
           display none
         }
-        i{
+        
+        i {
           width: 40px;
           height: 40px;
           display inline-block
-          background:url("../../../common/images/unchecked.jpg") no-repeat center;
+          background: url("../../../common/images/unchecked.jpg") no-repeat center;
           background-size 100% 100%
           margin-right 20px
           float left
         }
-        input:checked + i{
-          background:url("../../../common/images/checked.png") no-repeat center;
+        
+        input:checked + i {
+          background: url("../../../common/images/checked.png") no-repeat center;
           background-size 100% 100%
         }
-        p{
+        
+        p {
           font-size: 22px; /*px*/
           color: #333333;
           float left
-          span{
+          
+          span {
             color: #5226f3;
           }
         }
       }
     }
   }
-  .cooperation{
+  
+  .cooperation {
     margin: 50px 0 150px 0
     text-align center
     font-weight 700
-    font-size:30px; /*px*/
+    font-size: 30px; /*px*/
     color #333333
   }
 </style>
