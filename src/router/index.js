@@ -10,7 +10,17 @@ import myVehicleConditionOrder from '@/components/order/vehicleConditionOrder/ve
 import myKilometreOrder from '@/components/order/kilometreOrder/kilometreOrder'
 import myValuationOrder from '@/components/order/valuationOrder/valuationOrder'
 import myViolationOrder from '@/components/order/violationOrder/violationOrder'
+import myLogin from '@/components/login/login'
 import myPersonalCenter from '@/components/personalCenter/personalCenter'
+import myAddCar from '@/components/addCar/addCar'
+import myStandardReport from '@/components/standardReport/standardReport'
+import myFullReport from '@/components/fullReport/fullReport'
+import myVINExample from '@/components/VINExample/VINExample'
+import mySubmitVehicleCondition from '@/components/submitVehicleCondition/submitVehicleCondition'
+import mySubmitKilometre from '@/components/submitKilometre/submitKilometre'
+import mySubmitValuation from '@/components/submitValuation/submitValuation'
+import mySubmitViolation from '@/components/submitViolation/submitViolation'
+
 Vue.use(Router);
 
 export default new Router({
@@ -81,9 +91,54 @@ export default new Router({
       ]
     },
     {
+      path: '/login',
+      name: 'login',
+      component: myLogin
+    },
+    {
       path: '/personalCenter',
       name: 'personalCenter',
       component: myPersonalCenter
+    },
+    {
+      path: '/addCar',
+      name: 'addCar',
+      component: myAddCar
+    },
+    {
+      path: '/standardReport',
+      name: 'standardReport',
+      component: myStandardReport
+    },
+    {
+      path: '/fullReport',
+      name: 'fullReport',
+      component: myFullReport
+    },
+    {
+      path: '/VINExample',
+      name: 'VINExample',
+      component: myVINExample
+    },
+    {
+      path:'/submitVehicleCondition',
+      name:'submitVehicleCondition',
+      component:mySubmitVehicleCondition
+    },
+    {
+      path:'/submitKilometre',
+      name:'submitKilometre',
+      component:mySubmitKilometre
+    },
+    {
+      path:'/submitValuation',
+      name:'submitValuation',
+      component:mySubmitValuation
+    },
+    {
+      path:'/submitViolation',
+      name:'submitViolation',
+      component:mySubmitViolation
     },
   ]
 })

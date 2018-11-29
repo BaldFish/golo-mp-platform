@@ -44,16 +44,20 @@
     components: {},
     data() {
       return {
-        slides: [require('@/common/images/banner_chakuang.png'), require('@/common/images/banner_licheng.png')],
+        slides: [],
       }
     },
     beforeMount() {
       //根据路由判断应该请求哪个tab的轮播数据
       let path = this.$route.path;
       if (_.includes(path, "/reportQuery/vehicleCondition")) {
+        this.slides=[require('@/common/images/banner_chakuang.png'), require('@/common/images/banner_licheng.png')]
       } else if (_.includes(path, "/reportQuery/kilometre")) {
+        this.slides=[require('@/common/images/banner_licheng.png')]
       } else if (_.includes(path, "/reportQuery/valuation")) {
+        this.slides=[require('@/common/images/banner_gujia.png')]
       }else if (_.includes(path, "/reportQuery/violation")) {
+        this.slides=[require('@/common/images/banner_weizhang.png')]
       }
     },
     mounted() {
@@ -63,6 +67,21 @@
     methods: {
       //根据参数值确定请求哪个tab轮播数据
       acquireCarousel(tab){
+        if(tab===1){
+          this.slides=[];
+          this.slides=[require('@/common/images/banner_chakuang.png'), require('@/common/images/banner_licheng.png')]
+        }else if(tab===2){
+          this.slides=[];
+          this.slides=[require('@/common/images/banner_licheng.png')]
+        }
+        else if(tab===3){
+          this.slides=[];
+          this.slides=[require('@/common/images/banner_gujia.png')]
+        }
+        else if(tab===4){
+          this.slides=[];
+          this.slides=[require('@/common/images/banner_weizhang.png')]
+        }
       },
     },
   }
