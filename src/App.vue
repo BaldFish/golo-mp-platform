@@ -110,6 +110,10 @@
       margin: 0 auto;
       width 100%
       min-width 640px
+      display: flex;
+      .main{
+        flex: 1;
+      }
     }
     
     .footer_wrap {

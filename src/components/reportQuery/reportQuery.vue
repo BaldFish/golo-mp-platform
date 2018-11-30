@@ -102,9 +102,10 @@
       ul {
         font-size 0
         text-align center
+        margin 0 auto
         margin-top 50px
         margin-bottom 66px
-        
+        width 750px
         li {
           display inline-block
           width 25%
@@ -204,12 +205,11 @@
   .swiper_wrap {
     width 750px
     height 320px
-    
+    margin 0 auto
     .swiper {
       .wc-slide {
         width 750px
         height 320px
-        
         img {
           width 750px
           height 320px
