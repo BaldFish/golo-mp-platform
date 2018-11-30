@@ -74,6 +74,8 @@
           url: `${this.$baseURL}/v1/golo-slideshow/${type}?page=${page}&limit=${limit}`
         }).then(res => {
           this.slides=res.data.data.res_list;
+        }).catch(err=>{
+          console.log(err)
         })
       },
       acquireCarouselClick(type, page, limit) {
@@ -83,6 +85,8 @@
         }).then(res => {
           this.slides=res.data.data.res_list;
           this.reload()
+        }).catch(err=>{
+          console.log(err)
         })
       }
     },
