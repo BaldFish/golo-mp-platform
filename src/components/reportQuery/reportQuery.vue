@@ -1,33 +1,34 @@
 <template>
   <div class="reportQuery">
-    <wc-swiper class="swiper" :duration="500" :interval="2500" :autoplay="true" :therehold="100" :curSlide="0" :pagination="true"
-               v-if="slides.length">
-      <wc-slide v-for="(slide, key) in slides" :key="key">
-        <img :src="slide" alt="">
-      </wc-slide>
-    </wc-swiper>
+    <div class="swiper_wrap">
+      <wc-swiper class="swiper" :duration="500" :interval="2500" :autoplay="true" :therehold="100" :curSlide="0" :pagination="true">
+        <wc-slide v-for="(slide, key) in slides" :key="key" v-if="slides.length">
+          <img :src="slide.url" alt="">
+        </wc-slide>
+      </wc-swiper>
+    </div>
     <div class="tabs_wrap">
       <ul>
         <li>
-          <router-link to="/reportQuery/vehicleCondition" @click.native="acquireCarousel(1)">
+          <router-link to="/reportQuery/vehicleCondition" @click.native="acquireCarouselClick(1,1,2)">
             <div class="img"></div>
             <span class="text">查车况</span>
           </router-link>
         </li>
         <li>
-          <router-link to="/reportQuery/kilometre" @click.native="acquireCarousel(2)">
+          <router-link to="/reportQuery/kilometre" @click.native="acquireCarouselClick(2,1,1)">
             <div class="img"></div>
             <span class="text">查里程</span>
           </router-link>
         </li>
         <li>
-          <router-link to="/reportQuery/valuation" @click.native="acquireCarousel(3)">
+          <router-link to="/reportQuery/valuation" @click.native="acquireCarouselClick(3,1,1)">
             <div class="img"></div>
             <span class="text">查估价</span>
           </router-link>
         </li>
         <li>
-          <router-link to="/reportQuery/violation" @click.native="acquireCarousel(4)">
+          <router-link to="/reportQuery/violation" @click.native="acquireCarouselClick(4,1,1)">
             <div class="img"></div>
             <span class="text">查违章</span>
           </router-link>
@@ -40,6 +41,7 @@
 
 <script>
   export default {
+    inject: ['reload'],
     name: "reportQuery",
     components: {},
     data() {
@@ -51,13 +53,13 @@
       //根据路由判断应该请求哪个tab的轮播数据
       let path = this.$route.path;
       if (_.includes(path, "/reportQuery/vehicleCondition")) {
-        this.slides=[require('@/common/images/banner_chakuang.png'), require('@/common/images/banner_licheng.png')]
+        this.acquireCarousel(1, 1, 2)
       } else if (_.includes(path, "/reportQuery/kilometre")) {
-        this.slides=[require('@/common/images/banner_licheng.png')]
+        this.acquireCarousel(2, 1, 1)
       } else if (_.includes(path, "/reportQuery/valuation")) {
-        this.slides=[require('@/common/images/banner_gujia.png')]
-      }else if (_.includes(path, "/reportQuery/violation")) {
-        this.slides=[require('@/common/images/banner_weizhang.png')]
+        this.acquireCarousel(3, 1, 1)
+      } else if (_.includes(path, "/reportQuery/violation")) {
+        this.acquireCarousel(4, 1, 1)
       }
     },
     mounted() {
@@ -66,23 +68,23 @@
     computed: {},
     methods: {
       //根据参数值确定请求哪个tab轮播数据
-      acquireCarousel(tab){
-        if(tab===1){
-          this.slides=[];
-          this.slides=[require('@/common/images/banner_chakuang.png'), require('@/common/images/banner_licheng.png')]
-        }else if(tab===2){
-          this.slides=[];
-          this.slides=[require('@/common/images/banner_licheng.png')]
-        }
-        else if(tab===3){
-          this.slides=[];
-          this.slides=[require('@/common/images/banner_gujia.png')]
-        }
-        else if(tab===4){
-          this.slides=[];
-          this.slides=[require('@/common/images/banner_weizhang.png')]
-        }
+      acquireCarousel(type, page, limit) {
+        this.$axios({
+          method: "GET",
+          url: `${this.$baseURL}/v1/golo-slideshow/${type}?page=${page}&limit=${limit}`
+        }).then(res => {
+          this.slides=res.data.data.res_list;
+        })
       },
+      acquireCarouselClick(type, page, limit) {
+        this.$axios({
+          method: "GET",
+          url: `${this.$baseURL}/v1/golo-slideshow/${type}?page=${page}&limit=${limit}`
+        }).then(res => {
+          this.slides=res.data.data.res_list;
+          this.reload()
+        })
+      }
     },
   }
 </script>
@@ -91,87 +93,101 @@
   .reportQuery {
     width 750px
     margin 0 auto
-    .tabs_wrap{
-      ul{
+    
+    .tabs_wrap {
+      ul {
         font-size 0
         text-align center
         margin-top 50px
         margin-bottom 66px
-        li{
+        
+        li {
           display inline-block
           width 25%
           font-size 0
-          a{
+          
+          a {
             display inline-block
             text-align center
             font-size 0
             width 100px
-            .img{
+            
+            .img {
               display inline-block
               width 80px
               height 80px
               background-position: top left;
               background-repeat: no-repeat;
-              background-size:100%
+              background-size: 100%
               margin 0 auto
               margin-bottom 30px
             }
-            .text{
+            
+            .text {
               display inline-block
-              font-size: 26px;/*px*/
+              font-size: 26px; /*px*/
               color: #222222;
             }
           }
+          
           /*.router-link-active{
             .text{
               color: #5226f3;
             }
           }*/
         }
-        li:nth-child(1){
-          a{
-            .img{
+        
+        li:nth-child(1) {
+          a {
+            .img {
               background-image url("./images/chekuang_mr.png")
             }
           }
-          .router-link-active{
-            .img{
+          
+          .router-link-active {
+            .img {
               background-image url("./images/chekuang_dj.png")
             }
           }
         }
-        li:nth-child(2){
-          a{
-            .img{
+        
+        li:nth-child(2) {
+          a {
+            .img {
               background-image url("./images/licheng_mr.png")
             }
           }
-          .router-link-active{
-            .img{
+          
+          .router-link-active {
+            .img {
               background-image url("./images/licheng_dj.png")
             }
           }
         }
-        li:nth-child(3){
-          a{
-            .img{
+        
+        li:nth-child(3) {
+          a {
+            .img {
               background-image url("./images/gujia_mr.png")
             }
           }
-          .router-link-active{
-            .img{
+          
+          .router-link-active {
+            .img {
               background-image url("./images/gujia_dj.png")
             }
           }
         }
-        li:nth-child(4){
-          a{
-            .img{
+        
+        li:nth-child(4) {
+          a {
+            .img {
               background-image url("./images/weizhang_mr.png")
             }
           }
-          .router-link-active{
-            .img{
+          
+          .router-link-active {
+            .img {
               background-image url("./images/weizhang_dj.png")
             }
           }
@@ -181,28 +197,37 @@
   }
 </style>
 <style lang="stylus">
-  .swiper {
-    .wc-slide {
-      width 750px
-      height 320px
-      img {
+  .swiper_wrap {
+    width 750px
+    height 320px
+    
+    .swiper {
+      .wc-slide {
         width 750px
         height 320px
+        
+        img {
+          width 750px
+          height 320px
+        }
       }
-    }
-    .wc-pagination {
-      bottom 16px
-      .wc-dot {
-        height: 14px;
-        width: 14px;
-        background: #5226f3;
-        opacity: .3;
-        margin: 0 9px;
-        border-radius: 50%;
-      }
-      .wc-dot-active {
-        opacity: 1;
-        background: #5226f3;
+      
+      .wc-pagination {
+        bottom 16px
+        
+        .wc-dot {
+          height: 14px;
+          width: 14px;
+          background: #5226f3;
+          opacity: .3;
+          margin: 0 9px;
+          border-radius: 50%;
+        }
+        
+        .wc-dot-active {
+          opacity: 1;
+          background: #5226f3;
+        }
       }
     }
   }

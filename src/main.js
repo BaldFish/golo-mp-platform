@@ -25,6 +25,12 @@ import wcSwiper from 'wc-swiper'
 import 'wc-swiper/style.css'
 Vue.use(wcSwiper);
 
+import axios from 'axios';
+Vue.prototype.$axios= axios;
+
+import {baseURL,} from '@/common/js/public.js';
+Vue.prototype.$baseURL=baseURL;
+
 Vue.config.productionTip = false;
 /* eslint-disable no-new */
 const store = new Vuex.Store({

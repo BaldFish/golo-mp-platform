@@ -20,7 +20,7 @@
   export default {
     name: 'App',
     components: {},
-    provide() {
+    provide() {//回退刷新
       return {
         reload: this.reload
       }
@@ -31,42 +31,18 @@
       }
     },
     beforeMount() {
-      let path = this.$route.path;
-      if (_.includes(path, "/reportQuery")) {
-        this.tabsParam = [
-          {img: require("@/common/images/baogaochaxun_dj.png"), text: "报告查询"},
-          {img: require("@/common/images/dingdan_mr.png"), text: "订单"},
-          {img: require("@/common/images/personal_mr.png"), text: "个人中心"}
-        ];
-        this.nowIndex = 0;
-        this.display = true
-      } else if (_.includes(path, "/order")) {
-        this.tabsParam = [
-          {img: require("@/common/images/baogaochaxun_mr.png"), text: "报告查询"},
-          {img: require("@/common/images/dingdan_dj.png"), text: "订单"},
-          {img: require("@/common/images/personal_mr.png"), text: "个人中心"}
-        ];
-        this.nowIndex = 1;
-        this.display = true
-      } else if (_.includes(path, "/personalCenter")) {
-        this.tabsParam = [
-          {img: require("@/common/images/baogaochaxun_mr.png"), text: "报告查询"},
-          {img: require("@/common/images/dingdan_mr.png"), text: "订单"},
-          {img: require("@/common/images/personal_dj.png"), text: "个人中心"}
-        ];
-        this.nowIndex = 2;
-        this.display = true
-      } else {
-        this.display = false
-      }
+      this.getPath()
     },
     mounted() {
     },
     beforeUpdate() {
     },
-    computed: {
-    },
+    computed: {},
     watch: {
+      //监听路由变化执行方法
+      $route(to, from) {
+        this.getPath()
+      }
     },
     methods: {
       reload() {
@@ -75,28 +51,45 @@
           this.isRouterAlive = true
         })
       },
-      tabChange(index) {
-        this.nowIndex = index;
-        if (index === 0) {
+      //根据路由判断底部tabs是否显示以及样式切换
+      getPath() {
+        let path = this.$route.path;
+        if (_.includes(path, "/reportQuery")) {
           this.tabsParam = [
             {img: require("@/common/images/baogaochaxun_dj.png"), text: "报告查询"},
             {img: require("@/common/images/dingdan_mr.png"), text: "订单"},
             {img: require("@/common/images/personal_mr.png"), text: "个人中心"}
           ];
-          this.$router.push('/reportQuery');
-        } else if (index === 1) {
+          this.nowIndex = 0;
+          this.display = true
+        } else if (_.includes(path, "/order")) {
           this.tabsParam = [
             {img: require("@/common/images/baogaochaxun_mr.png"), text: "报告查询"},
             {img: require("@/common/images/dingdan_dj.png"), text: "订单"},
             {img: require("@/common/images/personal_mr.png"), text: "个人中心"}
           ];
-          this.$router.push('/order');
-        } else if (index === 2) {
+          this.nowIndex = 1;
+          this.display = true
+        } else if (_.includes(path, "/personalCenter")) {
           this.tabsParam = [
             {img: require("@/common/images/baogaochaxun_mr.png"), text: "报告查询"},
             {img: require("@/common/images/dingdan_mr.png"), text: "订单"},
             {img: require("@/common/images/personal_dj.png"), text: "个人中心"}
           ];
+          this.nowIndex = 2;
+          this.display = true
+        } else {
+          this.display = false
+        }
+      },
+      //点击底部tab切换路由
+      tabChange(index) {
+        this.nowIndex = index;
+        if (index === 0) {
+          this.$router.push('/reportQuery');
+        } else if (index === 1) {
+          this.$router.push('/order');
+        } else if (index === 2) {
           this.$router.push('/personalCenter');
         }
       },
@@ -110,6 +103,7 @@
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
+    
     .main_wrap {
       flex: 1;
       box-sizing: border-box;
@@ -117,6 +111,7 @@
       width 100%
       min-width 640px
     }
+    
     .footer_wrap {
       width 100%
       margin 0 auto
@@ -125,6 +120,7 @@
       bottom 0
       left 0
       background-color #ffffff
+      
       .footer {
         font-size 0
         box-sizing border-box
@@ -132,22 +128,26 @@
         width 750px
         height 98px
         margin 0 auto
+        
         li {
           margin-top 10px
           display inline-block
           width 33.333%
           text-align center
           font-size 0
+          
           img {
             width 48px
             height 40px
             margin-bottom 10px
           }
+          
           p {
             font-size 28px; /*px*/
             color #333333
           }
         }
+        
         .active {
           p {
             color #5226f3
