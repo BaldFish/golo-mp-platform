@@ -1,12 +1,12 @@
 <template>
-  <div class="vehicleConditionDetails">
-    vehicleConditionDetails
+  <div class="violationReport">
+    violationReport
   </div>
 </template>
 
 <script>
   export default {
-    name: "vehicleConditionDetails",
+    name: "violationReport",
     components: {},
     data() {
       return {}
@@ -22,6 +22,6 @@
 </script>
 
 <style scoped lang="stylus">
-  .vehicleConditionDetails {
+  .violationReport {
   }
 </style>

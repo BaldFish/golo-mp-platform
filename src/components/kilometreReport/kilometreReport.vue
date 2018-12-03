@@ -1,12 +1,12 @@
 <template>
-  <div class="kilometreDetails">
-    kilometreDetails
+  <div class="kilometreReport">
+    kilometreReport
   </div>
 </template>
 
 <script>
   export default {
-    name: "kilometreDetails",
+    name: "kilometreReport",
     components: {},
     data() {
       return {}
@@ -22,6 +22,6 @@
 </script>
 
 <style scoped lang="stylus">
-  .kilometreDetails {
+  .kilometreReport {
   }
 </style>
