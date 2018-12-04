@@ -24,12 +24,7 @@
             <div style="clear: both"></div>
           </div>
         </div>
-        
-        <div class="check-more" v-if="isShow" @click="showMore">
-          <p><span>— —&nbsp;</span>点击展开选填信息<span>&nbsp;— —</span></p>
-        </div>
-        
-        <div class="sec-form-box" v-else>
+        <div class="sec-form-box">
           <ul>
             <li class="license-li">
               <label>车牌号码</label>
@@ -42,6 +37,21 @@
               <label>发动机号</label>
               <input type="text" placeholder="请输入发动机号">
               <img src="@/common/images/help_2.png" alt="">
+            </li>
+            <li class="carType-li">
+              <label>车辆类型</label>
+              <div class="radio-box">
+                <label>
+                  <input type="radio" name="radio" checked>
+                  <i></i>
+                  <p>小型车</p>
+                </label>
+                <label>
+                  <input type="radio" name="radio">
+                  <i></i>
+                  <p>大型车</p>
+                </label>
+              </div>
             </li>
           </ul>
         </div>
@@ -224,19 +234,13 @@
           span {
             color: #5226f3;
           }
-          a{
+          
+          a {
             font-size: 20px; /*px*/
             color: #999999;
           }
         }
         
-      }
-      
-      .check-more {
-        font-size: 24px; /*px*/
-        color: #999999;
-        text-align center
-        margin-top 58px
       }
       
       .sec-form-box {
@@ -284,6 +288,49 @@
             height: 40px;
             float right
             margin-right 20px
+          }
+        }
+        
+        .carType-li {
+          border-bottom none
+          
+          label {
+            float left
+            height: 40px;
+            line-height 40px
+          }
+          
+          .radio-box {
+            font-size: 24px; /*px*/
+            color: #333333;
+            
+            label {
+              margin: 0
+              width: 200px
+              height: 40px;
+              line-height 40px
+              display inline-block
+              float left
+            }
+            
+            input {
+              display none
+            }
+            
+            i {
+              width: 40px;
+              height: 40px;
+              display inline-block
+              float left
+              margin-right 26px
+              background url("../../../common/images/radio_unchecked.png") no-repeat center
+              background-size 100% 100%
+            }
+            
+            input:checked + i {
+              background url("../../../common/images/radio_checked.png") no-repeat center
+              background-size 100% 100%
+            }
           }
         }
       }

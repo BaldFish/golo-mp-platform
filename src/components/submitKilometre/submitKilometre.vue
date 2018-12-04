@@ -121,7 +121,7 @@
     }
   
     .h20 {
-      width 750px
+      width 100%
       height 20px
       background-color: #f7f7f7;
     }
