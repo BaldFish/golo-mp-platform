@@ -85,7 +85,6 @@
 <style scoped lang="stylus">
   .submitKilometre {
     width 750px
-  
     .carTittle {
       padding 25px
       background-color #ffffff
@@ -102,7 +101,6 @@
   
     .carInfo {
       box-sizing border-box
-      //height 155px
       background-color #ffffff
       padding 0 25px 25px
       margin-bottom 20px
@@ -127,70 +125,7 @@
       height 20px
       background-color: #f7f7f7;
     }
-  
-    /*.reportTittle {
-      padding 25px
-      background-color #ffffff
     
-      p {
-        font-weight bold
-        box-sizing border-box
-        font-size 30px !*px*!
-        color: #222222;
-        line-height 80px
-        border-bottom 1px solid #eeeeee; !*no*!
-      }
-    }
-  
-    .reportVersion {
-      box-sizing border-box
-      height 155px
-      background-color #ffffff
-      padding 0 25px 25px
-    
-      p {
-        line-height 65px
-        font-size 26px; !*px*!
-        color #222222;
-      
-        span {
-          font-weight: bold;
-        }
-      
-        label {
-          input {
-            display none
-          }
-        
-          i {
-            width: 40px;
-            height: 40px;
-            display inline-block
-            background: url("../../common/images/unchecked.jpg") no-repeat center;
-            background-size 100% 100%
-            margin-right 20px
-            float left
-            margin-top 12px
-          }
-        
-          span {
-            font-weight: normal;
-          
-            span {
-              font-size 23px; !*px*!
-              color #666666;
-            }
-          }
-        
-          input:checked + i {
-            background: url("../../common/images/checked.png") no-repeat center;
-            background-size 100% 100%
-          }
-        }
-      
-      }
-    }
-  */
     .costTittle {
       padding 25px
       background-color #ffffff
@@ -207,7 +142,6 @@
   
     .costInfo {
       box-sizing border-box
-      height 155px
       background-color #ffffff
       padding 0 25px 25px
       margin-bottom 20px
@@ -237,6 +171,8 @@
           }
         
           img {
+            width 18px
+            height 31px
             margin-left 18px
             vertical-align middle
           }
@@ -246,12 +182,11 @@
   
     .submitOrder {
       box-sizing border-box
-      //height 155px
       background-color #ffffff
       padding 0 25px
+      margin-bottom 30px
     
       p {
-        //line-height 65px
         padding-top 50px
       
         span {

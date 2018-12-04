@@ -236,9 +236,11 @@
             color #666666;
             font-weight normal
             vertical-align middle
-          }
+        }
           
           img {
+            width 18px
+            height 31px
             margin-left 18px
             vertical-align middle
           }
@@ -248,12 +250,10 @@
     
     .submitOrder {
       box-sizing border-box
-      //height 155px
       background-color #ffffff
       padding 0 25px
-      
+      margin-bottom 30px
       p {
-        //line-height 65px
         padding-top 50px
         
         span {
