@@ -15,7 +15,8 @@
 </template>
 
 <script>
-  import _ from 'lodash'
+  import _ from 'lodash';
+  import utils from '@/common/js/utils'
   
   export default {
     name: 'App',
@@ -58,7 +59,7 @@
           for (let i = 0; i < strs.length; i++) {
             theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
           }
-          this.$store.state.code=theRequest.response_type
+          this.$store.state.code = theRequest.response_type
           console.log(this.$store.state.code)
         }
       },
@@ -107,7 +108,12 @@
         } else if (index === 1) {
           this.$router.push('/order');
         } else if (index === 2) {
-          this.$router.push('/personalCenter');
+          let userId = utils.getCookie("userId");
+          if (userId) {
+            this.$router.push('/personalCenter');
+          } else {
+            this.$router.push('/login');
+          }
         }
       },
     }

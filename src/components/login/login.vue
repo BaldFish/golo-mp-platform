@@ -6,18 +6,20 @@
           <input type="text" placeholder="请输入手机号" v-model="phone">
         </li>
         <li>
-          <input type="text" placeholder="请输入验证码">
+          <input type="text" placeholder="请输入验证码" v-model="captchaCode">
           <img @click="getCaptcha" :src="captcha">
         </li>
         <li>
-          <input type="text" placeholder="请输入短信验证码">
+          <input type="text" placeholder="请输入短信验证码" v-model="phoneCode">
           <div class="get_code" @click="getPhoneCode" v-if="codeValue">获取验证码</div>
           <div class="count_down" v-else>倒计时（{{second}}）</div>
         </li>
       </ul>
-      <input class="submit" type="button" value="免注册登录">
+      <input class="submit" type="button" value="免注册登录" @click="login">
       <p class="login-notice">登录后可查看更多信息~</p>
+      <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
     </section>
+    
   </div>
 </template>
 
@@ -29,21 +31,38 @@
       return {
         codeValue: true,
         second: 60,// 发送验证码倒计时
-        captcha:"",
-        captcha_id:"",
-        phone:"",
+        captcha: "",//图形原数据
+        captchaId: "",//图形码ID
+        phone: "",//手机号
+        captchaCode: "",//图形码
+        phoneCode: "",//手机验证码
+        errorMessage:"",
+        errorTip:false,
       }
     },
     created() {
     },
-    beforeMount(){
+    beforeMount() {
       this.getCaptcha();
-      console.log(this.$querystring)
     },
     mounted() {
     },
     watch: {},
-    computed: {},
+    computed: {
+      //计算设备ID
+      deviceId() {
+        let s = [];
+        let hexDigits = "0123456789abcdef";
+        for (let i = 0; i < 36; i++) {
+          s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+        }
+        s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
+        s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+        s[8] = s[13] = s[18] = s[23] = "-";
+        let deviceId = s.join("");
+        return deviceId;
+      }
+    },
     methods: {
       //获取图形验证码
       getCaptcha() {
@@ -53,13 +72,13 @@
           data: this.$querystring.stringify({})
         }).then(res => {
           this.captcha = `data:image/png;base64,${res.data.png}`;
-          this.captcha_id = res.data.captcha_id;
+          this.captchaId = res.data.captcha_id;
         }).catch(error => {
           console.log(error);
         });
       },
       //获取短信验证码
-      getPhoneCode(){
+      getPhoneCode() {
         //倒计时
         let that = this;
         that.codeValue = false;
@@ -82,76 +101,136 @@
         }).catch(error => {
           console.log(error);
         })
-      }
+      },
+      //免密注册登录
+      login() {
+        let loginFormData = {
+          phone: "+86" + this.phone,//手机号
+          code: this.phoneCode,//短信验证码
+          piccode: this.captchaCode, //图片验证码
+          picid: this.captchaId, //图片验证码ID
+          device_id: this.deviceId, //设备ID
+          platform: 5,//5-公众号
+          logintype: 1,//1-⼿机验证码登陆，2-微信登陆
+          code2: "",//微信用来获取openid的code
+        };
+        this.$axios({
+          method: 'POST',
+          url: `${this.$baseURL}/v1/golo-user/login`,
+          data: this.$querystring.stringify(loginFormData)
+        }).then(res => {
+          document.cookie = `userId=${res.data.data.userId}`;
+          document.cookie = `sessionId=${res.data.data.sessionId}`;
+          document.cookie = `openId=${res.data.data.openId}`;
+          document.cookie = `token=${res.data.data.token}`;
+          this.$router.push('/reportQuery');
+        }).catch(error => {
+          this.getCaptcha();
+          this.errorMessage=error.response.data.code;
+          this.errorTip=true;
+          let that=this;
+          window.setTimeout(function () {
+            that.errorTip=false;
+          },1000);
+        })
+      },
     },
   }
 </script>
 
 <style scoped lang="stylus">
-.login-container{
-  width: 670px;
-  height: 855px;
-  background url("../../common/images/login_bg.png") no-repeat center
-  background-size 100% 100%
-  margin:0 auto
-  margin-top 20px
-  ul{
-    width 516px
-    margin: 0 auto;
-    padding-top: 250px;
-    li{
-      border-bottom: solid 1px #bfbfbf; /*no*/
-      font-size: 24px; /*px*/
-      input{
-        margin-left 12px
-        margin-bottom 20px
-        margin-top 76px
+  .login{
+    .login-container {
+      position relative
+      width: 670px;
+      height: 855px;
+      background url("../../common/images/login_bg.png") no-repeat center
+      background-size 100% 100%
+      margin: 0 auto
+      margin-top 20px
+    
+      ul {
+        width 516px
+        margin: 0 auto;
+        padding-top: 250px;
+      
+        li {
+          border-bottom: solid 1px #bfbfbf; /*no*/
+          font-size: 24px; /*px*/
+        
+          input {
+            margin-left 12px
+            margin-bottom 20px
+            margin-top 76px
+            outline none
+          }
+        
+          img {
+            width: 143px;
+            height: 64px;
+            float right
+            margin-top 38px
+            margin-right 12px
+          }
+        
+          div {
+            float right
+            width: 180px;
+            height: 50px;
+            line-height 50px
+            text-align center
+            border-radius: 20px;
+            border: solid 1px #5226f3; /*no*/
+            font-size: 22px; /*px*/
+            color: #5226f3;
+            margin-top 54px
+            margin-right 12px
+          }
+        
+          .count_down {
+            background-color: #7d7d7d;
+            color: #ffffff;
+            border none
+          }
+        }
+      }
+    
+      .submit {
+        display block
+        width: 300px;
+        height: 84px;
+        background-color: #5226f3;
+        border-radius: 40px;
         outline none
-      }
-      img{
-        width: 143px;
-        height: 64px;
-        float right
-        margin-top 38px
-        margin-right 12px
-      }
-      div{
-        float right
-        width: 180px;
-        height: 50px;
-        line-height 50px
-        text-align center
-        border-radius: 20px;
-        border: solid 1px #5226f3; /*no*/
-        font-size: 22px; /*px*/
-        color: #5226f3;
-        margin-top 54px
-        margin-right 12px
-      }
-      .count_down{
-        background-color: #7d7d7d;
+        font-size: 36px; /*px*/
         color: #ffffff;
-        border none
+        margin 0 auto
+        margin-top 48px
+      }
+    
+      .login-notice {
+        margin: 0 auto
+        margin-top 20px
+        text-align center
+        font-size: 24px; /*px*/
+        color: #999999;
       }
     }
+    .errorTip{
+      box-sizing border-box
+      width 280px;
+      padding 20px 30px
+      background-color #000000
+      opacity 0.5
+      font-size 26px;/*px*/
+      color #ffffff
+      border-radius 30px
+      text-align center
+      position absolute
+      top 50%
+      left 50%
+      margin-left -140px
+    }
   }
-  .submit{
-    width: 300px;
-    height: 84px;
-    background-color: #5226f3;
-    border-radius: 40px;
-    outline none
-    font-size: 36px; /*px*/
-    color: #ffffff;
-    margin-top 48px
-    margin-left 185px
-  }
-  .login-notice{
-    margin: 0 auto
-    margin-top 20px
-    text-align center
-    font-size: 24px; /*px*/
-    color: #999999;
-  }
-}
+  
 </style>
