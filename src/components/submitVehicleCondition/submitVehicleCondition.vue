@@ -146,7 +146,6 @@
     
     .reportVersion {
       box-sizing border-box
-      height 155px
       background-color #ffffff
       padding 0 25px 25px
       
