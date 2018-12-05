@@ -35,10 +35,15 @@ Vue.prototype.$echarts = echarts;
 import {baseURL,} from '@/common/js/public.js';
 Vue.prototype.$baseURL=baseURL;
 
+const querystring = require('querystring');
+Vue.prototype.$querystring=querystring;
+
 Vue.config.productionTip = false;
 /* eslint-disable no-new */
 const store = new Vuex.Store({
   state: {
+    url:"",
+    code:"",
   },
   mutations: {
   }

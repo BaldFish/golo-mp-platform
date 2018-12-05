@@ -31,11 +31,13 @@
       }
     },
     beforeMount() {
-      this.getPath()
+      this.getPath();
+      this.getWXcode();
     },
     mounted() {
     },
     beforeUpdate() {
+      this.getWXcode();
     },
     computed: {},
     watch: {
@@ -45,6 +47,21 @@
       }
     },
     methods: {
+      //从URL获取code
+      getWXcode() {
+        let url = location.search;
+        this.$store.state.url = url;
+        if (url.indexOf("?") != -1) {
+          let theRequest = new Object();
+          let str = url.substr(1);
+          let strs = str.split("&");
+          for (let i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+          }
+          this.$store.state.code=theRequest.response_type
+          console.log(this.$store.state.code)
+        }
+      },
       reload() {
         this.isRouterAlive = false;
         this.$nextTick(() => {
@@ -111,7 +128,8 @@
       width 100%
       min-width 640px
       display: flex;
-      .main{
+      
+      .main {
         flex: 1;
       }
     }
