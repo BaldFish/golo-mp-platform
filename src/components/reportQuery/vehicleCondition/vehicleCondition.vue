@@ -45,12 +45,12 @@
               <label>车辆类型</label>
               <div class="radio-box">
                 <label>
-                  <input type="radio" name="radio" checked>
+                  <input type="radio" name="radio" value="02" v-model="carType">
                   <i></i>
                   <p>小型车</p>
                 </label>
                 <label>
-                  <input type="radio" name="radio">
+                  <input type="radio" name="radio" value="01" v-model="carType">
                   <i></i>
                   <p>大型车</p>
                 </label>
@@ -58,7 +58,7 @@
             </li>
           </ul>
         </div>
-        <input class="submit" type="button" value="开始查询" @click="search">
+        <input class="submit" type="button" value="开始查询" @click="createOrder">
         <div class="agree-contract">
           <label>
             <input type="checkbox">
@@ -68,8 +68,8 @@
         </div>
         <div style="clear: both"></div>
       </div>
+      <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
     </section>
-
 
     <section class="pkey-contain">
       <section class="pkey-keyboard" v-show="txtboardshow">
@@ -102,8 +102,7 @@
         </div>
       </section>
     </section>
-
-
+    
     <section class="sec-notice">
       <div class="sec-notice-container">
         <div class="report-title">
@@ -142,11 +141,14 @@
     components: {},
     data() {
       return {
+        reportType:"",
+        carType:"02",
+        errorMessage:"",//错误提示信息
+        errorTip:false,
         isHidden: false,
         carFrame: '',
         //timeOut:"",
         centerDialogVisible: false,
-
         plate:'京',
         plateNum: '',
         txtboardshow:false,
@@ -190,11 +192,35 @@
       closeNotice() {
         this.isHidden = true;
       },
-      search(){
+      //开始查询创建订单
+      createOrder(){
+        let searchData = {
+          report_type: this.reportType,//手机号
+          code: this.phoneCode,//短信验证码
+          piccode: this.captchaCode, //图片验证码
+          picid: this.captchaId, //图片验证码ID
+          device_id: this.deviceId, //设备ID
+          platform: 5,//5-公众号
+          logintype: 1,//1-⼿机验证码登陆，2-微信登陆
+          code2: this.WXcode,//微信用来获取openid的code
+        };
+        /*this.$axios({
+          method: 'POST',
+          url: `${this.$baseURL}/v1/golo-order`,
+          data: this.$querystring.stringify(searchData)
+        }).then(res => {
+          //this.$router.push('/submitVehicleCondition')
+        }).catch(error => {
+          this.errorMessage=error.response.data.code;
+          this.errorTip=true;
+          let that=this;
+          window.setTimeout(function () {
+            that.errorTip=false;
+          },1000);
+        })*/
         this.$router.push('/submitVehicleCondition')
       },
-
-
+      
       //车牌号软键盘
       txtclick : function(txt,indexi,size){
         this.plate = '';
@@ -229,6 +255,7 @@
     box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.09);
     border-radius: 30px;
     margin: 0 auto;
+    position relative
 
     .camera-notice {
       font-size: 20px; /*px*/
@@ -467,6 +494,21 @@
           }
         }
       }
+    }
+    .errorTip{
+      box-sizing border-box
+      width 280px;
+      padding 20px 30px
+      background-color #000000
+      opacity 0.5
+      font-size 26px;/*px*/
+      color #ffffff
+      border-radius 30px
+      text-align center
+      position absolute
+      top 30%
+      left 50%
+      margin-left -140px
     }
   }
 
