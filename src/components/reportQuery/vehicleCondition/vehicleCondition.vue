@@ -31,10 +31,10 @@
           <ul>
             <li class="license-li">
               <label>车牌号码</label>
-              <div class="license">
-                <span>京</span>
+              <div class="license" @click="txtboardshow=true,numboardshow=false">
+                <span>{{plate}}</span>
               </div>
-              <input type="text" placeholder="请输入车牌号码">
+              <input type="text" v-model="plateNum" @focus="txtboardshow=false,numboardshow=true" readonly placeholder="请输入车牌号码">
             </li>
             <li class="engine-li">
               <label>发动机号</label>
@@ -69,6 +69,41 @@
         <div style="clear: both"></div>
       </div>
     </section>
+
+
+    <section class="pkey-contain">
+      <section class="pkey-keyboard" v-show="txtboardshow">
+        <header class="pkey-header2">
+          <label class="pkey-chacelbtn" @click="closewin">取消</label><label class="pkey-okbtn" @click="checkplate">完成</label>
+        </header>
+        <div class="pkey-keyscontain">
+          <ul>
+            <li v-for="(item,index) in cartxt">
+              <span v-show="index==cartxt.length-1" @click="txtboardshow=false,numboardshow=true">ABC</span>
+              <label v-for="(items,indexi) in item" @click="txtclick(items,indexi,item.length)">{{items}}</label>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section class="pkey-keyboard" v-show="numboardshow">
+        <header class="pkey-header2">
+          <label class="pkey-chacelbtn" @click="closewin">取消</label><label class="pkey-okbtn" @click="checkplate">完成</label>
+        </header>
+        <div class="pkey-keyscontain">
+          <ul>
+            <li v-for="(item,index) in numtxt" :class="{'reset-mr': index == 2}">
+              <span v-show="index==cartxt.length-1" @click="txtboardshow=true,numboardshow=false">字</span>
+              <label v-for="(items,indexi) in item" @click="numclick(items,indexi,item.length)">{{items}}</label>
+              <span class="board-delete" v-show="index==cartxt.length-1" @click="plateNum=plateNum.substr(0, plateNum.length-1)">
+                <img src="@/common/images/board_delete.png" alt="">
+              </span>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </section>
+
+
     <section class="sec-notice">
       <div class="sec-notice-container">
         <div class="report-title">
@@ -108,10 +143,26 @@
     data() {
       return {
         isHidden: false,
-        isShow: true,
         carFrame: '',
         //timeOut:"",
         centerDialogVisible: false,
+
+        plate:'京',
+        plateNum: '',
+        txtboardshow:false,
+        numboardshow:false,
+        cartxt:[
+          ['京','津','渝','沪','冀','晋','辽','吉','黑','苏'],
+          ['浙','皖','闽','赣','鲁','豫','鄂','湘','粤','琼'],
+          ['川','贵','云','陕','甘','青','蒙','桂','宁','新'],
+          ['藏','使','领','警','学','港','澳']
+        ],
+        numtxt:[
+          ['1','2','3','4','5','6','7','8','9','0'],
+          ['Q','W','E','R','T','Y','U','I','O','P'],
+          ['A','S','D','F','G','H','J','K','L'],
+          ['Z','X','C','V','B','N','M']
+        ],
       }
     },
     created() {
@@ -139,12 +190,34 @@
       closeNotice() {
         this.isHidden = true;
       },
-      showMore() {
-        this.isShow = false;
-      },
       search(){
         this.$router.push('/submitVehicleCondition')
       },
+
+
+      //车牌号软键盘
+      txtclick : function(txt,indexi,size){
+        this.plate = '';
+        this.txtboardshow = false;
+        this.numboardshow = true;
+        this.plate+=txt;
+      },
+      numclick : function(num,indexi,size){
+        /*if(this.plateNum.length>10){
+          return
+        }*/
+        this.plateNum+=num;
+      },
+      checkplate : function(){
+        this.txtboardshow = false;
+        this.numboardshow = false;
+      },
+      closewin : function(){
+        /*this.plate='京';
+        this.plateNum='';*/
+        this.txtboardshow = false;
+        this.numboardshow = false;
+      }
     },
   }
 </script>
@@ -156,7 +229,7 @@
     box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.09);
     border-radius: 30px;
     margin: 0 auto;
-    
+
     .camera-notice {
       font-size: 20px; /*px*/
       color: #333333;
@@ -170,12 +243,12 @@
       position: relative;
       bottom: 24px;
       right: 16px;
-      
+
       p {
         float left
         margin-left 20px
       }
-      
+
       i {
         width: 17px;
         height: 17px;
@@ -187,31 +260,31 @@
         margin-right 14px
       }
     }
-    
+
     .hidden {
       visibility hidden
     }
-    
+
     .sec-container {
       height: auto;
       padding: 52px 30px 0 30px;
       position relative
       bottom: 60px
-      
+
       .car-frame {
         .car-frame-input {
           border-bottom 1px solid #e5e5e5; /*no*/
           padding-bottom 28px
-          
+
           .frame-input {
             float left
-            
+
             label {
               font-size: 28px; /*px*/
               color: #333333;
               margin-right 64px
             }
-            
+
             input {
               font-size: 26px; /*px*/
               color: #333333;
@@ -219,7 +292,7 @@
               width: 270px;
             }
           }
-          
+
           .camera-box {
             float right
             border-left 1px solid #bfbfbf; /*no*/
@@ -234,39 +307,39 @@
                 margin-left 32px
               }
             }
-            
+
           }
         }
-        
+
         .car-frame-notice {
           font-size: 20px; /*px*/
           color: #999999;
           margin-top 24px
-          
+
           span {
             color: #5226f3;
           }
-          
+
           a {
             font-size: 20px; /*px*/
             color: #999999;
           }
         }
-        
+
       }
-      
+
       .sec-form-box {
         li {
           margin-top: 56px;
           padding-bottom 28px
           border-bottom 1px solid #e5e5e5; /*no*/
-          
+
           label {
             font-size: 28px; /*px*/
             color: #333333;
             margin-right 64px
           }
-          
+
           input {
             font-size: 26px; /*px*/
             color: #333333;
@@ -274,13 +347,13 @@
             width: 270px;
           }
         }
-        
+
         .license-li {
           label {
             float left
             margin-right 24px
           }
-          
+
           .license {
             float left
             width: 40px;
@@ -293,7 +366,7 @@
             margin-right: 7px;
           }
         }
-        
+
         .engine-li {
           img {
             width: 40px;
@@ -302,20 +375,20 @@
             margin-right 20px
           }
         }
-        
+
         .carType-li {
           border-bottom none
-          
+
           label {
             float left
             height: 40px;
             line-height 40px
           }
-          
+
           .radio-box {
             font-size: 24px; /*px*/
             color: #333333;
-            
+
             label {
               margin: 0
               width: 200px
@@ -324,11 +397,11 @@
               display inline-block
               float left
             }
-            
+
             input {
               display none
             }
-            
+
             i {
               width: 40px;
               height: 40px;
@@ -338,7 +411,7 @@
               background url("../../../common/images/radio_unchecked.png") no-repeat center
               background-size 100% 100%
             }
-            
+
             input:checked + i {
               background url("../../../common/images/radio_checked.png") no-repeat center
               background-size 100% 100%
@@ -346,7 +419,7 @@
           }
         }
       }
-      
+
       .submit {
         width: 630px;
         height: 84px;
@@ -358,17 +431,17 @@
         outline none
         margin: 70px 0 32px 0;
       }
-      
+
       .agree-contract {
         line-height: 40px;
         height: 40px
         width: 520px
         margin: 0 auto
-        
+
         input {
           display none
         }
-        
+
         i {
           width: 40px;
           height: 40px;
@@ -378,17 +451,17 @@
           margin-right 20px
           float left
         }
-        
+
         input:checked + i {
           background: url("../../../common/images/checked.png") no-repeat center;
           background-size 100% 100%
         }
-        
+
         p {
           font-size: 22px; /*px*/
           color: #333333;
           float left
-          
+
           span {
             color: #5226f3;
           }
@@ -396,16 +469,16 @@
       }
     }
   }
-  
+
   .sec-notice {
     margin: 64px 23px 0 23px;
-    
+
     .report-title {
       font-size: 28px; /*px*/
       color: #5226f3;
       height: 40px;
       line-height 40px
-      
+
       i {
         width: 40px;
         height: 40px;
@@ -415,16 +488,16 @@
         float left
         margin-right 20px
       }
-      
+
       p {
         float left
       }
     }
-    
+
     .report-box {
       padding: 35px 35px 77px 35px
       text-align: center;
-      
+
       input {
         width: 180px;
         height: 60px;
@@ -436,18 +509,18 @@
         background-color #ffffff
         outline none
       }
-      
+
       .standard-report {
         margin-right 100px
       }
     }
-    
+
     .help-title {
       font-size: 28px; /*px*/
       color: #5226f3;
       height: 40px;
       line-height 40px
-      
+
       i {
         width: 40px;
         height: 40px;
@@ -457,12 +530,12 @@
         float left
         margin-right 20px
       }
-      
+
       p {
         float left
       }
     }
-    
+
     .help-box {
       width: 624px;
       height: auto;
@@ -473,13 +546,13 @@
       line-height normal
       padding: 36px 40px
       margin-top 30px
-      
+
       span {
         font-size: 24px; /*px*/
       }
     }
   }
-  
+
   .cooperation {
     margin: 50px 0 150px 0
     text-align center
@@ -495,7 +568,7 @@
     box-sizing border-box
     padding 30px
     border-radius 30px
-    
+
     .el-dialog__header{
       display none
     }
@@ -511,4 +584,75 @@
       }
     }
   }
+</style>
+<style scoped lang="stylus">
+.pkey-contain{
+  width 750px
+  .pkey-keyboard{
+    position fixed
+    bottom: 0
+    z-index: 10
+    header{
+      font-size 28px; /*px*/
+      color: #5226f3
+      background-color #F4F4F6
+      height:75px
+      line-height 75px
+      padding:0 40px
+      label:nth-child(1){
+        float left
+      }
+      label:nth-child(2){
+        float right
+      }
+    }
+    .pkey-keyscontain{
+      ul{
+        height:362px
+        background-color #D1D5DA
+        padding: 5px;
+        li{
+          label{
+            width: 64px
+            height:80px
+            line-height 80px
+            border-radius 10px
+            display inline-block
+            background-color #ffffff
+            margin: 5px
+            text-align center
+            font-size 26px; /*px*/
+          }
+          span{
+            color: #F9F9F9
+            width: 98px
+            height:80px
+            line-height 80px
+            border-radius 10px
+            text-align center
+            display inline-block
+            background-color #B2B5BA
+            font-size 28px; /*px*/
+            margin-left 5px
+            margin-top 5px
+          }
+          .board-delete{
+            margin-left 0
+            margin-right 5px
+            img{
+              width:42px
+              height:32px
+              margin:0 auto
+              position: relative
+              top:6px
+            }
+          }
+        }
+        .reset-mr{
+          padding-left 36px
+        }
+      }
+    }
+  }
+}
 </style>
