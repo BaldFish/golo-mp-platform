@@ -3,7 +3,7 @@
     <section class="personal-user">
       <img :src="userImgUrl" alt="">
       <span class="user-tab fr" @click="tabAccount">切换账户</span>
-      <p class="user-phone clearfix">{{userPhone}}1231313</p>
+      <p class="user-phone clearfix">{{userPhone}}</p>
       <div class="user-account">
         <div class="fl">
           <span>0张</span>
@@ -28,7 +28,7 @@
           <p>{{item.vin}}</p>
         </li>
       </ul>
-      <input class="submit" type="button" value="开始查询">
+      <input class="submit" type="button" value="开始查询" @click="startSearch">
     </section>
     <router-link class="add-car" to="/addCar">
       <i></i>
@@ -72,7 +72,7 @@
         userId: "",
         token: "",
         userPhone:"",
-        userImgUrl:"",
+        userImgUrl:require('@/common/images/touxiang.png'),
         carList: [],//车辆列表
         codeValue: true,
         second: 60,// 发送验证码倒计时
@@ -84,15 +84,16 @@
         errorMessage: "",//错误提示信息
         errorTip: false,
         isShow: false,
+        WXcode:"",
       }
     },
     created() {
     },
     beforeMount() {
+      this.WXcode = this.$utils.getCookie("WXcode");
       this.userId = this.$utils.getCookie("userId");
       this.token = this.$utils.getCookie("token");
-      this.userPhone = this.$utils.getCookie("phone");
-      console.log(typeof this.userPhone)
+      this.userPhone = this.$utils.getCookie("userPhone").substr(3);
       this.userImgUrl = this.$utils.getCookie("userImgUrl");
       this.getCarList();
     },
@@ -163,7 +164,7 @@
           device_id: this.deviceId, //设备ID
           platform: 5,//5-公众号
           logintype: 1,//1-⼿机验证码登陆，2-微信登陆
-          code2: "",//微信用来获取openid的code
+          code2: this.WXcode,//微信用来获取openid的code
         };
         this.$axios({
           method: 'POST',
@@ -214,6 +215,10 @@
           console.log(error);
         });
       },
+      //开始查询按钮跳转
+      startSearch(){
+        this.$router.push('/reportQuery')
+      },
       tabAccount() {
         this.isShow = true;
         this.getCaptcha();
@@ -241,7 +246,6 @@
       left 50%
       margin-left -55px
       border-radius 50%
-      z-index 1000
     }
     .user-tab {
       font-size: 24px; /*px*/
@@ -284,7 +288,7 @@
   
   .user-car {
     width: 630px;
-    height: 240px;
+    //height: 240px;
     background-color: #ffffff;
     box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.09);
     border-radius: 30px;
@@ -342,6 +346,7 @@
     display inline-block
     margin-top 58px
     margin-left 251px
+    margin-bottom 200px
     font-size: 28px; /*px*/
     color: #5226f3;
     

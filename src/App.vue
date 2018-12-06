@@ -57,8 +57,7 @@
           for (let i = 0; i < strs.length; i++) {
             theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
           }
-          this.$store.state.code = theRequest.response_type;
-          console.log(this.$store.state.code)
+          document.cookie = `WXcode=${theRequest.response_type}`;
         }
       },
       reload() {

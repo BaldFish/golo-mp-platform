@@ -38,11 +38,13 @@
         phoneCode: "",//手机验证码
         errorMessage:"",//错误提示信息
         errorTip:false,
+        WXcode:"",
       }
     },
     created() {
     },
     beforeMount() {
+      this.WXcode = this.$utils.getCookie("WXcode");
       this.getCaptcha();
     },
     mounted() {
@@ -112,7 +114,7 @@
           device_id: this.deviceId, //设备ID
           platform: 5,//5-公众号
           logintype: 1,//1-⼿机验证码登陆，2-微信登陆
-          code2: "",//微信用来获取openid的code
+          code2: this.WXcode,//微信用来获取openid的code
         };
         this.$axios({
           method: 'POST',
