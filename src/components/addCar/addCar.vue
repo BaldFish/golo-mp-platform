@@ -14,7 +14,10 @@
               <input type="text" placeholder="请输入车架号码" maxlength="17" v-model="carFrameNum">
             </div>
             <div class="camera-box">
-              <img src="@/common/images/paizhao.png" alt="">
+              <label>
+                <input type="file" accept="image/*">
+                <img src="@/common/images/paizhao.png" alt="">
+              </label>
             </div>
             <div style="clear: both"></div>
           </div>
@@ -35,7 +38,7 @@
             </li>
           </ul>
         </div>
-        <input class="submit" type="button" value="确定新增">
+        <input class="submit" type="button" value="确定新增" @click="addCar">
       </div>
     </section>
   </div>
@@ -47,12 +50,17 @@
     components: {},
     data() {
       return {
+        userId:"",
+        token:"",
         isHidden:false,
         carFrame:'',
-
       }
     },
     created() {
+    },
+    beforeMount(){
+      this.userId = this.$utils.getCookie("userId");
+      this.token = this.$utils.getCookie("token");
     },
     mounted() {
       window.clearTimeout(timeOut);
@@ -74,6 +82,21 @@
       },
     },
     methods: {
+      //增加车辆
+      addCar() {
+        this.$axios({
+          method: 'POST',
+          url: `${this.$baseURL}/v1/golo-carinfo`,
+          data: this.$querystring.stringify({}),
+          header: {
+            'X-Access-Token': `${this.token}`,
+          }
+        }).then(res => {
+            this.$router.push('/personalCenter')
+        }).catch(error => {
+          console.log(error);
+        });
+      },
       closeNotice(){
         this.isHidden = true;
       },
@@ -144,15 +167,21 @@
               width: 310px;
             }
           }
-          .camera-box{
+          .camera-box {
             float right
             border-left 1px solid #bfbfbf; /*no*/
             margin-right 20px
-            img{
-              width: 46px;
-              height: 36px;
-              margin-left 32px
+            label{
+              input {
+                display none
+              }
+              img {
+                width: 46px;
+                height: 36px;
+                margin-left 32px
+              }
             }
+    
           }
         }
         .car-frame-notice{

@@ -15,8 +15,6 @@
 </template>
 
 <script>
-  import _ from 'lodash';
-  import utils from '@/common/js/utils'
   
   export default {
     name: 'App',
@@ -59,7 +57,7 @@
           for (let i = 0; i < strs.length; i++) {
             theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
           }
-          this.$store.state.code = theRequest.response_type
+          this.$store.state.code = theRequest.response_type;
           console.log(this.$store.state.code)
         }
       },
@@ -72,7 +70,7 @@
       //根据路由判断底部tabs是否显示以及样式切换
       getPath() {
         let path = this.$route.path;
-        if (_.includes(path, "/reportQuery")) {
+        if (this.$_.includes(path, "/reportQuery")) {
           this.tabsParam = [
             {img: require("@/common/images/baogaochaxun_dj.png"), text: "报告查询"},
             {img: require("@/common/images/dingdan_mr.png"), text: "订单"},
@@ -80,7 +78,7 @@
           ];
           this.nowIndex = 0;
           this.display = true
-        } else if (_.includes(path, "/order")) {
+        } else if (this.$_.includes(path, "/order")) {
           this.tabsParam = [
             {img: require("@/common/images/baogaochaxun_mr.png"), text: "报告查询"},
             {img: require("@/common/images/dingdan_dj.png"), text: "订单"},
@@ -88,7 +86,7 @@
           ];
           this.nowIndex = 1;
           this.display = true
-        } else if (_.includes(path, "/personalCenter")) {
+        } else if (this.$_.includes(path, "/personalCenter")) {
           this.tabsParam = [
             {img: require("@/common/images/baogaochaxun_mr.png"), text: "报告查询"},
             {img: require("@/common/images/dingdan_mr.png"), text: "订单"},
@@ -108,7 +106,7 @@
         } else if (index === 1) {
           this.$router.push('/order');
         } else if (index === 2) {
-          let userId = utils.getCookie("userId");
+          let userId = this.$utils.getCookie("userId");
           if (userId) {
             this.$router.push('/personalCenter');
           } else {

@@ -36,7 +36,7 @@
         phone: "",//手机号
         captchaCode: "",//图形码
         phoneCode: "",//手机验证码
-        errorMessage:"",
+        errorMessage:"",//错误提示信息
         errorTip:false,
       }
     },
@@ -123,7 +123,9 @@
           document.cookie = `sessionId=${res.data.data.sessionId}`;
           document.cookie = `openId=${res.data.data.openId}`;
           document.cookie = `token=${res.data.data.token}`;
-          this.$router.push('/reportQuery');
+          document.cookie = `userPhone=${res.data.data.phone}`;
+          document.cookie = `userImgUrl=${res.data.data.imgurl}`;
+          this.$router.push('/personalCenter');
         }).catch(error => {
           this.getCaptcha();
           this.errorMessage=error.response.data.code;

@@ -38,6 +38,12 @@ Vue.prototype.$baseURL=baseURL;
 const querystring = require('querystring');
 Vue.prototype.$querystring=querystring;
 
+import _ from 'lodash';
+Vue.prototype.$_=_;
+
+import utils from '@/common/js/utils';
+Vue.prototype.$utils=utils;
+
 Vue.config.productionTip = false;
 /* eslint-disable no-new */
 const store = new Vuex.Store({
