@@ -38,7 +38,7 @@
             </li>
             <li class="engine-li">
               <label>发动机号</label>
-              <input type="text" placeholder="请输入发动机号">
+              <input type="text" placeholder="请输入发动机号" v-model="engineCode">
               <img src="@/common/images/help_2.png" alt="" @click="centerDialogVisible = true">
             </li>
             <li class="carType-li">
@@ -58,7 +58,7 @@
             </li>
           </ul>
         </div>
-        <input class="submit" type="button" value="开始查询" @click="createOrder">
+        <input class="submit" type="button" value="开始查询" @click="verify(1,carType)">
         <div class="agree-contract">
           <label>
             <input type="checkbox">
@@ -141,7 +141,9 @@
     components: {},
     data() {
       return {
-        reportType:"",
+        plate:'京',
+        plateNum: '',
+        engineCode:"",
         carType:"02",
         errorMessage:"",//错误提示信息
         errorTip:false,
@@ -149,8 +151,7 @@
         carFrame: '',
         //timeOut:"",
         centerDialogVisible: false,
-        plate:'京',
-        plateNum: '',
+        
         txtboardshow:false,
         numboardshow:false,
         cartxt:[
@@ -187,29 +188,42 @@
           this.carFrame = val.toUpperCase();
         }
       },
+      plateNumber:function () {
+        return (this.plate+this.plateNum)
+      }
     },
     methods: {
       closeNotice() {
         this.isHidden = true;
       },
-      //开始查询创建订单
-      createOrder(){
-        let searchData = {
-          report_type: this.reportType,//手机号
-          code: this.phoneCode,//短信验证码
-          piccode: this.captchaCode, //图片验证码
-          picid: this.captchaId, //图片验证码ID
-          device_id: this.deviceId, //设备ID
-          platform: 5,//5-公众号
-          logintype: 1,//1-⼿机验证码登陆，2-微信登陆
-          code2: this.WXcode,//微信用来获取openid的code
+      //校验
+      verify(type,carType){
+        let userId=this.$utils.getCookie("userId");
+        let token=this.$utils.getCookie("token");
+        let car_type=carType;
+        if(carType){
+          car_type=carType
+        }else{
+          let car_type=""
+        }
+        console.log(car_type);
+        let verifyData = {
+          user_id: userId,//用户ID
+          vin: this.carFrameNum,//车架号
+          plat_num: this.plateNumber, //车牌号
+          engine_no: this.engineCode, //发动机号
+          type: this.deviceId, //查询类型1-维保 2-里程 3-估价 4-违章
+          car_type: car_type,//维保跟估价必传  01-大型车  02-小型车
         };
-        /*this.$axios({
+        this.$axios({
           method: 'POST',
-          url: `${this.$baseURL}/v1/golo-order`,
-          data: this.$querystring.stringify(searchData)
+          url: `${this.$baseURL}/v1/golo-order/check`,
+          data: this.$querystring.stringify(verifyData),
+          header: {
+            'X-Access-Token': `${token}`,
+          }
         }).then(res => {
-          //this.$router.push('/submitVehicleCondition')
+          console.log(res.data)
         }).catch(error => {
           this.errorMessage=error.response.data.code;
           this.errorTip=true;
@@ -217,9 +231,35 @@
           window.setTimeout(function () {
             that.errorTip=false;
           },1000);
-        })*/
-        this.$router.push('/submitVehicleCondition')
+        })
       },
+      //开始查询创建订单
+      /*createOrder(){
+        let userId=this.$utils.getCookie("userId");
+        let searchData = {
+          user_id: userId,//用户ID
+          vin: this.carFrameNum,//车架号
+          plat_num: this.plateNumber, //车牌号
+          engine_no: this.engineCode, //发动机号
+          type: this.deviceId, //查询类型1-维保 2-里程 3-估价 4-违章
+          car_type: this.carType,//维保跟估价必传  01-大型车  02-小型车
+          
+        };
+        this.$axios({
+          method: 'POST',
+          url: `${this.$baseURL}/v1/golo-order`,
+          data: this.$querystring.stringify(searchData)
+        }).then(res => {
+          this.$router.push('/submitVehicleCondition')
+        }).catch(error => {
+          this.errorMessage=error.response.data.code;
+          this.errorTip=true;
+          let that=this;
+          window.setTimeout(function () {
+            that.errorTip=false;
+          },1000);
+        })
+      },*/
       
       //车牌号软键盘
       txtclick : function(txt,indexi,size){
