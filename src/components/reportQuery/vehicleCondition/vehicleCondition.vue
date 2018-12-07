@@ -38,7 +38,7 @@
             </li>
             <li class="engine-li">
               <label>发动机号</label>
-              <input type="text" placeholder="请输入发动机号" v-model="engineCode">
+              <input type="text" placeholder="请输入发动机号" v-model="engineNumber">
               <img src="@/common/images/help_2.png" alt="" @click="centerDialogVisible = true">
             </li>
             <li class="carType-li">
@@ -61,7 +61,7 @@
         <input class="submit" type="button" value="开始查询" @click="verify(1,carType)">
         <div class="agree-contract">
           <label>
-            <input type="checkbox">
+            <input type="checkbox" v-model="checked">
             <i></i>
             <p>使用本服务证明您已阅读并同意<span>《免责声明》</span></p>
           </label>
@@ -146,7 +146,8 @@
         engineCode:"",
         carType:"02",
         errorMessage:"",//错误提示信息
-        errorTip:false,
+        errorTip:false,//提示框显示、隐藏
+        checked:"",
         isHidden: false,
         carFrame: '',
         //timeOut:"",
@@ -180,6 +181,7 @@
     },
     watch: {},
     computed: {
+      //车架号转换
       carFrameNum: {
         get: function () {
           return this.carFrame;
@@ -188,8 +190,18 @@
           this.carFrame = val.toUpperCase();
         }
       },
+      //车牌号转换
       plateNumber:function () {
         return (this.plate+this.plateNum)
+      },
+      //发动机号转换
+      engineNumber:{
+        get: function () {
+          return this.engineCode;
+        },
+        set: function (val) {
+          this.engineCode = val.toUpperCase();
+        }
       }
     },
     methods: {
@@ -197,7 +209,7 @@
         this.isHidden = true;
       },
       //校验
-      verify(type,carType){
+      verify(orderType,carType){
         let userId=this.$utils.getCookie("userId");
         let token=this.$utils.getCookie("token");
         let car_type=carType;
@@ -206,26 +218,37 @@
         }else{
           let car_type=""
         }
-        console.log(car_type);
         let verifyData = {
           user_id: userId,//用户ID
           vin: this.carFrameNum,//车架号
           plat_num: this.plateNumber, //车牌号
-          engine_no: this.engineCode, //发动机号
-          type: this.deviceId, //查询类型1-维保 2-里程 3-估价 4-违章
+          engine_no: this.engineNumber, //发动机号
+          order_type: orderType, //查询类型1-维保 2-里程 3-估价 4-违章
           car_type: car_type,//维保跟估价必传  01-大型车  02-小型车
         };
         this.$axios({
           method: 'POST',
           url: `${this.$baseURL}/v1/golo-order/check`,
           data: this.$querystring.stringify(verifyData),
-          header: {
-            'X-Access-Token': `${token}`,
+          headers: {
+            "Content-Type":"application/x-www-form-urlencoded",
+            'X-Access-Token':`${token}`,
           }
         }).then(res => {
-          console.log(res.data)
+          if(this.checked){
+            window.localStorage.setItem("vehicleConditionVerifyData", JSON.stringify(verifyData));
+            this.$router.push('/submitVehicleCondition')
+          }else{
+            this.errorMessage="免责声明未选中";
+            this.errorTip=true;
+            let that=this;
+            window.setTimeout(function () {
+              that.errorTip=false;
+            },1000);
+          }
         }).catch(error => {
-          this.errorMessage=error.response.data.code;
+          console.log(error.response);
+          this.errorMessage=error.response.data.message;
           this.errorTip=true;
           let that=this;
           window.setTimeout(function () {
@@ -233,33 +256,6 @@
           },1000);
         })
       },
-      //开始查询创建订单
-      /*createOrder(){
-        let userId=this.$utils.getCookie("userId");
-        let searchData = {
-          user_id: userId,//用户ID
-          vin: this.carFrameNum,//车架号
-          plat_num: this.plateNumber, //车牌号
-          engine_no: this.engineCode, //发动机号
-          type: this.deviceId, //查询类型1-维保 2-里程 3-估价 4-违章
-          car_type: this.carType,//维保跟估价必传  01-大型车  02-小型车
-          
-        };
-        this.$axios({
-          method: 'POST',
-          url: `${this.$baseURL}/v1/golo-order`,
-          data: this.$querystring.stringify(searchData)
-        }).then(res => {
-          this.$router.push('/submitVehicleCondition')
-        }).catch(error => {
-          this.errorMessage=error.response.data.code;
-          this.errorTip=true;
-          let that=this;
-          window.setTimeout(function () {
-            that.errorTip=false;
-          },1000);
-        })
-      },*/
       
       //车牌号软键盘
       txtclick : function(txt,indexi,size){

@@ -2,7 +2,7 @@
   <div class="personalCenter">
     <section class="personal-user">
       <img :src="userImgUrl" alt="">
-      <span class="user-tab fr" @click="tabAccount">切换账户</span>
+      <!--<span class="user-tab" @click="tabAccount">切换账户</span>-->
       <p class="user-phone clearfix">{{userPhone}}</p>
       <div class="user-account">
         <div class="fl">
@@ -205,7 +205,7 @@
         this.$axios({
           method: 'DELETE',
           url: `${this.$baseURL}/v1/golo-carinfo/${id}`,
-          header: {
+          headers: {
             'X-Access-Token': `${this.token}`,
           }
         }).then(res => {
@@ -232,6 +232,7 @@
 
 <style scoped lang="stylus">
   .personal-user {
+    box-sizing border-box
     position relative
     width: 670px;
     height: 360px;
@@ -250,7 +251,9 @@
     .user-tab {
       font-size: 24px; /*px*/
       color: #333333;
-      margin: 50px 50px 0 0
+      position absolute
+      top 50px
+      right 50px
     }
     
     .user-phone {
@@ -258,7 +261,7 @@
       color: #222222;
       text-align center
       margin-bottom: 50px
-      padding-top 66px
+      padding-top 140px
     }
     
     .user-account {

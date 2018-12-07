@@ -34,7 +34,7 @@
               <div class="license">
                 <span>京</span>
               </div>
-              <input type="text" placeholder="请输入车牌号码">
+              <input type="text" placeholder="请输入车牌号码" v-model="plateNum">
             </li>
           </ul>
         </div>
@@ -50,15 +50,17 @@
     components: {},
     data() {
       return {
-        userId:"",
-        token:"",
-        isHidden:false,
-        carFrame:'',
+        userId: "",
+        token: "",
+        plate: '京',
+        plateNum: '',
+        isHidden: false,
+        carFrame: '',
       }
     },
     created() {
     },
-    beforeMount(){
+    beforeMount() {
       this.userId = this.$utils.getCookie("userId");
       this.token = this.$utils.getCookie("token");
     },
@@ -72,48 +74,59 @@
     },
     watch: {},
     computed: {
-      carFrameNum : {
-        get: function(){
+      //车架号转换
+      carFrameNum: {
+        get: function () {
           return this.carFrame;
         },
-        set: function(val){
+        set: function (val) {
           this.carFrame = val.toUpperCase();
         }
+      },
+      //车牌号转换
+      plateNumber: function () {
+        return (this.plate + this.plateNum)
       },
     },
     methods: {
       //增加车辆
       addCar() {
+        let addData = {
+          user_id: this.userId,
+          vin: this.carFrameNum,
+          plat_num: this.plateNumber,
+        };
         this.$axios({
           method: 'POST',
           url: `${this.$baseURL}/v1/golo-carinfo`,
-          data: this.$querystring.stringify({}),
-          header: {
+          data: this.$querystring.stringify(addData),
+          headers: {
             'X-Access-Token': `${this.token}`,
           }
         }).then(res => {
-            this.$router.push('/personalCenter')
+          this.$router.push('/personalCenter')
         }).catch(error => {
           console.log(error);
         });
       },
-      closeNotice(){
+      closeNotice() {
         this.isHidden = true;
       },
-
+      
     },
   }
 </script>
 
 <style scoped lang="stylus">
-  .sec-form{
+  .sec-form {
     width: 688px;
     height: 500px;
     box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.09);
     border-radius: 30px;
-    margin:0 auto;
+    margin: 0 auto;
     margin-top 58px
-    .camera-notice{
+    
+    .camera-notice {
       font-size: 20px; /*px*/
       color: #333333;
       text-align center
@@ -126,11 +139,13 @@
       position: relative;
       bottom: 24px;
       right: 16px;
-      p{
+      
+      p {
         float left
         margin-left 20px
       }
-      i{
+      
+      i {
         width: 17px;
         height: 17px;
         display inline-block
@@ -141,86 +156,103 @@
         margin-right 14px
       }
     }
-    .hidden{
+    
+    .hidden {
       visibility hidden
     }
-    .sec-container{
+    
+    .sec-container {
       height: auto;
       padding: 52px 30px 0 30px;
       position relative
       bottom: 60px
-      .car-frame{
-        .car-frame-input{
+      
+      .car-frame {
+        .car-frame-input {
           border-bottom 1px solid #e5e5e5; /*no*/
           padding-bottom 28px
-          .frame-input{
+          
+          .frame-input {
             float left
-            label{
+            
+            label {
               font-size: 28px; /*px*/
               color: #333333;
               margin-right 64px
             }
-            input{
+            
+            input {
               font-size: 26px; /*px*/
               color: #333333;
               outline: none;
               width: 310px;
             }
           }
+          
           .camera-box {
             float right
             border-left 1px solid #bfbfbf; /*no*/
             margin-right 20px
-            label{
+            
+            label {
               input {
                 display none
               }
+              
               img {
                 width: 46px;
                 height: 36px;
                 margin-left 32px
               }
             }
-    
+            
           }
         }
-        .car-frame-notice{
+        
+        .car-frame-notice {
           font-size: 20px; /*px*/
           color: #999999;
           margin-top 24px
-          span{
+          
+          span {
             color: #5226f3;
           }
-          a{
+          
+          a {
             font-size: 20px; /*px*/
             color: #999999;
           }
         }
-
+        
       }
-      .sec-form-box{
-        li{
+      
+      .sec-form-box {
+        li {
           margin-top: 56px;
           padding-bottom 28px
           border-bottom 1px solid #e5e5e5; /*no*/
-          label{
+          
+          label {
             font-size: 28px; /*px*/
             color: #333333;
             margin-right 64px
           }
-          input{
+          
+          input {
             font-size: 26px; /*px*/
             color: #333333;
             outline: none;
             width: 270px;
           }
         }
-        .license-li{
-          label{
+        
+        .license-li {
+          label {
             float left
             margin-right 24px
           }
-          .license{
+          
+          .license {
             float left
             width: 40px;
             height: 40px;
@@ -233,7 +265,8 @@
           }
         }
       }
-      .submit{
+      
+      .submit {
         width: 630px;
         height: 84px;
         background-color: #5226f3;

@@ -5,12 +5,20 @@
     </div>
     <div class="carInfo">
       <p class="clearfix">
-        <span class="fl">行驶里程：</span>
-        <span class="fr">11.84万公里</span>
+        <span class="fl">车架号码：</span>
+        <span class="fr">{{carInfo.vin}}</span>
       </p>
       <p class="clearfix">
-        <span class="fl">车架号码：</span>
-        <span class="fr">VEE345WSDSDDSD1111</span>
+        <span class="fl">车牌号码：</span>
+        <span class="fr">{{carInfo.plat_num}}</span>
+      </p>
+      <p class="clearfix">
+        <span class="fl">发动机号：</span>
+        <span class="fr">{{carInfo.engine_no}}</span>
+      </p>
+      <p class="clearfix">
+        <span class="fl">车辆类型：</span>
+        <span class="fr">{{carInfo.type===1?"小型车":"大型车"}}</span>
       </p>
     </div>
     <div class="h20"></div>
@@ -20,19 +28,19 @@
     <div class="reportVersion">
       <p class="clearfix">
         <label>
-          <input type="radio" name="version" v-model="version" value="1">
+          <input type="radio" name="version" v-model="version" value="standard">
           <i></i>
           <span>标准版<span>(车况分析,里程分析)</span></span>
         </label>
-        <span class="fr">5.00元</span>
+        <span class="fr">5元</span>
       </p>
       <p class="clearfix">
         <label>
-          <input type="radio" name="version" v-model="version" value="2">
+          <input type="radio" name="version" v-model="version" value="full">
           <i></i>
           <span>完整版<span>(违章信息,里程分析,详细车况分析)</span></span>
         </label>
-        <span class="fr">30.00元</span>
+        <span class="fr">30元</span>
       </p>
     </div>
     <div class="costTittle">
@@ -41,7 +49,7 @@
     <div class="costInfo">
       <p class="clearfix">
         <span class="fl">报告价格：</span>
-        <span class="fr">30.00元</span>
+        <span class="fr">{{price}}元</span>
       </p>
       <p class="clearfix">
         <span class="fl">优惠券</span>
@@ -52,12 +60,13 @@
     <div class="submitOrder">
       <p class="clearfix">
         <span class="fl">实付金额：</span>
-        <span class="fr">30.00元</span>
+        <span class="fr">{{price}}元</span>
       </p>
-      <p class="clearfix">
+      <p class="clearfix" @click="createOrder">
         <span>提交订单</span>
       </p>
     </div>
+    <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
   </div>
 </template>
 
@@ -67,19 +76,92 @@
     components: {},
     data() {
       return {
-        version: "",
+        errorMessage:"",//错误提示信息
+        errorTip:false,//提示框显示、隐藏
+        version: "0",
+        carInfo:{},
       }
     },
     created() {
     },
+    beforeMount(){
+      this.carInfo=JSON.parse(localStorage.getItem("vehicleConditionVerifyData"))
+    },
     mounted() {
     },
     watch: {},
-    computed: {},
+    computed: {
+      price:{
+        get: function () {
+          if(this.version==="standard"){
+            return 5
+          }else if(this.version==="full"){
+            return 30
+          }else{
+            return 0
+          }
+        },
+        set: function () {
+        }
+      }
+    },
     methods: {
+      //创建订单成功后提交订单
+      createOrder(){
+        let token=this.$utils.getCookie("token");
+        let openId=this.$utils.getCookie("openId");
+        let createOrderData = this.carInfo;
+        createOrderData.report_type=this.version;
+        createOrderData.pay_type=1;
+        createOrderData.openid=openId;
+        this.$axios({
+          method: 'POST',
+          url: `${this.$baseURL}/v1/golo-order`,
+          data: this.$querystring.stringify(createOrderData),
+          headers:{
+            'X-Access-Token': token,
+          },
+        }).then(res => {
+          console.log(res.data);
+          let orderNum={};
+          orderNum.order_id=res.data.data.order_id;
+          this.submitOrder(orderNum);
+          //this.$router.push('/submitVehicleCondition')
+        }).catch(error => {
+          console.log(error);
+          /*this.errorMessage=error.response.data.code;
+          this.errorTip=true;
+          let that=this;
+          window.setTimeout(function () {
+            that.errorTip=false;
+          },1000);*/
+        })
+      },
+      //提交订单
+      submitOrder(orderNum){
+        let token=this.$utils.getCookie("token");
+        this.$axios({
+          method: 'POST',
+          url: `${this.$baseURL}/v1/golo-order/pay`,
+          data: this.$querystring.stringify(orderNum),
+          headers:{
+            'X-Access-Token': token,
+          },
+        }).then(res => {
+          console.log(res.data)
+          //this.$router.push('/submitVehicleCondition')
+        }).catch(error => {
+          /*this.errorMessage=error.response.data.message;
+          this.errorTip=true;
+          let that=this;
+          window.setTimeout(function () {
+            that.errorTip=false;
+          },1000);*/
+        })
+      },
       discountCoupon(){
         this.$router.push("/discountCoupon")
-      }
+      },
     },
   }
 </script>
@@ -87,7 +169,7 @@
 <style scoped lang="stylus">
   .submitVehicleCondition {
     width 750px
-    
+    position relative
     .carTittle {
       padding 25px
       background-color #ffffff
@@ -104,7 +186,6 @@
     
     .carInfo {
       box-sizing border-box
-      height 155px
       background-color #ffffff
       padding 0 25px 25px
       margin-bottom 20px
@@ -291,5 +372,20 @@
       }
     }
     
+    .errorTip{
+      box-sizing border-box
+      width 280px;
+      padding 20px 30px
+      background-color #000000
+      opacity 0.5
+      font-size 26px;/*px*/
+      color #ffffff
+      border-radius 30px
+      text-align center
+      position absolute
+      top 30%
+      left 50%
+      margin-left -140px
+    }
   }
 </style>
