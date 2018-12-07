@@ -7,40 +7,30 @@
         </li>
       </ul>
     </div>
-    <section class="car-condition-list">
+    <section class="car-condition-list" v-if="isData">
       <ul>
-        <li>
+        <li v-for="(item,index) of orderList" @click="routerToDetails(item)">
           <div class="order-num">
-            <p>订单号：yz294485553</p>
-            <p>待支付</p>
+            <p>订单号：{{item.order_id}}</p>
+            <p>{{item.order_status}}</p>
           </div>
           <div style="clear: both"></div>
           <div class="order-details">
-            <p><label>车价号码：</label>JVLDL11223344545555</p>
+            <p><label>车价号码：</label>{{item.vin}}</p>
             <div class="order-time">
-              <p><label>订单时间：</label>2018.10.03  15：34</p>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="order-num">
-            <p>订单号：yz294485553</p>
-            <p>查询成功</p>
-          </div>
-          <div style="clear: both"></div>
-          <div class="order-details">
-            <p><label>车价号码：</label>JVLDL11223344545555</p>
-            <div class="order-time">
-              <p><label>订单时间：</label>2018.10.03  15：34</p>
-              <router-link to="/#">
-                <span class="to-report">查看里程报告&nbsp;》</span>
+              <p><label>订单时间：</label>{{item.created_at}}</p>
+              <router-link to="/#" v-if="item.order_status == '查询成功'" @click.native="routerToReport">
+                <span class="to-report">查看车况报告&nbsp;》</span>
+              </router-link>
+              <router-link to="/#" v-if="item.order_status == '未支付'">
+                <span class="to-report">去支付&nbsp;》</span>
               </router-link>
             </div>
           </div>
         </li>
       </ul>
     </section>
-    <section class="none-order">
+    <section class="none-order" v-else>
       <img src="@/common/images/empty.png" alt="">
       <p>暂无查里程订单</p>
       <input type="button" value="新建订单">
@@ -62,7 +52,9 @@
           {text: "查询成功"},
           {text: "查询失败"}
         ],
-
+        isData: true,
+        status: 5,
+        orderList:'',
 
       }
     },
@@ -70,24 +62,70 @@
     },
     mounted() {
     },
+    beforeMount() {
+      this.userId = this.$utils.getCookie("userId");
+      this.getOrderList();
+    },
     watch: {},
     computed: {},
     methods: {
       tabChange(index){
-        this.nowIndex = index
-        /*if (index == 0){
-
-        } else if (){
-
-        } else if (){
-
-        } else if (){
-
-        } else if (){
-
-        }*/
+        this.nowIndex = index;
+        if (index == 0){
+          this.status = 5
+        } else if (index == 1){
+          this.status = 0
+        } else if (index == 2){
+          this.status = 1
+        } else if (index == 3){
+          this.status = 3
+        } else if (index == 4){
+          this.status = 4
+        }
+        this.getOrderList()
       },
-
+      //获取订单列表
+      getOrderList() {
+        this.$axios({
+          method: 'GET',
+          url: `${this.$baseURL}/v1/golo-order/list/${this.userId}?order_type=2&status=${this.status}&limit=1000`
+        }).then(res => {
+          if(res.data.data.res_list){
+            this.isData = true;
+            let res_list = res.data.data.res_list;
+            let self = this;
+            res_list.forEach(function (item) {
+              if(item.order_status == 0){
+                item.order_status = '未支付'
+              } else if(item.order_status == 1){
+                item.order_status = '查询中'
+              } else if(item.order_status == 3){
+                item.order_status = '查询成功'
+              } else if(item.order_status == 4){
+                item.order_status = '查询失败'
+              }
+              item.created_at = self.$utils.formatDate(new Date(item.created_at), "yyyy-MM-dd hh:mm:ss");
+            });
+            this.orderList = res_list;
+          }else{
+            this.isData = false
+          }
+        }).catch(error => {
+          console.log(error)
+        })
+      },
+      routerToDetails(item){
+        if(item.order_status == '未支付'){
+          window.localStorage.setItem("vehicleConditionVerifyData", JSON.stringify(item));
+          this.$router.push('/submitVehicleCondition');
+        } else {
+          window.localStorage.setItem("kilometreSingleOrder", JSON.stringify(item));
+          this.$router.push('/kilometreOrderDetails');
+        }
+      },
+      routerToReport(){
+        console.log("849491")
+      }
     },
   }
 </script>
