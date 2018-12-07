@@ -15,6 +15,7 @@
             <li>
               <label>车型：</label>
               <p>凯美瑞2016款</p>
+              <!--<p>{{reportDetails.repair.model_name}}</p>-->
             </li>
             <li class="clearfix">
               <label>车牌：</label>
@@ -285,13 +286,19 @@
     components: {},
     data() {
       return {
-        activeNames: ['1']
+        activeNames: ['1'],
+        order_id: "",
+        reportDetails: "",
+
       }
     },
     created() {
     },
     mounted() {
       this.drawLine();
+      this.order_id = JSON.parse(localStorage.getItem("vehicleConditionSingleOrder")).order_id;
+      this.getReportDetails()
+
     },
     watch: {},
     computed: {},
@@ -322,6 +329,23 @@
               data: [2, 14, 20, 19, 32, 36]
             }]
         });
+      },
+      getReportDetails(){
+        this.$axios({
+          method: 'GET',
+          url: `${this.$baseURL}/v1/golo-report/repair/${this.order_id}`
+        }).then(res => {
+          let reportDetails = res.data.data;
+          //reportDetails.created_at = this.$utils.formatDate(new Date(reportDetails.created_at), "yyyy-MM-dd hh:mm:ss");
+          //.updated_at = this.$utils.formatDate(new Date(reportDetails.updated_at), "yyyy-MM-dd hh:mm:ss");
+
+          this.reportDetails = reportDetails;
+
+          console.log(this.reportDetails)
+
+        }).catch(error => {
+          console.log(error)
+        })
       }
     },
   }
