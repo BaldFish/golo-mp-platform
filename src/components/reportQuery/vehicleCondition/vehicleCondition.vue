@@ -205,18 +205,13 @@
       }
     },
     methods: {
-      closeNotice() {
-        this.isHidden = true;
-      },
       //校验
       verify(orderType,carType){
         let userId=this.$utils.getCookie("userId");
         let token=this.$utils.getCookie("token");
-        let car_type=carType;
+        let car_type="";
         if(carType){
           car_type=carType
-        }else{
-          let car_type=""
         }
         let verifyData = {
           user_id: userId,//用户ID
@@ -231,7 +226,6 @@
           url: `${this.$baseURL}/v1/golo-order/check`,
           data: this.$querystring.stringify(verifyData),
           headers: {
-            "Content-Type":"application/x-www-form-urlencoded",
             'X-Access-Token':`${token}`,
           }
         }).then(res => {
@@ -256,7 +250,9 @@
           },1000);
         })
       },
-      
+      closeNotice() {
+        this.isHidden = true;
+      },
       //车牌号软键盘
       txtclick : function(txt,indexi,size){
         this.plate = '';

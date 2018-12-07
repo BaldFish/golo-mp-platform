@@ -18,7 +18,7 @@
       </p>
       <p class="clearfix">
         <span class="fl">车辆类型：</span>
-        <span class="fr">{{carInfo.type===1?"小型车":"大型车"}}</span>
+        <span class="fr">{{carInfo.type===1?"大型车":"小型车"}}</span>
       </p>
     </div>
     <div class="h20"></div>
