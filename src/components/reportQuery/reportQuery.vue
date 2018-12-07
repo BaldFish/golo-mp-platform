@@ -21,12 +21,12 @@
             <span class="text">查里程</span>
           </router-link>
         </li>
-        <li>
+        <!--<li>
           <router-link to="/reportQuery/valuation" @click.native="acquireCarouselClick(3,1,1)">
             <div class="img"></div>
             <span class="text">查估价</span>
           </router-link>
-        </li>
+        </li>-->
         <li>
           <router-link to="/reportQuery/violation" @click.native="acquireCarouselClick(4,1,1)">
             <div class="img"></div>
@@ -108,7 +108,7 @@
         width 750px
         li {
           display inline-block
-          width 25%
+          width 33.333%
           font-size 0
           
           a {
