@@ -148,8 +148,9 @@
             'X-Access-Token': token,
           },
         }).then(res => {
-          console.log(res.data)
-          //this.$router.push('/submitVehicleCondition')
+          console.log(res.data.data.prepay_info);
+          let requiredParameter=res.data.data.prepay_info;
+          this.payOrder(requiredParameter);
         }).catch(error => {
           /*this.errorMessage=error.response.data.message;
           this.errorTip=true;
@@ -158,6 +159,48 @@
             that.errorTip=false;
           },1000);*/
         })
+      },
+      //支付订单
+      payOrder(requiredParameter){
+        //调用微信支付
+        function onBridgeReady(requiredParameter){
+          WeixinJSBridge.invoke(
+            'getBrandWCPayRequest',requiredParameter,
+            /*{
+              "appId":"wx2421b1c4370ec43b",     //公众号名称，由商户传入
+              "timeStamp":"1395712654",         //时间戳，自1970年以来的秒数
+              "nonceStr":"e61463f8efa94090b1f366cccfbbb444", //随机串
+              "package":"prepay_id=u802345jgfjsdfgsdg888",
+              "signType":"MD5",         //微信签名方式：
+              "paySign":"70EA570631E4BB79628FBCA90534C63FF7FADD89" //微信签名
+            },*/
+            function(res){
+              if(res.err_msg == "get_brand_wcpay_request:ok" ){
+                // 使用以上方式判断前端返回,微信团队郑重提示：
+                //res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+                this.$router.push('/order/vehicleConditionOrder')
+              }else{
+                this.errorMessage="支付失败";
+                this.errorTip=true;
+                let that=this;
+                window.setTimeout(function () {
+                  that.errorTip=false;
+                },1000);
+              }
+            });
+        }
+        //判断是否在微信内部浏览器
+        if (typeof WeixinJSBridge == "undefined"){
+          if( document.addEventListener ){
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+          }else if (document.attachEvent){
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+          }
+        }else{
+          onBridgeReady(requiredParameter);
+        }
+  
       },
       discountCoupon(){
         this.$router.push("/discountCoupon")
