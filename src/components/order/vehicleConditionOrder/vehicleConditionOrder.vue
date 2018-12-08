@@ -72,6 +72,7 @@
     methods: {
       //提交订单
       submitOrder(orderNum){
+        alert(orderNum);
         let token=this.$utils.getCookie("token");
         this.$axios({
           method: 'POST',
