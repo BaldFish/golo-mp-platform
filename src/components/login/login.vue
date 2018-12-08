@@ -44,7 +44,7 @@
     created() {
     },
     beforeMount() {
-      this.WXcode = this.$utils.getCookie("WXcode");
+      this.getWXcode();
       this.getCaptcha();
     },
     mounted() {
