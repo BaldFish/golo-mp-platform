@@ -29,6 +29,7 @@ import myStandardReport from '@/components/standardReport/standardReport'
 import myFullReport from '@/components/fullReport/fullReport'
 import myVINExample from '@/components/VINExample/VINExample'
 import myDiscountCoupon from '@/components/discountCoupon/discountCoupon'
+import myDisclaimer from '@/components/disclaimer/disclaimer'
 Vue.use(Router);
 
 export default new Router({
@@ -192,6 +193,11 @@ export default new Router({
       path: '/VINExample',
       name: 'VINExample',
       component: myVINExample
+    },
+    {
+      path: '/disclaimer',
+      name: 'disclaimer',
+      component: myDisclaimer
     },
     
   ]

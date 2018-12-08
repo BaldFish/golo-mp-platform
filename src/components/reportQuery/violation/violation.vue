@@ -63,7 +63,7 @@
           <label>
             <input type="checkbox" v-model="checked">
             <i></i>
-            <p>使用本服务证明您已阅读并同意<span>《免责声明》</span></p>
+            <p>使用本服务证明您已阅读并同意<span @click="turnDisclaimer">《免责声明》</span></p>
           </label>
         </div>
         <div style="clear: both"></div>
@@ -131,6 +131,10 @@
       }
     },
     methods: {
+      //跳转免责声明
+      turnDisclaimer(){
+        this.$router.push('/disclaimer')
+      },
       //校验
       verify(orderType, carType) {
         let userId = this.$utils.getCookie("userId");
