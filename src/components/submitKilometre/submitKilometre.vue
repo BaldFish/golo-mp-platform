@@ -144,7 +144,6 @@
             'X-Access-Token': token,
           },
         }).then(res => {
-          console.log(res.data.data.prepay_info);
           let requiredParameter=res.data.data.prepay_info;
           this.payOrder(requiredParameter);
         }).catch(error => {
