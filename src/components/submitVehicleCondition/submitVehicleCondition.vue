@@ -94,7 +94,7 @@
       price:{
         get: function () {
           if(this.version==="standard"){
-            return 5
+            return 8
           }else if(this.version==="full"){
             return 30
           }else{
