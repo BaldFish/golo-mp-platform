@@ -31,12 +31,12 @@
     },
     beforeMount() {
       this.getPath();
-      this.getWXcode();
+      //this.getWXcode();
     },
     mounted() {
     },
     beforeUpdate() {
-      this.getWXcode();
+      //this.getWXcode();
     },
     computed: {},
     watch: {
