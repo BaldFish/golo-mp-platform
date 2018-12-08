@@ -9,7 +9,7 @@
     </div>
     <section class="car-condition-list" v-if="isData">
       <ul>
-        <li v-for="(item,index) of orderList" @click="routerToDetails(item)">
+        <li v-for="(item,index) of orderList" @click.self="routerToDetails(item)">
           <div class="order-num">
             <p>订单号：{{item.order_id}}</p>
             <p>{{item.order_status}}</p>
@@ -22,9 +22,9 @@
               <a href="javascript:void(0)" v-if="item.order_status == '查询成功'" @click.stop="routerToReport(item)">
                 <span class="to-report">查看里程报告&nbsp;》</span>
               </a>
-              <router-link to="/#" v-if="item.order_status == '待支付'">
+              <a href="javascript:void(0)" v-if="item.order_status == '待支付'">
                 <span class="to-report"  @click.stop="submitOrder(item.order_id)">去支付&nbsp;》</span>
-              </router-link>
+              </a>
             </div>
           </div>
         </li>

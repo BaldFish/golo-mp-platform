@@ -9,7 +9,7 @@
     </div>
     <section class="car-condition-list" v-if="isData">
       <ul>
-        <li v-for="(item,index) of orderList" @click="routerToDetails(item)">
+        <li v-for="(item,index) of orderList" @click.self="routerToDetails(item)">
           <div class="order-num">
             <p>订单号：{{item.order_id}}</p>
             <p>{{item.order_status}}</p>
