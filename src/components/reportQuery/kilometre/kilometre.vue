@@ -43,7 +43,7 @@
             </li>
           </ul>
         </div>
-        <input class="submit" type="button" value="开始查询" @click="verify(2,carType)">
+        <input class="submit" type="button" value="开始查询" @click="verify(2)">
         <div class="agree-contract">
           <label>
             <input type="checkbox" v-model="checked">

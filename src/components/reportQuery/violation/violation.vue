@@ -39,7 +39,7 @@
             <li class="engine-li">
               <label>发动机号</label>
               <input type="text" placeholder="请输入发动机号" v-model="engineNumber">
-              <img src="@/common/images/help_2.png" alt=""  @click="centerDialogVisible = true">
+              <img src="@/common/images/help_2.png" alt="" @click="centerDialogVisible = true">
             </li>
             <li class="carType-li">
               <label>车辆类型</label>
@@ -83,13 +83,13 @@
     components: {},
     data() {
       return {
-        plate:'京',
+        plate: '京',
         plateNum: '',
-        engineCode:"",
-        carType:"02",
-        errorMessage:"",//错误提示信息
-        errorTip:false,//提示框显示、隐藏
-        checked:"",
+        engineCode: "",
+        carType: "02",
+        errorMessage: "",//错误提示信息
+        errorTip: false,//提示框显示、隐藏
+        checked: "",
         isHidden: false,
         carFrame: '',
         centerDialogVisible: false,
@@ -117,11 +117,11 @@
         }
       },
       //车牌号转换
-      plateNumber:function () {
-        return (this.plate+this.plateNum)
+      plateNumber: function () {
+        return (this.plate + this.plateNum)
       },
       //发动机号转换
-      engineNumber:{
+      engineNumber: {
         get: function () {
           return this.engineCode;
         },
@@ -132,12 +132,12 @@
     },
     methods: {
       //校验
-      verify(orderType,carType){
-        let userId=this.$utils.getCookie("userId");
-        let token=this.$utils.getCookie("token");
-        let car_type="";
-        if(carType){
-          car_type=carType
+      verify(orderType, carType) {
+        let userId = this.$utils.getCookie("userId");
+        let token = this.$utils.getCookie("token");
+        let car_type = "";
+        if (carType) {
+          car_type = carType
         }
         let verifyData = {
           user_id: userId,//用户ID
@@ -152,28 +152,57 @@
           url: `${this.$baseURL}/v1/golo-order/check`,
           data: this.$querystring.stringify(verifyData),
           headers: {
-            'X-Access-Token':`${token}`,
+            'X-Access-Token': `${token}`,
           }
         }).then(res => {
-          if(this.checked){
+          if (this.checked) {
             window.localStorage.setItem("violationVerifyData", JSON.stringify(verifyData));
-            //this.$router.push('/submitViolation')
-          }else{
-            this.errorMessage="免责声明未选中";
-            this.errorTip=true;
-            let that=this;
+            this.violationQuery();
+          } else {
+            this.errorMessage = "免责声明未选中";
+            this.errorTip = true;
+            let that = this;
             window.setTimeout(function () {
-              that.errorTip=false;
-            },1000);
+              that.errorTip = false;
+            }, 1000);
           }
         }).catch(error => {
           console.log(error.response);
-          this.errorMessage=error.response.data.message;
+          this.errorMessage = error.response.data.message;
+          this.errorTip = true;
+          let that = this;
+          window.setTimeout(function () {
+            that.errorTip = false;
+          }, 1000);
+        })
+      },
+      //违章查询
+      violationQuery() {
+        let token = this.$utils.getCookie("token");
+        let userId = this.$utils.getCookie("userId");
+        let createOrderData = {};
+        createOrderData.hphm = this.plateNumber;
+        createOrderData.hpzl = this.carType;
+        createOrderData.engineno = this.engineNumber;
+        createOrderData.classno = this.carFrameNum;
+        createOrderData.userid = userId;
+        this.$axios({
+          method: 'POST',
+          url: `${this.$baseURL}/v1/golo/violation/query`,
+          data: this.$querystring.stringify(createOrderData),
+          headers: {
+            'X-Access-Token': token,
+          },
+        }).then(res => {
+          this.$router.push('/order/violationOrder')
+        }).catch(error => {
+          console.log(error);
+          /*this.errorMessage=error.response.data.code;
           this.errorTip=true;
           let that=this;
           window.setTimeout(function () {
             that.errorTip=false;
-          },1000);
+          },1000);*/
         })
       },
       closeNotice() {
@@ -191,6 +220,7 @@
     border-radius: 30px;
     margin: 0 auto;
     position relative
+    
     .camera-notice {
       font-size: 20px; /*px*/
       color: #333333;
@@ -258,17 +288,19 @@
             float right
             border-left 1px solid #bfbfbf; /*no*/
             margin-right 20px
-            label{
+            
+            label {
               input {
                 display none
               }
+              
               img {
                 width: 46px;
                 height: 36px;
                 margin-left 32px
               }
             }
-  
+            
           }
         }
         
@@ -429,13 +461,14 @@
         }
       }
     }
-    .errorTip{
+    
+    .errorTip {
       box-sizing border-box
       width 280px;
       padding 20px 30px
       background-color #000000
       opacity 0.7
-      font-size 26px;/*px*/
+      font-size 26px; /*px*/
       color #ffffff
       border-radius 30px
       text-align center
@@ -455,22 +488,24 @@
   }
 </style>
 <style lang="stylus">
-  .fadongji{
+  .fadongji {
     width 492px
     height 360px
     box-sizing border-box
     padding 30px
     border-radius 30px
     
-    .el-dialog__header{
+    .el-dialog__header {
       display none
     }
-    .el-dialog__body{
+    
+    .el-dialog__body {
       margin 0
       padding 0
       text-align center
       font-size 0
-      img{
+      
+      img {
         display inline-block
         width 431px
         height 296px
