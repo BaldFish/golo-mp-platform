@@ -22,9 +22,9 @@
               <a href="javascript:void(0)" v-if="item.order_status == '查询成功'" @click.stop="routerToReport(item)">
                 <span class="to-report">查看车况报告&nbsp;》</span>
               </a>
-              <router-link to="/#" v-if="item.order_status == '未支付'">
-                <span class="to-report" @click="submitOrder(item.order_id)">去支付&nbsp;》</span>
-              </router-link>
+              <a href="javascript:void(0)" v-if="item.order_status == '待支付'">
+                <span class="to-report" @click.stop="submitOrder(item.order_id)">去支付&nbsp;》</span>
+              </a>
             </div>
           </div>
         </li>
@@ -182,8 +182,9 @@
       },
       routerToDetails(item){
         if(item.order_status == '待支付'){
-          window.localStorage.setItem("vehicleConditionVerifyData", JSON.stringify(item));
-          this.$router.push('/submitVehicleCondition');
+          return
+          /*window.localStorage.setItem("vehicleConditionVerifyData", JSON.stringify(item));
+          this.$router.push('/submitVehicleCondition');*/
         } /*else if(item.order_status == '查询中' || item.order_status == '查询失败'){
           window.localStorage.setItem("vehicleConditionFailOrder", JSON.stringify(item));
           this.$router.push('/vehicleConditionOrderDetails');
