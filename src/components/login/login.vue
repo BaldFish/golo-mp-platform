@@ -16,7 +16,7 @@
         </li>
       </ul>
       <input class="submit" type="button" value="免注册登录" @click="login">
-      <p class="login-notice">登录后可查看更多信息~{{WXcode}}</p>
+      <p class="login-notice">登录后可查看更多信息~</p>
       <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
     </section>
     
