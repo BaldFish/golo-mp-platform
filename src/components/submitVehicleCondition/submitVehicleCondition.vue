@@ -182,10 +182,10 @@
               }else{
                 this.errorMessage="支付失败";
                 this.errorTip=true;
-                let that=this;
+                /*let that=this;
                 window.setTimeout(function () {
                   that.errorTip=false;
-                },1000);
+                },1000);*/
               }
             });
         }
