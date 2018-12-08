@@ -31,7 +31,7 @@
     },
     beforeMount() {
       this.getPath();
-      //this.getWXcode();
+      this.getWXcode();
     },
     mounted() {
     },
@@ -49,7 +49,6 @@
       //从URL获取code
       getWXcode() {
         let url = location.search;
-        this.$store.state.url = url;
         if (url.indexOf("?") != -1) {
           let theRequest = new Object();
           let str = url.substr(1);
@@ -57,7 +56,7 @@
           for (let i = 0; i < strs.length; i++) {
             theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
           }
-          document.cookie = `WXcode=${theRequest.response_type}`;
+          document.cookie = `WXcode=${theRequest.code}`;
         }
       },
       reload() {
