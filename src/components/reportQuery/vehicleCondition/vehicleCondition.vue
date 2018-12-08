@@ -245,7 +245,7 @@
             },1000);
           }
         }).catch(error => {
-          console.log(error.response);
+          console.log(error);
           this.errorMessage=error.response.data.message;
           this.errorTip=true;
           let that=this;

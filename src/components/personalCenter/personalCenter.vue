@@ -90,7 +90,6 @@
     created() {
     },
     beforeMount() {
-      this.WXcode = this.$utils.getCookie("WXcode");
       this.userId = this.$utils.getCookie("userId");
       this.token = this.$utils.getCookie("token");
       this.userPhone = this.$utils.getCookie("userPhone").substr(3);

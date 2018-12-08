@@ -44,13 +44,11 @@
     created() {
     },
     beforeMount() {
-      const AppId="wx8ed85ed5c5f4ed96";
-      const code=this.getUrlParam('code');
-      const local=window.location.href;
-      if(code===null||code===""){
-        window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+AppId+"&redirect_uri="+encodeURIComponent('http://pinggu.goloiov.com')+"&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
-      }else{
-        this.getWXcode();
+      this.WXcode=this.getWXcode('code');
+      if(this.WXcode===null||this.WXcode===""){
+        let AppId="wx8ed85ed5c5f4ed96";
+        let local=window.location.href;
+        window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+AppId+"&redirect_uri="+encodeURIComponent(local)+"&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
       }
       this.getCaptcha();
     },
@@ -73,14 +71,14 @@
       }
     },
     methods: {
-      getUrlParam(name){
+      //从URL获取code
+      getWXcode(name){
         let reg=new RegExp('(^|&)'+name+'=([^&]*)(&|$)');
         let r=window.location.search.substr(1).match(reg);
         if(r!=null) return unescape(r[2]);
         return null
       },
-      //从URL获取code
-      getWXcode() {
+      /*getWXcode() {
         let url = location.search;
         if (url.indexOf("?") != -1) {
           let theRequest = new Object();
@@ -91,7 +89,7 @@
           }
           this.WXcode=theRequest.code;
         }
-      },
+      },*/
       //获取图形验证码
       getCaptcha() {
         this.$axios({
