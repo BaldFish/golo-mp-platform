@@ -63,7 +63,7 @@
           <label>
             <input type="checkbox" v-model="checked">
             <i></i>
-            <p>使用本服务证明您已阅读并同意<span @click="turnDisclaimer">《免责声明》</span></p>
+            <p>使用本服务证明您已阅读并同意<span @click="turnDisclaimer">《免责声明》</span>{{WXcode}}</p>
           </label>
         </div>
         <div style="clear: both"></div>
@@ -167,6 +167,7 @@
           ['A','S','D','F','G','H','J','K','L'],
           ['Z','X','C','V','B','N','M']
         ],
+        WXcode:"",
       }
     },
     created() {
@@ -211,6 +212,7 @@
       },
       //校验
       verify(orderType,carType){
+        this.WXcode=this.$utils.getCookie("WXcode");
         let userId=this.$utils.getCookie("userId");
         let token=this.$utils.getCookie("token");
         let car_type="";
