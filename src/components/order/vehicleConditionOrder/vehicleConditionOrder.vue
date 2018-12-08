@@ -72,8 +72,8 @@
     methods: {
       //提交订单
       submitOrder(orderNum){
-        alert(orderNum);
         let token=this.$utils.getCookie("token");
+        alert(token);
         this.$axios({
           method: 'POST',
           url: `${this.$baseURL}/v1/golo-order/pay`,
@@ -82,10 +82,11 @@
             'X-Access-Token': token,
           },
         }).then(res => {
-          console.log(res.data.data.prepay_info);
+          alert(res.data.data.prepay_info);
           let requiredParameter=res.data.data.prepay_info;
           this.payOrder(requiredParameter);
         }).catch(error => {
+          alert(error.response.data.message);
           this.errorMessage=error.response.data.message;
           this.errorTip=true;
           let that=this;
@@ -96,8 +97,10 @@
       },
       //支付订单
       payOrder(requiredParameter){
+        alert("1");
         //调用微信支付
         function onBridgeReady(requiredParameter){
+          alert("2");
           WeixinJSBridge.invoke(
             'getBrandWCPayRequest',requiredParameter,
             /*{
@@ -109,11 +112,14 @@
               "paySign":"70EA570631E4BB79628FBCA90534C63FF7FADD89" //微信签名
             },*/
             function(res){
+              alert("3");
               if(res.err_msg == "get_brand_wcpay_request:ok" ){
                 // 使用以上方式判断前端返回,微信团队郑重提示：
                 //res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+                alert("4");
                 this.$router.push('/order/vehicleConditionOrder')
               }else{
+                alert("5");
                 this.errorMessage="支付失败";
                 this.errorTip=true;
                 let that=this;
