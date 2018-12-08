@@ -86,12 +86,12 @@
           let requiredParameter=res.data.data.prepay_info;
           this.payOrder(requiredParameter);
         }).catch(error => {
-          /*this.errorMessage=error.response.data.message;
+          this.errorMessage=error.response.data.message;
           this.errorTip=true;
           let that=this;
           window.setTimeout(function () {
             that.errorTip=false;
-          },1000);*/
+          },1000);
         })
       },
       //支付订单
