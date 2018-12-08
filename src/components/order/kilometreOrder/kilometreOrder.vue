@@ -72,10 +72,12 @@
       //提交订单
       submitOrder(orderNum){
         let token=this.$utils.getCookie("token");
+        let orderId={};
+        orderId.order_id=orderNum;
         this.$axios({
           method: 'POST',
           url: `${this.$baseURL}/v1/golo-order/pay`,
-          data: this.$querystring.stringify(orderNum),
+          data: this.$querystring.stringify(orderId),
           headers:{
             'X-Access-Token': token,
           },
