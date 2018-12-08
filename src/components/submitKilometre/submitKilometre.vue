@@ -90,9 +90,9 @@
       price:{
         get: function () {
           if(this.version==="standard"){
-            return 5
+            return 6
           }else if(this.version==="full"){
-            return 30
+            return 6
           }else{
             return 0
           }
@@ -311,7 +311,7 @@
       width 280px;
       padding 20px 30px
       background-color #000000
-      opacity 0.5
+      opacity 0.7
       font-size 26px;/*px*/
       color #ffffff
       border-radius 30px
