@@ -31,7 +31,7 @@
     },
     beforeMount() {
       this.getPath();
-      this.getWXcode();
+      //this.getWXcode();
     },
     mounted() {
     },

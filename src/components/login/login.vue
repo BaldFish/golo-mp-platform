@@ -16,7 +16,7 @@
         </li>
       </ul>
       <input class="submit" type="button" value="免注册登录" @click="login">
-      <p class="login-notice">登录后可查看更多信息~</p>
+      <p class="login-notice">登录后可查看更多信息~{{WXcode}}</p>
       <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
     </section>
     
@@ -44,7 +44,6 @@
     created() {
     },
     beforeMount() {
-      window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8ed85ed5c5f4ed96&redirect_uri=https://pinggu.goloiov.com&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
       this.WXcode = this.$utils.getCookie("WXcode");
       this.getCaptcha();
     },
@@ -67,6 +66,22 @@
       }
     },
     methods: {
+      //从URL获取code
+      getWXcode() {
+        let url = location.search;
+        this.$store.state.url = url;
+        if (url.indexOf("?") != -1) {
+          let theRequest = new Object();
+          let str = url.substr(1);
+          let strs = str.split("&");
+          for (let i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+          }
+          this.WXcode=theRequest.response_type;
+          return theRequest.response_type
+        }
+        window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8ed85ed5c5f4ed96&redirect_uri=https://pinggu.goloiov.com/login&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
+      },
       //获取图形验证码
       getCaptcha() {
         this.$axios({
@@ -115,7 +130,7 @@
           device_id: this.deviceId, //设备ID
           platform: 5,//5-公众号
           logintype: 1,//1-⼿机验证码登陆，2-微信登陆
-          code2: this.WXcode,//微信用来获取openid的code
+          code2: this.getWXcode(),//微信用来获取openid的code
         };
         this.$axios({
           method: 'POST',
