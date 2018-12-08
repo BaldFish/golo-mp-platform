@@ -56,7 +56,7 @@
           for (let i = 0; i < strs.length; i++) {
             theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
           }
-          document.cookie = `WXcode=${theRequest.code}`;
+          document.cookie = `WXcode=${theRequest.code};domain=.pinggu.goloiov.com`;
         }
       },
       reload() {
