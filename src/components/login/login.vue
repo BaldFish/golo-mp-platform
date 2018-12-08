@@ -44,7 +44,14 @@
     created() {
     },
     beforeMount() {
-      this.getWXcode();
+      const AppId="wx8ed85ed5c5f4ed96";
+      const code=this.getUrlParam('code');
+      const local=window.location.href;
+      if(code===null||code===""){
+        window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+AppId+"&redirect_uri="+encodeURIComponent(local)+"&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+      }else{
+        this.getWXcode();
+      }
       this.getCaptcha();
     },
     mounted() {
@@ -66,10 +73,16 @@
       }
     },
     methods: {
+      getUrlParam(name){
+        let reg=new RegExp('(^|&)'+name+'=([^&]*)(&|$)');
+        let r=window.location.search.substr(1).match(reg);
+        if(r!=null) return unescape(r[2]);
+        return null
+      },
       //从URL获取code
       getWXcode() {
         let url = location.search;
-        this.$store.state.url = url;
+        //this.$store.state.url = url;
         if (url.indexOf("?") != -1) {
           let theRequest = new Object();
           let str = url.substr(1);
@@ -77,10 +90,8 @@
           for (let i = 0; i < strs.length; i++) {
             theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
           }
-          this.WXcode=theRequest.response_type;
-          return theRequest.response_type
+          this.WXcode=theRequest.code;
         }
-        window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8ed85ed5c5f4ed96&redirect_uri=https://pinggu.goloiov.com/login&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
       },
       //获取图形验证码
       getCaptcha() {
@@ -130,7 +141,7 @@
           device_id: this.deviceId, //设备ID
           platform: 5,//5-公众号
           logintype: 1,//1-⼿机验证码登陆，2-微信登陆
-          code2: this.getWXcode(),//微信用来获取openid的code
+          code2: this.WXcode,//微信用来获取openid的code
         };
         this.$axios({
           method: 'POST',
