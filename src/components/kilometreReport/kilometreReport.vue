@@ -1,6 +1,77 @@
 <template>
   <div class="kilometreReport">
-    kilometreReport
+    <section class="top-bg">
+      <p>车辆里程报告</p>
+      <p>Vehicle assessment report</p>
+    </section>
+    <div class="blue-bg">
+      <section class="report-box fixed clear-margin-top">
+        <div class="report-box-title">
+          <span></span>
+          <p>车辆信息</p>
+        </div>
+        <div class="car-info">
+          <ul>
+            <li>
+              <label>c车架号码：</label>
+              <p>VEE*****************111</p>
+              <!--<p>{{reportDetails.repair.model_name}}</p>-->
+            </li>
+            <li class="clearfix">
+              <label>查询时间：</label>
+              <p>2018.10.03  15：34</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section class="report-box fixed">
+        <div class="report-box-title">
+          <span></span>
+          <p>里程分析</p>
+        </div>
+        <div class="mileage-analysis">
+          <p class="analysis-tips">本车里程读数&nbsp;<span>异常</span></p>
+          <p class="table-title">里程记录（倒叙排序）</p>
+          <table>
+            <thead>
+            <tr>
+              <th>里程类型</th>
+              <th>里程数值（KM）</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>当前里程</td>
+              <td>76544</td>
+            </tr>
+            <tr>
+              <td>历史里程</td>
+              <td>76544</td>
+            </tr>
+            <tr>
+              <td>历史里程</td>
+              <td>76544</td>
+            </tr>
+            <tr>
+              <td>当前里程</td>
+              <td>76544</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="trend-analysis">
+          <div class="trend-title">
+            <p>里程趋势分析</p>
+          </div>
+          <div id="myChart" :style="{width: '600px', height: '300px',margin: '0 auto'}"></div>
+        </div>
+      </section>
+      <section class="qrcode fixed">
+        <p>轱辘二手车评估</p>
+        <div><img src="@/common/images/golo_qrcode.png" alt=""></div>
+        <p>官方微信</p>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -9,19 +80,215 @@
     name: "kilometreReport",
     components: {},
     data() {
-      return {}
+      return {
+        order_id: "",
+        reportDetails: "",
+      }
     },
     created() {
     },
     mounted() {
+      this.drawLine();
+      this.order_id = JSON.parse(localStorage.getItem("vehicleConditionSingleOrder")).order_id;
+      this.getReportDetails()
     },
     watch: {},
     computed: {},
-    methods: {},
+    methods: {
+      drawLine(){
+        // 基于准备好的dom，初始化echarts实例
+        let myChart = this.$echarts.init(document.getElementById('myChart'));
+        // 绘制图表
+        myChart.setOption({
+          title: { text: '里程（万KM）' },
+          /*tooltip: {},*/
+          xAxis: {
+            data: ["2012","2013","2014","2015","2016","2017"]
+          },
+          yAxis: {},
+          series: [
+            {
+              name: '里程',
+              type: 'line',
+              data: [5, 20, 36, 10, 10, 20]
+            },
+            {
+              name: '里程2',
+              type: 'line',
+              data: [2, 14, 20, 19, 32, 36]
+            }]
+        });
+      },
+      getReportDetails(){
+        this.$axios({
+          method: 'GET',
+          url: `${this.$baseURL}/v1/golo-report/repair/${this.order_id}`
+        }).then(res => {
+          let reportDetails = res.data.data;
+          //reportDetails.created_at = this.$utils.formatDate(new Date(reportDetails.created_at), "yyyy-MM-dd hh:mm:ss");
+          //.updated_at = this.$utils.formatDate(new Date(reportDetails.updated_at), "yyyy-MM-dd hh:mm:ss");
+
+          this.reportDetails = reportDetails;
+
+          console.log(this.reportDetails)
+
+        }).catch(error => {
+          console.log(error)
+        })
+      }
+    },
   }
 </script>
 
 <style scoped lang="stylus">
   .kilometreReport {
+    .top-bg{
+      height: 400px
+      width: 100%
+      background url("../../common/images/report_top_bg.png") no-repeat center
+      background-size 100% 100%
+      text-align center
+      color: #ffffff;
+      p:nth-child(1){
+        font-size: 48px; /*px*/
+        padding: 128px 0 12px 0
+      }
+      p:nth-child(2){
+        font-size: 22px; /*px*/
+      }
+    }
+    .blue-bg{
+      background-color #5226f3
+      .report-box{
+        width: 688px;
+        height: auto;
+        background-color: #ffffff;
+        box-shadow: 0 2px 27px 7px rgba(14, 14, 14, 0.08);
+        border-radius: 30px;
+        margin:0 auto
+        margin-top 20px
+        .report-box-title{
+          font-size: 34px; /*px*/
+          color: #5126f1;
+          padding-top: 20px;
+          padding-left: 42px;
+          span{
+            width: 10px;
+            height: 10px;
+            background-color: #5226f3;
+            display inline-block
+            border-radius 50%
+            float left
+            margin-top 12px
+            margin-right 16px
+          }
+        }
+        .car-info{
+          margin: 27px auto 0 60px
+          padding-bottom 25px
+          li{
+            line-height 48px
+            label{
+              font-size: 28px; /*px*/
+              color: #000000;
+              float left
+            }
+            p{
+              font-size: 26px; /*px*/
+              color: #666666;
+              float left
+            }
+          }
+        }
+        .mileage-analysis{
+          .analysis-tips{
+            font-size: 26px; /*px*/
+            color: #222222;
+            margin: 20px 0 0 45px
+            span{
+              font-size: 30px; /*px*/
+              color: #f30808;
+            }
+          }
+          .table-title{
+            font-size: 26px; /*px*/
+            color: #222222;
+            margin: 20px 0 20px 45px
+          }
+          table{
+            width: 610px;
+            text-align center
+            margin 0 auto
+            thead{
+              th{
+                font-size: 26px; /*px*/
+                color: #222222;
+                height: 80px
+                line-height 80px
+                width: 305px
+                border: 1px solid #d2d2d2; /*no*/
+              }
+            }
+            tbody{
+              font-size: 22px; /*px*/
+              color: #666666;
+              td{
+                font-size: 22px; /*px*/
+                color: #666666;
+                height: 55px
+                line-height 55px
+                border: 1px solid #d2d2d2; /*no*/
+              }
+            }
+          }
+        }
+        .trend-analysis{
+          .trend-title{
+            font-size: 30px; /*px*/
+            color: #222222;
+            width: 656px;
+            border-bottom: 1px solid #eeeeee;
+            margin:0 auto
+            margin-bottom 20px
+            p{
+              margin: 40px 0 15px 30px
+            }
+          }
+        }
+      }
+      .qrcode{
+        text-align center
+        color: #ffffff;
+        p:nth-child(1){
+          font-size: 35px; /*px*/
+          margin: 50px 0
+        }
+        div{
+          width: 200px;
+          height: 200px;
+          margin: 0 auto
+          background-color: #ffffff;
+          box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.09);
+          border-radius: 10px;
+          img{
+            width: 183px;
+            height: 177px;
+            margin: 0 auto
+            margin-top 12px
+          }
+        }
+        p:nth-child(3){
+          font-size: 23px; /*px*/
+          margin-top 20px
+        }
+      }
+    }
+    .fixed{
+      position: relative;
+      top: -85px;
+    }
+    .clear-margin-top{
+      margin-top 0 !important
+    }
   }
 </style>

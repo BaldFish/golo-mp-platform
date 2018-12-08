@@ -16,7 +16,7 @@
           </div>
           <div style="clear: both"></div>
           <div class="order-details">
-            <p><label>车价号码：</label>{{item.vin}}</p>
+            <p><label>车架号码：</label>{{item.vin}}</p>
             <div class="order-time">
               <p><label>订单时间：</label>{{item.created_at}}</p>
               <a href="javascript:void(0)" v-if="item.order_status == '查询成功'" @click.stop="routerToReport(item)">
