@@ -1,46 +1,46 @@
 <template>
   <div class="violationOrder">
-    <section class="query-container">
+    <section class="query-container" v-for="(item,index) of violationDetails" v-if="isData">
       <div class="query-time">
-        <p>查询时间：2016.8.13 09:23</p>
+        <p>查询时间：{{item.query_info.updated_at}}</p>
       </div>
       <div class="query-detail">
         <ul class="car-peccancy">
           <li>
-            <label>车价号码：</label>
-            <p>JVLDL11223344545555</p>
+            <label>车架号码：</label>
+            <p>{{item.query_info.vin}}</p>
           </li>
           <li>
             <label>车牌号码：</label>
-            <p>京H5R33E</p>
+            <p>{{item.query_info.plate_num}}</p>
           </li>
           <li>
             <label>发动机号：</label>
-            <p>4454544</p>
+            <p>{{item.query_info.engineno}}</p>
           </li>
           <li>
             <label>车辆类型：</label>
-            <p>小型车</p>
+            <p>{{item.query_info.car_type}}</p>
           </li>
         </ul>
         <ul class="car-matter">
           <li>
-            <p>0</p>
+            <p>{{item.pendingNum}}</p>
             <p>待处理</p>
           </li>
           <li>
-            <p>0</p>
+            <p>{{item.penaltyAmount}}</p>
             <p>罚款</p>
           </li>
           <li>
-            <p>200</p>
+            <p>0</p>
             <p>积分</p>
           </li>
         </ul>
       </div>
-      <input class="submit" type="button" value="查询最新">
+      <input class="submit" type="button" value="查询最新" @click="routerToReport(item)">
     </section>
-    <section class="none-order">
+    <section class="none-order" v-else>
       <img src="@/common/images/empty.png" alt="">
       <p>暂无查违章记录</p>
       <input type="button" value="开始查询">
@@ -53,19 +53,64 @@
     name: "violationOrder",
     components: {},
     data() {
-      return {}
+      return {
+        isData: true,
+        violationDetails: "",
+      }
     },
     created() {
     },
     mounted() {
+      this.userId = this.$utils.getCookie("userId");
+      this.getViolationDetails()
     },
     watch: {},
     computed: {},
-    methods: {},
+    methods: {
+      //获取违章信息
+      getViolationDetails(){
+        this.$axios({
+          method: 'GET',
+          url: `${this.$baseURL}/v1/golo/violation/query/info/${this.userId}`
+        }).then(res => {
+          if(res.data.data){
+            this.isData = true;
+            let self = this;
+            res.data.data.forEach(function (item) {
+              item.query_info.updated_at = self.$utils.formatDate(new Date(item.query_info.updated_at), "yyyy-MM-dd hh:mm:ss");
+              //添加字段 pendingNum（未处理数量）、penaltyAmount（罚款）
+              if (item.vio_info){
+                item.pendingNum = item.vio_info.length;
+                let penaltyAmount = 0;
+                item.vio_info.forEach(function (data) {
+                  penaltyAmount = penaltyAmount + Number(data.viomoney)
+                });
+                item.penaltyAmount = penaltyAmount
+              } else {
+                item.pendingNum = 0;
+                item.penaltyAmount = 0
+              }
+            });
+            this.violationDetails = res.data.data;
+          }else{
+            this.isData = false
+          }
+        }).catch(error => {
+          console.log(error)
+        });
+
+      },
+      routerToReport(item){
+        this.getViolationDetails();
+        window.localStorage.setItem("violationSingleOrder", JSON.stringify(item));
+        this.$router.push('/violationReport');
+      }
+    },
   }
 </script>
 
 <style scoped lang="stylus">
+.violationOrder{
   .query-container{
     width: 628px;
     height: 592px;
@@ -170,4 +215,8 @@
     }
   }
 
+  section:last-child{
+    margin-bottom 200px
+  }
+}
 </style>
