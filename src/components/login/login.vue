@@ -48,7 +48,7 @@
       const code=this.getUrlParam('code');
       const local=window.location.href;
       if(code===null||code===""){
-        window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+AppId+"&redirect_uri="+encodeURIComponent(local)+"&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+        window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+AppId+"&redirect_uri="+encodeURIComponent('http://pinggu.goloiov.com')+"&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
       }else{
         this.getWXcode();
       }
