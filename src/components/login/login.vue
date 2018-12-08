@@ -44,6 +44,7 @@
     created() {
     },
     beforeMount() {
+      window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8ed85ed5c5f4ed96&redirect_uri=https://pinggu.goloiov.com&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
       this.WXcode = this.$utils.getCookie("WXcode");
       this.getCaptcha();
     },
