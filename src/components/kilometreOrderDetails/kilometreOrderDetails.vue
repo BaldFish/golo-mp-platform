@@ -119,7 +119,7 @@
         })
       },
       routerToReport(){
-        //this.$router.push('/vehicleConditionReport');
+        this.$router.push('/kilometreReport');
       }
     },
   }

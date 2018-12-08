@@ -19,9 +19,9 @@
             <p><label>车价号码：</label>{{item.vin}}</p>
             <div class="order-time">
               <p><label>订单时间：</label>{{item.created_at}}</p>
-              <router-link to="/#" v-if="item.order_status == '查询成功'" @click.native="routerToReport">
+              <a href="javascript:void(0)" v-if="item.order_status == '查询成功'" @click.stop="routerToReport(item)">
                 <span class="to-report">查看车况报告&nbsp;》</span>
-              </router-link>
+              </a>
               <router-link to="/#" v-if="item.order_status == '未支付'">
                 <span class="to-report">去支付&nbsp;》</span>
               </router-link>
@@ -97,7 +97,7 @@
             let self = this;
             res_list.forEach(function (item) {
               if(item.order_status == 0){
-                item.order_status = '未支付'
+                item.order_status = '待支付'
               } else if(item.order_status == 1){
                 item.order_status = '查询中'
               } else if(item.order_status == 3){
@@ -116,7 +116,7 @@
         })
       },
       routerToDetails(item){
-        if(item.order_status == '未支付'){
+        if(item.order_status == '待支付'){
           window.localStorage.setItem("vehicleConditionVerifyData", JSON.stringify(item));
           this.$router.push('/submitVehicleCondition');
         } /*else if(item.order_status == '查询中' || item.order_status == '查询失败'){
@@ -130,8 +130,9 @@
           this.$router.push('/vehicleConditionOrderDetails');
         }
       },
-      routerToReport(){
-        console.log("849491")
+      routerToReport(item){
+        window.localStorage.setItem("vehicleConditionSingleOrder", JSON.stringify(item));
+        this.$router.push('/vehicleConditionReport');
       }
     },
   }
