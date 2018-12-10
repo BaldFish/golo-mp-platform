@@ -10,7 +10,7 @@
     <div class="tabs_wrap">
       <ul>
         <li>
-          <router-link to="/reportQuery/vehicleCondition" @click.native="acquireCarouselClick(1,1,2)">
+          <router-link to="/reportQuery/vehicleCondition" @click.native="acquireCarouselClick(1,1,1)">
             <div class="img"></div>
             <span class="text">查车况</span>
           </router-link>
@@ -53,7 +53,7 @@
       //根据路由判断应该请求哪个tab的轮播数据
       let path = this.$route.path;
       if (_.includes(path, "/reportQuery/vehicleCondition")) {
-        this.acquireCarousel(1, 1, 2)
+        this.acquireCarousel(1, 1, 1)
       } else if (_.includes(path, "/reportQuery/kilometre")) {
         this.acquireCarousel(2, 1, 1)
       } else if (_.includes(path, "/reportQuery/valuation")) {
