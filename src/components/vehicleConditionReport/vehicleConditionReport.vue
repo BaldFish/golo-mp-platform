@@ -14,28 +14,27 @@
           <ul>
             <li>
               <label>车型：</label>
-              <p>凯美瑞2016款</p>
-              <!--<p>{{reportDetails.repair.model_name}}</p>-->
+              <p>{{reportDetails.repair.model_name}}</p>
             </li>
             <li class="clearfix">
               <label>车牌：</label>
-              <p>京B6***6</p>
+              <p>{{reportDetails.order_info.plate_num}}</p>
             </li>
             <li class="clearfix">
               <label>里程：</label>
-              <p>76558KM</p>
+              <p>{{reportDetails.repair.mileage_every_year}}</p>
             </li>
             <li class="clearfix">
               <label>发动机号码：</label>
-              <p>V68****654</p>
+              <p>{{reportDetails.order_info.engineno}}</p>
             </li>
             <li class="clearfix">
               <label>车架号：</label>
-              <p>FLV****654</p>
+              <p>{{reportDetails.repair.vin}}</p>
             </li>
             <li class="clearfix">
               <label>报告生成时间：</label>
-              <p>2016-11-22</p>
+              <p>{{reportDetails.repair.updated_at}}</p>
             </li>
           </ul>
         </div>
@@ -48,12 +47,12 @@
         <div class="car-analysis">
           <p class="analysis-tips">本车里程读数&nbsp;<span>异常</span></p>
           <ul>
-            <li>
+            <li :class="{'error': reportDetails.repair.car_component_records_flag == 1}">
               <img src="@/common/images/car_analysis01.png" alt="">
               <p>发动机无大修</p>
               <i></i>
             </li>
-            <li>
+            <li :class="{'error': reportDetails.repair.car_construct_records_flag == 1}">
               <img src="@/common/images/car_analysis02.png" alt="">
               <p>车架无损伤</p>
               <i></i>
@@ -65,17 +64,18 @@
             </li>
           </ul>
           <ul>
+          <li :class="{'error': reportDetails.repair.car_fire_flag == 1}">
             <li class="error">
               <img src="@/common/images/car_analysis04.png" alt="">
               <p>无火烧</p>
               <i></i>
             </li>
-            <li class="error">
+            <li :class="{'error': reportDetails.repair.car_water_flag == 1}">
               <img src="@/common/images/car_analysis05.png" alt="">
               <p>泡水</p>
               <i></i>
             </li>
-            <li>
+            <li :class="{'error': reportDetails.repair.car_outside_records_flag == 1}">
               <img src="@/common/images/car_analysis06.png" alt="">
               <p>安全气囊无弹出</p>
               <i></i>
@@ -87,68 +87,92 @@
           <el-collapse-item>
             <template slot="title">
               动力系统
-              <div class="collapse-error">
+              <div class="collapse-error" v-if="reportDetails.compent_repair_detail">
                 <span>异常</span>
-                <span>2</span>
+                <span>{{reportDetails.compent_repair_detail.length}}</span>
               </div>
             </template>
-            <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-            <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+            <div v-if="reportDetails.compent_repair_detail">异常</div>
+            <div v-else>无异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
               底盘系统
-              <div class="collapse-error">
+              <div class="collapse-error" v-if="reportDetails.construct_repair_detail">
                 <span>异常</span>
-                <span>1</span>
+                <span>{{reportDetails.construct_repair_detail.length}}</span>
               </div>
             </template>
-            <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-            <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+            <div v-if="reportDetails.construct_repair_detail">异常</div>
+            <div v-else>无异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
               车身系统
-              <div class="collapse-error">
+              <div class="collapse-error" v-if="reportDetails.nromal_repair_detail">
                 <span>异常</span>
-                <span>2</span>
+                <span>{{reportDetails.nromal_repair_detail.length}}</span>
               </div>
             </template>
-            <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-            <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+            <div class="collapse-content" v-if="reportDetails.nromal_repair_detail">
+
+              <p class="table-title">车身系统</p>
+              <table>
+                <thead>
+                <tr>
+                  <th>部件</th>
+                  <th>维修次数</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(item,index) of reportDetails.nromal_repair_detail">
+                  <td>{{item.type}}</td>
+                  <td :class="{'table-error': item.repair_type !== 0}">{{item.repair_type}}</td>
+                </tr>
+                </tbody>
+              </table>
+              <p style="visibility: hidden">占位</p>
+             <!-- <div class="table-supply">
+                <p>部位维修：</p>
+                <ul>
+                  <li>1:右侧后门喷漆</li>
+                  <li>2:更换挡风玻璃</li>
+                </ul>
+              </div>-->
+
+            </div>
+            <div v-else>无异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
               安全系统
-              <div class="collapse-error">
+              <!--<div class="collapse-error">
                 <span>异常</span>
                 <span>6</span>
-              </div>
+              </div>-->
             </template>
-            <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-            <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+            <div>无异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
               娱乐系统
-              <div class="collapse-error">
+              <!--<div class="collapse-error">
                 <span>异常</span>
                 <span>4</span>
-              </div>
+              </div>-->
             </template>
-            <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-            <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+            <div>无异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
               车上结构
-              <div class="collapse-error">
+              <div class="collapse-error" v-if="reportDetails.outside_repair_detail">
                 <span>异常</span>
-                <span>5</span>
+                <span>{{reportDetails.outside_repair_detail.length}}</span>
               </div>
             </template>
-            <div class="collapse-content">
-              <p class="table-title">车身覆盖件</p>
+            <!--<div class="collapse-content">
+              <p class="table-title">车上结构</p>
               <table>
                 <thead>
                 <tr>
@@ -192,7 +216,35 @@
                   <li>2:更换挡风玻璃</li>
                 </ul>
               </div>
+            </div>-->
+            <div class="collapse-content" v-if="reportDetails.outside_repair_detail">
+
+              <p class="table-title">车上结构</p>
+              <table>
+                <thead>
+                <tr>
+                  <th>部件</th>
+                  <th>维修次数</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(item,index) of reportDetails.outside_repair_detail">
+                  <td>{{item.type}}</td>
+                  <td :class="{'table-error': item.repair_type !== 0}">{{item.repair_type}}</td>
+                </tr>
+                </tbody>
+              </table>
+              <p style="visibility: hidden">占位</p>
+              <!-- <div class="table-supply">
+                 <p>部位维修：</p>
+                 <ul>
+                   <li>1:右侧后门喷漆</li>
+                   <li>2:更换挡风玻璃</li>
+                 </ul>
+               </div>-->
+
             </div>
+            <div v-else>无异常</div>
           </el-collapse-item>
         </el-collapse>
       </section>
@@ -212,21 +264,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>当前里程</td>
-              <td>76544</td>
-            </tr>
-            <tr>
+            <tr v-for="(item,index) of kilometreInfo">
               <td>历史里程</td>
-              <td>76544</td>
-            </tr>
-            <tr>
-              <td>历史里程</td>
-              <td>76544</td>
-            </tr>
-            <tr>
-              <td>当前里程</td>
-              <td>76544</td>
+              <td>{{item.mileage}}</td>
             </tr>
             </tbody>
           </table>
@@ -235,7 +275,10 @@
           <div class="trend-title">
             <p>里程趋势分析</p>
           </div>
-          <div id="myChart" :style="{width: '600px', height: '300px',margin: '0 auto'}"></div>
+          <template>
+            <div id="bar_dv" ref="chart" :style="{width: '600px', height: '300px',margin: '0 auto'}"></div>
+          </template>
+
         </div>
       </section>
       <section class="report-box fixed">
@@ -244,28 +287,17 @@
           <p>违章信息</p>
         </div>
         <div class="violation-info">
-          <p class="analysis-tips">截止目前未处理的违章数量：&nbsp;<span>2</span></p>
-          <div class="violation-box">
-            <ul>
+          <p class="analysis-tips">截止目前未处理的违章数量：&nbsp;<span>{{violationInfo.length}}</span></p>
+          <div class="violation-box" v-if="isViolation">
+            <ul v-for="(item,index) of violationInfo">
               <li>
-                <span>1</span>
+                <span>{{index + 1}}</span>
                 <label>违章原因:</label>
-                <p class="reason">驾驶驾驶小汽车在高速公里以外的道路上行驶超过小汽车在高速公里以在高外的道路上行驶超过50%</p>
+                <p class="reason">{{item.vioaction}}</p>
               </li>
               <li class="clearfix">
                 <label>违章处罚:</label>
-                <p class="penalty">扣6分，罚款500元</p>
-              </li>
-            </ul>
-            <ul>
-              <li>
-                <span>2</span>
-                <label>违章原因:</label>
-                <p class="reason">驾驶驾驶小汽车在高速公里以外的道路上行驶超过小汽车在高速公里以在高外的道路上行驶超过50%</p>
-              </li>
-              <li class="clearfix">
-                <label>违章处罚:</label>
-                <p class="penalty">扣6分，罚款500元</p>
+                <p class="penalty">扣{{item.vioscore}}分，罚款{{item.viomoney}}元</p>
               </li>
             </ul>
           </div>
@@ -289,16 +321,18 @@
         activeNames: ['1'],
         order_id: "",
         reportDetails: "",
-
+        isViolation: true,
+        violationInfo: "",
+        kilometreInfo: ""
       }
     },
     created() {
     },
     mounted() {
-      this.drawLine();
       this.order_id = JSON.parse(localStorage.getItem("vehicleConditionSingleOrder")).order_id;
-      this.getReportDetails()
-
+      this.getReportDetails();
+      //生成echarts写在最下面，防止报错“Echarts的图形容器还未生成就对其进行了初始化”
+      this.drawLine();
     },
     watch: {},
     computed: {},
@@ -308,27 +342,35 @@
       },
       drawLine(){
         // 基于准备好的dom，初始化echarts实例
-        let myChart = this.$echarts.init(document.getElementById('myChart'));
+        //var bar_dv = document.getElementById('bar_dv');
+        var bar_dv = this.$refs.chart;
         // 绘制图表
-        myChart.setOption({
-          title: { text: '里程（万KM）' },
-          /*tooltip: {},*/
-          xAxis: {
-            data: ["2012","2013","2014","2015","2016","2017"]
-          },
-          yAxis: {},
-          series: [
-            {
-              name: '里程',
-              type: 'line',
-              data: [5, 20, 36, 10, 10, 20]
+        if (bar_dv) {
+          console.log('bar_dv不为空');
+          let myChart = this.$echarts.init(bar_dv);
+          myChart.setOption({
+            title: { text: '里程（万KM）' },
+            /*tooltip: {},*/
+            xAxis: {
+              data: ["2012","2013","2014","2015","2016","2017"]
             },
-            {
-              name: '里程2',
-              type: 'line',
-              data: [2, 14, 20, 19, 32, 36]
-            }]
-        });
+            yAxis: {},
+            series: [
+              {
+                name: '里程',
+                type: 'line',
+                data: [5, 20, 36, 10, 10, 20]
+              },
+              {
+                name: '里程2',
+                type: 'line',
+                data: [2, 14, 20, 19, 32, 36]
+              }]
+          });
+        } else {
+          console.log('bar_dv为空!');
+        }
+
       },
       getReportDetails(){
         this.$axios({
@@ -336,11 +378,19 @@
           url: `${this.$baseURL}/v1/golo-report/repair/${this.order_id}`
         }).then(res => {
           let reportDetails = res.data.data;
-          //reportDetails.created_at = this.$utils.formatDate(new Date(reportDetails.created_at), "yyyy-MM-dd hh:mm:ss");
-          //.updated_at = this.$utils.formatDate(new Date(reportDetails.updated_at), "yyyy-MM-dd hh:mm:ss");
-
+          reportDetails.repair.updated_at = this.$utils.formatDate(new Date(reportDetails.repair.updated_at), "yyyy-MM-dd hh:mm:ss");
+          //车辆信息
           this.reportDetails = reportDetails;
+          //违章信息
+          if (reportDetails.violation){
+            this.violationInfo = reportDetails.violation
+          } else {
+            this.violationInfo = []
+          }
+          //里程信息
+          this.kilometreInfo = reportDetails.nromal_repair_detail.reverse();
 
+          console.log(this.kilometreInfo)
           console.log(this.reportDetails)
 
         }).catch(error => {

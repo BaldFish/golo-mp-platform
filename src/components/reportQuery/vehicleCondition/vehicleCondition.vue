@@ -102,7 +102,7 @@
         </div>
       </section>
     </section>
-    
+
     <section class="sec-notice">
       <div class="sec-notice-container">
         <div class="report-title">
@@ -153,14 +153,13 @@
         carFrame: '',
         //timeOut:"",
         centerDialogVisible: false,
-        
-        txtboardshow: false,
-        numboardshow: false,
-        cartxt: [
-          ['京', '津', '渝', '沪', '冀', '晋', '辽', '吉', '黑', '苏'],
-          ['浙', '皖', '闽', '赣', '鲁', '豫', '鄂', '湘', '粤', '琼'],
-          ['川', '贵', '云', '陕', '甘', '青', '蒙', '桂', '宁', '新'],
-          ['藏', '使', '领', '警', '学', '港', '澳']
+        txtboardshow:false,
+        numboardshow:false,
+        cartxt:[
+          ['京','津','渝','沪','冀','晋','辽','吉','黑','苏'],
+          ['浙','皖','闽','赣','鲁','豫','鄂','湘','粤','琼'],
+          ['川','贵','云','陕','甘','青','蒙','桂','宁','新'],
+          ['藏','使','领','警','学','港','澳']
         ],
         numtxt: [
           ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
@@ -180,7 +179,28 @@
         that.isHidden = true;
       }, 1000 * 20);
     },
-    watch: {},
+    watch: {
+      'carFrame': function(val){
+        if (!/^[0-9A-Za-z]+$/.test(val)){
+          this.errorMessage="车架号码不可输入特殊字符";
+          this.errorTip=true;
+          let that=this;
+          window.setTimeout(function () {
+            that.errorTip=false;
+          },1000);
+        }
+      },
+      'engineNumber': function(val){
+        if (!/^[0-9A-Za-z]+$/.test(val)){
+          this.errorMessage="发动机号不可输入特殊字符";
+          this.errorTip=true;
+          let that=this;
+          window.setTimeout(function () {
+            that.errorTip=false;
+          },1000);
+        }
+      },
+    },
     computed: {
       //车架号转换
       carFrameNum: {
