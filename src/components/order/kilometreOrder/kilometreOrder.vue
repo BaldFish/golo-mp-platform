@@ -33,7 +33,9 @@
     <section class="none-order" v-else>
       <img src="@/common/images/empty.png" alt="">
       <p>暂无查里程订单</p>
-      <input type="button" value="新建订单">
+      <router-link to="/reportQuery/kilometre">
+        <input type="button" value="新建订单">
+      </router-link>
     </section>
   </div>
 </template>
@@ -64,6 +66,9 @@
     },
     beforeMount() {
       this.userId = this.$utils.getCookie("userId");
+      if (!this.userId) {
+        this.$router.push('/login');
+      }
       this.getOrderList();
     },
     watch: {},
@@ -134,7 +139,7 @@
         }else{
           onBridgeReady(requiredParameter);
         }
-    
+
       },
       tabChange(index){
         this.nowIndex = index;

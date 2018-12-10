@@ -40,10 +40,12 @@
       </div>
       <input class="submit" type="button" value="查询最新" @click="routerToReport(item)">
     </section>
-    <section class="none-order" v-else>
+    <section class="none-order" v-if="!isData">
       <img src="@/common/images/empty.png" alt="">
       <p>暂无查违章记录</p>
-      <input type="button" value="开始查询">
+      <router-link to="/reportQuery/violation">
+        <input type="button" value="开始查询">
+      </router-link>
     </section>
   </div>
 </template>
@@ -59,6 +61,12 @@
       }
     },
     created() {
+    },
+    beforeMount() {
+      let userId = this.$utils.getCookie("userId");
+      if (!userId) {
+        this.$router.push('/login');
+      }
     },
     mounted() {
       this.userId = this.$utils.getCookie("userId");
