@@ -725,8 +725,9 @@
       
       img {
         display inline-block
-        width 431px
-        height 296px
+        width 100% !important
+        // width 431px
+        // height 296px
       }
     }
   }
