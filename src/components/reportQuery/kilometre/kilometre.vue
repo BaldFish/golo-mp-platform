@@ -39,7 +39,7 @@
             <li class="engine-li">
               <label>发动机号</label>
               <input type="text" placeholder="请输入发动机号" v-model="engineNumber">
-              <img src="@/common/images/help_2.png" alt=""  @click="centerDialogVisible = true">
+              <img src="@/common/images/help_2.png" alt="" @click="centerDialogVisible = true">
             </li>
           </ul>
         </div>
@@ -80,13 +80,13 @@
     components: {},
     data() {
       return {
-        plate:'京',
+        plate: '京',
         plateNum: '',
-        engineCode:"",
-        carType:"02",
-        errorMessage:"",//错误提示信息
-        errorTip:false,//提示框显示、隐藏
-        checked:"",
+        engineCode: "",
+        carType: "02",
+        errorMessage: "",//错误提示信息
+        errorTip: false,//提示框显示、隐藏
+        checked: "",
         isHidden: false,
         carFrame: '',
         centerDialogVisible: false,
@@ -114,11 +114,11 @@
         }
       },
       //车牌号转换
-      plateNumber:function () {
-        return (this.plate+this.plateNum)
+      plateNumber: function () {
+        return (this.plate + this.plateNum)
       },
       //发动机号转换
-      engineNumber:{
+      engineNumber: {
         get: function () {
           return this.engineCode;
         },
@@ -129,53 +129,57 @@
     },
     methods: {
       //跳转免责声明
-      turnDisclaimer(){
+      turnDisclaimer() {
         this.$router.push('/disclaimer')
       },
       //校验
-      verify(orderType,carType){
-        let userId=this.$utils.getCookie("userId");
-        let token=this.$utils.getCookie("token");
-        let car_type="";
-        if(carType){
-          car_type=carType
-        }
-        let verifyData = {
-          user_id: userId,//用户ID
-          vin: this.carFrameNum,//车架号
-          plat_num: this.plateNumber, //车牌号
-          engine_no: this.engineNumber, //发动机号
-          order_type: orderType, //查询类型1-维保 2-里程 3-估价 4-违章
-          car_type: car_type,//维保跟估价必传  01-大型车  02-小型车
-        };
-        this.$axios({
-          method: 'POST',
-          url: `${this.$baseURL}/v1/golo-order/check`,
-          data: this.$querystring.stringify(verifyData),
-          headers: {
-            'X-Access-Token':`${token}`,
+      verify(orderType, carType) {
+        let userId = this.$utils.getCookie("userId");
+        let token = this.$utils.getCookie("token");
+        if (token) {
+          let car_type = "";
+          if (carType) {
+            car_type = carType
           }
-        }).then(res => {
-          if(this.checked){
-            window.localStorage.setItem("kilometreVerifyData", JSON.stringify(verifyData));
-            this.$router.push('/submitKilometre')
-          }else{
-            this.errorMessage="免责声明未选中";
-            this.errorTip=true;
-            let that=this;
+          let verifyData = {
+            user_id: userId,//用户ID
+            vin: this.carFrameNum,//车架号
+            plat_num: this.plateNumber, //车牌号
+            engine_no: this.engineNumber, //发动机号
+            order_type: orderType, //查询类型1-维保 2-里程 3-估价 4-违章
+            car_type: car_type,//维保跟估价必传  01-大型车  02-小型车
+          };
+          this.$axios({
+            method: 'POST',
+            url: `${this.$baseURL}/v1/golo-order/check`,
+            data: this.$querystring.stringify(verifyData),
+            headers: {
+              'X-Access-Token': `${token}`,
+            }
+          }).then(res => {
+            if (this.checked) {
+              window.localStorage.setItem("kilometreVerifyData", JSON.stringify(verifyData));
+              this.$router.push('/submitKilometre')
+            } else {
+              this.errorMessage = "免责声明未选中";
+              this.errorTip = true;
+              let that = this;
+              window.setTimeout(function () {
+                that.errorTip = false;
+              }, 1000);
+            }
+          }).catch(error => {
+            console.log(error.response);
+            this.errorMessage = error.response.data.message;
+            this.errorTip = true;
+            let that = this;
             window.setTimeout(function () {
-              that.errorTip=false;
-            },1000);
-          }
-        }).catch(error => {
-          console.log(error.response);
-          this.errorMessage=error.response.data.message;
-          this.errorTip=true;
-          let that=this;
-          window.setTimeout(function () {
-            that.errorTip=false;
-          },1000);
-        })
+              that.errorTip = false;
+            }, 1000);
+          })
+        }else{
+          this.$router.push('/login')
+        }
       },
       closeNotice() {
         this.isHidden = true;
@@ -192,6 +196,7 @@
     border-radius: 30px;
     margin: 0 auto;
     position relative
+    
     .camera-notice {
       font-size: 20px; /*px*/
       color: #333333;
@@ -259,17 +264,19 @@
             float right
             border-left 1px solid #bfbfbf; /*no*/
             margin-right 20px
-            label{
+            
+            label {
               input {
                 display none
               }
+              
               img {
                 width: 46px;
                 height: 36px;
                 margin-left 32px
               }
             }
-  
+            
           }
         }
         
@@ -387,13 +394,14 @@
         }
       }
     }
-    .errorTip{
+    
+    .errorTip {
       box-sizing border-box
       width 280px;
       padding 20px 30px
       background-color #000000
       opacity 0.7
-      font-size 26px;/*px*/
+      font-size 26px; /*px*/
       color #ffffff
       border-radius 30px
       text-align center
@@ -454,22 +462,24 @@
   }
 </style>
 <style lang="stylus">
-  .fadongji{
+  .fadongji {
     width 492px
     height 360px
     box-sizing border-box
     padding 30px
     border-radius 30px
     
-    .el-dialog__header{
+    .el-dialog__header {
       display none
     }
-    .el-dialog__body{
+    
+    .el-dialog__body {
       margin 0
       padding 0
       text-align center
       font-size 0
-      img{
+      
+      img {
         display inline-block
         width 431px
         height 296px

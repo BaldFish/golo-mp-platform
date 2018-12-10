@@ -213,46 +213,50 @@
       verify(orderType,carType){
         let userId=this.$utils.getCookie("userId");
         let token=this.$utils.getCookie("token");
-        let car_type="";
-        if(carType){
-          car_type=carType
-        }
-        let verifyData = {
-          user_id: userId,//用户ID
-          vin: this.carFrameNum,//车架号
-          plat_num: this.plateNumber, //车牌号
-          engine_no: this.engineNumber, //发动机号
-          order_type: orderType, //查询类型1-维保 2-里程 3-估价 4-违章
-          car_type: car_type,//维保跟估价必传  01-大型车  02-小型车
-        };
-        this.$axios({
-          method: 'POST',
-          url: `${this.$baseURL}/v1/golo-order/check`,
-          data: this.$querystring.stringify(verifyData),
-          headers: {
-            'X-Access-Token':`${token}`,
+        if(token){
+          let car_type="";
+          if(carType){
+            car_type=carType
           }
-        }).then(res => {
-          if(this.checked){
-            window.localStorage.setItem("vehicleConditionVerifyData", JSON.stringify(verifyData));
-            this.$router.push('/submitVehicleCondition')
-          }else{
-            this.errorMessage="免责声明未选中";
+          let verifyData = {
+            user_id: userId,//用户ID
+            vin: this.carFrameNum,//车架号
+            plat_num: this.plateNumber, //车牌号
+            engine_no: this.engineNumber, //发动机号
+            order_type: orderType, //查询类型1-维保 2-里程 3-估价 4-违章
+            car_type: car_type,//维保跟估价必传  01-大型车  02-小型车
+          };
+          this.$axios({
+            method: 'POST',
+            url: `${this.$baseURL}/v1/golo-order/check`,
+            data: this.$querystring.stringify(verifyData),
+            headers: {
+              'X-Access-Token':`${token}`,
+            }
+          }).then(res => {
+            if(this.checked){
+              window.localStorage.setItem("vehicleConditionVerifyData", JSON.stringify(verifyData));
+              this.$router.push('/submitVehicleCondition')
+            }else{
+              this.errorMessage="免责声明未选中";
+              this.errorTip=true;
+              let that=this;
+              window.setTimeout(function () {
+                that.errorTip=false;
+              },1000);
+            }
+          }).catch(error => {
+            console.log(error);
+            this.errorMessage=error.response.data.message;
             this.errorTip=true;
             let that=this;
             window.setTimeout(function () {
               that.errorTip=false;
             },1000);
-          }
-        }).catch(error => {
-          console.log(error);
-          this.errorMessage=error.response.data.message;
-          this.errorTip=true;
-          let that=this;
-          window.setTimeout(function () {
-            that.errorTip=false;
-          },1000);
-        })
+          })
+        }else{
+          this.$router.push('/login')
+        }
       },
       closeNotice() {
         this.isHidden = true;
