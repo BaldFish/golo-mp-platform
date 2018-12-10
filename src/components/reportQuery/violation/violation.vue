@@ -79,6 +79,7 @@
 
 <script>
   export default {
+    inject: ['reload'],
     name: "violation",
     components: {},
     data() {

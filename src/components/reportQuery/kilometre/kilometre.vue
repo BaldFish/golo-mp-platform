@@ -76,6 +76,7 @@
 
 <script>
   export default {
+    inject: ['reload'],
     name: "kilometre",
     components: {},
     data() {
