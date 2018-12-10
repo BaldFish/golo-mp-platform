@@ -15,7 +15,7 @@
             </div>
             <div class="camera-box">
               <label>
-                <input type="file" accept="image/*">
+                <input type="file" accept="image/*" @change="uploadPhoto($event)">
                 <img src="@/common/images/paizhao.png" alt="">
               </label>
             </div>
@@ -147,7 +147,7 @@
         carType:"02",
         errorMessage:"",//错误提示信息
         errorTip:false,//提示框显示、隐藏
-        checked:"",
+        checked:true,
         isHidden: false,
         carFrame: '',
         //timeOut:"",
@@ -205,6 +205,34 @@
       }
     },
     methods: {
+      //上传图片获取车架号
+      uploadPhoto(e){
+        let file = e.target.files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = function () {
+          let dataURL = reader.result;
+          let token=this.$utils.getCookie("token");
+          let img={};
+          img.img=dataURL;
+          if(token){
+            this.$axios({
+              method: 'POST',
+              url: `${this.$baseURL}/v1/launchain/ocr`,
+              data: this.$querystring.stringify(img),
+              headers: {
+                'X-Access-Token':`${token}`,
+              }
+            }).then(res=>{
+              console.log(res.data)
+            }).catch(error=>{
+              console.log(error)
+            })
+          }else{
+            this.$router.push('/login')
+          }
+        };
+      },
       //跳转免责声明
       turnDisclaimer(){
         this.$router.push('/disclaimer')

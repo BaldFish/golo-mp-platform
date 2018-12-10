@@ -89,7 +89,7 @@
         carType: "02",
         errorMessage: "",//错误提示信息
         errorTip: false,//提示框显示、隐藏
-        checked: "",
+        checked: true,
         isHidden: false,
         carFrame: '',
         centerDialogVisible: false,
