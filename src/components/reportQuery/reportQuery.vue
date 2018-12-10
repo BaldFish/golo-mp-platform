@@ -1,7 +1,7 @@
 <template>
   <div class="reportQuery">
     <div class="swiper_wrap">
-      <wc-swiper class="swiper" :duration="500" :interval="2500" :autoplay="true" :therehold="100" :curSlide="0" :pagination="true">
+      <wc-swiper class="swiper" :duration="500" :interval="2500" :therehold="100" :curSlide="0" :pagination="true">
         <wc-slide v-for="(slide, key) in slides" :key="key" v-if="slides.length">
           <img :src="slide.url" alt="">
         </wc-slide>

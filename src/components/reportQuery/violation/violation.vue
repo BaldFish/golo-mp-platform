@@ -15,7 +15,7 @@
             </div>
             <div class="camera-box">
               <label>
-                <input type="file" accept="image/*">
+                <input type="file" accept="image/*"  @change="uploadPhoto($event)">
                 <img src="@/common/images/paizhao.png" alt="">
               </label>
             </div>
@@ -131,6 +131,44 @@
       }
     },
     methods: {
+      //上传图片获取车架号
+      uploadPhoto(e) {
+        let that = this;
+        let token = that.$utils.getCookie("token");
+        let userId = that.$utils.getCookie("userId");
+        if (token) {
+          let file = e.target.files[0];
+          let reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onloadend = function () {
+            let dataURL = reader.result;
+            dataURL = dataURL.substring(dataURL.search(/,/) + 1);
+            let imgData = {};
+            imgData.user_id = "userId";
+            imgData.img = dataURL;
+            that.$axios({
+              method: 'POST',
+              url: `${that.$baseURL}/v1/launchain/ocr/vin`,
+              data: that.$querystring.stringify(imgData),
+              headers: {
+                'X-Access-Token': `${token}`,
+              }
+            }).then(res => {
+              that.carFrameNum = res.data.data.car_vin
+            }).catch(error => {
+              that.errorMessage = error.response.data.message;
+              that.errorTip = true;
+              window.setTimeout(function () {
+                that.errorTip = false;
+                that.reload();
+              }, 1000);
+            })
+          };
+        } else {
+          this.$router.push('/login')
+        }
+    
+      },
       //跳转免责声明
       turnDisclaimer(){
         this.$router.push('/disclaimer')
