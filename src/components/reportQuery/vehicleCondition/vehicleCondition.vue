@@ -792,18 +792,18 @@
     height 360px
     box-sizing border-box
     padding 30px
+    -webkit-appearance:none;
     border-radius 30px
     
     .el-dialog__header {
       display none
     }
-    
     .el-dialog__body {
+      width 100%
       margin 0
       padding 0
       text-align center
       font-size 0
-      
       img {
         display inline-block
         width 431px
