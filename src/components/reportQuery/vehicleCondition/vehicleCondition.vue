@@ -791,9 +791,9 @@
     width 491px !important
     height 356px !important
     box-sizing border-box
-    padding 30px
+    padding 30px 
     -webkit-appearance:none;
-    border-radius 30px
+    border-radius 30px !important
     text-align center
     .el-dialog__header {
       display none
