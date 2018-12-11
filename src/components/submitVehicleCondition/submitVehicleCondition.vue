@@ -194,7 +194,7 @@
                   that.$router.push('/order/vehicleConditionOrder')
                 },3000);
               }else{
-                that.errorMessage="支付失败";
+                that.errorMessage="订单支付失败";
                 that.errorTip=true;
                 window.setTimeout(function () {
                   that.errorTip=false;
