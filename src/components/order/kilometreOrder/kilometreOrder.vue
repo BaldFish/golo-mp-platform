@@ -20,10 +20,10 @@
             <div class="order-time">
               <p><label>订单时间：</label>{{item.created_at}}</p>
               <a href="javascript:void(0)" v-if="item.order_status == '查询成功'" @click.stop="routerToReport(item)">
-                <span class="to-report">查看里程报告&nbsp;》</span>
+                <span class="to-report">查看里程报告&nbsp;></span>
               </a>
               <a href="javascript:void(0)" v-if="item.order_status == '待支付'">
-                <span class="to-report"  @click.stop="submitOrder(item.order_id)">去支付&nbsp;》</span>
+                <span class="to-report to-pay"  @click.stop="submitOrder(item.order_id)">去支付&nbsp;></span>
               </a>
             </div>
           </div>
@@ -230,6 +230,9 @@
       background-color: #5226f3;
       color #ffffff
       border: none
+      p{
+        font-weight bold
+      }
     }
   }
   .car-condition-list{
@@ -251,6 +254,7 @@
         padding-right 6px
         p:nth-child(1){
           float left
+          font-weight bold
         }
         p:nth-child(2){
           float right
@@ -276,9 +280,16 @@
             margin-top 35px
             font-size: 24px; /*px*/
             color: #333333;
+            .to-pay{
+              font-weight bold
+              color red
+            }
           }
         }
       }
+    }
+    li:last-child{
+      margin-bottom 150px
     }
   }
   .none-order{
