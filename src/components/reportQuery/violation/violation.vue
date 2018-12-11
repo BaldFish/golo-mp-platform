@@ -15,7 +15,7 @@
             </div>
             <div class="camera-box">
               <label>
-                <input type="file" accept="image/*"  @change="uploadPhoto($event)">
+                <input type="file" accept="image/*"  @click="uploadPhoto($event)">
                 <img src="@/common/images/paizhao.png" alt="">
               </label>
             </div>
@@ -140,37 +140,50 @@
         let token = that.$utils.getCookie("token");
         let userId = that.$utils.getCookie("userId");
         if (token) {
-          let file = e.target.files[0];
-          let reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onloadend = function () {
-            let dataURL = reader.result;
-            dataURL = dataURL.substring(dataURL.search(/,/) + 1);
-            let imgData = {};
-            imgData.user_id = "userId";
-            imgData.img = dataURL;
-            that.$axios({
-              method: 'POST',
-              url: `${that.$baseURL}/v1/launchain/ocr/vin`,
-              data: that.$querystring.stringify(imgData),
-              headers: {
-                'X-Access-Token': `${token}`,
-              }
-            }).then(res => {
-              that.carFrameNum = res.data.data.car_vin
-            }).catch(error => {
-              that.errorMessage = error.response.data.message;
+          e.target.addEventListener("change", function () {
+            let file = e.target.files[0];
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            let fileSize = Math.round(file.size / 1024 / 1024);
+            e.target.value = "";
+            if (fileSize > 1) {
+              that.errorMessage = "图片大小不能超过1M";
               that.errorTip = true;
               window.setTimeout(function () {
                 that.errorTip = false;
-                that.reload();
+                //that.reload();
               }, 2000);
-            })
-          };
+            } else {
+              reader.onloadend = function () {
+                let dataURL = reader.result;
+                dataURL = dataURL.substring(dataURL.search(/,/) + 1);
+                let imgData = {};
+                imgData.user_id = "userId";
+                imgData.img = dataURL;
+                that.$axios({
+                  method: 'POST',
+                  url: `${that.$baseURL}/v1/launchain/ocr/vin`,
+                  data: that.$querystring.stringify(imgData),
+                  headers: {
+                    'X-Access-Token': `${token}`,
+                  }
+                }).then(res => {
+                  that.carFrameNum = res.data.data.car_vin
+                }).catch(error => {
+                  that.errorMessage = error.response.data.message;
+                  that.errorTip = true;
+                  window.setTimeout(function () {
+                    that.errorTip = false;
+                    that.reload();
+                  }, 2000);
+                })
+              };
+            }
+          })
         } else {
+          e.preventDefault();
           this.$router.push('/login')
         }
-    
       },
       //跳转免责声明
       turnDisclaimer(){
