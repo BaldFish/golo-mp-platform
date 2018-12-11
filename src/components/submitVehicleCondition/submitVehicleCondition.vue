@@ -32,7 +32,7 @@
           <i></i>
           <span>标准版<span>(车况分析,里程分析)</span></span>
         </label>
-        <span class="fr">5元</span>
+        <span class="fr">8元</span>
       </p>
       <p class="clearfix">
         <label>
@@ -66,7 +66,9 @@
         <span>提交订单</span>
       </p>
     </div>
-    <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
+    <div class="errorTip_wrap" >
+      <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
+    </div>
   </div>
 </template>
 
@@ -78,7 +80,7 @@
       return {
         errorMessage:"",//错误提示信息
         errorTip:false,//提示框显示、隐藏
-        version: "0",
+        version: "",
         carInfo:{},
       }
     },
@@ -108,34 +110,41 @@
     methods: {
       //创建订单成功后提交订单
       createOrder(){
-        let token=this.$utils.getCookie("token");
-        let openId=this.$utils.getCookie("openId");
-        let createOrderData = this.carInfo;
-        createOrderData.report_type=this.version;
-        createOrderData.pay_type=1;
-        createOrderData.openid=openId;
-        this.$axios({
-          method: 'POST',
-          url: `${this.$baseURL}/v1/golo-order`,
-          data: this.$querystring.stringify(createOrderData),
-          headers:{
-            'X-Access-Token': token,
-          },
-        }).then(res => {
-          console.log(res.data);
-          let orderNum={};
-          orderNum.order_id=res.data.data.order_id;
-          this.submitOrder(orderNum);
-          //this.$router.push('/submitVehicleCondition')
-        }).catch(error => {
-          console.log(error);
-          /*this.errorMessage=error.response.data.code;
+        if(this.version!==""){
+          let token=this.$utils.getCookie("token");
+          let openId=this.$utils.getCookie("openId");
+          let createOrderData = this.carInfo;
+          createOrderData.report_type=this.version;
+          createOrderData.pay_type=1;
+          createOrderData.openid=openId;
+          this.$axios({
+            method: 'POST',
+            url: `${this.$baseURL}/v1/golo-order`,
+            data: this.$querystring.stringify(createOrderData),
+            headers:{
+              'X-Access-Token': token,
+            },
+          }).then(res => {
+            let orderNum={};
+            orderNum.order_id=res.data.data.order_id;
+            this.submitOrder(orderNum);
+          }).catch(error => {
+            console.log(error);
+            /*this.errorMessage=error.response.data.code;
+            this.errorTip=true;
+            let that=this;
+            window.setTimeout(function () {
+              that.errorTip=false;
+            },2000);*/
+          })
+        }else{
+          this.errorMessage="请选择服务报告版本";
           this.errorTip=true;
           let that=this;
           window.setTimeout(function () {
             that.errorTip=false;
-          },1000);*/
-        })
+          },2000);
+        }
       },
       //提交订单
       submitOrder(orderNum){
@@ -156,7 +165,7 @@
           let that=this;
           window.setTimeout(function () {
             that.errorTip=false;
-          },1000);*/
+          },2000);*/
         })
       },
       //支付订单
@@ -185,7 +194,7 @@
                 let that=this;
                 window.setTimeout(function () {
                   that.errorTip=false;
-                },1000);
+                },2000);
               }
             });
         }
@@ -212,7 +221,6 @@
 <style scoped lang="stylus">
   .submitVehicleCondition {
     width 750px
-    position relative
     .carTittle {
       padding 25px
       background-color #ffffff
@@ -415,20 +423,24 @@
       }
     }
     
-    .errorTip{
-      box-sizing border-box
-      width 280px;
-      padding 20px 30px
-      background-color #000000
-      opacity 0.7
-      font-size 26px;/*px*/
-      color #ffffff
-      border-radius 30px
+    .errorTip_wrap{
+      width 100%
       text-align center
-      position absolute
-      top 30%
-      left 50%
-      margin-left -140px
+      font-size 0
+      position fixed
+      top 50%
+      .errorTip{
+        display inline-block
+        box-sizing border-box
+        line-height 1.6
+        max-width 520px;
+        padding 20px 30px
+        background-color #000000
+        opacity 0.7
+        font-size 26px;/*px*/
+        color #ffffff
+        border-radius 30px
+      }
     }
   }
 </style>

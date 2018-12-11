@@ -53,7 +53,6 @@
         </div>
         <div style="clear: both"></div>
       </div>
-      <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
     </section>
     <section class="sec-notice">
       <div class="sec-notice-container">
@@ -71,6 +70,9 @@
     <el-dialog top="35vh" :visible.sync="centerDialogVisible" center :show-close="false" custom-class="fadongji">
       <img src="@/common/images/fadongji.png" alt="">
     </el-dialog>
+    <div class="errorTip_wrap" >
+      <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
+    </div>
   </div>
 </template>
 
@@ -159,7 +161,7 @@
               window.setTimeout(function () {
                 that.errorTip = false;
                 that.reload();
-              }, 1000);
+              }, 2000);
             })
           };
         } else {
@@ -200,21 +202,20 @@
               window.localStorage.setItem("kilometreVerifyData", JSON.stringify(verifyData));
               this.$router.push('/submitKilometre')
             } else {
-              this.errorMessage = "免责声明未选中";
+              this.errorMessage = "请勾选免责声明";
               this.errorTip = true;
               let that = this;
               window.setTimeout(function () {
                 that.errorTip = false;
-              }, 1000);
+              }, 2000);
             }
           }).catch(error => {
-            console.log(error.response);
             this.errorMessage = error.response.data.message;
             this.errorTip = true;
             let that = this;
             window.setTimeout(function () {
               that.errorTip = false;
-            }, 1000);
+            }, 2000);
           })
         }else{
           this.$router.push('/login')
@@ -234,7 +235,6 @@
     box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.09);
     border-radius: 30px;
     margin: 0 auto;
-    position relative
     
     .camera-notice {
       font-size: 20px; /*px*/
@@ -434,21 +434,6 @@
       }
     }
     
-    .errorTip {
-      box-sizing border-box
-      width 280px;
-      padding 20px 30px
-      background-color #000000
-      opacity 0.7
-      font-size 26px; /*px*/
-      color #ffffff
-      border-radius 30px
-      text-align center
-      position absolute
-      top 30%
-      left 50%
-      margin-left -140px
-    }
   }
   
   .sec-notice {
@@ -499,6 +484,25 @@
     font-size: 30px; /*px*/
     color #333333
   }
+  .errorTip_wrap{
+    width 100%
+    text-align center
+    font-size 0
+    position fixed
+    top 50%
+    .errorTip{
+      display inline-block
+      box-sizing border-box
+      line-height 1.6
+      max-width 520px;
+      padding 20px 30px
+      background-color #000000
+      opacity 0.7
+      font-size 26px;/*px*/
+      color #ffffff
+      border-radius 30px
+    }
+  }
 </style>
 <style lang="stylus">
   .fadongji {
@@ -507,7 +511,7 @@
     box-sizing border-box
     padding 30px
     -webkit-appearance:none;
-    border-radius 30px
+    border-radius 30px !important
     text-align center
     .el-dialog__header {
       display none

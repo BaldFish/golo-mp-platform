@@ -87,7 +87,6 @@
             'X-Access-Token': token,
           },
         }).then(res => {
-          console.log(res.data.data.prepay_info);
           let requiredParameter=res.data.data.prepay_info;
           this.payOrder(requiredParameter);
         }).catch(error => {
@@ -96,7 +95,7 @@
           let that=this;
           window.setTimeout(function () {
             that.errorTip=false;
-          },1000);*/
+          },2000);*/
         })
       },
       //支付订单
@@ -124,7 +123,7 @@
                 let that=this;
                 window.setTimeout(function () {
                   that.errorTip=false;
-                },1000);
+                },2000);
               }
             });
         }

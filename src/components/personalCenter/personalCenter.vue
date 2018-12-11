@@ -5,7 +5,7 @@
       <!--<span class="user-tab" @click="tabAccount">切换账户</span>-->
       <p class="user-phone clearfix">{{userPhone}}</p>
       <div class="user-account">
-        <div class="fl">
+        <div class="fl" @click="turnDiscountCoupon">
           <span>0张</span>
           <p>优惠券</p>
         </div>
@@ -56,8 +56,10 @@
           <input type="button" @click="closeModal" value="取消">
           <input type="button" value="确定" @click="login">
         </div>
-        <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
       </section>
+    </div>
+    <div class="errorTip_wrap" >
+      <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
     </div>
   </div>
 </template>
@@ -115,6 +117,10 @@
       }
     },
     methods: {
+      //跳转优惠券页面
+      turnDiscountCoupon(){
+        this.$router.push('/discountCoupon')
+      },
       //获取图形验证码
       getCaptcha() {
         this.$axios({
@@ -185,7 +191,7 @@
           let that = this;
           window.setTimeout(function () {
             that.errorTip = false;
-          }, 1000);
+          }, 2000);
         })
       },
       //获取车辆列表
@@ -233,9 +239,9 @@
   .personal-user {
     box-sizing border-box
     position relative
-    width: 670px;
-    height: 360px;
-    background url("../../common/images/personal_bg.png") no-repeat center
+    width: 674px;
+    height: 358px;
+    background url("../../common/images/login_bg.png") no-repeat center
     background-size 100% 100%
     margin: 0 auto
     margin-top 36px
@@ -381,7 +387,6 @@
     width: 100%;
     height: 560px;
     background-color #ffffff
-    position relative
     
     .modal-notice {
       text-align center
@@ -456,20 +461,24 @@
       }
     }
     
-    .errorTip {
+  }
+  .errorTip_wrap{
+    width 100%
+    text-align center
+    font-size 0
+    position fixed
+    top 50%
+    .errorTip{
+      display inline-block
       box-sizing border-box
-      width 280px;
+      line-height 1.6
+      max-width 520px;
       padding 20px 30px
       background-color #000000
       opacity 0.7
-      font-size 26px; /*px*/
+      font-size 26px;/*px*/
       color #ffffff
       border-radius 30px
-      text-align center
-      position absolute
-      top 50%
-      left 50%
-      margin-left -140px
     }
   }
 </style>

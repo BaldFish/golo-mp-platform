@@ -17,9 +17,10 @@
       </ul>
       <input class="submit" type="button" value="免注册登录" @click="login">
       <p class="login-notice">登录后可查看更多信息~</p>
-      <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
     </section>
-    
+    <div class="errorTip_wrap" >
+      <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
+    </div>
   </div>
 </template>
 
@@ -159,7 +160,7 @@
           let that=this;
           window.setTimeout(function () {
             that.errorTip=false;
-          },1000);
+          },2000);
         })
       },
     },
@@ -169,7 +170,6 @@
 <style scoped lang="stylus">
   .login{
     .login-container {
-      position relative
       width: 670px;
       height: 855px;
       background url("../../common/images/login_bg.png") no-repeat center
@@ -244,21 +244,25 @@
         color: #999999;
       }
     }
-    .errorTip{
-      box-sizing border-box
-      width 280px;
-      padding 20px 30px
-      background-color #000000
-      opacity 0.7
-      font-size 26px;/*px*/
-      color #ffffff
-      border-radius 30px
+    .errorTip_wrap{
+      width 100%
       text-align center
-      position absolute
+      font-size 0
+      position fixed
       top 50%
-      left 50%
-      margin-left -140px
+      .errorTip{
+        display inline-block
+        box-sizing border-box
+        line-height 1.6
+        max-width 520px;
+        padding 20px 30px
+        background-color #000000
+        opacity 0.7
+        font-size 26px;/*px*/
+        color #ffffff
+        border-radius 30px
+      }
     }
-  }
   
+  }
 </style>

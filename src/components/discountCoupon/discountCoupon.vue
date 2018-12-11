@@ -2,7 +2,7 @@
   <div class="discountCoupon">
     <section class="coupon-box">
       <input type="text" class="coupon-code" placeholder="请输入优惠券编码">
-      <input type="button" class="exchange" value="兑换">
+      <input type="button" class="exchange" value="兑换" @click="conversion">
     </section>
     <section class="coupon-tips">
       <ul>
@@ -20,6 +20,9 @@
         </li>
       </ul>
     </section>
+    <div class="errorTip_wrap" >
+      <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
+    </div>
   </div>
 </template>
 
@@ -29,7 +32,8 @@
     components: {},
     data() {
       return {
-
+        errorMessage:"",//错误提示信息
+        errorTip:false,//提示框显示、隐藏
       }
     },
     created() {
@@ -40,7 +44,15 @@
     watch: {},
     computed: {},
     methods: {
-
+      //兑换
+      conversion(){
+        this.errorMessage="兑换失败";
+        this.errorTip=true;
+        let that=this;
+        window.setTimeout(function () {
+          that.errorTip=false;
+        },2000);
+      }
     },
   }
 </script>
@@ -105,6 +117,25 @@
             font-size: 26px; /*px*/
           }
         }
+      }
+    }
+    .errorTip_wrap{
+      width 100%
+      text-align center
+      font-size 0
+      position fixed
+      top 50%
+      .errorTip{
+        display inline-block
+        box-sizing border-box
+        line-height 1.6
+        max-width 520px;
+        padding 20px 30px
+        background-color #000000
+        opacity 0.7
+        font-size 26px;/*px*/
+        color #ffffff
+        border-radius 30px
       }
     }
   }

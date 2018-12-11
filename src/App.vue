@@ -90,11 +90,11 @@
           this.$router.push('/order');
         } else if (index === 2) {
           let userId = this.$utils.getCookie("userId");
-          if (userId) {
+          /*if (userId) {*/
             this.$router.push('/personalCenter');
-          } else {
+          /*} else {
             this.$router.push('/login');
-          }
+          }*/
         }
       },
     }

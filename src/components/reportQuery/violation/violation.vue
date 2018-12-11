@@ -68,12 +68,14 @@
         </div>
         <div style="clear: both"></div>
       </div>
-      <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
     </section>
     <p class="cooperation">商务合作联系电话：010-13523333333</p>
     <el-dialog top="35vh" :visible.sync="centerDialogVisible" center :show-close="false" custom-class="fadongji">
       <img src="@/common/images/fadongji.png" alt="">
     </el-dialog>
+    <div class="errorTip_wrap" >
+      <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
+    </div>
   </div>
 </template>
 
@@ -162,7 +164,7 @@
               window.setTimeout(function () {
                 that.errorTip = false;
                 that.reload();
-              }, 1000);
+              }, 2000);
             })
           };
         } else {
@@ -203,12 +205,12 @@
               window.localStorage.setItem("violationVerifyData", JSON.stringify(verifyData));
               this.violationQuery();
             } else {
-              this.errorMessage = "免责声明未选中";
+              this.errorMessage = "请勾选免责声明";
               this.errorTip = true;
               let that = this;
               window.setTimeout(function () {
                 that.errorTip = false;
-              }, 1000);
+              }, 2000);
             }
           }).catch(error => {
             console.log(error.response);
@@ -217,7 +219,7 @@
             let that = this;
             window.setTimeout(function () {
               that.errorTip = false;
-            }, 1000);
+            }, 2000);
           })
         }else{
           this.$router.push('/login')
@@ -249,7 +251,7 @@
           let that=this;
           window.setTimeout(function () {
             that.errorTip=false;
-          },1000);*/
+          },2000);*/
         })
       },
       closeNotice() {
@@ -541,7 +543,7 @@
     box-sizing border-box
     padding 30px
     -webkit-appearance:none;
-    border-radius 30px
+    border-radius 30px !important
     text-align center
     .el-dialog__header {
       display none

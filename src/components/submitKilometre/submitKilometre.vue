@@ -62,7 +62,9 @@
         <span>提交订单</span>
       </p>
     </div>
-    <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
+    <div class="errorTip_wrap" >
+      <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
+    </div>
   </div>
 </template>
 
@@ -130,7 +132,7 @@
           let that=this;
           window.setTimeout(function () {
             that.errorTip=false;
-          },1000);*/
+          },2000);*/
         })
       },
       //提交订单
@@ -152,7 +154,7 @@
           let that=this;
           window.setTimeout(function () {
             that.errorTip=false;
-          },1000);*/
+          },2000);*/
         })
       },
       //支付订单
@@ -180,7 +182,7 @@
                 let that=this;
                 window.setTimeout(function () {
                   that.errorTip=false;
-                },1000);
+                },2000);
               }
             });
         }
@@ -348,20 +350,24 @@
       }
     }
   
-    .errorTip{
-      box-sizing border-box
-      width 280px;
-      padding 20px 30px
-      background-color #000000
-      opacity 0.7
-      font-size 26px;/*px*/
-      color #ffffff
-      border-radius 30px
+    .errorTip_wrap{
+      width 100%
       text-align center
-      position absolute
-      top 30%
-      left 50%
-      margin-left -140px
+      font-size 0
+      position fixed
+      top 50%
+      .errorTip{
+        display inline-block
+        box-sizing border-box
+        line-height 1.6
+        max-width 520px;
+        padding 20px 30px
+        background-color #000000
+        opacity 0.7
+        font-size 26px;/*px*/
+        color #ffffff
+        border-radius 30px
+      }
     }
   }
 </style>

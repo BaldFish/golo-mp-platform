@@ -38,14 +38,18 @@
 
 <style scoped lang="stylus">
   .disclaimer {
+    padding-left 22px
+    padding-right 22px
     p{
       color: #222222;
       font-size 30px;/*px*/
       line-height: 1.6;
+      text-align center
     }
     .content {
       margin-bottom 50px
       p {
+        text-align left
         color: #666666;
         font-size 24px;/*px*/
         line-height: 1.6;
