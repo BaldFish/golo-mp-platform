@@ -37,6 +37,9 @@
         <input type="button" value="新建订单">
       </router-link>
     </section>
+    <div class="errorTip_wrap" >
+      <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
+    </div>
   </div>
 </template>
 
@@ -46,6 +49,8 @@
     components: {},
     data() {
       return {
+        errorMessage:"",//错误提示信息
+        errorTip:false,//提示框显示、隐藏
         nowIndex: 0,
         tabsParam:[
           {text: "全部状态"},
@@ -335,4 +340,23 @@
   }
 }
 
+.errorTip_wrap{
+  width 100%
+  text-align center
+  font-size 0
+  position fixed
+  top 50%
+  .errorTip{
+    display inline-block
+    box-sizing border-box
+    line-height 1.6
+    max-width 520px;
+    padding 20px 30px
+    background-color #000000
+    opacity 0.7
+    font-size 26px;/*px*/
+    color #ffffff
+    border-radius 30px
+  }
+}
 </style>
