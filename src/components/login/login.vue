@@ -3,7 +3,7 @@
     <section class="login-container">
       <ul>
         <li>
-          <input type="text" placeholder="请输入手机号" v-model="phone">
+          <input type="text" placeholder="请输入手机号" v-model="phone" maxlength="11" @blur="checkPhone">
         </li>
         <li>
           <input type="text" placeholder="请输入验证码" v-model="captchaCode">
@@ -55,7 +55,38 @@
     },
     mounted() {
     },
-    watch: {},
+    watch: {
+      'phone': function(val){
+        if(val.length != 0){
+          if(val.slice(0,1) != 1){
+            this.errorMessage = "手机号首位只能输入1";
+            this.errorTip=true;
+            let that=this;
+            window.setTimeout(function () {
+              that.errorTip=false;
+            },2000);
+          }
+          if(!/^[0-9]+$/.test(val)){
+            this.errorMessage = "手机号不能输入特殊字符";
+            this.errorTip=true;
+            let that=this;
+            window.setTimeout(function () {
+              that.errorTip=false;
+            },2000);
+          }
+        }
+        if(val.length == 11){
+          if (!/^[1][3,4,5,7,8][0-9]{9}$/.test(val)){
+            this.errorMessage = "手机号格式不正确";
+            this.errorTip=true;
+            let that=this;
+            window.setTimeout(function () {
+              that.errorTip=false;
+            },2000);
+          }
+        }
+      },
+    },
     computed: {
       //计算设备ID
       deviceId() {
@@ -163,6 +194,19 @@
           },2000);
         })
       },
+      //校验手机号
+      checkPhone(){
+        if (this.phone){
+          if (!/^[1][3,4,5,7,8][0-9]{9}$/.test(this.phone)){
+            this.errorMessage = "手机号格式不正确";
+            this.errorTip=true;
+            let that=this;
+            window.setTimeout(function () {
+              that.errorTip=false;
+            },2000);
+          }
+        }
+      }
     },
   }
 </script>
@@ -176,23 +220,23 @@
       background-size 100% 100%
       margin: 0 auto
       margin-top 20px
-    
+
       ul {
         width 516px
         margin: 0 auto;
         padding-top: 250px;
-      
+
         li {
           border-bottom: solid 1px #bfbfbf; /*no*/
           font-size: 24px; /*px*/
-        
+
           input {
             margin-left 12px
             margin-bottom 20px
             margin-top 76px
             outline none
           }
-        
+
           img {
             width: 143px;
             height: 64px;
@@ -200,7 +244,7 @@
             margin-top 38px
             margin-right 12px
           }
-        
+
           div {
             float right
             width: 180px;
@@ -214,7 +258,7 @@
             margin-top 54px
             margin-right 12px
           }
-        
+
           .count_down {
             background-color: #7d7d7d;
             color: #ffffff;
@@ -222,7 +266,7 @@
           }
         }
       }
-    
+
       .submit {
         display block
         width: 300px;
@@ -235,7 +279,7 @@
         margin 0 auto
         margin-top 48px
       }
-    
+
       .login-notice {
         margin: 0 auto
         margin-top 20px
@@ -263,6 +307,6 @@
         border-radius 30px
       }
     }
-  
+
   }
 </style>
