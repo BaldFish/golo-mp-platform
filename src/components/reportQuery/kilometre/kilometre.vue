@@ -502,22 +502,22 @@
 </style>
 <style lang="stylus">
   .fadongji {
-    width 492px
-    height 360px
+    width 491px !important
+    height 356px !important
     box-sizing border-box
     padding 30px
+    -webkit-appearance:none;
     border-radius 30px
-    
+    text-align center
     .el-dialog__header {
       display none
     }
-    
     .el-dialog__body {
-      margin 0
-      padding 0
-      text-align center
-      font-size 0
-      
+      width 431px !important
+      height 296px !important
+      margin 0 !important
+      padding 0 !important
+      font-size 0 !important
       img {
         display inline-block
         width 431px
