@@ -705,32 +705,6 @@
     color #333333
   }
 </style>
-<style lang="stylus">
-  .fadongji {
-    width 492px
-    height 360px
-    box-sizing border-box
-    padding 30px
-    border-radius 30px
-    
-    .el-dialog__header {
-      display none
-    }
-    
-    .el-dialog__body {
-      margin 0
-      padding 0
-      text-align center
-      font-size 0
-      
-      img {
-        display inline-block
-        width 431px
-        height 296px
-      }
-    }
-  }
-</style>
 <style scoped lang="stylus">
   .pkey-contain {
     width 750px
@@ -808,6 +782,32 @@
             padding-left 36px
           }
         }
+      }
+    }
+  }
+</style>
+<style lang="stylus">
+  .fadongji {
+    width 492px
+    height 360px
+    box-sizing border-box
+    padding 30px
+    border-radius 30px
+    
+    .el-dialog__header {
+      display none
+    }
+    
+    .el-dialog__body {
+      margin 0
+      padding 0
+      text-align center
+      font-size 0
+      
+      img {
+        display inline-block
+        width 431px
+        height 296px
       }
     }
   }
