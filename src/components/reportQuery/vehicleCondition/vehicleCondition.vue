@@ -235,7 +235,6 @@
               that.errorTip = true;
               window.setTimeout(function () {
                 that.errorTip = false;
-                //that.reload();
               }, 2000);
             } else {
               reader.onloadend = function () {
@@ -258,7 +257,6 @@
                   that.errorTip = true;
                   window.setTimeout(function () {
                     that.errorTip = false;
-                    that.reload();
                   }, 2000);
                 })
               };
