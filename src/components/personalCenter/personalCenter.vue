@@ -241,7 +241,7 @@
     position relative
     width: 674px;
     height: 358px;
-    background url("../../common/images/login_bg.png") no-repeat center
+    background url("../../common/images/personal_bg.png") no-repeat center
     background-size 100% 100%
     margin: 0 auto
     margin-top 36px
