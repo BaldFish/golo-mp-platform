@@ -27,7 +27,7 @@
     data() {
       return {
         isRouterAlive: true,
-        myWidth: window.innerHeight
+        //myWidth: window.innerHeight
       }
     },
     beforeMount() {
@@ -35,7 +35,7 @@
     },
     mounted() {
       // 注：window.onresize只能在项目内触发1次
-      var height=window.innerHeight;
+      /*var height=window.innerHeight;
       window.onresize = function windowResize () {
         // 通过捕获系统的onresize事件触发我们需要执行的事件
         this.myWidth = window.innerHeight
@@ -44,7 +44,7 @@
         }else{
           document.querySelectorAll('#footer')[0].style="display:block"
         }
-      }
+      }*/
     },
     beforeUpdate() {
     },
