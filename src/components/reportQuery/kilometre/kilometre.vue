@@ -93,7 +93,7 @@
         </div>
         <div style="clear: both"></div>
         <div class="help-box">
-          <p>很抱歉，未能查询到您的车辆信息，请您保存好付款截图后添加客服“小轱辘”微信<span>（ID：dongcidaci8102）</span>进入退款流程。</p>
+          <p>如未能查询到您的车辆信息，请您保存好付款截图后添加客服“小轱辘”微信<span>（ID：dongcidaci8102）</span>进入退款流程。</p>
         </div>
       </div>
     </section>
