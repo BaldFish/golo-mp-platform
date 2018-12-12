@@ -21,7 +21,7 @@
     components: {},
     provide() {//回退刷新
       return {
-        reload: this.reload
+        reload: this.reload,
       }
     },
     data() {
@@ -36,7 +36,8 @@
     },
     beforeUpdate() {
     },
-    computed: {},
+    computed: {
+    },
     watch: {
       //监听路由变化执行方法
       $route(to, from) {

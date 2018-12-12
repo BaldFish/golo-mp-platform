@@ -89,6 +89,7 @@
       }
     },
     created() {
+      this.read();
     },
     beforeMount() {
       this.userId = this.$utils.getCookie("userId");
@@ -236,7 +237,6 @@
 
 <style scoped lang="stylus">
   .personalCenter{
-    padding-bottom 200px
     .personal-user {
       box-sizing border-box
       position relative

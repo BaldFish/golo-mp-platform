@@ -214,9 +214,9 @@
 <style scoped lang="stylus">
   .login{
     .login-container {
-      width: 670px;
-      height: 855px;
-      background url("../../common/images/login_bg.png") no-repeat center
+      width: 700px;
+      height: 878px;
+      background: url("../../common/images/login_bg.png") no-repeat center
       background-size 100% 100%
       margin: 0 auto
       margin-top 20px
