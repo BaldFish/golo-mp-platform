@@ -6,7 +6,7 @@
           <input type="text" placeholder="请输入手机号" v-model="phone" maxlength="11" @blur="checkPhone">
         </li>
         <li>
-          <input type="text" placeholder="请输入验证码" v-model="captchaCode">
+          <input type="text" placeholder="请输入验证码" v-model="captchaCode" class="msg-code">
           <img @click="getCaptcha" :src="captcha">
         </li>
         <li>
