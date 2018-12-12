@@ -296,7 +296,6 @@
       font-size: 20px; /*px*/
       color: #333333;
       text-align center
-      width: 270px;
       height: 65px;
       line-height 52px
       background url("../../common/images/one.png") no-repeat center
@@ -320,6 +319,7 @@
         float right
         margin-top 18px
         margin-right 14px
+        margin-left 14px
       }
     }
 
