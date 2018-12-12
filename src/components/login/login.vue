@@ -10,7 +10,7 @@
           <img @click="getCaptcha" :src="captcha">
         </li>
         <li>
-          <input type="text" placeholder="请输入短信验证码" v-model="phoneCode">
+          <input type="text" placeholder="请输入短信验证码" v-model="phoneCode" class="msg-code">
           <div class="get_code" @click="getPhoneCode" v-if="codeValue">获取验证码</div>
           <div class="count_down" v-else>倒计时（{{second}}）</div>
         </li>
@@ -45,12 +45,12 @@
     created() {
     },
     beforeMount() {
-      this.WXcode=this.getWXcode('code');
+      /*this.WXcode=this.getWXcode('code');
       if(this.WXcode===null||this.WXcode===""){
         let AppId="wx8ed85ed5c5f4ed96";
         let local=window.location.href;
         window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+AppId+"&redirect_uri="+encodeURIComponent(local)+"&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
-      }
+      }*/
       this.getCaptcha();
     },
     mounted() {
@@ -263,6 +263,10 @@
             background-color: #7d7d7d;
             color: #ffffff;
             border none
+          }
+
+          .msg-code{
+            width: 280px
           }
         }
       }
