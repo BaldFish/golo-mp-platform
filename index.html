@@ -19,5 +19,22 @@
 <body>
 <div id="app"></div>
 <!-- built files will be auto injected -->
+<!--<script>
+  //	监听window的resize事件，简单的讲就是在整个document的高度变化时将底部的footer隐藏掉
+  let oHeight = window.clientHeight; //屏幕当前的高度
+  console.log(oHeight);
+  console.log(window)
+  window.onresize=function () {
+    console.log(oHeight);
+    if (window.clientHeight < oHeight) {
+      let oFooter = document.querySelectorAll("#footer");
+      oFooter.style = "position:static";
+    } else {
+      let oFooter = document.querySelectorAll("#footer");
+      oFooter.style = "position:fixed";
+    }
+  };
+
+</script>-->
 </body>
 </html>

@@ -61,7 +61,7 @@
         <input class="submit" type="button" value="开始查询" @click="verify(1,carType)">
         <div class="agree-contract">
           <label>
-            <input type="checkbox" v-model="checked" value="checked">
+            <input type="checkbox" v-model="checked" value="true">
             <i></i>
             <p>使用本服务证明您已阅读并同意<span @click="turnDisclaimer">《免责声明》</span></p>
           </label>
@@ -148,7 +148,7 @@
         carType: "02",
         errorMessage: "",//错误提示信息
         errorTip: false,//提示框显示、隐藏
-        checked: "checked",
+        checked: "true",
         isHidden: false,
         carFrame: '',
         centerDialogVisible: false,

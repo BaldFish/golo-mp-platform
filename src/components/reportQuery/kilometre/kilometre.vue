@@ -46,7 +46,7 @@
         <input class="submit" type="button" value="开始查询" @click="verify(2)">
         <div class="agree-contract">
           <label>
-            <input type="checkbox" v-model="checked" value="checked">
+            <input type="checkbox" v-model="checked" value="true">
             <i></i>
             <p>使用本服务证明您已阅读并同意<span @click="turnDisclaimer">《免责声明》</span></p>
           </label>
