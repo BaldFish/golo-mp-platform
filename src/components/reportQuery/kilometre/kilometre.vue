@@ -11,7 +11,7 @@
           <div class="car-frame-input">
             <div class="frame-input">
               <label>车架号码</label>
-              <input type="text" placeholder="请输入车架号码" maxlength="17" v-model="carFrameNum">
+              <input type="text" placeholder="请输入车架号码" maxlength="17" v-model="carFrameNum"  @focus="closeCustomBoard">
             </div>
             <div class="camera-box">
               <label>
@@ -31,14 +31,14 @@
           <ul>
             <li class="license-li">
               <label>车牌号码</label>
-              <div class="license">
+              <div class="license" @click="txtboardshow=true,numboardshow=false">
                 <span>{{plate}}</span>
               </div>
-              <input type="text" placeholder="请输入车牌号码" v-model="plateNum">
+              <input type="text" v-model="plateNum" @focus="txtboardshow=false,numboardshow=true" readonly placeholder="请输入车牌号码">
             </li>
             <li class="engine-li">
               <label>发动机号</label>
-              <input type="text" placeholder="请输入发动机号" v-model="engineNumber">
+              <input type="text" placeholder="请输入发动机号" v-model="engineNumber"  @focus="closeCustomBoard">
               <img src="@/common/images/help_2.png" alt="" @click="centerDialogVisible = true">
             </li>
           </ul>
@@ -54,6 +54,37 @@
         <div style="clear: both"></div>
       </div>
     </section>
+    <section class="pkey-contain">
+      <section class="pkey-keyboard" v-show="txtboardshow">
+        <header class="pkey-header2">
+          <label class="pkey-chacelbtn" @click="closewin">取消</label><label class="pkey-okbtn" @click="checkplate">完成</label>
+        </header>
+        <div class="pkey-keyscontain">
+          <ul>
+            <li v-for="(item,index) in cartxt">
+              <span v-show="index==cartxt.length-1" @click="txtboardshow=false,numboardshow=true">ABC</span>
+              <label v-for="(items,indexi) in item" @click="txtclick(items,indexi,item.length)">{{items}}</label>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section class="pkey-keyboard" v-show="numboardshow">
+        <header class="pkey-header2">
+          <label class="pkey-chacelbtn" @click="closewin">取消</label><label class="pkey-okbtn" @click="checkplate">完成</label>
+        </header>
+        <div class="pkey-keyscontain">
+          <ul>
+            <li v-for="(item,index) in numtxt" :class="{'reset-mr': index == 2}">
+              <span v-show="index==cartxt.length-1" @click="txtboardshow=true,numboardshow=false">字</span>
+              <label v-for="(items,indexi) in item" @click="numclick(items,indexi,item.length)">{{items}}</label>
+              <span class="board-delete" v-show="index==cartxt.length-1" @click="plateNum=plateNum.substr(0, plateNum.length-1)">
+                <img src="@/common/images/board_delete.png" alt="">
+              </span>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </section>
     <section class="sec-notice">
       <div class="sec-notice-container">
         <div class="help-title">
@@ -66,7 +97,7 @@
         </div>
       </div>
     </section>
-    <p class="cooperation">商务合作联系电话：010-13523333333</p>
+    <p class="cooperation">商务合作联系电话：18801370245</p>
     <el-dialog top="35vh" :visible.sync="centerDialogVisible" center :show-close="false" custom-class="fadongji">
       <img src="@/common/images/fadongji.png" alt="">
     </el-dialog>
@@ -93,6 +124,21 @@
         isHidden: false,
         carFrame: '',
         centerDialogVisible: false,
+  
+        txtboardshow: false,
+        numboardshow: false,
+        cartxt: [
+          ['京', '津', '渝', '沪', '冀', '晋', '辽', '吉', '黑', '苏'],
+          ['浙', '皖', '闽', '赣', '鲁', '豫', '鄂', '湘', '粤', '琼'],
+          ['川', '贵', '云', '陕', '甘', '青', '蒙', '桂', '宁', '新'],
+          ['藏', '使', '领', '警', '学', '港', '澳']
+        ],
+        numtxt: [
+          ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+          ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+          ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
+          ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
+        ],
       }
     },
     created() {
@@ -105,7 +151,20 @@
         that.isHidden = true;
       }, 1000 * 20);
     },
-    watch: {},
+    watch: {
+      //车架号去除非法字段
+      carFrame: function (val) {
+        if (!/^[0-9A-Za-z]+$/.test(val)) {
+          this.carFrame = this.carFrame.slice(0, this.carFrame.length - 1)
+        }
+      },
+      //发动机号去除非法字段
+      engineNumber: function (val) {
+        if (!/^[0-9A-Za-z]+$/.test(val)) {
+          this.engineNumber = this.engineNumber.slice(0, this.engineNumber.length - 1)
+        }
+      },
+    },
     computed: {
       //车架号转换
       carFrameNum: {
@@ -144,7 +203,7 @@
             let fileSize = Math.round(file.size / 1024 / 1024);
             e.target.value = "";
             if (fileSize > 1) {
-              that.errorMessage = "图片大小不能超过1M";
+              that.errorMessage = "请上传正确的行驶证图片";
               that.errorTip = true;
               window.setTimeout(function () {
                 that.errorTip = false;
@@ -172,8 +231,14 @@
                     'X-Access-Token': `${token}`,
                   }
                 }).then(res => {
-                  that.carFrameNum = res.data.data.car_vin;
+                  //关闭蒙层
                   loading.close();
+                  that.errorMessage = "识别成功";
+                  that.errorTip = true;
+                  window.setTimeout(function () {
+                    that.errorTip = false;
+                  }, 2000);
+                  that.carFrameNum = res.data.data.car_vin;
                 }).catch(error => {
                   that.errorMessage = error.response.data.message;
                   loading.close();
@@ -245,6 +310,34 @@
       closeNotice() {
         this.isHidden = true;
       },
+      //车架号、发动机号获取焦点隐藏自定义软键盘
+      closeCustomBoard() {
+        this.txtboardshow = false;
+        this.numboardshow = false;
+      },
+      //车牌号软键盘
+      txtclick: function (txt, indexi, size) {
+        this.plate = '';
+        this.txtboardshow = false;
+        this.numboardshow = true;
+        this.plate += txt;
+      },
+      numclick: function (num, indexi, size) {
+        /*if(this.plateNum.length>10){
+          return
+        }*/
+        this.plateNum += num;
+      },
+      checkplate: function () {
+        this.txtboardshow = false;
+        this.numboardshow = false;
+      },
+      closewin: function () {
+        /*this.plate='京';
+        this.plateNum='';*/
+        this.txtboardshow = false;
+        this.numboardshow = false;
+      }
     },
   }
 </script>
@@ -522,6 +615,87 @@
       font-size 26px;/*px*/
       color #ffffff
       border-radius 30px
+    }
+  }
+</style>
+<style scoped lang="stylus">
+  .pkey-contain {
+    width 750px
+    
+    .pkey-keyboard {
+      position fixed
+      bottom: 0
+      z-index: 10
+      
+      header {
+        font-size 28px; /*px*/
+        color: #5226f3
+        background-color #F4F4F6
+        height: 75px
+        line-height 75px
+        padding: 0 40px
+        
+        label:nth-child(1) {
+          float left
+        }
+        
+        label:nth-child(2) {
+          float right
+        }
+      }
+      
+      .pkey-keyscontain {
+        ul {
+          height: 362px
+          background-color #D1D5DA
+          padding: 5px;
+          
+          li {
+            label {
+              width: 64px
+              height: 80px
+              line-height 80px
+              border-radius 10px
+              display inline-block
+              background-color #ffffff
+              margin: 5px
+              text-align center
+              font-size 26px; /*px*/
+            }
+            
+            span {
+              color: #F9F9F9
+              width: 98px
+              height: 80px
+              line-height 80px
+              border-radius 10px
+              text-align center
+              display inline-block
+              background-color #B2B5BA
+              font-size 28px; /*px*/
+              margin-left 5px
+              margin-top 5px
+            }
+            
+            .board-delete {
+              margin-left 0
+              margin-right 5px
+              
+              img {
+                width: 42px
+                height: 32px
+                margin: 0 auto
+                position: relative
+                top: 6px
+              }
+            }
+          }
+          
+          .reset-mr {
+            padding-left 36px
+          }
+        }
+      }
     }
   }
 </style>

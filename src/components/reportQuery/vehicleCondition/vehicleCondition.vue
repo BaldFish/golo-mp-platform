@@ -69,7 +69,6 @@
         <div style="clear: both"></div>
       </div>
     </section>
-    
     <section class="pkey-contain">
       <section class="pkey-keyboard" v-show="txtboardshow">
         <header class="pkey-header2">
@@ -101,7 +100,6 @@
         </div>
       </section>
     </section>
-    
     <section class="sec-notice">
       <div class="sec-notice-container">
         <div class="report-title">
@@ -127,7 +125,7 @@
         </div>
       </div>
     </section>
-    <p class="cooperation">商务合作联系电话：010-13523333333</p>
+    <p class="cooperation">商务合作联系电话：18801370245</p>
     <el-dialog top="35vh" :visible.sync="centerDialogVisible" center :show-close="false" custom-class="fadongji">
       <img src="@/common/images/fadongji.png" alt="">
     </el-dialog>
@@ -153,8 +151,8 @@
         checked: true,
         isHidden: false,
         carFrame: '',
-        //timeOut:"",
         centerDialogVisible: false,
+        
         txtboardshow: false,
         numboardshow: false,
         cartxt: [
@@ -182,12 +180,14 @@
       }, 1000 * 20);
     },
     watch: {
-      'carFrame': function (val) {
+      //车架号去除非法字段
+      carFrame: function (val) {
         if (!/^[0-9A-Za-z]+$/.test(val)) {
           this.carFrame = this.carFrame.slice(0, this.carFrame.length - 1)
         }
       },
-      'engineNumber': function (val) {
+      //发动机号去除非法字段
+      engineNumber: function (val) {
         if (!/^[0-9A-Za-z]+$/.test(val)) {
           this.engineNumber = this.engineNumber.slice(0, this.engineNumber.length - 1)
         }
@@ -259,9 +259,14 @@
                     'X-Access-Token': `${token}`,
                   }
                 }).then(res => {
-                  that.carFrameNum = res.data.data.car_vin;
                   //关闭蒙层
                   loading.close();
+                  that.errorMessage = "识别成功";
+                  that.errorTip = true;
+                  window.setTimeout(function () {
+                    that.errorTip = false;
+                  }, 2000);
+                  that.carFrameNum = res.data.data.car_vin;
                 }).catch(error => {
                   that.errorMessage = error.response.data.message;
                   loading.close();
