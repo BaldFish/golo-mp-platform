@@ -231,7 +231,7 @@
             let fileSize = Math.round(file.size / 1024 / 1024);
             e.target.value = "";
             if (fileSize > 1) {
-              that.errorMessage = "图片大小不能超过1M";
+              that.errorMessage = "请上传正确的行驶证图片";
               that.errorTip = true;
               window.setTimeout(function () {
                 that.errorTip = false;
@@ -243,6 +243,14 @@
                 let imgData = {};
                 imgData.user_id = "userId";
                 imgData.img = dataURL;
+                //加载蒙层
+                let loading = that.$loading({
+                  lock: true,
+                  text: '正在识别，请稍候',
+                  spinner: 'el-icon-loading',
+                  background: 'rgba(0, 0, 0, 0.7)'
+                });
+                //请求识别接口
                 that.$axios({
                   method: 'POST',
                   url: `${that.$baseURL}/v1/launchain/ocr/vin`,
@@ -251,9 +259,12 @@
                     'X-Access-Token': `${token}`,
                   }
                 }).then(res => {
-                  that.carFrameNum = res.data.data.car_vin
+                  that.carFrameNum = res.data.data.car_vin;
+                  //关闭蒙层
+                  loading.close();
                 }).catch(error => {
                   that.errorMessage = error.response.data.message;
+                  loading.close();
                   that.errorTip = true;
                   window.setTimeout(function () {
                     that.errorTip = false;
