@@ -34,8 +34,7 @@
       <i></i>
       <span>新增车辆</span>
     </router-link>
-    
-    <div id="mask" v-if="isShow">
+    <!--<div id="mask" v-if="isShow">
       <section class="login-container">
         <p class="modal-notice">修改手机号，修改信息绑定</p>
         <ul>
@@ -57,7 +56,7 @@
           <input type="button" value="确定" @click="login">
         </div>
       </section>
-    </div>
+    </div>-->
     <div class="errorTip_wrap" >
       <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
     </div>

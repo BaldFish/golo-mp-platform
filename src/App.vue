@@ -170,12 +170,12 @@
 <style lang="stylus">
   .el-loading-spinner{
     .el-icon-loading{
-      font-size 54px/*px*/
-      color #ffffff
+      font-size 54px !important;/*px*/
+      color #ffffff !important
     }
     .el-loading-text{
-      font-size 24px/*px*/
-      color #ffffff
+      font-size 24px !important;/*px*/
+      color #ffffff !important
     }
   }
 </style>
