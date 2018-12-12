@@ -28,11 +28,11 @@
       </p>
       <p class="clearfix">
         <span class="fl">车牌号码：</span>
-        <span class="fr">{{orderDetails.plat_num}}</span>
+        <span class="fr">{{orderDetails.plate_num}}</span>
       </p>
       <p class="clearfix">
         <span class="fl">发动机号：</span>
-        <span class="fr">{{orderDetails.engine_no}}</span>
+        <span class="fr">{{orderDetails.engineno}}</span>
       </p>
     </div>
     <div class="h20"></div>

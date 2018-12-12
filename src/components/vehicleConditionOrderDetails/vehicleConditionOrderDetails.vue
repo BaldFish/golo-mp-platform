@@ -28,11 +28,11 @@
       </p>
       <p class="clearfix">
         <span class="fl">车牌号码：</span>
-        <span class="fr">{{orderDetails.plat_num}}</span>
+        <span class="fr">{{orderDetails.plate_num}}</span>
       </p>
       <p class="clearfix">
         <span class="fl">发动机号：</span>
-        <span class="fr">{{orderDetails.engine_no}}</span>
+        <span class="fr">{{orderDetails.engineno}}</span>
       </p>
       <p class="clearfix">
         <span class="fl">车辆类型：</span>
@@ -44,7 +44,7 @@
       <p>报告版本</p>
     </div>
     <div class="reportVersion">
-      <p class="clearfix" v-if="orderDetails.report_type == 1">
+      <p class="clearfix" v-if="orderDetails.report_type == '1'">
         <label>
           <!--<input type="radio" name="version" v-model="version" value="1">
           <i></i>-->
@@ -52,7 +52,7 @@
         </label>
         <!--<span class="fr">5.00元</span>-->
       </p>
-      <p class="clearfix" v-if="orderDetails.report_type == 2">
+      <p class="clearfix" v-if="orderDetails.report_type == '2'">
         <label>
           <!--<input type="radio" name="version" v-model="version" value="2">
           <i></i>-->
