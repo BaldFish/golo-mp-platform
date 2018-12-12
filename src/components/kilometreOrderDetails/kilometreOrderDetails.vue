@@ -22,13 +22,17 @@
       <p>车辆信息</p>
     </div>
     <div class="carInfo">
-      <!--<p class="clearfix">
-        <span class="fl">行驶里程：</span>
-        <span class="fr">11.84万公里</span>
-      </p>-->
       <p class="clearfix">
         <span class="fl">车架号码：</span>
         <span class="fr">{{orderDetails.vin}}</span>
+      </p>
+      <p class="clearfix">
+        <span class="fl">车牌号码：</span>
+        <span class="fr">{{orderDetails.plat_num}}</span>
+      </p>
+      <p class="clearfix">
+        <span class="fl">发动机号：</span>
+        <span class="fr">{{orderDetails.engine_no}}</span>
       </p>
     </div>
     <div class="h20"></div>
