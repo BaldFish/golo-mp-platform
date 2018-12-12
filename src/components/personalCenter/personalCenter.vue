@@ -34,8 +34,7 @@
       <i></i>
       <span>新增车辆</span>
     </router-link>
-    
-    <div id="mask" v-if="isShow">
+    <!--<div id="mask" v-if="isShow">
       <section class="login-container">
         <p class="modal-notice">修改手机号，修改信息绑定</p>
         <ul>
@@ -57,7 +56,7 @@
           <input type="button" value="确定" @click="login">
         </div>
       </section>
-    </div>
+    </div>-->
     <div class="errorTip_wrap" >
       <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
     </div>
@@ -90,6 +89,7 @@
       }
     },
     created() {
+      this.reload();
     },
     beforeMount() {
       this.userId = this.$utils.getCookie("userId");
@@ -236,249 +236,250 @@
 </script>
 
 <style scoped lang="stylus">
-  .personal-user {
-    box-sizing border-box
-    position relative
-    width: 674px;
-    height: 358px;
-    background url("../../common/images/personal_bg.png") no-repeat center
-    background-size 100% 100%
-    margin: 0 auto
-    margin-top 36px
-    img{
-      width 110px
-      height 110px
-      position absolute
-      left 50%
-      margin-left -55px
-      border-radius 50%
-    }
-    .user-tab {
-      font-size: 24px; /*px*/
-      color: #333333;
-      position absolute
-      top 50px
-      right 50px
-    }
-    
-    .user-phone {
-      font-size: 32px; /*px*/
-      color: #222222;
-      text-align center
-      margin-bottom: 50px
-      padding-top 140px
-    }
-    
-    .user-account {
-      text-align center
-      width: 370px;
+  .personalCenter{
+    .personal-user {
+      box-sizing border-box
+      position relative
+      width: 674px;
+      height: 358px;
+      background url("../../common/images/personal_bg.png") no-repeat center
+      background-size 100% 100%
       margin: 0 auto
-      
-      span {
-        font-size: 32px; /*px*/
-        color: #333333;
-        display inline-block
-        margin-bottom 24px
+      margin-top 36px
+      img{
+        width 110px
+        height 110px
+        position absolute
+        left 50%
+        margin-left -55px
+        border-radius 50%
       }
+      .user-tab {
+        font-size: 24px; /*px*/
+        color: #333333;
+        position absolute
+        top 50px
+        right 50px
+      }
+    
+      .user-phone {
+        font-size: 32px; /*px*/
+        color: #222222;
+        text-align center
+        margin-bottom: 50px
+        padding-top 140px
+      }
+    
+      .user-account {
+        text-align center
+        width: 370px;
+        margin: 0 auto
       
-      p {
-        font-size: 26px; /*px*/
-        color: #666666;
+        span {
+          font-size: 32px; /*px*/
+          color: #333333;
+          display inline-block
+          margin-bottom 24px
+        }
+      
+        p {
+          font-size: 26px; /*px*/
+          color: #666666;
+        }
       }
     }
-  }
   
-  .car-info {
-    font-size: 30px; /*px*/
-    color: #222222;
-    margin: 70px 0 46px 30px
-  }
+    .car-info {
+      font-size: 30px; /*px*/
+      color: #222222;
+      margin: 70px 0 46px 30px
+    }
   
-  .user-car {
-    width: 630px;
-    //height: 240px;
-    background-color: #ffffff;
-    box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.09);
-    border-radius: 30px;
-    margin: 0 auto
-    padding: 60px 36px
+    .user-car {
+      width: 630px;
+      //height: 240px;
+      background-color: #ffffff;
+      box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.09);
+      border-radius: 30px;
+      margin: 0 auto
+      padding: 60px 36px
     
-    li {
-      height: 50px;
-      line-height 50px
-      margin-bottom 16px
-      
-      label {
-        font-size: 26px; /*px*/
-        color: #222222;
-        float left
-      }
-      
-      p {
-        font-size: 24px; /*px*/
-        color: #666666;
-        float left
-      }
-      
-      span {
-        width: 120px;
+      li {
         height: 50px;
         line-height 50px
-        display inline-block
-        border-radius: 25px;
-        border: solid 1px #5226f3; /*no*/
-        font-size: 26px; /*px*/
-        color: #5226f3;
-        text-align center
-      }
-    }
-    
-    .submit {
-      width: 630px;
-      height: 84px;
-      background-color: #5226f3;
-      border-radius: 36px;
-      font-size: 36px; /*px*/
-      color: #ffffff;
-      margin-top 32px
-    }
-  }
-  
-  .add-car {
-    width: 248px;
-    height: 70px;
-    line-height 70px
-    text-align center
-    border-radius: 30px;
-    border: solid 1px #5226f3; /*no*/
-    display inline-block
-    margin-top 58px
-    margin-left 251px
-    margin-bottom 200px
-    font-size: 28px; /*px*/
-    color: #5226f3;
-    
-    i {
-      width: 25px;
-      height: 25px;
-      display inline-block
-      background url("../../common/images/add.png") no-repeat center
-      background-size 100% 100%
-      position: relative;
-      top: 2px;
-      margin-right 8px
-    }
-  }
-  
-  #mask {
-    background-color: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    top: 0;
-    left: 0;
-    /*display:none;*/
-    z-index: 2;
-    width: 100%;
-    height: 255%;
-    vertical-align: bottom;
-    overflow: hidden;
-  }
-  
-  .login-container {
-    width: 100%;
-    height: 560px;
-    background-color #ffffff
-    
-    .modal-notice {
-      text-align center
-      font-size: 24px; /*px*/
-      color: #333333;
-      padding-top 27px
-    }
-    
-    ul {
-      width 620px
-      margin: 0 auto;
+        margin-bottom 16px
       
-      li {
-        border-bottom: solid 1px #bfbfbf; /*no*/
-        font-size: 24px; /*px*/
-        
-        input {
-          margin-left 12px
-          margin-bottom 20px
-          margin-top 76px
-          outline none
+        label {
+          font-size: 26px; /*px*/
+          color: #222222;
+          float left
         }
-        
-        img {
-          width: 143px;
-          height: 64px;
-          float right
-          margin-top 38px
-          margin-right 12px
+      
+        p {
+          font-size: 24px; /*px*/
+          color: #666666;
+          float left
         }
-        
-        div {
-          float right
-          width: 180px;
+      
+        span {
+          width: 120px;
           height: 50px;
           line-height 50px
-          text-align center
-          border-radius: 20px;
+          display inline-block
+          border-radius: 25px;
           border: solid 1px #5226f3; /*no*/
-          font-size: 22px; /*px*/
+          font-size: 26px; /*px*/
           color: #5226f3;
-          margin-top 54px
-          margin-right 12px
-        }
-        
-        .count_down {
-          background-color: #7d7d7d;
-          color: #ffffff;
-          border none
+          text-align center
         }
       }
-    }
     
-    .btn-box {
-      font-size: 28px; /*px*/
-      height: 88px
-      border-top solid 1px #5226f3; /*no*/
-      margin-top 68px
-      
-      input {
-        width: 375px
-        height: 88px
-        float left
-        background-color: #ffffff;
-        color: #5226f3;
-        outline none
-      }
-      
-      input:nth-child(2) {
+      .submit {
+        width: 630px;
+        height: 84px;
         background-color: #5226f3;
-        color: #ffffff
+        border-radius: 36px;
+        font-size: 36px; /*px*/
+        color: #ffffff;
+        margin-top 32px
       }
     }
-    
-  }
-  .errorTip_wrap{
-    width 100%
-    text-align center
-    font-size 0
-    position fixed
-    top 50%
-    .errorTip{
+  
+    .add-car {
+      width: 248px;
+      height: 70px;
+      line-height 70px
+      text-align center
+      border-radius: 30px;
+      border: solid 1px #5226f3; /*no*/
       display inline-block
-      box-sizing border-box
-      line-height 1.6
-      max-width 520px;
-      padding 20px 30px
-      background-color #000000
-      opacity 0.7
-      font-size 26px;/*px*/
-      color #ffffff
-      border-radius 30px
+      margin-top 58px
+      margin-left 251px
+      font-size: 28px; /*px*/
+      color: #5226f3;
+    
+      i {
+        width: 25px;
+        height: 25px;
+        display inline-block
+        background url("../../common/images/add.png") no-repeat center
+        background-size 100% 100%
+        position: relative;
+        top: 2px;
+        margin-right 8px
+      }
+    }
+  
+    #mask {
+      background-color: rgba(0, 0, 0, 0.5);
+      position: fixed;
+      top: 0;
+      left: 0;
+      /*display:none;*/
+      z-index: 2;
+      width: 100%;
+      height: 255%;
+      vertical-align: bottom;
+      overflow: hidden;
+    }
+  
+    .login-container {
+      width: 100%;
+      height: 560px;
+      background-color #ffffff
+    
+      .modal-notice {
+        text-align center
+        font-size: 24px; /*px*/
+        color: #333333;
+        padding-top 27px
+      }
+    
+      ul {
+        width 620px
+        margin: 0 auto;
+      
+        li {
+          border-bottom: solid 1px #bfbfbf; /*no*/
+          font-size: 24px; /*px*/
+        
+          input {
+            margin-left 12px
+            margin-bottom 20px
+            margin-top 76px
+            outline none
+          }
+        
+          img {
+            width: 143px;
+            height: 64px;
+            float right
+            margin-top 38px
+            margin-right 12px
+          }
+        
+          div {
+            float right
+            width: 180px;
+            height: 50px;
+            line-height 50px
+            text-align center
+            border-radius: 20px;
+            border: solid 1px #5226f3; /*no*/
+            font-size: 22px; /*px*/
+            color: #5226f3;
+            margin-top 54px
+            margin-right 12px
+          }
+        
+          .count_down {
+            background-color: #7d7d7d;
+            color: #ffffff;
+            border none
+          }
+        }
+      }
+    
+      .btn-box {
+        font-size: 28px; /*px*/
+        height: 88px
+        border-top solid 1px #5226f3; /*no*/
+        margin-top 68px
+      
+        input {
+          width: 375px
+          height: 88px
+          float left
+          background-color: #ffffff;
+          color: #5226f3;
+          outline none
+        }
+      
+        input:nth-child(2) {
+          background-color: #5226f3;
+          color: #ffffff
+        }
+      }
+    
+    }
+    .errorTip_wrap{
+      width 100%
+      text-align center
+      font-size 0
+      position fixed
+      top 50%
+      .errorTip{
+        display inline-block
+        box-sizing border-box
+        line-height 1.6
+        max-width 520px;
+        padding 20px 30px
+        background-color #000000
+        opacity 0.7
+        font-size 26px;/*px*/
+        color #ffffff
+        border-radius 30px
+      }
     }
   }
 </style>

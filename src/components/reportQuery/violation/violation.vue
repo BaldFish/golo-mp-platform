@@ -11,11 +11,11 @@
           <div class="car-frame-input">
             <div class="frame-input">
               <label>车架号码</label>
-              <input type="text" placeholder="请输入车架号码" maxlength="17" v-model="carFrameNum"  @focus="closeCustomBoard">
+              <input type="text" placeholder="请输入车架号码" maxlength="17" v-model="carFrameNum" @focus="closeCustomBoard">
             </div>
             <div class="camera-box">
               <label>
-                <input type="file" accept="image/*"  @click="uploadPhoto($event)">
+                <input type="file" accept="image/*" @click="uploadPhoto($event)">
                 <img src="@/common/images/paizhao.png" alt="">
               </label>
             </div>
@@ -38,7 +38,7 @@
             </li>
             <li class="engine-li">
               <label>发动机号</label>
-              <input type="text" placeholder="请输入发动机号" v-model="engineNumber"  @focus="closeCustomBoard">
+              <input type="text" placeholder="请输入发动机号" v-model="engineNumber" @focus="closeCustomBoard">
               <img src="@/common/images/help_2.png" alt="" @click="centerDialogVisible = true">
             </li>
             <li class="carType-li">
@@ -61,7 +61,7 @@
         <input class="submit" type="button" value="开始查询" @click="verify(4,carType)">
         <div class="agree-contract">
           <label>
-            <input type="checkbox" v-model="checked">
+            <input type="checkbox" v-model="checked" value="true">
             <i></i>
             <p>使用本服务证明您已阅读并同意<span @click="turnDisclaimer">《免责声明》</span></p>
           </label>
@@ -100,11 +100,11 @@
         </div>
       </section>
     </section>
-    <p class="cooperation">商务合作联系电话：010-13523333333</p>
+    <p class="cooperation">商务合作联系电话：18801370245</p>
     <el-dialog top="35vh" :visible.sync="centerDialogVisible" center :show-close="false" custom-class="fadongji">
       <img src="@/common/images/fadongji.png" alt="">
     </el-dialog>
-    <div class="errorTip_wrap" >
+    <div class="errorTip_wrap">
       <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
     </div>
   </div>
@@ -123,11 +123,11 @@
         carType: "02",
         errorMessage: "",//错误提示信息
         errorTip: false,//提示框显示、隐藏
-        checked: true,
+        checked: "checked",
         isHidden: false,
         carFrame: '',
         centerDialogVisible: false,
-  
+        
         txtboardshow: false,
         numboardshow: false,
         cartxt: [
@@ -259,14 +259,14 @@
         }
       },
       //跳转免责声明
-      turnDisclaimer(){
+      turnDisclaimer() {
         this.$router.push('/disclaimer')
       },
       //校验
       verify(orderType, carType) {
         let userId = this.$utils.getCookie("userId");
         let token = this.$utils.getCookie("token");
-        if(token){
+        if (token) {
           let car_type = "";
           if (carType) {
             car_type = carType
@@ -278,6 +278,7 @@
             engine_no: this.engineNumber, //发动机号
             order_type: orderType, //查询类型1-维保 2-里程 3-估价 4-违章
             car_type: car_type,//维保跟估价必传  01-大型车  02-小型车
+            check_status: this.checked,//免责声明
           };
           this.$axios({
             method: 'POST',
@@ -287,17 +288,8 @@
               'X-Access-Token': `${token}`,
             }
           }).then(res => {
-            if (this.checked) {
-              window.localStorage.setItem("violationVerifyData", JSON.stringify(verifyData));
-              this.violationQuery();
-            } else {
-              this.errorMessage = "请勾选免责声明";
-              this.errorTip = true;
-              let that = this;
-              window.setTimeout(function () {
-                that.errorTip = false;
-              }, 2000);
-            }
+            window.localStorage.setItem("violationVerifyData", JSON.stringify(verifyData));
+            this.violationQuery();
           }).catch(error => {
             console.log(error.response);
             this.errorMessage = error.response.data.message;
@@ -307,7 +299,7 @@
               that.errorTip = false;
             }, 2000);
           })
-        }else{
+        } else {
           this.$router.push('/login')
         }
       },
@@ -388,7 +380,6 @@
       font-size: 20px; /*px*/
       color: #333333;
       text-align center
-      width: 270px;
       height: 65px;
       line-height 52px
       background url("../../../common/images/one.png") no-repeat center
@@ -412,6 +403,7 @@
         float right
         margin-top 18px
         margin-right 14px
+        margin-left 14px
       }
     }
     
@@ -443,7 +435,7 @@
               font-size: 26px; /*px*/
               color: #333333;
               outline: none;
-              width: 270px;
+              width: 320px;
             }
           }
           
@@ -591,7 +583,7 @@
       .agree-contract {
         line-height: 40px;
         height: 40px
-        width: 520px
+        padding-left 45px
         margin: 0 auto
         
         input {
@@ -626,6 +618,7 @@
     }
     
   }
+  
   .cooperation {
     margin: 50px 0 150px 0
     text-align center
@@ -633,13 +626,15 @@
     font-size: 30px; /*px*/
     color #333333
   }
-  .errorTip_wrap{
+  
+  .errorTip_wrap {
     width 100%
     text-align center
     font-size 0
     position fixed
     top 50%
-    .errorTip{
+    
+    .errorTip {
       display inline-block
       box-sizing border-box
       line-height 1.6
@@ -647,7 +642,7 @@
       padding 20px 30px
       background-color #000000
       opacity 0.7
-      font-size 26px;/*px*/
+      font-size 26px; /*px*/
       color #ffffff
       border-radius 30px
     }
@@ -740,18 +735,21 @@
     height 356px !important
     box-sizing border-box
     padding 30px
-    -webkit-appearance:none;
+    -webkit-appearance: none;
     border-radius 30px !important
     text-align center
+    
     .el-dialog__header {
       display none
     }
+    
     .el-dialog__body {
       width 431px !important
       height 296px !important
       margin 0 !important
       padding 0 !important
       font-size 0 !important
+      
       img {
         display inline-block
         width 431px

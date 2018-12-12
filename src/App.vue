@@ -3,7 +3,7 @@
     <div class="main_wrap">
       <router-view class="main" v-if="isRouterAlive"></router-view>
     </div>
-    <div class="footer_wrap" v-if="display">
+    <div class="footer_wrap" v-if="display" id="footer">
       <ul class="footer">
         <li v-for="(item,index) of tabsParam" :class="{'active': index===nowIndex,}" @click="tabChange(index)">
           <img :src="item.img" alt="">
@@ -21,23 +21,49 @@
     components: {},
     provide() {//回退刷新
       return {
-        reload: this.reload
+        reload: this.reload,
       }
     },
     data() {
       return {
         isRouterAlive: true,
+        myWidth: window.innerHeight
       }
     },
     beforeMount() {
       this.getPath();
     },
     mounted() {
+      // 注：window.onresize只能在项目内触发1次
+      var height=window.innerHeight;
+      window.onresize = function windowResize () {
+        // 通过捕获系统的onresize事件触发我们需要执行的事件
+        this.myWidth = window.innerHeight
+        if(this.myWidth<height){
+          document.querySelectorAll('#footer')[0].style="display:none"
+        }else{
+          document.querySelectorAll('#footer')[0].style="display:block"
+        }
+      }
     },
     beforeUpdate() {
     },
-    computed: {},
+    computed: {
+    },
     watch: {
+      /*screenWidth (val) {
+        if (!this.timer) {
+          this.screenWidth = val
+          this.timer = true
+          let that = this
+          setTimeout(function () {
+            // that.screenWidth = that.$store.state.canvasWidth
+            console.log(that.screenWidth)
+            that.init()
+            that.timer = false
+          }, 400)
+        }
+      },*/
       //监听路由变化执行方法
       $route(to, from) {
         this.getPath()
@@ -167,3 +193,15 @@
   }
 </style>
 
+<style lang="stylus">
+  .el-loading-spinner{
+    .el-icon-loading{
+      font-size 54px !important;/*px*/
+      color #ffffff !important
+    }
+    .el-loading-text{
+      font-size 24px !important;/*px*/
+      color #ffffff !important
+    }
+  }
+</style>

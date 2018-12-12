@@ -3,14 +3,14 @@
     <section class="login-container">
       <ul>
         <li>
-          <input type="text" placeholder="请输入手机号" v-model="phone" maxlength="11" @blur="checkPhone">
+          <input type="number" oninput="if(value.length>11)value=value.slice(0,11)" placeholder="请输入手机号" v-model="phone" maxlength="11" @blur="checkPhone">
         </li>
         <li>
-          <input type="text" placeholder="请输入验证码" v-model="captchaCode">
+          <input type="text" placeholder="请输入验证码" v-model="captchaCode" class="msg-code">
           <img @click="getCaptcha" :src="captcha">
         </li>
         <li>
-          <input type="text" placeholder="请输入短信验证码" v-model="phoneCode">
+          <input type="text" placeholder="请输入短信验证码" v-model="phoneCode" class="msg-code">
           <div class="get_code" @click="getPhoneCode" v-if="codeValue">获取验证码</div>
           <div class="count_down" v-else>倒计时（{{second}}）</div>
         </li>
@@ -84,6 +84,10 @@
               that.errorTip=false;
             },2000);
           }
+        }
+        //非数字自动删除
+        if (!/^[0-9]*$/.test(val)) {
+          this.phone = this.phone.slice(0, this.phone.length - 1)
         }
       },
     },
@@ -214,9 +218,9 @@
 <style scoped lang="stylus">
   .login{
     .login-container {
-      width: 670px;
-      height: 855px;
-      background url("../../common/images/login_bg.png") no-repeat center
+      width: 700px;
+      height: 878px;
+      background: url("../../common/images/login_bg.png") no-repeat center
       background-size 100% 100%
       margin: 0 auto
       margin-top 20px
@@ -263,6 +267,10 @@
             background-color: #7d7d7d;
             color: #ffffff;
             border none
+          }
+
+          .msg-code{
+            width: 280px
           }
         }
       }

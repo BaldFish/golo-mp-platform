@@ -66,7 +66,7 @@
           <ul class="car-li-02">
             <li :class="{'error': reportDetails.repair.car_fire_flag == 1}">
               <img src="@/common/images/car_analysis04.png" alt="">
-              <p>无火烧</p>
+              <p>火烧</p>
               <i></i>
             </li>
             <li :class="{'error': reportDetails.repair.car_water_flag == 1}">
