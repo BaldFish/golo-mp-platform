@@ -46,7 +46,7 @@
         </div>
         <div class="car-analysis">
           <p class="analysis-tips">本车里程读数&nbsp;<span>异常</span></p>
-          <ul>
+          <ul class="car-li-01">
             <li>
               <img src="@/common/images/car_analysis01.png" alt="">
               <p>发动机无大修</p>
@@ -63,7 +63,7 @@
               <i></i>
             </li>
           </ul>
-          <ul>
+          <ul class="car-li-02">
             <li class="error">
               <img src="@/common/images/car_analysis04.png" alt="">
               <p>无火烧</p>
@@ -91,8 +91,7 @@
                 <span>2</span>
               </div>
             </template>
-            <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-            <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+            <div>动力系统异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
@@ -102,8 +101,7 @@
                 <span>1</span>
               </div>
             </template>
-            <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-            <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+            <div>底盘系统异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
@@ -113,8 +111,7 @@
                 <span>2</span>
               </div>
             </template>
-            <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-            <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+            <div>车身系统异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
@@ -124,8 +121,7 @@
                 <span>6</span>
               </div>
             </template>
-            <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-            <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+            <div>安全系统异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
@@ -135,8 +131,7 @@
                 <span>4</span>
               </div>
             </template>
-            <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-            <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+            <div>娱乐系统异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
@@ -234,7 +229,7 @@
           <div class="trend-title">
             <p>里程趋势分析</p>
           </div>
-          <div id="myChart" :style="{width: '600px', height: '300px',margin: '0 auto'}"></div>
+          <div id="myChart"></div>
         </div>
       </section>
       <section class="qrcode fixed">
@@ -398,6 +393,46 @@
               }
             }
           }
+          .car-li-01{
+            li:nth-child(1){
+              img{
+                width:63px
+                height:49px
+              }
+            }
+            li:nth-child(2){
+              img{
+                width:58px
+                height:49px
+              }
+            }
+            li:nth-child(3){
+              img{
+                width:52px
+                height:48px
+              }
+            }
+          }
+          .car-li-02{
+            li:nth-child(1){
+              img{
+                width:60px
+                height:47px
+              }
+            }
+            li:nth-child(2){
+              img{
+                width:47px
+                height:47px
+              }
+            }
+            li:nth-child(3){
+              img{
+                width:44px
+                height:46px
+              }
+            }
+          }
         }
         .grey-bar{
           width: 100%;
@@ -470,6 +505,11 @@
             p{
               margin: 40px 0 15px 30px
             }
+          }
+          #myChart{
+            width: 600px
+            height: 400px
+            margin: 0 auto
           }
         }
         .violation-info{
@@ -600,6 +640,7 @@
     }
     .el-collapse-item__wrap{
       .el-collapse-item__content{
+        font-size: 24px; /*px*/
         .collapse-content{
           background-color: #f7f7f7;
           .table-title{

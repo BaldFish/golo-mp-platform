@@ -46,7 +46,7 @@
         </div>
         <div class="car-analysis">
           <p class="analysis-tips">本车里程读数&nbsp;<span>异常</span></p>
-          <ul>
+          <ul class="car-li-01">
             <li :class="{'error': reportDetails.repair.car_component_records_flag == 1}">
               <img src="@/common/images/car_analysis01.png" alt="">
               <p>发动机无大修</p>
@@ -63,7 +63,7 @@
               <i></i>
             </li>
           </ul>
-          <ul>
+          <ul class="car-li-02">
           <li :class="{'error': reportDetails.repair.car_fire_flag == 1}">
             <li class="error">
               <img src="@/common/images/car_analysis04.png" alt="">
@@ -276,7 +276,7 @@
             <p>里程趋势分析</p>
           </div>
           <template>
-            <div id="bar_dv" ref="chart" :style="{width: '600px', height: '300px',margin: '0 auto'}"></div>
+            <div id="bar_dv" ref="chart"></div>
           </template>
 
         </div>
@@ -505,6 +505,46 @@
               }
             }
           }
+          .car-li-01{
+            li:nth-child(1){
+              img{
+                width:63px
+                height:49px
+              }
+            }
+            li:nth-child(2){
+              img{
+                width:58px
+                height:49px
+              }
+            }
+            li:nth-child(3){
+              img{
+                width:52px
+                height:48px
+              }
+            }
+          }
+          .car-li-02{
+            li:nth-child(1){
+              img{
+                width:60px
+                height:47px
+              }
+            }
+            li:nth-child(2){
+              img{
+                width:47px
+                height:47px
+              }
+            }
+            li:nth-child(3){
+              img{
+                width:44px
+                height:46px
+              }
+            }
+          }
         }
         .grey-bar{
           width: 100%;
@@ -577,6 +617,11 @@
             p{
               margin: 40px 0 15px 30px
             }
+          }
+          #bar_dv{
+            width: 600px
+            height: 400px
+            margin: 0 auto
           }
         }
         .violation-info{
@@ -707,6 +752,7 @@
     }
     .el-collapse-item__wrap{
       .el-collapse-item__content{
+        font-size: 24px; /*px*/
         .collapse-content{
           background-color: #f7f7f7;
           .table-title{

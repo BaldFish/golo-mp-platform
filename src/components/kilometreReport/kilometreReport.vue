@@ -63,7 +63,7 @@
           <div class="trend-title">
             <p>里程趋势分析</p>
           </div>
-          <div id="myChart" :style="{width: '600px', height: '300px',margin: '0 auto'}"></div>
+          <div id="myChart"></div>
         </div>
       </section>
       <section class="qrcode fixed">
@@ -253,6 +253,11 @@
             p{
               margin: 40px 0 15px 30px
             }
+          }
+          #myChart{
+            width: 600px
+            height: 400px
+            margin: 0 auto
           }
         }
       }
