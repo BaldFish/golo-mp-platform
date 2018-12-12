@@ -171,11 +171,11 @@
         }
         li:nth-child(1){
           border: solid 1px #76f299;
-          margin-right 107px
+          margin-right 106px
         }
         li:nth-child(2){
           border: solid 1px #f29b76;
-          margin-right 107px
+          margin-right 106px
         }
         li:nth-child(3){
           border: solid 1px #ce76f2;

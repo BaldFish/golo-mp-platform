@@ -48,16 +48,19 @@ a
   -webkit-backface-visibility: hidden
   text-decoration: none
   -webkit-tap-highlight-color:rgba(0,0,0,0)
-  
+
 a:focus
   outline-style:none;
   -moz-outline-style: none;
   -webkit-tap-highlight-color:rgba(0,0,0,0)
   //border none
-  
+
 li
   list-style: none
 
 body
   -webkit-text-size-adjust: none
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+
+//苹果系统input类型框 系统默认css样式问题
+input,button{-webkit-appearance:none;outline:none}
