@@ -199,7 +199,8 @@
       },
       routerToDetails(item){
         if(item.order_status == '待支付'){
-          return
+          //return
+          this.submitOrder(item.order_id)
           /*window.localStorage.setItem("vehicleConditionVerifyData", JSON.stringify(item));
           this.$router.push('/submitVehicleCondition');*/
         } /*else if(item.order_status == '查询中' || item.order_status == '查询失败'){
