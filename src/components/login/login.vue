@@ -10,7 +10,7 @@
           <img @click="getCaptcha" :src="captcha">
         </li>
         <li>
-          <input type="text" placeholder="请输入短信验证码" v-model="phoneCode">
+          <input type="text" placeholder="请输入短信验证码" v-model="phoneCode" class="msg-code">
           <div class="get_code" @click="getPhoneCode" v-if="codeValue">获取验证码</div>
           <div class="count_down" v-else>倒计时（{{second}}）</div>
         </li>
@@ -263,6 +263,10 @@
             background-color: #7d7d7d;
             color: #ffffff;
             border none
+          }
+
+          .msg-code{
+            width: 280px
           }
         }
       }
