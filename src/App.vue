@@ -3,7 +3,7 @@
     <div class="main_wrap">
       <router-view class="main" v-if="isRouterAlive"></router-view>
     </div>
-    <div class="footer_wrap" v-if="display">
+    <div class="footer_wrap" v-if="display"id="footer">
       <ul class="footer">
         <li v-for="(item,index) of tabsParam" :class="{'active': index===nowIndex,}" @click="tabChange(index)">
           <img :src="item.img" alt="">
