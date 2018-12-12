@@ -44,7 +44,7 @@
       <p>报告版本</p>
     </div>
     <div class="reportVersion">
-      <p class="clearfix" v-if="orderDetails.report_type == '1'">
+      <p class="clearfix" v-if="orderDetails.report_type == 'standard'">
         <label>
           <!--<input type="radio" name="version" v-model="version" value="1">
           <i></i>-->
@@ -52,7 +52,7 @@
         </label>
         <!--<span class="fr">5.00元</span>-->
       </p>
-      <p class="clearfix" v-if="orderDetails.report_type == '2'">
+      <p class="clearfix" v-if="orderDetails.report_type == 'full'">
         <label>
           <!--<input type="radio" name="version" v-model="version" value="2">
           <i></i>-->
