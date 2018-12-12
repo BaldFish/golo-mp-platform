@@ -152,7 +152,7 @@
         isHidden: false,
         carFrame: '',
         centerDialogVisible: false,
-        
+
         txtboardshow: false,
         numboardshow: false,
         cartxt: [
@@ -370,7 +370,7 @@
     box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.09);
     border-radius: 30px;
     margin: 0 auto;
-    
+
     .camera-notice {
       font-size: 20px; /*px*/
       color: #333333;
@@ -383,12 +383,12 @@
       position: relative;
       bottom: 24px;
       right: 16px;
-      
+
       p {
         float left
         margin-left 20px
       }
-      
+
       i {
         width: 17px;
         height: 17px;
@@ -401,31 +401,31 @@
         margin-left 14px
       }
     }
-    
+
     .hidden {
       visibility hidden
     }
-    
+
     .sec-container {
       height: auto;
       padding: 52px 30px 0 30px;
       position relative
       bottom: 60px
-      
+
       .car-frame {
         .car-frame-input {
           border-bottom 1px solid #e5e5e5; /*no*/
           padding-bottom 28px
-          
+
           .frame-input {
             float left
-            
+
             label {
               font-size: 28px; /*px*/
               color: #333333;
               margin-right 64px
             }
-            
+
             input {
               font-size: 26px; /*px*/
               color: #333333;
@@ -433,56 +433,56 @@
               width: 320px;
             }
           }
-          
+
           .camera-box {
             float right
             border-left 1px solid #bfbfbf; /*no*/
             margin-right 20px
-            
+
             label {
               input {
                 display none
               }
-              
+
               img {
                 width: 46px;
                 height: 36px;
                 margin-left 32px
               }
             }
-            
+
           }
         }
-        
+
         .car-frame-notice {
           font-size: 20px; /*px*/
           color: #999999;
           margin-top 24px
-          
+
           span {
             color: #5226f3;
           }
-          
+
           a {
             font-size: 20px; /*px*/
             color: #999999;
           }
         }
-        
+
       }
-      
+
       .sec-form-box {
         li {
           margin-top: 56px;
           padding-bottom 28px
           border-bottom 1px solid #e5e5e5; /*no*/
-          
+
           label {
             font-size: 28px; /*px*/
             color: #333333;
             margin-right 64px
           }
-          
+
           input {
             font-size: 26px; /*px*/
             color: #333333;
@@ -490,13 +490,13 @@
             width: 270px;
           }
         }
-        
+
         .license-li {
           label {
             float left
             margin-right 24px
           }
-          
+
           .license {
             float left
             width: 40px;
@@ -509,7 +509,7 @@
             margin-right: 7px;
           }
         }
-        
+
         .engine-li {
           img {
             width: 40px;
@@ -518,20 +518,20 @@
             margin-right 20px
           }
         }
-        
+
         .carType-li {
           border-bottom none
-          
+
           label {
             float left
             height: 40px;
             line-height 40px
           }
-          
+
           .radio-box {
             font-size: 24px; /*px*/
             color: #333333;
-            
+
             label {
               margin: 0
               width: 200px
@@ -540,11 +540,11 @@
               display inline-block
               float left
             }
-            
+
             input {
               display none
             }
-            
+
             i {
               width: 40px;
               height: 40px;
@@ -554,7 +554,7 @@
               background url("../../../common/images/radio_unchecked.png") no-repeat center
               background-size 100% 100%
             }
-            
+
             input:checked + i {
               background url("../../../common/images/radio_checked.png") no-repeat center
               background-size 100% 100%
@@ -562,7 +562,7 @@
           }
         }
       }
-      
+
       .submit {
         width: 630px;
         height: 84px;
@@ -574,17 +574,17 @@
         outline none
         margin: 70px 0 32px 0;
       }
-      
+
       .agree-contract {
         line-height: 40px;
         height: 40px
         padding-left 45px
         margin: 0 auto
-        
+
         input {
           display none
         }
-        
+
         i {
           width: 40px;
           height: 40px;
@@ -594,35 +594,35 @@
           margin-right 20px
           float left
         }
-        
+
         input:checked + i {
           background: url("../../../common/images/checked.png") no-repeat center;
           background-size 100% 100%
         }
-        
+
         p {
           font-size: 22px; /*px*/
           color: #333333;
           float left
-          
+
           span {
             color: #5226f3;
           }
         }
       }
     }
-    
+
   }
-  
+
   .sec-notice {
     margin: 64px 23px 0 23px;
-    
+
     .report-title {
       font-size: 28px; /*px*/
       color: #5226f3;
       height: 40px;
       line-height 40px
-      
+
       i {
         width: 40px;
         height: 40px;
@@ -632,18 +632,18 @@
         float left
         margin-right 20px
       }
-      
+
       p {
         float left
       }
     }
-    
+
     .report-box {
       padding: 35px 35px 77px 35px
       text-align: center;
-      
+
       input {
-        width: 180px;
+        padding: 0 16px
         height: 60px;
         line-height 60px
         border-radius: 12px;
@@ -653,18 +653,18 @@
         background-color #ffffff
         outline none
       }
-      
+
       .standard-report {
         margin-right 100px
       }
     }
-    
+
     .help-title {
       font-size: 28px; /*px*/
       color: #5226f3;
       height: 40px;
       line-height 40px
-      
+
       i {
         width: 40px;
         height: 40px;
@@ -674,12 +674,12 @@
         float left
         margin-right 20px
       }
-      
+
       p {
         float left
       }
     }
-    
+
     .help-box {
       width: 624px;
       height: auto;
@@ -690,13 +690,13 @@
       line-height normal
       padding: 36px 40px
       margin-top 30px
-      
+
       span {
         font-size: 24px; /*px*/
       }
     }
   }
-  
+
   .cooperation {
     margin: 50px 0 150px 0
     text-align center
@@ -704,14 +704,14 @@
     font-size: 30px; /*px*/
     color #333333
   }
-  
+
   .errorTip_wrap {
     width 100%
     text-align center
     font-size 0
     position fixed
     top 50%
-    
+
     .errorTip {
       display inline-block
       box-sizing border-box
@@ -729,12 +729,12 @@
 <style scoped lang="stylus">
   .pkey-contain {
     width 750px
-    
+
     .pkey-keyboard {
       position fixed
       bottom: 0
       z-index: 10
-      
+
       header {
         font-size 28px; /*px*/
         color: #5226f3
@@ -742,22 +742,22 @@
         height: 75px
         line-height 75px
         padding: 0 40px
-        
+
         label:nth-child(1) {
           float left
         }
-        
+
         label:nth-child(2) {
           float right
         }
       }
-      
+
       .pkey-keyscontain {
         ul {
           height: 362px
           background-color #D1D5DA
           padding: 5px;
-          
+
           li {
             label {
               width: 64px
@@ -770,7 +770,7 @@
               text-align center
               font-size 26px; /*px*/
             }
-            
+
             span {
               color: #F9F9F9
               width: 98px
@@ -784,11 +784,11 @@
               margin-left 5px
               margin-top 5px
             }
-            
+
             .board-delete {
               margin-left 0
               margin-right 5px
-              
+
               img {
                 width: 42px
                 height: 32px
@@ -798,7 +798,7 @@
               }
             }
           }
-          
+
           .reset-mr {
             padding-left 36px
           }
@@ -816,18 +816,18 @@
     -webkit-appearance: none;
     border-radius 30px !important
     text-align center
-    
+
     .el-dialog__header {
       display none
     }
-    
+
     .el-dialog__body {
       width 431px !important
       height 296px !important
       margin 0 !important
       padding 0 !important
       font-size 0 !important
-      
+
       img {
         display inline-block
         width 431px
