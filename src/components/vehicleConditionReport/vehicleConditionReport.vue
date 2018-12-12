@@ -92,7 +92,33 @@
                 <span>{{reportDetails.compent_repair_detail.length}}</span>
               </div>
             </template>
-            <div v-if="reportDetails.compent_repair_detail">异常</div>
+            <div v-if="reportDetails.compent_repair_detail">
+
+              <p class="table-title">动力系统</p>
+              <table>
+                <thead>
+                <tr>
+                  <th>部件</th>
+                  <th>维修次数</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(item,index) of reportDetails.compent_repair_detail">
+                  <td>{{item.type}}</td>
+                  <td :class="{'table-error': item.repair_type !== 0}">{{item.repair_type}}</td>
+                </tr>
+                </tbody>
+              </table>
+              <p style="visibility: hidden">占位</p>
+              <!-- <div class="table-supply">
+                 <p>部位维修：</p>
+                 <ul>
+                   <li>1:右侧后门喷漆</li>
+                   <li>2:更换挡风玻璃</li>
+                 </ul>
+               </div>-->
+
+            </div>
             <div v-else>无异常</div>
           </el-collapse-item>
           <el-collapse-item>
@@ -103,7 +129,33 @@
                 <span>{{reportDetails.construct_repair_detail.length}}</span>
               </div>
             </template>
-            <div v-if="reportDetails.construct_repair_detail">异常</div>
+            <div v-if="reportDetails.construct_repair_detail">
+
+              <p class="table-title">底盘系统</p>
+              <table>
+                <thead>
+                <tr>
+                  <th>部件</th>
+                  <th>维修次数</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(item,index) of reportDetails.construct_repair_detail">
+                  <td>{{item.type}}</td>
+                  <td :class="{'table-error': item.repair_type !== 0}">{{item.repair_type}}</td>
+                </tr>
+                </tbody>
+              </table>
+              <p style="visibility: hidden">占位</p>
+              <!-- <div class="table-supply">
+                 <p>部位维修：</p>
+                 <ul>
+                   <li>1:右侧后门喷漆</li>
+                   <li>2:更换挡风玻璃</li>
+                 </ul>
+               </div>-->
+
+            </div>
             <div v-else>无异常</div>
           </el-collapse-item>
           <el-collapse-item>
@@ -171,52 +223,6 @@
                 <span>{{reportDetails.outside_repair_detail.length}}</span>
               </div>
             </template>
-            <!--<div class="collapse-content">
-              <p class="table-title">车上结构</p>
-              <table>
-                <thead>
-                <tr>
-                  <th>部件</th>
-                  <th>维修次数</th>
-                  <th>部件</th>
-                  <th>维修次数</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>左前门</td>
-                  <td class="table-error">2</td>
-                  <td>右前门</td>
-                  <td>0</td>
-                </tr>
-                <tr>
-                  <td>左前门</td>
-                  <td class="table-error">2</td>
-                  <td>右前门</td>
-                  <td class="table-error">3</td>
-                </tr>
-                <tr >
-                  <td>左前门</td>
-                  <td class="table-error">1</td>
-                  <td>右前门</td>
-                  <td>0</td>
-                </tr>
-                <tr>
-                  <td>左前门</td>
-                  <td>0</td>
-                  <td>右前门</td>
-                  <td class="table-error">6</td>
-                </tr>
-                </tbody>
-              </table>
-              <div class="table-supply">
-                <p>部位维修：</p>
-                <ul>
-                  <li>1:右侧后门喷漆</li>
-                  <li>2:更换挡风玻璃</li>
-                </ul>
-              </div>
-            </div>-->
             <div class="collapse-content" v-if="reportDetails.outside_repair_detail">
 
               <p class="table-title">车上结构</p>
