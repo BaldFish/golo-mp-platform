@@ -3,7 +3,7 @@
     <section class="login-container">
       <ul>
         <li>
-          <input type="text" placeholder="请输入手机号" v-model="phone" maxlength="11" @blur="checkPhone">
+          <input type="number" oninput="if(value.length>11)value=value.slice(0,11)" placeholder="请输入手机号" v-model="phone" maxlength="11" @blur="checkPhone">
         </li>
         <li>
           <input type="text" placeholder="请输入验证码" v-model="captchaCode" class="msg-code">
@@ -84,6 +84,10 @@
               that.errorTip=false;
             },2000);
           }
+        }
+        //非数字自动删除
+        if (!/^[0-9]*$/.test(val)) {
+          this.phone = this.phone.slice(0, this.phone.length - 1)
         }
       },
     },
