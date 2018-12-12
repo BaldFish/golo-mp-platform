@@ -193,6 +193,9 @@
                   that.errorTip=false;
                   that.$router.push('/order/vehicleConditionOrder')
                 },6000);
+              }else{
+                that.errorMessage="订单支付失败,请重新支付";
+                that.errorTip=true;
                 window.setTimeout(function () {
                   that.errorTip=false;
                 },2000);
