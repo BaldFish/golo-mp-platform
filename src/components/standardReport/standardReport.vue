@@ -66,7 +66,7 @@
           <ul class="car-li-02">
             <li class="error">
               <img src="@/common/images/car_analysis04.png" alt="">
-              <p>无火烧</p>
+              <p>火烧</p>
               <i></i>
             </li>
             <li class="error">
