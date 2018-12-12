@@ -89,7 +89,7 @@
       }
     },
     created() {
-      this.read();
+      this.reload();
     },
     beforeMount() {
       this.userId = this.$utils.getCookie("userId");
