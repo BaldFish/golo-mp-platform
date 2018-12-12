@@ -13,13 +13,12 @@
         <div class="car-info">
           <ul>
             <li>
-              <label>c车架号码：</label>
-              <p>VEE*****************111</p>
-              <!--<p>{{reportDetails.repair.model_name}}</p>-->
+              <label>车架号码：</label>
+              <p>{{reportDetails.repair.vin}}</p>
             </li>
             <li class="clearfix">
               <label>查询时间：</label>
-              <p>2018.10.03  15：34</p>
+              <p>{{reportDetails.repair.updated_at}}</p>
             </li>
           </ul>
         </div>
@@ -40,21 +39,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>当前里程</td>
-              <td>76544</td>
-            </tr>
-            <tr>
+            <tr v-for="(item,index) of kilometreInfo">
               <td>历史里程</td>
-              <td>76544</td>
-            </tr>
-            <tr>
-              <td>历史里程</td>
-              <td>76544</td>
-            </tr>
-            <tr>
-              <td>当前里程</td>
-              <td>76544</td>
+              <td>{{item.mileage}}</td>
             </tr>
             </tbody>
           </table>
@@ -83,14 +70,16 @@
       return {
         order_id: "",
         reportDetails: "",
+        kilometreInfo: ""
       }
     },
     created() {
     },
     mounted() {
-      this.drawLine();
       this.order_id = JSON.parse(localStorage.getItem("vehicleConditionSingleOrder")).order_id;
-      this.getReportDetails()
+      this.getReportDetails();
+      //生成echarts写在最下面，防止报错“Echarts的图形容器还未生成就对其进行了初始化”
+      this.drawLine();
     },
     watch: {},
     computed: {},
@@ -125,12 +114,14 @@
           url: `${this.$baseURL}/v1/golo-report/repair/${this.order_id}`
         }).then(res => {
           let reportDetails = res.data.data;
-          //reportDetails.created_at = this.$utils.formatDate(new Date(reportDetails.created_at), "yyyy-MM-dd hh:mm:ss");
-          //.updated_at = this.$utils.formatDate(new Date(reportDetails.updated_at), "yyyy-MM-dd hh:mm:ss");
-
+          reportDetails.repair.updated_at = this.$utils.formatDate(new Date(reportDetails.repair.updated_at), "yyyy-MM-dd hh:mm:ss");
+          //车辆信息
           this.reportDetails = reportDetails;
+          //里程信息
+          this.kilometreInfo = reportDetails.nromal_repair_detail.reverse();
 
-          console.log(this.reportDetails)
+          console.log(this.kilometreInfo,"kilometreInfo")
+          console.log(this.reportDetails,"reportDetails")
 
         }).catch(error => {
           console.log(error)

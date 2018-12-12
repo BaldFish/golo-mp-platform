@@ -64,8 +64,7 @@
             </li>
           </ul>
           <ul class="car-li-02">
-          <li :class="{'error': reportDetails.repair.car_fire_flag == 1}">
-            <li class="error">
+            <li :class="{'error': reportDetails.repair.car_fire_flag == 1}">
               <img src="@/common/images/car_analysis04.png" alt="">
               <p>无火烧</p>
               <i></i>
@@ -396,8 +395,8 @@
           //里程信息
           this.kilometreInfo = reportDetails.nromal_repair_detail.reverse();
 
-          console.log(this.kilometreInfo)
-          console.log(this.reportDetails)
+          console.log(this.kilometreInfo,"kilometreInfo")
+          console.log(this.reportDetails,"reportDetails")
 
         }).catch(error => {
           console.log(error)
