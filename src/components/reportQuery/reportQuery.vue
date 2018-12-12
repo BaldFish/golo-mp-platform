@@ -1,11 +1,17 @@
 <template>
   <div class="reportQuery">
     <div class="swiper_wrap">
-      <wc-swiper class="swiper" :duration="500" :interval="2500" :therehold="100" :curSlide="0" :pagination="true">
+      <!--<wc-swiper class="swiper" :duration="500" :interval="2500" :therehold="100" :curSlide="0" :pagination="true">
         <wc-slide v-for="(slide, key) in slides" :key="key" v-if="slides.length">
           <img :src="slide.url" alt="">
         </wc-slide>
-      </wc-swiper>
+      </wc-swiper>-->
+      <swiper :options="swiperOption" class="awesome_swiper">
+        <swiper-slide v-for="(slide, index) in slides" :key="index">
+          <img :src="slide.url" alt="">
+        </swiper-slide>
+        <div class="swiper-pagination" slot="pagination"></div>
+      </swiper>
     </div>
     <div class="tabs_wrap">
       <ul>
@@ -47,6 +53,17 @@
     data() {
       return {
         slides: [],
+        swiperOption: {
+          pagination: {
+            el: '.swiper-pagination'
+          },
+          loop : true,
+          autoplay: {
+            delay: 2000,
+            stopOnLastSlide: false,
+            disableOnInteraction: false,
+          },
+        },
       }
     },
     beforeMount() {
@@ -231,6 +248,16 @@
         .wc-dot-active {
           opacity: 1;
           background: #5226f3;
+        }
+      }
+    }
+    .awesome_swiper{
+      .swiper-wrapper{
+        width 750px
+        height 320px
+        img {
+          width 750px
+          height 320px
         }
       }
     }
