@@ -12,25 +12,29 @@
         </div>
         <div class="car-info">
           <ul>
-            <li>
-              <label>车型：</label>
-              <p>{{reportDetails.repair.model_name}}</p>
+            <li class="clearfix">
+              <label>车型名称：</label>
+              <p>{{reportDetails.repair.model_name}}KM</p>
             </li>
             <li class="clearfix">
-              <label>车牌：</label>
+              <label>行驶里程：</label>
+              <p>{{reportDetails.last_mileage}}KM</p>
+            </li>
+            <li class="clearfix">
+              <label>车架号码：</label>
+              <p>{{reportDetails.repair.vin}}</p>
+            </li>
+            <li class="clearfix">
+              <label>车牌号码：</label>
               <p>{{reportDetails.order_info.plate_num}}</p>
             </li>
             <li class="clearfix">
-              <label>里程：</label>
-              <p>{{reportDetails.repair.mileage_every_year}}</p>
-            </li>
-            <li class="clearfix">
-              <label>发动机号码：</label>
+              <label>发动机号：</label>
               <p>{{reportDetails.order_info.engineno}}</p>
             </li>
             <li class="clearfix">
-              <label>车架号：</label>
-              <p>{{reportDetails.repair.vin}}</p>
+              <label>车辆类型：</label>
+              <p>{{reportDetails.order_info.car_type}}</p>
             </li>
             <li class="clearfix">
               <label>报告生成时间：</label>
@@ -45,21 +49,24 @@
           <p>车况分析</p>
         </div>
         <div class="car-analysis">
-          <p class="analysis-tips">本车里程读数&nbsp;<span>异常</span></p>
+          <p class="analysis-tips">
+            本车里程读数&nbsp;
+            <span :class="{'analysis-error': reportDetails.compent_repair_detail || reportDetails.construct_repair_detail || reportDetails.outside_repair_detail || reportDetails.repair.car_fire_flag == 1 || reportDetails.repair.car_water_flag == 1 || reportDetails.nromal_repair_detail}">异常</span>
+          </p>
           <ul class="car-li-01">
-            <li :class="{'error': reportDetails.repair.car_component_records_flag == 1}">
+            <li :class="{'error': reportDetails.compent_repair_detail}">
               <img src="@/common/images/car_analysis01.png" alt="">
-              <p>发动机无大修</p>
+              <p>重要部件</p>
               <i></i>
             </li>
-            <li :class="{'error': reportDetails.repair.car_construct_records_flag == 1}">
-              <img src="@/common/images/car_analysis02.png" alt="">
-              <p>车架无损伤</p>
+            <li :class="{'error': reportDetails.construct_repair_detail}">
+              <img src="@/common/images/jiegou.png" alt="">
+              <p>结构部件</p>
               <i></i>
             </li>
-            <li>
-              <img src="@/common/images/car_analysis03.png" alt="">
-              <p>变速箱无大修</p>
+            <li :class="{'error': reportDetails.outside_repair_detail}">
+              <img src="@/common/images/waiguan.png" alt="">
+              <p>外观</p>
               <i></i>
             </li>
           </ul>
@@ -74,9 +81,9 @@
               <p>泡水</p>
               <i></i>
             </li>
-            <li :class="{'error': reportDetails.repair.car_outside_records_flag == 1}">
-              <img src="@/common/images/car_analysis06.png" alt="">
-              <p>安全气囊无弹出</p>
+            <li :class="{'error': reportDetails.nromal_repair_detail}">
+              <img src="@/common/images/baoyang.png" alt="">
+              <p>保养记录</p>
               <i></i>
             </li>
           </ul>
@@ -85,7 +92,7 @@
         <el-collapse accordion  v-model="activeNames" @change="handleChange">
           <el-collapse-item>
             <template slot="title">
-              动力系统
+              重要部件
               <div class="collapse-error" v-if="reportDetails.compent_repair_detail">
                 <span>异常</span>
                 <span>{{reportDetails.compent_repair_detail.length}}</span>
@@ -93,36 +100,29 @@
             </template>
             <div class="collapse-content"  v-if="reportDetails.compent_repair_detail">
 
-              <p class="table-title">动力系统</p>
+              <p class="table-title">重要部件</p>
               <table>
                 <thead>
-                <tr>
-                  <th>部件</th>
-                  <th>维修次数</th>
-                </tr>
+                  <tr>
+                    <th>维修类型</th>
+                    <th>维修内容</th>
+                  </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(item,index) of reportDetails.compent_repair_detail">
-                  <td>{{item.type}}</td>
-                  <td :class="{'table-error': item.repair_type !== 0}">{{item.repair_type}}</td>
-                </tr>
+                  <tr v-for="(item,index) of reportDetails.compent_repair_detail">
+                    <td>{{item.type}}</td>
+                    <td>{{item.content}}</td>
+                  </tr>
                 </tbody>
               </table>
               <p style="visibility: hidden">占位</p>
-              <!-- <div class="table-supply">
-                 <p>部位维修：</p>
-                 <ul>
-                   <li>1:右侧后门喷漆</li>
-                   <li>2:更换挡风玻璃</li>
-                 </ul>
-               </div>-->
 
             </div>
             <div class="system-error" v-else>无异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
-              底盘系统
+              结构部件
               <div class="collapse-error" v-if="reportDetails.construct_repair_detail">
                 <span>异常</span>
                 <span>{{reportDetails.construct_repair_detail.length}}</span>
@@ -130,19 +130,19 @@
             </template>
             <div class="collapse-content"  v-if="reportDetails.construct_repair_detail">
 
-              <p class="table-title">底盘系统</p>
+              <p class="table-title">结构部件</p>
               <table>
                 <thead>
-                <tr>
-                  <th>部件</th>
-                  <th>维修次数</th>
-                </tr>
+                  <tr>
+                    <th>维修类型</th>
+                    <th>维修内容</th>
+                  </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(item,index) of reportDetails.construct_repair_detail">
-                  <td>{{item.type}}</td>
-                  <td :class="{'table-error': item.repair_type !== 0}">{{item.repair_type}}</td>
-                </tr>
+                  <tr v-for="(item,index) of reportDetails.construct_repair_detail">
+                    <td>{{item.type}}</td>
+                    <td>{{item.content}}</td>
+                  </tr>
                 </tbody>
               </table>
               <p style="visibility: hidden">占位</p>
@@ -159,7 +159,7 @@
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
-              车身系统
+              保养记录
               <div class="collapse-error" v-if="reportDetails.nromal_repair_detail">
                 <span>异常</span>
                 <span>{{reportDetails.nromal_repair_detail.length}}</span>
@@ -167,56 +167,29 @@
             </template>
             <div class="collapse-content" v-if="reportDetails.nromal_repair_detail">
 
-              <p class="table-title">车身系统</p>
+              <p class="table-title">保养记录</p>
               <table>
                 <thead>
-                <tr>
-                  <th>部件</th>
-                  <th>维修次数</th>
-                </tr>
+                  <tr>
+                    <th>维修类型</th>
+                    <th>维修内容</th>
+                  </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(item,index) of reportDetails.nromal_repair_detail">
-                  <td>{{item.type}}</td>
-                  <td :class="{'table-error': item.repair_type !== 0}">{{item.repair_type}}</td>
-                </tr>
+                  <tr v-for="(item,index) of reportDetails.nromal_repair_detail">
+                    <td>{{item.type}}</td>
+                    <td>{{item.content}}</td>
+                  </tr>
                 </tbody>
               </table>
               <p style="visibility: hidden">占位</p>
-             <!-- <div class="table-supply">
-                <p>部位维修：</p>
-                <ul>
-                  <li>1:右侧后门喷漆</li>
-                  <li>2:更换挡风玻璃</li>
-                </ul>
-              </div>-->
 
             </div>
             <div class="system-error" v-else>无异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
-              安全系统
-              <!--<div class="collapse-error">
-                <span>异常</span>
-                <span>6</span>
-              </div>-->
-            </template>
-            <div class="system-error">无异常</div>
-          </el-collapse-item>
-          <el-collapse-item>
-            <template slot="title">
-              娱乐系统
-              <!--<div class="collapse-error">
-                <span>异常</span>
-                <span>4</span>
-              </div>-->
-            </template>
-            <div class="system-error">无异常</div>
-          </el-collapse-item>
-          <el-collapse-item>
-            <template slot="title">
-              车上结构
+              外观
               <div class="collapse-error" v-if="reportDetails.outside_repair_detail">
                 <span>异常</span>
                 <span>{{reportDetails.outside_repair_detail.length}}</span>
@@ -224,32 +197,25 @@
             </template>
             <div class="collapse-content" v-if="reportDetails.outside_repair_detail">
 
-              <p class="table-title">车上结构</p>
+              <p class="table-title">外观</p>
               <table>
                 <thead>
                 <tr>
-                  <th>部件</th>
-                  <th>维修次数</th>
+                  <th>维修类型</th>
+                  <th>维修内容</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr v-for="(item,index) of reportDetails.outside_repair_detail">
                   <td>{{item.type}}</td>
-                  <td :class="{'table-error': item.repair_type !== 0}">{{item.repair_type}}</td>
+                  <td>{{item.content}}</td>
                 </tr>
                 </tbody>
               </table>
               <p style="visibility: hidden">占位</p>
-              <!-- <div class="table-supply">
-                 <p>部位维修：</p>
-                 <ul>
-                   <li>1:右侧后门喷漆</li>
-                   <li>2:更换挡风玻璃</li>
-                 </ul>
-               </div>-->
 
             </div>
-            <div class="system-error" v-else>无异常</div>
+            <div class="system-error">无异常</div>
           </el-collapse-item>
         </el-collapse>
       </section>
@@ -259,7 +225,7 @@
           <p>里程分析</p>
         </div>
         <div class="mileage-analysis">
-          <p class="analysis-tips">本车里程读数&nbsp;<span>异常</span></p>
+          <p class="analysis-tips">本车里程读数&nbsp;<span :class="{'analysis-error': reportDetails.mileage_status == 1}">异常</span></p>
           <p class="table-title">里程记录（倒叙排序）</p>
           <table>
             <thead>
@@ -324,19 +290,33 @@
       return {
         activeNames: ['1'],
         order_id: "",
-        reportDetails: "",
+        reportDetails: {
+          repair:"",
+          order_info:"",
+        },
         isViolation: true,
         violationInfo: "",
-        kilometreInfo: ""
+        kilometreInfo: "",
+        res_mileage:"",
+        res_time: ""
       }
     },
     created() {
+    },
+    beforeMount(){
     },
     mounted() {
       this.drawLine();
       this.order_id = JSON.parse(localStorage.getItem("vehicleConditionSingleOrder")).order_id;
       this.getReportDetails();
-      //生成echarts写在最下面，防止报错“Echarts的图形容器还未生成就对其进行了初始化”
+      this.getKilometreDetails();
+
+      //延迟渲染
+      let self = this;
+      setTimeout(function () {
+        self.drawLine();
+      },500)
+
     },
     watch: {},
     computed: {},
@@ -346,35 +326,29 @@
       },
       drawLine(){
         // 基于准备好的dom，初始化echarts实例
-        //var bar_dv = document.getElementById('bar_dv');
-        var bar_dv = this.$refs.chart;
-        console.log(bar_dv)
+        var bar_dv = document.getElementById('bar_dv');
+        //var bar_dv = this.$refs.chart;
         // 绘制图表
-        if (bar_dv) {
-          console.log('bar_dv不为空');
-          let myChart = this.$echarts.init(bar_dv);
-          myChart.setOption({
-            title: { text: '里程（万KM）' },
-            /*tooltip: {},*/
-            xAxis: {
-              data: ["2012","2013","2014","2015","2016","2017"]
-            },
-            yAxis: {},
-            series: [
-              {
-                name: '里程',
-                type: 'line',
-                data: [5, 20, 36, 10, 10, 20]
-              },
-              {
-                name: '里程2',
-                type: 'line',
-                data: [2, 14, 20, 19, 32, 36]
-              }]
-          });
-        } else {
-          console.log('bar_dv为空!');
-        }
+        let myChart = this.$echarts.init(bar_dv);
+        myChart.setOption({
+          title: { text: '里程（万KM）' },
+          /*tooltip: {},*/
+          xAxis: {
+            data: this.res_time,
+            axisLabel: {
+              interval:0,
+              rotate:40
+            }
+          },
+          yAxis: {},
+          series: [
+            {
+              name: '里程',
+              type: 'line',
+              data: this.res_mileage
+            }
+          ]
+        });
 
       },
       getReportDetails(){
@@ -393,10 +367,25 @@
             this.violationInfo = []
           }
           //里程信息
-          this.kilometreInfo = reportDetails.nromal_repair_detail.reverse();
+          this.kilometreInfo = reportDetails.nromal_repair_detail;
 
-          console.log(this.kilometreInfo,"kilometreInfo")
-          console.log(this.reportDetails,"reportDetails")
+          //console.log(this.kilometreInfo,"kilometreInfo")
+          //console.log(this.reportDetails,"reportDetails")
+
+        }).catch(error => {
+          console.log(error)
+        })
+      },
+      getKilometreDetails(){
+        this.$axios({
+          method: 'GET',
+          url: `${this.$baseURL}/v1/golo-report/mileage/${this.order_id}`
+        }).then(res => {
+          this.res_mileage = res.data.data.res_mileage.reverse();
+          this.res_time = res.data.data.res_time.reverse();
+
+          console.log(this.res_mileage,"res_mileage")
+          console.log(this.res_time,"res_time")
 
         }).catch(error => {
           console.log(error)
@@ -476,6 +465,8 @@
             margin: 46px 0 60px 64px
             span{
               font-size: 30px; /*px*/
+            }
+            .analysis-error{
               color: #f30808;
             }
           }
@@ -522,7 +513,7 @@
             }
             li:nth-child(2){
               img{
-                width:58px
+                width:49px
                 height:49px
               }
             }
@@ -548,8 +539,8 @@
             }
             li:nth-child(3){
               img{
-                width:44px
-                height:46px
+                width:48px
+                height:45px
               }
             }
           }
@@ -579,6 +570,8 @@
             margin: 20px 0 0 45px
             span{
               font-size: 30px; /*px*/
+            }
+            .analysis-error{
               color: #f30808;
             }
           }
@@ -615,6 +608,7 @@
           }
         }
         .trend-analysis{
+          padding-bottom: 20px;
           .trend-title{
             font-size: 30px; /*px*/
             color: #222222;
@@ -627,9 +621,10 @@
             }
           }
           #bar_dv{
-            width: 600px
+            width: 650px
             height: 400px
             margin: 0 auto
+            margin-left 40px
           }
         }
         .violation-info{
@@ -766,6 +761,7 @@
         .system-error{
           color #666
           padding-top: 20px;
+          padding-left 20px
         }
         .collapse-content{
           background-color: #f7f7f7;
@@ -783,6 +779,7 @@
             text-align center
             width: 620px;
             margin 0 auto
+            table-layout: fixed;
             .table-error{
               color: #f30808;
             }
@@ -800,6 +797,9 @@
                 height:50px
                 line-height 50px
                 border: solid 1px #d2d2d2; /*no*/
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
               }
             }
           }
