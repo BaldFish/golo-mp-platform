@@ -584,7 +584,7 @@
   }
   
   .cooperation {
-    margin: 50px 0 150px 0
+    margin: 50px 0
     text-align center
     font-weight 700
     font-size: 30px; /*px*/

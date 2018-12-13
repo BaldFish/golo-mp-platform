@@ -114,7 +114,7 @@
   .reportQuery {
     width 750px
     margin 0 auto
-    
+    padding-bottom 98px
     .tabs_wrap {
       ul {
         font-size 0

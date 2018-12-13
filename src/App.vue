@@ -133,9 +133,9 @@
       min-width 640px
       display: flex;
       
-      .main {
+      /*.main {
         flex: 1;
-      }
+      }*/
     }
     
     .footer_wrap {
