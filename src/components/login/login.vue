@@ -184,7 +184,7 @@
           url: `${this.$baseURL}/v1/golo-user/login`,
           data: this.$querystring.stringify(loginFormData)
         }).then(res => {
-          alert(res.data);
+          alert(res.data.data.userId);
           return
           /*document.cookie = `userId=${res.data.data.userId}`;
           document.cookie = `sessionId=${res.data.data.sessionId}`;
