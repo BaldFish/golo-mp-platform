@@ -237,7 +237,7 @@
 <style scoped lang="stylus">
   .personalCenter{
     width 750px
-    padding-bottom 128px
+    padding-bottom 728px
     .personal-user {
       box-sizing border-box
       position relative
@@ -303,7 +303,7 @@
       border-radius: 30px;
       margin: 0 auto
       padding: 60px 36px
-    
+      margin-bottom 30px
       li {
         height: 50px;
         line-height 50px

@@ -1,6 +1,6 @@
 <template>
   <div class="violationOrder">
-    <section class="query-container" v-for="(item,index) of violationDetails" v-if="isData">
+    <section class="query-container" v-for="(item,index) of violationDetails" v-if="isData" :key="index">
       <div class="query-time">
         <p>查询时间：{{item.query_info.updated_at}}</p>
       </div>
@@ -82,7 +82,7 @@
           method: 'GET',
           url: `${this.$baseURL}/v1/golo/violation/query/info/${this.userId}`
         }).then(res => {
-          if(res.data.data.length){
+          if(res.data.data.res_count){
             this.isData = true;
             let self = this;
             res.data.data.forEach(function (item) {
