@@ -31,7 +31,7 @@
       }
     },
     beforeMount() {
-      let u = navigator.userAgent;
+      /*let u = navigator.userAgent;
       let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
       let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
       if(isAndroid){
@@ -46,7 +46,7 @@
             document.querySelectorAll('#footer')[0].style="display:block"
           }
         }
-      }
+      }*/
       this.getPath();
     },
     mounted() {
@@ -56,19 +56,6 @@
     computed: {
     },
     watch: {
-      /*screenWidth (val) {
-        if (!this.timer) {
-          this.screenWidth = val
-          this.timer = true
-          let that = this
-          setTimeout(function () {
-            // that.screenWidth = that.$store.state.canvasWidth
-            console.log(that.screenWidth)
-            that.init()
-            that.timer = false
-          }, 400)
-        }
-      },*/
       //监听路由变化执行方法
       $route(to, from) {
         this.getPath()
