@@ -181,12 +181,12 @@
           url: `${this.$baseURL}/v1/golo-user/login`,
           data: this.$querystring.stringify(loginFormData)
         }).then(res => {
-          document.cookie = `userId=${res.data.data.userId}`;
+          /*document.cookie = `userId=${res.data.data.userId}`;
           document.cookie = `sessionId=${res.data.data.sessionId}`;
           document.cookie = `openId=${res.data.data.openId}`;
           document.cookie = `token=${res.data.data.token}`;
           document.cookie = `userPhone=${res.data.data.phone}`;
-          document.cookie = `userImgUrl=${res.data.data.imgurl}`;
+          document.cookie = `userImgUrl=${res.data.data.imgurl}`;*/
           this.$router.push('/personalCenter');
         }).catch(error => {
           this.getCaptcha();
