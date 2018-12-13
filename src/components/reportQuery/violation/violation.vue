@@ -332,12 +332,12 @@
           this.$router.push('/violationReport')
         }).catch(error => {
           console.log(error);
-          /*this.errorMessage=error.response.data.code;
+          this.errorMessage=error.response.data.message;
           this.errorTip=true;
           let that=this;
           window.setTimeout(function () {
             that.errorTip=false;
-          },2000);*/
+          },2000);
         })
       },
       closeNotice() {
