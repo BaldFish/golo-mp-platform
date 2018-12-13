@@ -85,7 +85,7 @@
           if(res.data.data.res_count){
             this.isData = true;
             let self = this;
-            res.data.data.forEach(function (item) {
+            res.data.data.res_list.forEach(function (item) {
               item.res_list.query_info.updated_at = self.$utils.formatDate(new Date(item.res_list.query_info.updated_at), "yyyy-MM-dd hh:mm:ss");
               //添加字段 pendingNum（未处理数量）、penaltyAmount（罚款）
               if (item.res_list.vio_info){
