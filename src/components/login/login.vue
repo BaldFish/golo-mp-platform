@@ -45,12 +45,12 @@
     created() {
     },
     beforeMount() {
-      /*this.WXcode=this.getWXcode('code');
+      this.WXcode=this.getWXcode('code');
       if(this.WXcode===null||this.WXcode===""){
         let AppId="wx8ed85ed5c5f4ed96";
         let local=window.location.href;
         window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+AppId+"&redirect_uri="+encodeURIComponent(local)+"&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
-      }*/
+      }
       this.getCaptcha();
     },
     mounted() {
