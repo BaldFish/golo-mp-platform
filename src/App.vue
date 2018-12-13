@@ -140,13 +140,12 @@
     background-color: #ffffff;
     
     .main_wrap {
+      display: flex;
       flex: 1;
       box-sizing: border-box;
       margin: 0 auto;
       width 100%
       min-width 640px
-      display: flex;
-      
       /*.main {
         flex: 1;
       }*/
