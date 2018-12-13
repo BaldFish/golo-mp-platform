@@ -251,7 +251,7 @@
           </template>
         </div>
       </section>
-      <section class="report-box fixed">
+      <section class="report-box fixed" v-if="reportDetails.order_info.report_type==='full'">
         <div class="report-box-title">
           <span></span>
           <p>违章信息</p>
@@ -273,7 +273,7 @@
           </div>
         </div>
       </section>
-      <section class="qrcode fixed">
+      <section class="qrcode fixed" v-if="reportDetails.order_info.report_type==='full'">
         <p>轱辘二手车评估</p>
         <div><img src="@/common/images/golo_qrcode.png" alt=""></div>
         <p>官方微信</p>
@@ -384,8 +384,8 @@
           this.res_mileage = res.data.data.res_mileage.reverse();
           this.res_time = res.data.data.res_time.reverse();
 
-          console.log(this.res_mileage,"res_mileage")
-          console.log(this.res_time,"res_time")
+          //console.log(this.res_mileage,"res_mileage")
+          //console.log(this.res_time,"res_time")
 
         }).catch(error => {
           console.log(error)
@@ -797,9 +797,10 @@
                 height:50px
                 line-height 50px
                 border: solid 1px #d2d2d2; /*no*/
-                white-space: nowrap;
+                /*white-space: nowrap;
                 overflow: hidden;
-                text-overflow: ellipsis;
+                text-overflow: ellipsis;*/
+                vertical-align middle
               }
             }
           }
