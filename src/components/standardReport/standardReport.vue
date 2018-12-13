@@ -91,7 +91,7 @@
                 <span>2</span>
               </div>
             </template>
-            <div>动力系统异常</div>
+            <div class="system-error">动力系统异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
@@ -101,7 +101,7 @@
                 <span>1</span>
               </div>
             </template>
-            <div>底盘系统异常</div>
+            <div class="system-error">底盘系统异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
@@ -111,7 +111,7 @@
                 <span>2</span>
               </div>
             </template>
-            <div>车身系统异常</div>
+            <div class="system-error">车身系统异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
@@ -121,7 +121,7 @@
                 <span>6</span>
               </div>
             </template>
-            <div>安全系统异常</div>
+            <div class="system-error">安全系统异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
@@ -131,7 +131,7 @@
                 <span>4</span>
               </div>
             </template>
-            <div>娱乐系统异常</div>
+            <div class="system-error">娱乐系统异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
@@ -615,6 +615,7 @@
     margin-top 53px
     border-top: none
     padding-bottom 50px
+    border-bottom none
     .el-collapse-item__header{
       font-size: 28px; /*px*/
       color: #161616;
@@ -641,6 +642,11 @@
     .el-collapse-item__wrap{
       .el-collapse-item__content{
         font-size: 24px; /*px*/
+        background-color: #f7f7f7;
+        .system-error{
+          color #666
+          padding-top: 20px;
+        }
         .collapse-content{
           background-color: #f7f7f7;
           .table-title{
