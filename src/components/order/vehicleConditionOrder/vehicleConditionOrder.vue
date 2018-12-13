@@ -37,7 +37,7 @@
         <input type="button" value="新建订单">
       </router-link>
     </section>
-    <div class="errorTip_wrap" >
+    <div class="errorTip_wrap">
       <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
     </div>
   </div>
@@ -49,10 +49,10 @@
     components: {},
     data() {
       return {
-        errorMessage:"",//错误提示信息
-        errorTip:false,//提示框显示、隐藏
+        errorMessage: "",//错误提示信息
+        errorTip: false,//提示框显示、隐藏
         nowIndex: 0,
-        tabsParam:[
+        tabsParam: [
           {text: "全部状态"},
           {text: "待支付"},
           {text: "查询中"},
@@ -61,9 +61,8 @@
         ],
         isData: true,
         status: 5,
-        orderList:'',
-
-
+        orderList: '',
+        userId: "",
       }
     },
     created() {
@@ -71,8 +70,9 @@
     mounted() {
     },
     beforeMount() {
-      this.openid = this.$utils.getCookie("openid");
-      if (!this.openid) {
+      this.userId = this.$utils.getCookie("userId");
+      this.openId = this.$utils.getCookie("openId");
+      if (!this.userId) {
         this.$router.push('/login');
       }
       this.getOrderList();
@@ -81,19 +81,19 @@
     computed: {},
     methods: {
       //提交订单
-      submitOrder(orderNum){
-        let token=this.$utils.getCookie("token");
-        let orderId={};
-        orderId.order_id=orderNum;
+      submitOrder(orderNum) {
+        let token = this.$utils.getCookie("token");
+        let orderId = {};
+        orderId.order_id = orderNum;
         this.$axios({
           method: 'POST',
           url: `${this.$baseURL}/v1/golo-order/pay`,
           data: this.$querystring.stringify(orderId),
-          headers:{
+          headers: {
             'X-Access-Token': token,
           },
         }).then(res => {
-          let requiredParameter=res.data.data.prepay_info;
+          let requiredParameter = res.data.data.prepay_info;
           this.payOrder(requiredParameter);
         }).catch(error => {
           /*this.errorMessage=error.response.data;
@@ -105,12 +105,13 @@
         })
       },
       //支付订单
-      payOrder(requiredParameter){
+      payOrder(requiredParameter) {
         //调用微信支付
-        let that=this;
-        function onBridgeReady(requiredParameter){
+        let that = this;
+        
+        function onBridgeReady(requiredParameter) {
           WeixinJSBridge.invoke(
-            'getBrandWCPayRequest',requiredParameter,
+            'getBrandWCPayRequest', requiredParameter,
             /*{
               "appId":"wx2421b1c4370ec43b",     //公众号名称，由商户传入
               "timeStamp":"1395712654",         //时间戳，自1970年以来的秒数
@@ -119,50 +120,51 @@
               "signType":"MD5",         //微信签名方式：
               "paySign":"70EA570631E4BB79628FBCA90534C63FF7FADD89" //微信签名
             },*/
-            function(res){
-              if(res.err_msg == "get_brand_wcpay_request:ok" ){
+            function (res) {
+              if (res.err_msg == "get_brand_wcpay_request:ok") {
                 // 使用以上方式判断前端返回,微信团队郑重提示：
                 //res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
-                that.errorMessage="订单支付成功";
-                that.errorTip=true;
+                that.errorMessage = "订单支付成功";
+                that.errorTip = true;
                 window.setTimeout(function () {
-                  that.errorTip=false;
-                  window.location.href="http://pinggu.goloiov.com/order/vehicleConditionOrder"
-                },3000);
+                  that.errorTip = false;
+                  window.location.href = "http://pinggu.goloiov.com/order/vehicleConditionOrder"
+                }, 3000);
                 //that.$router.push('/order/vehicleConditionOrder')
-              }else{
-                that.errorMessage="订单支付失败,请重新支付";
-                that.errorTip=true;
+              } else {
+                that.errorMessage = "订单支付失败,请重新支付";
+                that.errorTip = true;
                 window.setTimeout(function () {
-                  that.errorTip=false;
-                },2000);
+                  that.errorTip = false;
+                }, 2000);
               }
             });
         }
+        
         //判断是否在微信内部浏览器
-        if (typeof WeixinJSBridge == "undefined"){
-          if( document.addEventListener ){
+        if (typeof WeixinJSBridge == "undefined") {
+          if (document.addEventListener) {
             document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-          }else if (document.attachEvent){
+          } else if (document.attachEvent) {
             document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
             document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
           }
-        }else{
+        } else {
           onBridgeReady(requiredParameter);
         }
-
+        
       },
-      tabChange(index){
+      tabChange(index) {
         this.nowIndex = index;
-        if (index == 0){
+        if (index == 0) {
           this.status = 5
-        } else if (index == 1){
+        } else if (index == 1) {
           this.status = 0
-        } else if (index == 2){
+        } else if (index == 2) {
           this.status = 1
-        } else if (index == 3){
+        } else if (index == 3) {
           this.status = 3
-        } else if (index == 4){
+        } else if (index == 4) {
           this.status = 4
         }
         this.getOrderList()
@@ -171,34 +173,34 @@
       getOrderList() {
         this.$axios({
           method: 'GET',
-          url: `${this.$baseURL}/v1/golo-order/list/${this.openid}?order_type=1&status=${this.status}&limit=1000`
+          url: `${this.$baseURL}/v1/golo-order/list/${this.openId}?order_type=1&status=${this.status}&limit=1000`
         }).then(res => {
-          if(res.data.data.res_list){
+          if (res.data.data.res_list) {
             this.isData = true;
             let res_list = res.data.data.res_list;
             let self = this;
             res_list.forEach(function (item) {
-              if(item.order_status == 0){
+              if (item.order_status == 0) {
                 item.order_status = '待支付'
-              } else if(item.order_status == 1){
+              } else if (item.order_status == 1) {
                 item.order_status = '查询中'
-              } else if(item.order_status == 3){
+              } else if (item.order_status == 3) {
                 item.order_status = '查询成功'
-              } else if(item.order_status == 4){
+              } else if (item.order_status == 4) {
                 item.order_status = '查询失败'
               }
               item.created_at = self.$utils.formatDate(new Date(item.created_at), "yyyy-MM-dd hh:mm:ss");
             });
             this.orderList = res_list;
-          }else{
+          } else {
             this.isData = false
           }
         }).catch(error => {
           console.log(error)
         })
       },
-      routerToDetails(item){
-        if(item.order_status == '待支付'){
+      routerToDetails(item) {
+        if (item.order_status == '待支付') {
           //return
           this.submitOrder(item.order_id)
           /*window.localStorage.setItem("vehicleConditionVerifyData", JSON.stringify(item));
@@ -209,12 +211,12 @@
         } else if(item.order_status == '查询成功'){
           window.localStorage.setItem("vehicleConditionSuccessOrder", JSON.stringify(item));
           this.$router.push('/vehicleConditionOrderDetails');
-        }*/ else{
+        }*/ else {
           window.localStorage.setItem("vehicleConditionSingleOrder", JSON.stringify(item));
           this.$router.push('/vehicleConditionOrderDetails');
         }
       },
-      routerToReport(item){
+      routerToReport(item) {
         window.localStorage.setItem("vehicleConditionSingleOrder", JSON.stringify(item));
         this.$router.push('/vehicleConditionReport');
       }
@@ -223,141 +225,165 @@
 </script>
 
 <style scoped lang="stylus">
-.car-nav{
-  height: 46px;
-  width: 686px
-  margin 0 auto
-  margin-top 27px
-  li{
-    width: 110px;
-    height: 46px;
-    line-height 46px;
-    border-radius: 10px;
-    border: solid 1px #666666; /*no*/
-    font-size: 22px; /*px*/
-    color: #999999;
-    text-align center
-    float left
-    margin-right 31px
-    box-sizing border-box
-  }
-  li:last-child{
-    margin-right 0
-  }
-  .active{
-    background-color: #5226f3;
-    color #ffffff
-    border: none
-    p{
-      font-weight bold
-    }
-  }
-}
-.car-condition-list{
-  li{
-    width: 688px;
-    height: 240px;
-    background-color: #ffffff;
-    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.09);
-    border-radius: 30px;
-    margin: 0 auto
-    margin-top 32px
-    .order-num{
-      font-size: 26px; /*px*/
-      color: #333333;
-      border-bottom 1px solid #eeeeee; /*no*/
-      height: 45px
-      margin: 0 20px;
-      padding-top: 34px;
-      padding-right 6px
-      p:nth-child(1){
+  .vehicleConditionOrder {
+    width 750px
+    .car-nav {
+      height: 46px;
+      width: 686px
+      margin 0 auto
+      margin-top 27px
+      
+      li {
+        width: 110px;
+        height: 46px;
+        line-height 46px;
+        border-radius: 10px;
+        border: solid 1px #666666; /*no*/
+        font-size: 22px; /*px*/
+        color: #999999;
+        text-align center
         float left
-        font-weight bold
+        margin-right 31px
+        box-sizing border-box
       }
-      p:nth-child(2){
-        float right
-        color: #5226f3;
+      
+      li:last-child {
+        margin-right 0
+      }
+      
+      .active {
+        background-color: #5226f3;
+        color #ffffff
+        border: none
+        
+        p {
+          font-weight bold
+        }
       }
     }
-    .order-details{
-      font-size: 26px; /*px*/
-      color: #333333;
-      margin: 0 20px;
-      label{
-        color: #666666;
-      }
-      p{
-        margin-top 35px
-      }
-      .order-time{
-        p{
-          float left
-        }
-        a{
-          float right
-          margin-top 35px
-          font-size: 24px; /*px*/
+    
+    .car-condition-list {
+      margin: 0 auto
+      li {
+        width: 688px;
+        height: 240px;
+        background-color: #ffffff;
+        box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.09);
+        border-radius: 30px;
+        margin: 0 auto
+        margin-top 32px
+        
+        .order-num {
+          font-size: 26px; /*px*/
           color: #333333;
-          .to-pay{
+          border-bottom 1px solid #eeeeee; /*no*/
+          height: 45px
+          margin: 0 20px;
+          padding-top: 34px;
+          padding-right 6px
+          
+          p:nth-child(1) {
+            float left
             font-weight bold
-            color red
+          }
+          
+          p:nth-child(2) {
+            float right
+            color: #5226f3;
+          }
+        }
+        
+        .order-details {
+          font-size: 26px; /*px*/
+          color: #333333;
+          margin: 0 20px;
+          
+          label {
+            color: #666666;
+          }
+          
+          p {
+            margin-top 35px
+          }
+          
+          .order-time {
+            p {
+              float left
+            }
+            
+            a {
+              float right
+              margin-top 35px
+              font-size: 24px; /*px*/
+              color: #333333;
+              
+              .to-pay {
+                font-weight bold
+                color red
+              }
+            }
           }
         }
       }
+      
+      li:last-child {
+        margin-bottom 150px
+      }
+    }
+    
+    .none-order {
+      width: 360px;
+      height: 360px;
+      background-color: #ffffff;
+      box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.09);
+      border-radius: 30px;
+      margin: 0 auto
+      margin-top 303px
+      text-align center
+      
+      img {
+        width: 86px;
+        height: 82px;
+        margin-top 67px
+        margin-bottom 20px
+      }
+      
+      p {
+        font-size: 28px; /*px*/
+        color: #666666;
+        margin-bottom 56px
+      }
+      
+      input {
+        width: 220px;
+        height: 64px;
+        background-color: #5226f3;
+        border-radius: 30px;
+        font-size: 28px; /*px*/
+        color: #ffffff;
+        outline none
+      }
+    }
+    
+    .errorTip_wrap {
+      width 100%
+      text-align center
+      font-size 0
+      position fixed
+      top 50%
+      
+      .errorTip {
+        display inline-block
+        box-sizing border-box
+        line-height 1.6
+        max-width 520px;
+        padding 20px 30px
+        background-color #000000
+        opacity 0.7
+        font-size 26px; /*px*/
+        color #ffffff
+        border-radius 30px
+      }
     }
   }
-  li:last-child{
-    margin-bottom 150px
-  }
-}
-.none-order{
-  width: 360px;
-  height: 360px;
-  background-color: #ffffff;
-  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.09);
-  border-radius: 30px;
-  margin:0 auto
-  margin-top 303px
-  text-align center
-  img{
-    width: 86px;
-    height: 82px;
-    margin-top 67px
-    margin-bottom 20px
-  }
-  p{
-    font-size: 28px; /*px*/
-    color: #666666;
-    margin-bottom 56px
-  }
-  input{
-    width: 220px;
-    height: 64px;
-    background-color: #5226f3;
-    border-radius: 30px;
-    font-size: 28px; /*px*/
-    color: #ffffff;
-    outline none
-  }
-}
-
-.errorTip_wrap{
-  width 100%
-  text-align center
-  font-size 0
-  position fixed
-  top 50%
-  .errorTip{
-    display inline-block
-    box-sizing border-box
-    line-height 1.6
-    max-width 520px;
-    padding 20px 30px
-    background-color #000000
-    opacity 0.7
-    font-size 26px;/*px*/
-    color #ffffff
-    border-radius 30px
-  }
-}
 </style>

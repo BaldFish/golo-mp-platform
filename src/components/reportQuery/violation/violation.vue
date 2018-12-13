@@ -321,15 +321,23 @@
             'X-Access-Token': token,
           },
         }).then(res => {
-          this.$router.push('/order/violationOrder')
+          let violationSingleOrder={};
+          violationSingleOrder.query_info.vin=this.carFrameNum;
+          violationSingleOrder.query_info.plate_num=this.plateNumber;
+          violationSingleOrder.query_info.engineno=this.engineNumber;
+          violationSingleOrder.query_info.car_type=this.carType;
+          violationSingleOrder.query_info.updated_at="";
+          
+          window.localStorage.setItem("violationSingleOrder", JSON.stringify(violationSingleOrder));
+          this.$router.push('/violationReport')
         }).catch(error => {
           console.log(error);
-          /*this.errorMessage=error.response.data.code;
+          this.errorMessage=error.response.data.message;
           this.errorTip=true;
           let that=this;
           window.setTimeout(function () {
             that.errorTip=false;
-          },2000);*/
+          },2000);
         })
       },
       closeNotice() {
@@ -620,7 +628,7 @@
   }
   
   .cooperation {
-    margin: 50px 0 150px 0
+    margin: 50px 0
     text-align center
     font-weight 700
     font-size: 30px; /*px*/

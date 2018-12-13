@@ -176,7 +176,9 @@
 
 <style scoped lang="stylus">
   .kilometreReport {
+    width 750px
     .top-bg{
+      margin 0 auto
       height: 400px
       width: 100%
       background url("../../common/images/report_top_bg.png") no-repeat center
@@ -192,6 +194,7 @@
       }
     }
     .blue-bg{
+      margin:0 auto
       background-color #5226f3
       .report-box{
         width: 688px;

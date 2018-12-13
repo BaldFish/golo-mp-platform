@@ -1,6 +1,6 @@
 <template>
   <div class="violationOrder">
-    <section class="query-container" v-for="(item,index) of violationDetails" v-if="isData">
+    <section class="query-container" v-for="(item,index) of violationDetails" v-if="isData" :key="index">
       <div class="query-time">
         <p>查询时间：{{item.query_info.updated_at}}</p>
       </div>
@@ -58,6 +58,7 @@
       return {
         isData: true,
         violationDetails: "",
+        userId:"",
       }
     },
     created() {
@@ -81,10 +82,10 @@
           method: 'GET',
           url: `${this.$baseURL}/v1/golo/violation/query/info/${this.userId}`
         }).then(res => {
-          if(res.data.data.length){
+          if(res.data.data.res_count){
             this.isData = true;
             let self = this;
-            res.data.data.forEach(function (item) {
+            res.data.data.res_list.forEach(function (item) {
               item.query_info.updated_at = self.$utils.formatDate(new Date(item.query_info.updated_at), "yyyy-MM-dd hh:mm:ss");
               //添加字段 pendingNum（未处理数量）、penaltyAmount（罚款）
               if (item.vio_info){
@@ -99,7 +100,7 @@
                 item.penaltyAmount = 0
               }
             });
-            this.violationDetails = res.data.data;
+            this.violationDetails = res.data.data.res_list;
           }else{
             this.isData = false
           }
@@ -110,7 +111,7 @@
       },
       routerToReport(item){
         this.getViolationDetails();
-        window.localStorage.setItem("violationSingleOrder", JSON.stringify(item));
+        window.localStorage.setItem("violationSingleOrder", JSON.stringify(item.res_list));
         this.$router.push('/violationReport');
       }
     },
@@ -119,6 +120,7 @@
 
 <style scoped lang="stylus">
 .violationOrder{
+  width 750px
   .query-container{
     width: 628px;
     height: 592px;

@@ -249,7 +249,6 @@
           <template>
             <div id="bar_dv" ref="chart"></div>
           </template>
-
         </div>
       </section>
       <section class="report-box fixed">
@@ -307,6 +306,7 @@
     beforeMount(){
     },
     mounted() {
+      this.drawLine();
       this.order_id = JSON.parse(localStorage.getItem("vehicleConditionSingleOrder")).order_id;
       this.getReportDetails();
       this.getKilometreDetails();
@@ -316,6 +316,7 @@
       setTimeout(function () {
         self.drawLine();
       },500)
+
     },
     watch: {},
     computed: {},
@@ -396,7 +397,9 @@
 
 <style scoped lang="stylus">
   .vehicleConditionReport {
+    width 750px
     .top-bg{
+      margin 0 auto
       height: 400px
       width: 100%
       background url("../../common/images/report_top_bg.png") no-repeat center
@@ -413,6 +416,7 @@
     }
     .blue-bg{
       background-color #5226f3
+      margin 0 auto
       .report-box{
         width: 688px;
         height: auto;

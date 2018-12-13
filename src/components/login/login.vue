@@ -228,6 +228,8 @@
 
 <style scoped lang="stylus">
   .login{
+    width 750px
+    padding-bottom 500px
     .login-container {
       width: 700px;
       height: 878px;
@@ -235,7 +237,6 @@
       background-size 100% 100%
       margin: 0 auto
       margin-top 20px
-
       ul {
         width 516px
         margin: 0 auto;

@@ -16,8 +16,8 @@
       </div>
     </section>
     <p class="car-info">车辆信息</p>
-    <section class="user-car" v-if="carList.length">
-      <ul v-for="item of carList" :key="item.id">
+    <section class="user-car" v-if="carList.length" v-for="item of carList" :key="item.id">
+      <ul >
         <li>
           <label>车牌号码：</label>
           <p>{{item.plat_num}}</p>
@@ -89,7 +89,6 @@
       }
     },
     created() {
-      this.reload();
     },
     beforeMount() {
       this.userId = this.$utils.getCookie("userId");
@@ -237,6 +236,8 @@
 
 <style scoped lang="stylus">
   .personalCenter{
+    width 750px
+    padding-bottom 728px
     .personal-user {
       box-sizing border-box
       position relative
@@ -297,13 +298,12 @@
   
     .user-car {
       width: 630px;
-      //height: 240px;
       background-color: #ffffff;
       box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.09);
       border-radius: 30px;
       margin: 0 auto
       padding: 60px 36px
-    
+      margin-bottom 30px
       li {
         height: 50px;
         line-height 50px
@@ -370,12 +370,12 @@
       }
     }
   
-    #mask {
+/*    #mask {
       background-color: rgba(0, 0, 0, 0.5);
       position: fixed;
       top: 0;
       left: 0;
-      /*display:none;*/
+      !*display:none;*!
       z-index: 2;
       width: 100%;
       height: 255%;
@@ -390,7 +390,7 @@
     
       .modal-notice {
         text-align center
-        font-size: 24px; /*px*/
+        font-size: 24px; !*px*!
         color: #333333;
         padding-top 27px
       }
@@ -400,8 +400,8 @@
         margin: 0 auto;
       
         li {
-          border-bottom: solid 1px #bfbfbf; /*no*/
-          font-size: 24px; /*px*/
+          border-bottom: solid 1px #bfbfbf; !*no*!
+          font-size: 24px; !*px*!
         
           input {
             margin-left 12px
@@ -425,8 +425,8 @@
             line-height 50px
             text-align center
             border-radius: 20px;
-            border: solid 1px #5226f3; /*no*/
-            font-size: 22px; /*px*/
+            border: solid 1px #5226f3; !*no*!
+            font-size: 22px; !*px*!
             color: #5226f3;
             margin-top 54px
             margin-right 12px
@@ -441,9 +441,9 @@
       }
     
       .btn-box {
-        font-size: 28px; /*px*/
+        font-size: 28px; !*px*!
         height: 88px
-        border-top solid 1px #5226f3; /*no*/
+        border-top solid 1px #5226f3; !*no*!
         margin-top 68px
       
         input {
@@ -461,7 +461,7 @@
         }
       }
     
-    }
+    }*/
     .errorTip_wrap{
       width 100%
       text-align center
