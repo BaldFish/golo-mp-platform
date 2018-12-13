@@ -59,7 +59,9 @@
     components: {},
     data() {
       return {
-        violationDetails: "",
+        violationDetails: {
+          query_info:{},
+        },
         vin: "",
         violationInfo: "",
         isData: true
