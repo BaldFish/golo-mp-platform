@@ -321,6 +321,14 @@
             'X-Access-Token': token,
           },
         }).then(res => {
+          let violationSingleOrder={};
+          violationSingleOrder.query_info.vin=this.carFrameNum;
+          violationSingleOrder.query_info.plate_num=this.plateNumber;
+          violationSingleOrder.query_info.engineno=this.engineNumber;
+          violationSingleOrder.query_info.car_type=this.carType;
+          violationSingleOrder.query_info.updated_at="";
+          
+          window.localStorage.setItem("violationSingleOrder", JSON.stringify(violationSingleOrder));
           this.$router.push('/violationReport')
         }).catch(error => {
           console.log(error);
