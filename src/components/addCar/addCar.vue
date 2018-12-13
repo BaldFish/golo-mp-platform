@@ -225,6 +225,7 @@
           vin: this.carFrameNum,
           plat_num: this.plateNumber,
         };
+        let that =this;
         this.$axios({
           method: 'POST',
           url: `${this.$baseURL}/v1/golo-carinfo`,
@@ -236,7 +237,7 @@
           this.errorMessage = "成功绑定车辆";
           this.errorTip = true;
           window.setTimeout(function () {
-            this.errorTip = false;
+            that.errorTip = false;
           }, 2000);
           this.$router.push('/personalCenter')
         }).catch(error => {
@@ -244,7 +245,7 @@
           this.errorMessage = error.response.data.message;
           this.errorTip = true;
           window.setTimeout(function () {
-            this.errorTip = false;
+            that.errorTip = false;
           }, 2000);
         });
       },
