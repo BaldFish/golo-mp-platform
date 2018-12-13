@@ -321,7 +321,9 @@
             'X-Access-Token': token,
           },
         }).then(res => {
-          let violationSingleOrder = {};
+          let violationSingleOrder = {
+            query_info:{},
+          };
           violationSingleOrder.query_info.vin = this.carFrameNum;
           violationSingleOrder.query_info.plate_num = this.plateNumber;
           violationSingleOrder.query_info.engineno = this.engineNumber;
