@@ -57,7 +57,7 @@
     data() {
       return {
         isData: true,
-        violationDetails: "",
+        violationDetails:[],
         userId:"",
       }
     },
@@ -110,9 +110,9 @@
 
       },
       routerToReport(item){
-        this.getViolationDetails();
-        window.localStorage.setItem("violationSingleOrder", JSON.stringify(item.res_list));
+        window.localStorage.setItem("violationSingleOrder", JSON.stringify(item));
         this.$router.push('/violationReport');
+        this.getViolationDetails();
       }
     },
   }
