@@ -144,28 +144,39 @@
       },
       //获取短信验证码
       getPhoneCode() {
-        //倒计时
-        let that = this;
-        that.codeValue = false;
-        let interval = window.setInterval(function () {
-          if ((that.second--) <= 0) {
-            that.second = 60;
-            that.codeValue = true;
-            window.clearInterval(interval);
+        if (this.phone){
+          if (!/^[1][3,4,5,7,8][0-9]{9}$/.test(this.phone)){
+            this.errorMessage = "手机号格式不正确";
+            this.errorTip=true;
+            let that=this;
+            window.setTimeout(function () {
+              that.errorTip=false;
+            },2000);
+          } else {
+            //倒计时
+            let that = this;
+            that.codeValue = false;
+            let interval = window.setInterval(function () {
+              if ((that.second--) <= 0) {
+                that.second = 60;
+                that.codeValue = true;
+                window.clearInterval(interval);
+              }
+            }, 1000);
+            //请求后端接口获取验证码
+            this.$axios({
+              method: 'post',
+              url: `${this.$baseURL}/v1/sms/code`,
+              data: this.$querystring.stringify({
+                phone: "+86" + this.phone, //手机号
+                type: 3 //1-注册，2-修改密码, 3-登录
+              })
+            }).then(res => {
+            }).catch(error => {
+              console.log(error);
+            })
           }
-        }, 1000);
-        //请求后端接口获取验证码
-        this.$axios({
-          method: 'post',
-          url: `${this.$baseURL}/v1/sms/code`,
-          data: this.$querystring.stringify({
-            phone: "+86" + this.phone, //手机号
-            type: 3 //1-注册，2-修改密码, 3-登录
-          })
-        }).then(res => {
-        }).catch(error => {
-          console.log(error);
-        })
+        }
       },
       //免密注册登录
       login() {

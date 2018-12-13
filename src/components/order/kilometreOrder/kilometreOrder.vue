@@ -70,8 +70,8 @@
     mounted() {
     },
     beforeMount() {
-      this.userId = this.$utils.getCookie("userId");
-      if (!this.userId) {
+      this.openid = this.$utils.getCookie("openid");
+      if (!this.openid) {
         this.$router.push('/login');
       }
       this.getOrderList();
@@ -170,7 +170,7 @@
       getOrderList() {
         this.$axios({
           method: 'GET',
-          url: `${this.$baseURL}/v1/golo-order/list/${this.userId}?order_type=2&status=${this.status}&limit=1000`
+          url: `${this.$baseURL}/v1/golo-order/list/${this.openid}?order_type=2&status=${this.status}&limit=1000`
         }).then(res => {
           if(res.data.data.res_list){
             this.isData = true;
