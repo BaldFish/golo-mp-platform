@@ -2,34 +2,34 @@
   <div class="violationOrder">
     <section class="query-container" v-for="(item,index) of violationDetails" v-if="isData" :key="index">
       <div class="query-time">
-        <p>查询时间：{{item.query_info.updated_at}}</p>
+        <p>查询时间：{{item.res_list.query_info.updated_at}}</p>
       </div>
       <div class="query-detail">
         <ul class="car-peccancy">
           <li>
             <label>车架号码：</label>
-            <p>{{item.query_info.vin}}</p>
+            <p>{{item.res_list.query_info.vin}}</p>
           </li>
           <li>
             <label>车牌号码：</label>
-            <p>{{item.query_info.plate_num}}</p>
+            <p>{{item.res_list.query_info.plate_num}}</p>
           </li>
           <li>
             <label>发动机号：</label>
-            <p>{{item.query_info.engineno}}</p>
+            <p>{{item.res_list.query_info.engineno}}</p>
           </li>
           <li>
             <label>车辆类型：</label>
-            <p>{{item.query_info.car_type}}</p>
+            <p>{{item.res_list.query_info.car_type}}</p>
           </li>
         </ul>
         <ul class="car-matter">
           <li>
-            <p>{{item.pendingNum}}</p>
+            <p>{{item.res_list.pendingNum}}</p>
             <p>待处理</p>
           </li>
           <li>
-            <p>{{item.penaltyAmount}}</p>
+            <p>{{item.res_list.penaltyAmount}}</p>
             <p>罚款</p>
           </li>
           <li>
@@ -86,21 +86,21 @@
             this.isData = true;
             let self = this;
             res.data.data.forEach(function (item) {
-              item.query_info.updated_at = self.$utils.formatDate(new Date(item.query_info.updated_at), "yyyy-MM-dd hh:mm:ss");
+              item.res_list.query_info.updated_at = self.$utils.formatDate(new Date(item.res_list.query_info.updated_at), "yyyy-MM-dd hh:mm:ss");
               //添加字段 pendingNum（未处理数量）、penaltyAmount（罚款）
-              if (item.vio_info){
-                item.pendingNum = item.vio_info.length;
+              if (item.res_list.vio_info){
+                item.res_list.pendingNum = item.res_list.vio_info.length;
                 let penaltyAmount = 0;
-                item.vio_info.forEach(function (data) {
+                item.res_list.vio_info.forEach(function (data) {
                   penaltyAmount = penaltyAmount + Number(data.viomoney)
                 });
-                item.penaltyAmount = penaltyAmount
+                item.res_list.penaltyAmount = penaltyAmount
               } else {
-                item.pendingNum = 0;
-                item.penaltyAmount = 0
+                item.res_list.pendingNum = 0;
+                item.res_list.penaltyAmount = 0
               }
             });
-            this.violationDetails = res.data.data;
+            this.violationDetails = res.data.data.res_list;
           }else{
             this.isData = false
           }
@@ -111,7 +111,7 @@
       },
       routerToReport(item){
         this.getViolationDetails();
-        window.localStorage.setItem("violationSingleOrder", JSON.stringify(item));
+        window.localStorage.setItem("violationSingleOrder", JSON.stringify(item.res_list));
         this.$router.push('/violationReport');
       }
     },
