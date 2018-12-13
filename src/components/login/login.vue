@@ -45,12 +45,12 @@
     created() {
     },
     beforeMount() {
-      this.WXcode=this.getWXcode('code');
+      /*this.WXcode=this.getWXcode('code');
       if(this.WXcode===null||this.WXcode===""){
         let AppId="wx8ed85ed5c5f4ed96";
         let local=window.location.href;
         window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+AppId+"&redirect_uri="+encodeURIComponent(local)+"&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
-      }
+      }*/
       this.getCaptcha();
     },
     mounted() {
@@ -229,6 +229,7 @@
 <style scoped lang="stylus">
   .login{
     width 750px
+    padding-bottom 500px
     .login-container {
       width: 700px;
       height: 878px;
@@ -236,7 +237,6 @@
       background-size 100% 100%
       margin: 0 auto
       margin-top 20px
-
       ul {
         width 516px
         margin: 0 auto;
