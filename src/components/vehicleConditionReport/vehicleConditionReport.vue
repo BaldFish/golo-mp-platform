@@ -91,7 +91,7 @@
                 <span>{{reportDetails.compent_repair_detail.length}}</span>
               </div>
             </template>
-            <div v-if="reportDetails.compent_repair_detail">
+            <div class="collapse-content"  v-if="reportDetails.compent_repair_detail">
 
               <p class="table-title">动力系统</p>
               <table>
@@ -118,7 +118,7 @@
                </div>-->
 
             </div>
-            <div v-else>无异常</div>
+            <div class="system-error" v-else>无异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
@@ -128,7 +128,7 @@
                 <span>{{reportDetails.construct_repair_detail.length}}</span>
               </div>
             </template>
-            <div v-if="reportDetails.construct_repair_detail">
+            <div class="collapse-content"  v-if="reportDetails.construct_repair_detail">
 
               <p class="table-title">底盘系统</p>
               <table>
@@ -155,7 +155,7 @@
                </div>-->
 
             </div>
-            <div v-else>无异常</div>
+            <div class="system-error" v-else>无异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
@@ -192,7 +192,7 @@
               </div>-->
 
             </div>
-            <div v-else>无异常</div>
+            <div class="system-error" v-else>无异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
@@ -202,7 +202,7 @@
                 <span>6</span>
               </div>-->
             </template>
-            <div>无异常</div>
+            <div class="system-error">无异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
@@ -212,7 +212,7 @@
                 <span>4</span>
               </div>-->
             </template>
-            <div>无异常</div>
+            <div class="system-error">无异常</div>
           </el-collapse-item>
           <el-collapse-item>
             <template slot="title">
@@ -249,7 +249,7 @@
                </div>-->
 
             </div>
-            <div v-else>无异常</div>
+            <div class="system-error" v-else>无异常</div>
           </el-collapse-item>
         </el-collapse>
       </section>
@@ -732,6 +732,7 @@
     margin-top 53px
     border-top: none
     padding-bottom 50px
+    border-bottom none
     .el-collapse-item__header{
       font-size: 28px; /*px*/
       color: #161616;
@@ -758,6 +759,11 @@
     .el-collapse-item__wrap{
       .el-collapse-item__content{
         font-size: 24px; /*px*/
+        background-color: #f7f7f7;
+        .system-error{
+          color #666
+          padding-top: 20px;
+        }
         .collapse-content{
           background-color: #f7f7f7;
           .table-title{
