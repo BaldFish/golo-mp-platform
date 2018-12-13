@@ -81,7 +81,7 @@
           method: 'GET',
           url: `${this.$baseURL}/v1/golo/violation/query/info/${this.userId}`
         }).then(res => {
-          if(res.data.data){
+          if(res.data.data.length){
             this.isData = true;
             let self = this;
             res.data.data.forEach(function (item) {
