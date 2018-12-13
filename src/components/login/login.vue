@@ -110,9 +110,15 @@
       //从URL获取code
       getWXcode(name){
         let reg=new RegExp('(^|&)'+name+'=([^&]*)(&|$)');
+        alert(name);
         let r=window.location.search.substr(1).match(reg);
-        if(r!=null) return unescape(r[2]);
-        return null
+        alert(r);
+        if(r!=null){
+          alert(unescape(r[2]));
+          return unescape(r[2]);
+        } else{
+          return null
+        }
       },
       /*getWXcode() {
         let url = location.search;
