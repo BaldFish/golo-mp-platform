@@ -58,6 +58,7 @@
       return {
         isData: true,
         violationDetails: "",
+        userId:"",
       }
     },
     created() {
