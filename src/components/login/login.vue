@@ -3,7 +3,7 @@
     <section class="login-container">
       <ul>
         <li>
-          <input type="number" oninput="if(value.length>11)value=value.slice(0,11)" placeholder="请输入手机号" v-model="phone" maxlength="11" @blur="checkPhone">
+          <input type="text" placeholder="请输入手机号" v-model="phone" maxlength="11" @blur="checkPhone">
         </li>
         <li>
           <input type="text" placeholder="请输入验证码" v-model="captchaCode" class="msg-code">
