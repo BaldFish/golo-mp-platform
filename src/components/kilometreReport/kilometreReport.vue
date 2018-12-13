@@ -12,12 +12,28 @@
         </div>
         <div class="car-info">
           <ul>
-            <li>
+            <li class="clearfix">
+              <label>车型名称：</label>
+              <p>{{reportDetails.repair.model_name}}KM</p>
+            </li>
+            <li class="clearfix">
+              <label>行驶里程：</label>
+              <p>{{reportDetails.last_mileage}}KM</p>
+            </li>
+            <li class="clearfix">
               <label>车架号码：</label>
               <p>{{reportDetails.repair.vin}}</p>
             </li>
             <li class="clearfix">
-              <label>查询时间：</label>
+              <label>车牌号码：</label>
+              <p>{{reportDetails.order_info.plate_num}}</p>
+            </li>
+            <li class="clearfix">
+              <label>发动机号：</label>
+              <p>{{reportDetails.order_info.engineno}}</p>
+            </li>
+            <li class="clearfix">
+              <label>报告生成时间：</label>
               <p>{{reportDetails.repair.updated_at}}</p>
             </li>
           </ul>
@@ -29,7 +45,7 @@
           <p>里程分析</p>
         </div>
         <div class="mileage-analysis">
-          <p class="analysis-tips">本车里程读数&nbsp;<span>异常</span></p>
+          <p class="analysis-tips">本车里程读数&nbsp;<span :class="{'analysis-error': reportDetails.mileage_status == 1}">异常</span></p>
           <p class="table-title">里程记录（倒叙排序）</p>
           <table>
             <thead>
@@ -50,7 +66,9 @@
           <div class="trend-title">
             <p>里程趋势分析</p>
           </div>
-          <div id="myChart"></div>
+          <template>
+            <div id="bar_dv" ref="chart"></div>
+          </template>
         </div>
       </section>
       <section class="qrcode fixed">
@@ -69,7 +87,10 @@
     data() {
       return {
         order_id: "",
-        reportDetails: "",
+        reportDetails: {
+          repair:"",
+          order_info:"",
+        },
         kilometreInfo: ""
       }
     },
@@ -78,34 +99,41 @@
     mounted() {
       this.order_id = JSON.parse(localStorage.getItem("vehicleConditionSingleOrder")).order_id;
       this.getReportDetails();
-      //生成echarts写在最下面，防止报错“Echarts的图形容器还未生成就对其进行了初始化”
-      this.drawLine();
+      this.getKilometreDetails();
+
+      //延迟渲染
+      let self = this;
+      setTimeout(function () {
+        self.drawLine();
+      },500)
     },
     watch: {},
     computed: {},
     methods: {
       drawLine(){
         // 基于准备好的dom，初始化echarts实例
-        let myChart = this.$echarts.init(document.getElementById('myChart'));
+        var bar_dv = document.getElementById('bar_dv');
+        //var bar_dv = this.$refs.chart;
         // 绘制图表
+        let myChart = this.$echarts.init(bar_dv);
         myChart.setOption({
           title: { text: '里程（万KM）' },
           /*tooltip: {},*/
           xAxis: {
-            data: ["2012","2013","2014","2015","2016","2017"]
+            data: this.res_time,
+            axisLabel: {
+              interval:0,
+              rotate:40
+            }
           },
           yAxis: {},
           series: [
             {
               name: '里程',
               type: 'line',
-              data: [5, 20, 36, 10, 10, 20]
-            },
-            {
-              name: '里程2',
-              type: 'line',
-              data: [2, 14, 20, 19, 32, 36]
-            }]
+              data: this.res_mileage
+            }
+          ]
         });
       },
       getReportDetails(){
@@ -118,10 +146,25 @@
           //车辆信息
           this.reportDetails = reportDetails;
           //里程信息
-          this.kilometreInfo = reportDetails.nromal_repair_detail.reverse();
+          this.kilometreInfo = reportDetails.nromal_repair_detail;
 
           console.log(this.kilometreInfo,"kilometreInfo")
           console.log(this.reportDetails,"reportDetails")
+
+        }).catch(error => {
+          console.log(error)
+        })
+      },
+      getKilometreDetails(){
+        this.$axios({
+          method: 'GET',
+          url: `${this.$baseURL}/v1/golo-report/mileage/${this.order_id}`
+        }).then(res => {
+          this.res_mileage = res.data.data.res_mileage.reverse();
+          this.res_time = res.data.data.res_time.reverse();
+
+          console.log(this.res_mileage,"res_mileage")
+          console.log(this.res_time,"res_time")
 
         }).catch(error => {
           console.log(error)
@@ -198,6 +241,8 @@
             margin: 20px 0 0 45px
             span{
               font-size: 30px; /*px*/
+            }
+            .analysis-error{
               color: #f30808;
             }
           }
@@ -234,6 +279,7 @@
           }
         }
         .trend-analysis{
+          padding-bottom: 20px;
           .trend-title{
             font-size: 30px; /*px*/
             color: #222222;
@@ -245,10 +291,11 @@
               margin: 40px 0 15px 30px
             }
           }
-          #myChart{
-            width: 600px
+          #bar_dv{
+            width: 650px
             height: 400px
             margin: 0 auto
+            margin-left 40px
           }
         }
       }
