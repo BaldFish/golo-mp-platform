@@ -16,8 +16,8 @@
       </div>
     </section>
     <p class="car-info">车辆信息</p>
-    <section class="user-car" v-if="carList.length">
-      <ul v-for="item of carList" :key="item.id">
+    <section class="user-car" v-if="carList.length" v-for="item of carList" :key="item.id">
+      <ul >
         <li>
           <label>车牌号码：</label>
           <p>{{item.plat_num}}</p>

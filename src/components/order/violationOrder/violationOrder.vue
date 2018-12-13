@@ -120,6 +120,7 @@
 
 <style scoped lang="stylus">
 .violationOrder{
+  width 750px
   .query-container{
     width: 628px;
     height: 592px;
