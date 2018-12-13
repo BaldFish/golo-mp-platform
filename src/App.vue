@@ -31,20 +31,25 @@
       }
     },
     beforeMount() {
+      let u = navigator.userAgent;
+      let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+      let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+      if(isAndroid){
+        // 注：window.onresize只能在项目内触发1次
+        let height=window.innerHeight;
+        window.onresize = function windowResize () {
+          // 通过捕获系统的onresize事件触发我们需要执行的事件
+          this.myWidth = window.innerHeight
+          if(this.myWidth<height){
+            document.querySelectorAll('#footer')[0].style="display:none"
+          }else{
+            document.querySelectorAll('#footer')[0].style="display:block"
+          }
+        }
+      }
       this.getPath();
     },
     mounted() {
-      // 注：window.onresize只能在项目内触发1次
-      var height=window.innerHeight;
-      window.onresize = function windowResize () {
-        // 通过捕获系统的onresize事件触发我们需要执行的事件
-        this.myWidth = window.innerHeight
-        if(this.myWidth<height){
-          document.querySelectorAll('#footer')[0].style="display:none"
-        }else{
-          document.querySelectorAll('#footer')[0].style="display:block"
-        }
-      }
     },
     beforeUpdate() {
     },
