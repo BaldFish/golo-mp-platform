@@ -110,11 +110,8 @@
       //从URL获取code
       getWXcode(name){
         let reg=new RegExp('(^|&)'+name+'=([^&]*)(&|$)');
-        alert(name);
         let r=window.location.search.substr(1).match(reg);
-        alert(r);
         if(r!=null){
-          alert(unescape(r[2]));
           return unescape(r[2]);
         } else{
           return null
@@ -187,6 +184,8 @@
           url: `${this.$baseURL}/v1/golo-user/login`,
           data: this.$querystring.stringify(loginFormData)
         }).then(res => {
+          alert(res.data);
+          return
           /*document.cookie = `userId=${res.data.data.userId}`;
           document.cookie = `sessionId=${res.data.data.sessionId}`;
           document.cookie = `openId=${res.data.data.openId}`;
