@@ -364,365 +364,367 @@
 </script>
 
 <style scoped lang="stylus">
-  .sec-form {
-    width: 688px;
-    height: auto;
-    box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.09);
-    border-radius: 30px;
-    margin: 0 auto;
-
-    .camera-notice {
-      font-size: 20px; /*px*/
-      color: #333333;
-      text-align center
-      height: 65px;
-      line-height 52px
-      background url("../../../common/images/one.png") no-repeat center
-      background-size 100% 100%
-      float right
-      position: relative;
-      bottom: 24px;
-      right: 16px;
-
-      p {
-        float left
-        margin-left 20px
-      }
-
-      i {
-        width: 17px;
-        height: 17px;
-        display inline-block
-        background url("../../../common/images/guanbi.png") no-repeat center
+  .vehicleCondition{
+    .sec-form {
+      width: 688px;
+      height: auto;
+      box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.09);
+      border-radius: 30px;
+      margin: 0 auto;
+    
+      .camera-notice {
+        font-size: 20px; /*px*/
+        color: #333333;
+        text-align center
+        height: 65px;
+        line-height 52px
+        background url("../../../common/images/one.png") no-repeat center
         background-size 100% 100%
         float right
-        margin-top 18px
-        margin-right 14px
-        margin-left 14px
+        position: relative;
+        bottom: 24px;
+        right: 16px;
+      
+        p {
+          float left
+          margin-left 20px
+        }
+      
+        i {
+          width: 17px;
+          height: 17px;
+          display inline-block
+          background url("../../../common/images/guanbi.png") no-repeat center
+          background-size 100% 100%
+          float right
+          margin-top 18px
+          margin-right 14px
+          margin-left 14px
+        }
       }
-    }
-
-    .hidden {
-      visibility hidden
-    }
-
-    .sec-container {
-      height: auto;
-      padding: 52px 30px 0 30px;
-      position relative
-      bottom: 60px
-
-      .car-frame {
-        .car-frame-input {
-          border-bottom 1px solid #e5e5e5; /*no*/
-          padding-bottom 28px
-
-          .frame-input {
-            float left
-
+    
+      .hidden {
+        visibility hidden
+      }
+    
+      .sec-container {
+        height: auto;
+        padding: 52px 30px 0 30px;
+        position relative
+        bottom: 60px
+      
+        .car-frame {
+          .car-frame-input {
+            border-bottom 1px solid #e5e5e5; /*no*/
+            padding-bottom 28px
+          
+            .frame-input {
+              float left
+            
+              label {
+                font-size: 28px; /*px*/
+                color: #333333;
+                margin-right 64px
+              }
+            
+              input {
+                font-size: 26px; /*px*/
+                color: #333333;
+                outline: none;
+                width: 320px;
+              }
+            }
+          
+            .camera-box {
+              float right
+              border-left 1px solid #bfbfbf; /*no*/
+              margin-right 20px
+            
+              label {
+                input {
+                  display none
+                }
+              
+                img {
+                  width: 46px;
+                  height: 36px;
+                  margin-left 32px
+                }
+              }
+            
+            }
+          }
+        
+          .car-frame-notice {
+            font-size: 20px; /*px*/
+            color: #999999;
+            margin-top 24px
+          
+            span {
+              color: #5226f3;
+            }
+          
+            a {
+              font-size: 20px; /*px*/
+              color: #999999;
+            }
+          }
+        
+        }
+      
+        .sec-form-box {
+          li {
+            margin-top: 56px;
+            padding-bottom 28px
+            border-bottom 1px solid #e5e5e5; /*no*/
+          
             label {
               font-size: 28px; /*px*/
               color: #333333;
               margin-right 64px
             }
-
+          
             input {
               font-size: 26px; /*px*/
               color: #333333;
               outline: none;
-              width: 320px;
+              width: 270px;
             }
           }
-
-          .camera-box {
-            float right
-            border-left 1px solid #bfbfbf; /*no*/
-            margin-right 20px
-
+        
+          .license-li {
             label {
+              float left
+              margin-right 24px
+            }
+          
+            .license {
+              float left
+              width: 40px;
+              height: 40px;
+              background-color: #c7b9fb;
+              text-align center
+              line-height 40px
+              color #fff;
+              font-size: 24px; /*px*/
+              margin-right: 7px;
+            }
+          }
+        
+          .engine-li {
+            img {
+              width: 40px;
+              height: 40px;
+              float right
+              margin-right 20px
+            }
+          }
+        
+          .carType-li {
+            border-bottom none
+          
+            label {
+              float left
+              height: 40px;
+              line-height 40px
+            }
+          
+            .radio-box {
+              font-size: 24px; /*px*/
+              color: #333333;
+            
+              label {
+                margin: 0
+                width: 200px
+                height: 40px;
+                line-height 40px
+                display inline-block
+                float left
+              }
+            
               input {
                 display none
               }
-
-              img {
-                width: 46px;
-                height: 36px;
-                margin-left 32px
+            
+              i {
+                width: 40px;
+                height: 40px;
+                display inline-block
+                float left
+                margin-right 26px
+                background url("../../../common/images/radio_unchecked.png") no-repeat center
+                background-size 100% 100%
+              }
+            
+              input:checked + i {
+                background url("../../../common/images/radio_checked.png") no-repeat center
+                background-size 100% 100%
               }
             }
-
           }
         }
-
-        .car-frame-notice {
-          font-size: 20px; /*px*/
-          color: #999999;
-          margin-top 24px
-
-          span {
-            color: #5226f3;
-          }
-
-          a {
-            font-size: 20px; /*px*/
-            color: #999999;
-          }
+      
+        .submit {
+          width: 630px;
+          height: 84px;
+          background-color: #5226f3;
+          border-radius: 36px;
+          line-height 84px;
+          color #ffffff
+          font-size: 36px; /*px*/
+          outline none
+          margin: 70px 0 32px 0;
         }
-
-      }
-
-      .sec-form-box {
-        li {
-          margin-top: 56px;
-          padding-bottom 28px
-          border-bottom 1px solid #e5e5e5; /*no*/
-
-          label {
-            font-size: 28px; /*px*/
-            color: #333333;
-            margin-right 64px
-          }
-
+      
+        .agree-contract {
+          line-height: 40px;
+          height: 40px
+          padding-left 45px
+          margin: 0 auto
+        
           input {
-            font-size: 26px; /*px*/
-            color: #333333;
-            outline: none;
-            width: 270px;
+            display none
           }
-        }
-
-        .license-li {
-          label {
-            float left
-            margin-right 24px
-          }
-
-          .license {
-            float left
+        
+          i {
             width: 40px;
             height: 40px;
-            background-color: #c7b9fb;
-            text-align center
-            line-height 40px
-            color #fff;
-            font-size: 24px; /*px*/
-            margin-right: 7px;
-          }
-        }
-
-        .engine-li {
-          img {
-            width: 40px;
-            height: 40px;
-            float right
+            display inline-block
+            background: url("../../../common/images/unchecked.jpg") no-repeat center;
+            background-size 100% 100%
             margin-right 20px
-          }
-        }
-
-        .carType-li {
-          border-bottom none
-
-          label {
             float left
-            height: 40px;
-            line-height 40px
           }
-
-          .radio-box {
-            font-size: 24px; /*px*/
+        
+          input:checked + i {
+            background: url("../../../common/images/checked.png") no-repeat center;
+            background-size 100% 100%
+          }
+        
+          p {
+            font-size: 22px; /*px*/
             color: #333333;
-
-            label {
-              margin: 0
-              width: 200px
-              height: 40px;
-              line-height 40px
-              display inline-block
-              float left
-            }
-
-            input {
-              display none
-            }
-
-            i {
-              width: 40px;
-              height: 40px;
-              display inline-block
-              float left
-              margin-right 26px
-              background url("../../../common/images/radio_unchecked.png") no-repeat center
-              background-size 100% 100%
-            }
-
-            input:checked + i {
-              background url("../../../common/images/radio_checked.png") no-repeat center
-              background-size 100% 100%
+            float left
+          
+            span {
+              color: #5226f3;
             }
           }
         }
       }
-
-      .submit {
-        width: 630px;
-        height: 84px;
-        background-color: #5226f3;
-        border-radius: 36px;
-        line-height 84px;
-        color #ffffff
-        font-size: 36px; /*px*/
-        outline none
-        margin: 70px 0 32px 0;
-      }
-
-      .agree-contract {
-        line-height: 40px;
-        height: 40px
-        padding-left 45px
-        margin: 0 auto
-
-        input {
-          display none
-        }
-
+    
+    }
+  
+    .sec-notice {
+      margin: 64px 23px 0 23px;
+    
+      .report-title {
+        font-size: 28px; /*px*/
+        color: #5226f3;
+        height: 40px;
+        line-height 40px
+      
         i {
           width: 40px;
           height: 40px;
           display inline-block
-          background: url("../../../common/images/unchecked.jpg") no-repeat center;
+          background url("../../../common/images/shili.png") no-repeat center
           background-size 100% 100%
+          float left
           margin-right 20px
+        }
+      
+        p {
           float left
         }
-
-        input:checked + i {
-          background: url("../../../common/images/checked.png") no-repeat center;
-          background-size 100% 100%
-        }
-
-        p {
+      }
+    
+      .report-box {
+        padding: 35px 35px 77px 35px
+        text-align: center;
+      
+        input {
+          padding: 0 16px
+          height: 60px;
+          line-height 60px
+          border-radius: 12px;
+          border: solid 1px #bfbfbf; /*no*/
           font-size: 22px; /*px*/
           color: #333333;
+          background-color #ffffff
+          outline none
+        }
+      
+        .standard-report {
+          margin-right 100px
+        }
+      }
+    
+      .help-title {
+        font-size: 28px; /*px*/
+        color: #5226f3;
+        height: 40px;
+        line-height 40px
+      
+        i {
+          width: 40px;
+          height: 40px;
+          display inline-block
+          background url("../../../common/images/help_1.png") no-repeat center
+          background-size 100% 100%
           float left
-
-          span {
-            color: #5226f3;
-          }
+          margin-right 20px
+        }
+      
+        p {
+          float left
+        }
+      }
+    
+      .help-box {
+        width: 624px;
+        height: auto;
+        background-color: #f7f7f7;
+        border-radius: 20px;
+        font-size: 22px; /*px*/
+        color: #333333;
+        line-height normal
+        padding: 36px 40px
+        margin-top 30px
+      
+        span {
+          font-size: 24px; /*px*/
         }
       }
     }
-
-  }
-
-  .sec-notice {
-    margin: 64px 23px 0 23px;
-
-    .report-title {
-      font-size: 28px; /*px*/
-      color: #5226f3;
-      height: 40px;
-      line-height 40px
-
-      i {
-        width: 40px;
-        height: 40px;
+  
+    .cooperation {
+      margin: 50px 0
+      text-align center
+      font-weight 700
+      font-size: 30px; /*px*/
+      color #333333
+    }
+  
+    .errorTip_wrap {
+      width 100%
+      text-align center
+      font-size 0
+      position fixed
+      top 50%
+    
+      .errorTip {
         display inline-block
-        background url("../../../common/images/shili.png") no-repeat center
-        background-size 100% 100%
-        float left
-        margin-right 20px
+        box-sizing border-box
+        line-height 1.6
+        max-width 520px;
+        padding 20px 30px
+        background-color #000000
+        opacity 0.7
+        font-size 26px; /*px*/
+        color #ffffff
+        border-radius 30px
       }
-
-      p {
-        float left
-      }
-    }
-
-    .report-box {
-      padding: 35px 35px 77px 35px
-      text-align: center;
-
-      input {
-        padding: 0 16px
-        height: 60px;
-        line-height 60px
-        border-radius: 12px;
-        border: solid 1px #bfbfbf; /*no*/
-        font-size: 22px; /*px*/
-        color: #333333;
-        background-color #ffffff
-        outline none
-      }
-
-      .standard-report {
-        margin-right 100px
-      }
-    }
-
-    .help-title {
-      font-size: 28px; /*px*/
-      color: #5226f3;
-      height: 40px;
-      line-height 40px
-
-      i {
-        width: 40px;
-        height: 40px;
-        display inline-block
-        background url("../../../common/images/help_1.png") no-repeat center
-        background-size 100% 100%
-        float left
-        margin-right 20px
-      }
-
-      p {
-        float left
-      }
-    }
-
-    .help-box {
-      width: 624px;
-      height: auto;
-      background-color: #f7f7f7;
-      border-radius: 20px;
-      font-size: 22px; /*px*/
-      color: #333333;
-      line-height normal
-      padding: 36px 40px
-      margin-top 30px
-
-      span {
-        font-size: 24px; /*px*/
-      }
-    }
-  }
-
-  .cooperation {
-    margin: 50px 0 150px 0
-    text-align center
-    font-weight 700
-    font-size: 30px; /*px*/
-    color #333333
-  }
-
-  .errorTip_wrap {
-    width 100%
-    text-align center
-    font-size 0
-    position fixed
-    top 50%
-
-    .errorTip {
-      display inline-block
-      box-sizing border-box
-      line-height 1.6
-      max-width 520px;
-      padding 20px 30px
-      background-color #000000
-      opacity 0.7
-      font-size 26px; /*px*/
-      color #ffffff
-      border-radius 30px
     }
   }
 </style>
