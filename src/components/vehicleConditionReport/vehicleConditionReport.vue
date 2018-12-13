@@ -408,6 +408,7 @@
 
 <style scoped lang="stylus">
   .vehicleConditionReport {
+    width 750px
     .top-bg{
       height: 400px
       width: 100%

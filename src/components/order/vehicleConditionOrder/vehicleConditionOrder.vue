@@ -62,6 +62,7 @@
         isData: true,
         status: 5,
         orderList:'',
+        userId:"",
 
 
       }
@@ -71,8 +72,8 @@
     mounted() {
     },
     beforeMount() {
-      this.openid = this.$utils.getCookie("openid");
-      if (!this.openid) {
+      this.userId = this.$utils.getCookie("userId");
+      if (!this.userId) {
         this.$router.push('/login');
       }
       this.getOrderList();
