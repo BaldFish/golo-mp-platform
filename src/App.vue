@@ -146,9 +146,9 @@
       margin: 0 auto;
       width 100%
       min-width 640px
-      /*.main {
+      .main {
         flex: 1;
-      }*/
+      }
     }
     
     .footer_wrap {
