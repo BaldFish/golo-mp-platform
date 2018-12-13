@@ -283,7 +283,6 @@
           <template>
             <div id="bar_dv" ref="chart"></div>
           </template>
-
         </div>
       </section>
       <section class="report-box fixed">
@@ -334,10 +333,10 @@
     created() {
     },
     mounted() {
+      this.drawLine();
       this.order_id = JSON.parse(localStorage.getItem("vehicleConditionSingleOrder")).order_id;
       this.getReportDetails();
       //生成echarts写在最下面，防止报错“Echarts的图形容器还未生成就对其进行了初始化”
-      this.drawLine();
     },
     watch: {},
     computed: {},
@@ -349,6 +348,7 @@
         // 基于准备好的dom，初始化echarts实例
         //var bar_dv = document.getElementById('bar_dv');
         var bar_dv = this.$refs.chart;
+        console.log(bar_dv)
         // 绘制图表
         if (bar_dv) {
           console.log('bar_dv不为空');

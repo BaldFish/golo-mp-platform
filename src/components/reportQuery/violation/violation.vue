@@ -321,7 +321,7 @@
             'X-Access-Token': token,
           },
         }).then(res => {
-          this.$router.push('/order/violationOrder')
+          this.$router.push('/violationReport')
         }).catch(error => {
           console.log(error);
           /*this.errorMessage=error.response.data.code;
