@@ -93,7 +93,7 @@
     beforeMount() {
       this.userId = this.$utils.getCookie("userId");
       this.token = this.$utils.getCookie("token");
-      //this.userPhone = this.$utils.getCookie("userPhone").substr(3);
+      this.userPhone = this.$utils.getCookie("userPhone").substr(3);
       this.userImgUrl = this.$utils.getCookie("userImgUrl");
       this.getCarList();
     },

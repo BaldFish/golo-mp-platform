@@ -40,9 +40,9 @@
           // 通过捕获系统的onresize事件触发我们需要执行的事件
           this.myWidth = window.innerHeight
           if(this.myWidth<height){
-            document.querySelectorAll('#footer')[0].style="visibility:hidden"
+            document.querySelectorAll('#footer')[0].style="position:static"
           }else{
-            document.querySelectorAll('#footer')[0].style="visibility:visible"
+            document.querySelectorAll('#footer')[0].style="position:fixed;bottom:0"
           }
         }
       }
@@ -50,7 +50,7 @@
         if(document.activeElement.tagName === 'INPUT'){
           document.activeElement.scrollIntoView({behavior: "smooth"})
         }
-      })
+      });
       this.getPath();
     },
     mounted() {
@@ -106,18 +106,22 @@
       },
       //点击底部tab切换路由
       tabChange(index) {
+        let userId = this.$utils.getCookie("userId");
         this.nowIndex = index;
         if (index === 0) {
           this.$router.push('/reportQuery');
         } else if (index === 1) {
-          this.$router.push('/order');
-        } else if (index === 2) {
-          let userId = this.$utils.getCookie("userId");
-          //if (userId) {
-            this.$router.push('/personalCenter');
-          /*} else {
+          if (userId) {
+            this.$router.push('/order');
+          } else {
             this.$router.push('/login');
-          }*/
+          }
+        } else if (index === 2) {
+          if (userId) {
+            this.$router.push('/personalCenter');
+          } else {
+            this.$router.push('/login');
+          }
         }
       },
     }

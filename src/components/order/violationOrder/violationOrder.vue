@@ -69,14 +69,10 @@
     created() {
     },
     beforeMount() {
-      let userId = this.$utils.getCookie("userId");
-      if (!userId) {
-        this.$router.push('/login');
-      }
-    },
-    mounted() {
       this.userId = this.$utils.getCookie("userId");
       this.getViolationDetails()
+    },
+    mounted() {
     },
     watch: {},
     computed: {},

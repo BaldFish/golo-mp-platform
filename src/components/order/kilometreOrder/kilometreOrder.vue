@@ -72,9 +72,6 @@
     beforeMount() {
       this.userId = this.$utils.getCookie("userId");
       this.openId = this.$utils.getCookie("openId");
-      if (!this.userId) {
-        this.$router.push('/login');
-      }
       this.getOrderList();
     },
     watch: {},
