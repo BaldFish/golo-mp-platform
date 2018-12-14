@@ -6,23 +6,23 @@
     <div class="carInfo">
       <p class="clearfix">
         <span class="fl">车架号码：</span>
-        <span class="fr">{{violationDetails.query_info.vin}}</span>
+        <span class="fr">{{violationVerifyData.vin}}</span>
       </p>
       <p class="clearfix">
         <span class="fl">车牌号码：</span>
-        <span class="fr">{{violationDetails.query_info.plate_num}}</span>
+        <span class="fr">{{violationVerifyData.plat_num}}</span>
       </p>
       <p class="clearfix">
         <span class="fl">发动机号：</span>
-        <span class="fr">{{violationDetails.query_info.engineno}}</span>
+        <span class="fr">{{violationVerifyData.engine_no}}</span>
       </p>
       <p class="clearfix">
         <span class="fl">车辆类型：</span>
-        <span class="fr">{{violationDetails.query_info.car_type}}</span>
+        <span class="fr">{{violationVerifyData.car_type}}</span>
       </p>
       <p class="clearfix">
         <span class="fl">查询时间：</span>
-        <span class="fr">{{violationDetails.query_info.updated_at}}</span>
+        <span class="fr">{{violationVerifyData.check_status}}</span>
       </p>
     </div>
     <div class="h20"></div>
@@ -30,17 +30,17 @@
       <p>违章信息</p>
     </div>
     <div class="violation-info">
-      <p class="analysis-tips">截止目前未处理的违章数量：&nbsp;<span>{{violationInfo.length}}</span></p>
+      <p class="analysis-tips">截止目前未处理的违章数量：&nbsp;<span>{{violationVerifyData.lists.length}}</span></p>
       <div class="violation-box" v-if="isData">
-        <ul v-for="(item,index) of violationInfo">
+        <ul v-for="(item,index) of violationVerifyData.lists">
           <li>
             <span>{{index + 1}}</span>
             <label>违章原因:</label>
-            <p class="reason">{{item.vioaction}}</p>
+            <p class="reason">{{item.act}}</p>
           </li>
           <li class="clearfix">
             <label>违章处罚:</label>
-            <p class="penalty">扣{{item.vioscore}}分，罚款{{item.viomoney}}元</p>
+            <p class="penalty">扣{{item.fen}}分，罚款{{item.money}}元</p>
           </li>
         </ul>
       </div>
@@ -59,25 +59,26 @@
     components: {},
     data() {
       return {
-        violationDetails: {},
-        vin: "",
-        violationInfo: "",
+        violationVerifyData:{},
         isData: true
       }
     },
     created() {
     },
+    beforeMount(){
+      this.violationVerifyData = JSON.parse(localStorage.getItem("violationVerifyData"));
+    },
     mounted() {
-      this.userId = this.$utils.getCookie("userId");
-      this.violationDetails = JSON.parse(localStorage.getItem("violationSingleOrder"));
+      /*this.userId = this.$utils.getCookie("userId");
+      this.violationVerifyData = JSON.parse(localStorage.getItem("violationVerifyData"));
       this.vin = this.violationDetails.query_info.vin;
-      this.getViolationInfo()
+      this.getViolationInfo()*/
     },
     watch: {},
     computed: {},
     methods: {
       //获取违章详细信息
-      getViolationInfo(){
+      /*getViolationInfo(){
         this.$axios({
           method: 'GET',
           url: `${this.$baseURL}/v1/golo/violation/info/${this.userId}/${this.vin}`
@@ -91,7 +92,7 @@
         }).catch(error => {
           console.log(error)
         });
-      }
+      }*/
     },
   }
 </script>
