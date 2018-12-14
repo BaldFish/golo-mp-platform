@@ -1,6 +1,6 @@
 #version=`git symbolic-ref --short -q HEAD`
 
-image=`basename $PWD`:cn
+image=`basename $PWD`:develop
 
 aliyunImage=registry.cn-hangzhou.aliyuncs.com/launchain/$image
 
