@@ -38,7 +38,7 @@
           </li>
         </ul>
       </div>
-      <input class="submit" type="button" value="查询最新" @click="routerToReport(item)">
+      <input class="submit" type="button" value="查询最新" @click="verify(4,item)">
     </section>
     <section class="none-order" v-if="!isData">
       <img src="@/common/images/empty.png" alt="">
@@ -47,6 +47,9 @@
         <input type="button" value="开始查询">
       </router-link>
     </section>
+    <div class="errorTip_wrap">
+      <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
+    </div>
   </div>
 </template>
 
@@ -56,6 +59,8 @@
     components: {},
     data() {
       return {
+        errorMessage: "",//错误提示信息
+        errorTip: false,//提示框显示、隐藏
         isData: true,
         violationDetails:[],
         userId:"",
@@ -76,7 +81,7 @@
     watch: {},
     computed: {},
     methods: {
-      //获取违章信息
+      //获取违章列表信息
       getViolationDetails(){
         this.$axios({
           method: 'GET',
@@ -113,7 +118,45 @@
         window.localStorage.setItem("violationSingleOrder", JSON.stringify(item));
         this.$router.push('/violationReport');
         this.getViolationDetails();
-      }
+      },
+      //校验和查违章
+      verify(orderType,item) {
+        //let userId = this.$utils.getCookie("userId");
+        let token = this.$utils.getCookie("token");
+        if (token) {
+          let verifyData = {
+            user_id: item.query_info.userid,//用户ID
+            vin: item.query_info.vin,//车架号
+            plat_num: item.query_info.plate_num, //车牌号
+            engine_no: item.query_info.engineno, //发动机号
+            order_type: orderType, //查询类型1-维保 2-里程 3-估价 4-违章
+            car_type: item.query_info.car_type==="小型车"?"02":"01",//维保跟估价必传  01-大型车  02-小型车
+            check_status: "checked",//免责声明
+          };
+          this.$axios({
+            method: 'POST',
+            url: `${this.$baseURL}/v1/golo-order/check`,
+            data: this.$querystring.stringify(verifyData),
+            headers: {
+              'X-Access-Token': `${token}`,
+            }
+          }).then(res => {
+            verifyData.check_time=this.$utils.formatDate(new Date(res.data.data.check_time), "yyyy-MM-dd hh:mm:ss");
+            verifyData.lists=res.data.data.res_data.result.lists;
+            window.localStorage.setItem("violationVerifyData", JSON.stringify(verifyData));
+            this.$router.push('/violationReport')
+          }).catch(error => {
+            this.errorMessage = error.response.data.message;
+            this.errorTip = true;
+            let that = this;
+            window.setTimeout(function () {
+              that.errorTip = false;
+            }, 2000);
+          })
+        } else {
+          this.$router.push('/login')
+        }
+      },
     },
   }
 </script>
@@ -227,6 +270,26 @@
 
   section:last-child{
     margin-bottom 200px
+  }
+  .errorTip_wrap {
+    width 100%
+    text-align center
+    font-size 0
+    position fixed
+    top 50%
+    
+    .errorTip {
+      display inline-block
+      box-sizing border-box
+      line-height 1.6
+      max-width 520px;
+      padding 20px 30px
+      background-color #000000
+      opacity 0.7
+      font-size 26px; /*px*/
+      color #ffffff
+      border-radius 30px
+    }
   }
 }
 </style>

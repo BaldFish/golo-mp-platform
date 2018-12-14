@@ -58,7 +58,7 @@
             </li>
           </ul>
         </div>
-        <input class="submit" type="button" value="开始查询" @click="verify(4,carType)">
+        <input class="submit" type="button" value="开始查询" @click="verify(4)">
         <div class="agree-contract">
           <label>
             <input type="checkbox" v-model="checked" value="true">
@@ -262,22 +262,18 @@
       turnDisclaimer() {
         this.$router.push('/disclaimer')
       },
-      //校验
-      verify(orderType, carType) {
+      //校验和查违章
+      verify(orderType) {
         let userId = this.$utils.getCookie("userId");
         let token = this.$utils.getCookie("token");
         if (token) {
-          let car_type = "";
-          if (carType) {
-            car_type = carType
-          }
           let verifyData = {
             user_id: userId,//用户ID
             vin: this.carFrameNum,//车架号
             plat_num: this.plateNumber, //车牌号
             engine_no: this.engineNumber, //发动机号
             order_type: orderType, //查询类型1-维保 2-里程 3-估价 4-违章
-            car_type: car_type,//维保跟估价必传  01-大型车  02-小型车
+            car_type: this.car_type,//维保跟估价必传  01-大型车  02-小型车
             check_status: this.checked,//免责声明
           };
           this.$axios({
@@ -288,9 +284,10 @@
               'X-Access-Token': `${token}`,
             }
           }).then(res => {
-            console.log(res.data);
+            verifyData.check_time=this.$utils.formatDate(new Date(res.data.data.check_time), "yyyy-MM-dd hh:mm:ss");
+            verifyData.lists=res.data.data.res_data.result.lists;
             window.localStorage.setItem("violationVerifyData", JSON.stringify(verifyData));
-            //this.violationQuery();
+            this.$router.push('/violationReport')
           }).catch(error => {
             this.errorMessage = error.response.data.message;
             this.errorTip = true;
@@ -304,7 +301,7 @@
         }
       },
       //违章查询
-      violationQuery() {
+      /*violationQuery() {
         let token = this.$utils.getCookie("token");
         let userId = this.$utils.getCookie("userId");
         let createOrderData = {};
@@ -340,7 +337,7 @@
             that.errorTip = false;
           }, 2000);
         })
-      },
+      },*/
       closeNotice() {
         this.isHidden = true;
       },

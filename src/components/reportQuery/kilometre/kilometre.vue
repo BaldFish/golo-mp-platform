@@ -117,7 +117,7 @@
         plate: '京',
         plateNum: '',
         engineCode: "",
-        carType: "02",
+        carType: "",
         errorMessage: "",//错误提示信息
         errorTip: false,//提示框显示、隐藏
         checked: "checked",
@@ -260,21 +260,17 @@
         this.$router.push('/disclaimer')
       },
       //校验
-      verify(orderType, carType) {
+      verify(orderType) {
         let userId = this.$utils.getCookie("userId");
         let token = this.$utils.getCookie("token");
         if (token) {
-          let car_type = "";
-          if (carType) {
-            car_type = carType
-          }
           let verifyData = {
             user_id: userId,//用户ID
             vin: this.carFrameNum,//车架号
             plat_num: this.plateNumber, //车牌号
             engine_no: this.engineNumber, //发动机号
             order_type: orderType, //查询类型1-维保 2-里程 3-估价 4-违章
-            car_type: car_type,//维保跟估价必传  01-大型车  02-小型车
+            car_type: this.car_type,//维保跟估价必传  01-大型车  02-小型车
             check_status: this.checked,//免责声明
           };
           this.$axios({
