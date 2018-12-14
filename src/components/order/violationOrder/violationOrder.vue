@@ -164,6 +164,7 @@
 <style scoped lang="stylus">
 .violationOrder{
   width 750px
+  padding-bottom 128px
   .query-container{
     width: 628px;
     height: 592px;

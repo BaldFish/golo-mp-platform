@@ -22,7 +22,7 @@
       </p>
       <p class="clearfix">
         <span class="fl">查询时间：</span>
-        <span class="fr">{{violationVerifyData.check_status}}</span>
+        <span class="fr">{{violationVerifyData.check_time}}</span>
       </p>
     </div>
     <div class="h20"></div>
