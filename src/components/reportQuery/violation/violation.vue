@@ -288,10 +288,10 @@
               'X-Access-Token': `${token}`,
             }
           }).then(res => {
+            console.log(res.data);
             window.localStorage.setItem("violationVerifyData", JSON.stringify(verifyData));
-            this.violationQuery();
+            //this.violationQuery();
           }).catch(error => {
-            console.log(error.response);
             this.errorMessage = error.response.data.message;
             this.errorTip = true;
             let that = this;

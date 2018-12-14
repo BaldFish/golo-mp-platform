@@ -14,7 +14,7 @@
           <ul>
             <li class="clearfix">
               <label>车型名称：</label>
-              <p>{{reportDetails.repair.model_name}}KM</p>
+              <p>{{reportDetails.repair.model_name}}</p>
             </li>
             <li class="clearfix">
               <label>行驶里程：</label>
