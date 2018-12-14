@@ -93,7 +93,7 @@
     beforeMount() {
       this.userId = this.$utils.getCookie("userId");
       this.token = this.$utils.getCookie("token");
-      this.userPhone = this.$utils.getCookie("userPhone").substr(3);
+      //this.userPhone = this.$utils.getCookie("userPhone").substr(3);
       this.userImgUrl = this.$utils.getCookie("userImgUrl");
       this.getCarList();
     },
@@ -237,7 +237,7 @@
 <style scoped lang="stylus">
   .personalCenter{
     width 750px
-    padding-bottom 728px
+    //padding-bottom 728px
     .personal-user {
       box-sizing border-box
       position relative

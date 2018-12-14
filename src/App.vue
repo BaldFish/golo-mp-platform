@@ -40,15 +40,21 @@
           // 通过捕获系统的onresize事件触发我们需要执行的事件
           this.myWidth = window.innerHeight
           if(this.myWidth<height){
-            document.querySelectorAll('#footer')[0].style="display:none"
+            document.querySelectorAll('#footer')[0].style="visibility:hidden"
           }else{
-            document.querySelectorAll('#footer')[0].style="display:block"
+            document.querySelectorAll('#footer')[0].style="visibility:visible"
           }
         }
       }
+      window.addEventListener('resize', function () {
+        if(document.activeElement.tagName === 'INPUT'){
+          document.activeElement.scrollIntoView({behavior: "smooth"})
+        }
+      })
       this.getPath();
     },
     mounted() {
+    
     },
     beforeUpdate() {
     },
@@ -107,11 +113,11 @@
           this.$router.push('/order');
         } else if (index === 2) {
           let userId = this.$utils.getCookie("userId");
-          if (userId) {
+          //if (userId) {
             this.$router.push('/personalCenter');
-          } else {
+          /*} else {
             this.$router.push('/login');
-          }
+          }*/
         }
       },
     }
