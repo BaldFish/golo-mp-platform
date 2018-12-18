@@ -83,7 +83,7 @@
           method: 'GET',
           url: `${this.$baseURL}/v1/golo/violation/query/info/${this.userId}`
         }).then(res => {
-          if(res.data.data.res_count){
+          if(res.data.data!==null){
             this.isData = true;
             let self = this;
             res.data.data.res_list.forEach(function (item) {
@@ -160,7 +160,6 @@
 <style scoped lang="stylus">
 .violationOrder{
   width 750px
-  padding-bottom 128px
   .query-container{
     width: 628px;
     height: 592px;
@@ -263,10 +262,6 @@
       color: #ffffff;
       outline none
     }
-  }
-
-  section:last-child{
-    margin-bottom 200px
   }
   .errorTip_wrap {
     width 100%

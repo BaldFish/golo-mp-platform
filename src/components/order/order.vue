@@ -82,4 +82,7 @@
       }
     }
   }
+  .content{
+    padding-bottom 128px
+  }
 </style>
