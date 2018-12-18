@@ -232,7 +232,7 @@
 <style scoped lang="stylus">
   .login{
     width 750px
-    //padding-bottom 500px
+    padding-bottom 600px
     .login-container {
       width: 700px;
       height: 878px;

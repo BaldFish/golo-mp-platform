@@ -38,7 +38,7 @@
         <div style="clear: both"></div>
       </div>
     </section>
-    <p class="cooperation">商务合作联系电话：010-13523333333</p>
+    <p class="cooperation">商务合作联系电话：18801370245</p>
   </div>
 </template>
 
@@ -150,7 +150,7 @@
     }
   }
   .cooperation{
-    margin: 50px 0 150px 0
+    margin: 50px 0
     text-align center
     font-weight 700
     font-size:30px; /*px*/
