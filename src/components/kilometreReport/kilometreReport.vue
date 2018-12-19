@@ -96,6 +96,9 @@
     },
     created() {
     },
+    beforeMount(){
+      this.$utils.setTitle("查里程");
+    },
     mounted() {
       this.order_id = JSON.parse(localStorage.getItem("vehicleConditionSingleOrder")).order_id;
       this.getReportDetails();

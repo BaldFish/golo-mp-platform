@@ -84,6 +84,7 @@
     created() {
     },
     beforeMount(){
+      this.$utils.setTitle("确认订单");
       this.carInfo=JSON.parse(localStorage.getItem("kilometreVerifyData"))
     },
     mounted() {

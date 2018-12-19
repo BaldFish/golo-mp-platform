@@ -67,6 +67,7 @@
       }
     },
     beforeMount() {
+      this.$utils.setTitle("首页");
       //根据路由判断应该请求哪个tab的轮播数据
       let path = this.$route.path;
       if (_.includes(path, "/reportQuery/vehicleCondition")) {

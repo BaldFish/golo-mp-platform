@@ -304,6 +304,7 @@
     created() {
     },
     beforeMount(){
+      this.$utils.setTitle("评估报告");
     },
     mounted() {
       this.drawLine();

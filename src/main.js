@@ -27,7 +27,7 @@ Vue.use(wcSwiper);
 
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
-Vue.use(VueAwesomeSwiper)
+Vue.use(VueAwesomeSwiper);
 
 
 import axios from 'axios';
@@ -66,3 +66,5 @@ new Vue({
   components: {App},
   template: '<App/>'
 });
+// 全局配置
+

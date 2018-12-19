@@ -58,6 +58,7 @@
     created() {
     },
     beforeMount() {
+      this.$utils.setTitle("价格报告");
       this.valuationDetails = JSON.parse(localStorage.getItem("valuationVerifyData"))
     },
     mounted() {

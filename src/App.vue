@@ -33,21 +33,21 @@
       let u = navigator.userAgent;
       let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
       let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-      if(isAndroid){
+      if (isAndroid) {
         // 注：window.onresize只能在项目内触发1次
-        let height=window.innerHeight;
-        window.onresize = function windowResize () {
+        let height = window.innerHeight;
+        window.onresize = function windowResize() {
           // 通过捕获系统的onresize事件触发我们需要执行的事件
           this.myWidth = window.innerHeight
-          if(this.myWidth<height){
-            document.querySelectorAll('#footer')[0].style="position:static"
-          }else{
-            document.querySelectorAll('#footer')[0].style="position:fixed;bottom:0"
+          if (this.myWidth < height) {
+            document.querySelectorAll('#footer')[0].style = "position:static"
+          } else {
+            document.querySelectorAll('#footer')[0].style = "position:fixed;bottom:0"
           }
         }
       }
       window.addEventListener('resize', function () {
-        if(document.activeElement.tagName === 'INPUT'){
+        if (document.activeElement.tagName === 'INPUT') {
           document.activeElement.scrollIntoView({behavior: "smooth"})
         }
       });
@@ -58,8 +58,7 @@
     },
     beforeUpdate() {
     },
-    computed: {
-    },
+    computed: {},
     watch: {
       //监听路由变化执行方法
       $route(to, from) {
@@ -143,6 +142,7 @@
       margin: 0 auto;
       width 100%
       min-width 640px
+      
       .main {
         flex: 1;
       }
@@ -195,13 +195,14 @@
 </style>
 
 <style lang="stylus">
-  .el-loading-spinner{
-    .el-icon-loading{
-      font-size 54px !important;/*px*/
+  .el-loading-spinner {
+    .el-icon-loading {
+      font-size 54px !important; /*px*/
       color #ffffff !important
     }
-    .el-loading-text{
-      font-size 24px !important;/*px*/
+    
+    .el-loading-text {
+      font-size 24px !important; /*px*/
       color #ffffff !important
     }
   }

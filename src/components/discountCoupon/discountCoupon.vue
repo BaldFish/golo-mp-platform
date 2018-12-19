@@ -38,6 +38,9 @@
     },
     created() {
     },
+    beforeMount(){
+      this.$utils.setTitle("优惠券");
+    },
     mounted() {
 
     },
