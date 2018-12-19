@@ -270,7 +270,7 @@
             plat_num: this.plateNumber, //车牌号
             engine_no: this.engineNumber, //发动机号
             order_type: orderType, //查询类型1-维保 2-里程 3-估价 4-违章
-            car_type: this.car_type,//维保跟估价必传  01-大型车  02-小型车
+            car_type: this.carType,//维保跟估价必传  01-大型车  02-小型车
             check_status: this.checked,//免责声明
           };
           this.$axios({
