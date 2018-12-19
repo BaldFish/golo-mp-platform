@@ -169,7 +169,7 @@ let utils = {
     let isWechat = userAgent.indexOf('micromessenger') >= 0;
     if (isiOS && isWechat) {
       let iframe = document.createElement('iframe');
-      iframe.src = 'https://www.baidu.com/favicon.ico';
+      iframe.src = '';
       iframe.style.display = 'none';
       document.body.appendChild(iframe);
       iframe.onload = function() {
