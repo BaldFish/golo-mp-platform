@@ -86,9 +86,35 @@
             'X-Access-Token': `${token}`,
           }
         }).then(res => {
-          console.log(res.data)
+          if(res.data.code==="100"){
+            this.errorMessage = "您专属的卖车顾问即刻联系您，请稍候";
+            this.errorTip = true;
+            let that = this;
+            window.setTimeout(function () {
+              that.errorTip = false;
+            }, 2000);
+          }else if(res.data.code==="101"){
+            this.errorMessage = "网络连接失败，请重试";
+            this.errorTip = true;
+            let that = this;
+            window.setTimeout(function () {
+              that.errorTip = false;
+            }, 2000);
+          }else if(res.data.code==="102"){
+            this.errorMessage = "您已提交卖车意愿，请稍候";
+            this.errorTip = true;
+            let that = this;
+            window.setTimeout(function () {
+              that.errorTip = false;
+            }, 2000);
+          }
         }).catch(error => {
-          console.log(error)
+          this.errorMessage = "网络连接失败，请重试";
+          this.errorTip = true;
+          let that = this;
+          window.setTimeout(function () {
+            that.errorTip = false;
+          }, 2000);
         })
       },
     },

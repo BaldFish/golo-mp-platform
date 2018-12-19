@@ -82,8 +82,6 @@
         let openId = this.$utils.getCookie("openId");
         let token = this.$utils.getCookie("token");
         let userPhone = this.$utils.getCookie("userPhone").substr(3);
-        /*let token="123"
-        let userPhone ="17301051538"*/
         if (token) {
           let verifyData = {
             vin:item.vin,//车架号
@@ -105,7 +103,7 @@
             window.localStorage.setItem("valuationVerifyData", JSON.stringify(res.data.data));
             this.$router.push('/valuationReport')
           }).catch(error => {
-            this.errorMessage = error.response.data.message;
+            this.errorMessage = error.response.data.code;
             this.errorTip = true;
             let that = this;
             window.setTimeout(function () {

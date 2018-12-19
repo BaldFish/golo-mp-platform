@@ -42,6 +42,9 @@ export default new Router({
     {
       path: '/reportQuery',
       component: myReportQuery,
+      meta:{
+        title:"首页"
+      },
       children:[
         {
           path:'',
@@ -202,3 +205,11 @@ export default new Router({
     
   ]
 })
+
+// 全局配置
+/*this.$router.beforeEach((to, from, next) => {
+  // Change doc title
+  document.title = to.meta.title || 'Unknow title'
+  document.querySelector('meta[name="keywords"]').setAttribute('content', 'keywords')
+  document.querySelector('meta[name="description"]').setAttribute('content', 'description')
+})*/
