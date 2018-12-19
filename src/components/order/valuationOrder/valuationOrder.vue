@@ -62,7 +62,7 @@
         let token = this.$utils.getCookie("token");
         this.$axios({
           method: "GET",
-          url: `${this.$baseURL}/v1/golo/getOrderList/openid?page=${this.page}&limit=${this.limit}`,
+          url: `${this.$baseURL}/v1/golo/getOrderList/${openId}?page=${this.page}&limit=${this.limit}`,
           headers: {
             'X-Access-Token': `${token}`,
           }
