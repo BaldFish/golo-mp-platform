@@ -63,6 +63,7 @@
         status: 5,
         orderList: '',
         userId: "",
+        timer:"",
       }
     },
     created() {
@@ -91,7 +92,7 @@
           },
         }).then(res => {
           let requiredParameter = res.data.data.prepay_info;
-          this.payOrder(requiredParameter);
+          this.payOrder(requiredParameter,orderNum);
         }).catch(error => {
           /*this.errorMessage=error.response.data;
           this.errorTip=true;
@@ -102,10 +103,9 @@
         })
       },
       //支付订单
-      payOrder(requiredParameter) {
+      payOrder(requiredParameter,orderNum) {
         //调用微信支付
         let that = this;
-        
         function onBridgeReady(requiredParameter) {
           WeixinJSBridge.invoke(
             'getBrandWCPayRequest', requiredParameter,
@@ -121,19 +121,20 @@
               if (res.err_msg == "get_brand_wcpay_request:ok") {
                 // 使用以上方式判断前端返回,微信团队郑重提示：
                 //res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
-                that.errorMessage = "订单支付成功";
+                /*that.errorMessage = "订单支付成功";
                 that.errorTip = true;
                 window.setTimeout(function () {
                   that.errorTip = false;
                   window.location.href = "http://pinggu.goloiov.com/order/vehicleConditionOrder"
-                }, 3000);
+                }, 3000);*/
+                that.checkOrderStatus(orderNum)
                 //that.$router.push('/order/vehicleConditionOrder')
               } else {
-                that.errorMessage = "订单支付失败,请重新支付";
+                /*that.errorMessage = "订单支付失败,请重新支付";
                 that.errorTip = true;
                 window.setTimeout(function () {
                   that.errorTip = false;
-                }, 2000);
+                }, 2000);*/
               }
             });
         }
@@ -150,6 +151,48 @@
           onBridgeReady(requiredParameter);
         }
         
+      },
+      //查询订单支付状态
+      checkOrderStatus(orderNum){
+        //加载蒙层
+        let loading = this.$loading({
+          lock: true,
+          text: '支付中，请稍候',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
+        this.$axios({
+          method:"get",
+          url:`${this.$baseURL}/v1/golo-order/info/${orderNum}`
+        }).then(res=>{
+          let status=res.data.data.order_status;
+          let that=this;
+          if(status===0){
+            clearTimeout(this.timer);
+            this.timer = window.setTimeout(function () {
+              that.checkOrderStatus(orderNum)
+            }, 2000);
+          }else if(status===1){
+            clearTimeout(this.timer);
+            //关闭蒙层
+            loading.close();
+            this.errorMessage = "订单支付成功";
+            this.errorTip = true;
+            window.setTimeout(function () {
+              that.errorTip = false;
+              window.location.href = "http://pinggu.goloiov.com/order/vehicleConditionOrder"
+            }, 2000);
+          }else if(status===2){
+            //关闭蒙层
+            loading.close();
+            this.errorMessage = "订单支付失败,请重新支付";
+            this.errorTip = true;
+            window.setTimeout(function () {
+              that.errorTip = false;
+            }, 2000);
+          }
+        }).catch(error=>{
+        })
       },
       tabChange(index) {
         this.nowIndex = index;

@@ -61,20 +61,18 @@
         let openId = this.$utils.getCookie("openId");
         let token = this.$utils.getCookie("token");
         this.$axios({
-          method: "get",
+          method: "GET",
           url: `${this.$baseURL}/v1/golo/getOrderList/openid?page=${this.page}&limit=${this.limit}`,
           headers: {
             'X-Access-Token': `${token}`,
           }
         }).then(res => {
           let that = this;
-          console.log(res.data.data.res_list);
           this.valuationOrderList = res.data.data.res_list;
           this.valuationOrderList.forEach(function (item) {
             item.queryTime = that.$utils.formatDate(new Date(item.queryTime), "yyyy-MM-dd hh:mm:ss");
             item.mileage="";
           });
-          console.log(this.valuationOrderList)
         }).catch(error => {
           console.log(error)
         })
@@ -82,10 +80,10 @@
       //校验和查询
       verify(item) {
         let openId = this.$utils.getCookie("openId");
-        /*let token = this.$utils.getCookie("token");
-        let userPhone = this.$utils.getCookie("userPhone").substr(3);*/
-        let token="123"
-        let userPhone ="17301051538"
+        let token = this.$utils.getCookie("token");
+        let userPhone = this.$utils.getCookie("userPhone").substr(3);
+        /*let token="123"
+        let userPhone ="17301051538"*/
         if (token) {
           let verifyData = {
             vin:item.vin,//车架号

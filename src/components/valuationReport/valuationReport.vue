@@ -30,14 +30,17 @@
     </div>
     <div class="second_hand">
       <p>二手车估价</p>
-      <p  v-if="valuationDetails.salePrice">{{valuationDetails.salePrice}}万</p>
-      <p  v-if="!valuationDetails.salePrice">暂未查询到价格</p>
+      <p v-if="valuationDetails.salePrice">{{valuationDetails.salePrice}}万</p>
+      <p v-if="!valuationDetails.salePrice">暂未查询到价格</p>
     </div>
     <div class="search" @click="searchVehicleCondition">
       <p>获取该车型车况故障详情</p>
       <div>查车况</div>
     </div>
-    <div class="sell">一键卖车 多平台比价 谁高卖谁 >></div>
+    <div class="sell" @click="sellCar">一键卖车 多平台比价 谁高卖谁 >></div>
+    <div class="errorTip_wrap">
+      <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
+    </div>
   </div>
 </template>
 
@@ -47,22 +50,47 @@
     components: {},
     data() {
       return {
-        valuationDetails:{}
+        valuationDetails: {},
+        errorMessage: "",//错误提示信息
+        errorTip: false,//提示框显示、隐藏
       }
     },
     created() {
     },
-    beforeMount(){
-      this.valuationDetails=JSON.parse(localStorage.getItem("valuationVerifyData"))
+    beforeMount() {
+      this.valuationDetails = JSON.parse(localStorage.getItem("valuationVerifyData"))
     },
     mounted() {
     },
     watch: {},
     computed: {},
     methods: {
-      searchVehicleCondition(){
+      //跳转到查车况
+      searchVehicleCondition() {
         this.$router.push('/reportQuery/vehicleCondition')
-      }
+      },
+      //一键卖车
+      sellCar() {
+        let token = this.$utils.getCookie("token");
+        let sellData = {};
+        sellData.styleName = this.valuationDetails.styleName;
+        sellData.cityName = this.valuationDetails.cityName;
+        sellData.regDate = this.valuationDetails.regDate;
+        sellData.mileage = this.valuationDetails.mileage;
+        sellData.contactsPhone = this.valuationDetails.phone;
+        this.$axios({
+          method: "POST",
+          url: `${this.$baseURL}/v1/golo/salecar`,
+          data: this.$querystring.stringify(sellData),
+          headers: {
+            'X-Access-Token': `${token}`,
+          }
+        }).then(res => {
+          console.log(res.data)
+        }).catch(error => {
+          console.log(error)
+        })
+      },
     },
   }
 </script>
@@ -97,6 +125,7 @@
       
       .body {
         margin-top 50px
+        
         ul {
           font-size 0
           text-align center
@@ -158,14 +187,14 @@
       padding-top 40px
       
       p:nth-child(1) {
-        font-size: 30px;/*px*/
+        font-size: 30px; /*px*/
         color: #222222;
         text-align center
         margin-bottom 40px
       }
       
       p:nth-child(2) {
-        font-size: 60px;/*px*/
+        font-size: 60px; /*px*/
         color: #222222;
         text-align center
       }
@@ -174,13 +203,15 @@
     .search {
       padding-top 84px
       margin-bottom 300px
-      p{
-        font-size: 26px;/*px*/
+      
+      p {
+        font-size: 26px; /*px*/
         color: #999999;
         text-align center
         margin-bottom 35px
       }
-      div{
+      
+      div {
         margin 0 auto
         text-align center
         box-sizing border-box
@@ -188,8 +219,8 @@
         height: 84px;
         line-height 84px
         border-radius: 36px;
-        border: solid 1px #5226f3;/*no*/
-        font-size: 36px;/*px*/
+        border: solid 1px #5226f3; /*no*/
+        font-size: 36px; /*px*/
         color: #5342f6;
       }
     }
@@ -200,10 +231,31 @@
       position fixed
       bottom 0
       background-color #5342f6
-      font-size: 32px;/*px*/
+      font-size: 32px; /*px*/
       line-height 110px
       text-align center
       color: #ffffff;
+    }
+    
+    .errorTip_wrap {
+      width 100%
+      text-align center
+      font-size 0
+      position fixed
+      top 50%
+      
+      .errorTip {
+        display inline-block
+        box-sizing border-box
+        line-height 1.6
+        max-width 520px;
+        padding 20px 30px
+        background-color #000000
+        opacity 0.7
+        font-size 26px; /*px*/
+        color #ffffff
+        border-radius 30px
+      }
     }
   }
 </style>

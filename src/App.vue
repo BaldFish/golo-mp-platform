@@ -111,12 +111,12 @@
         if (index === 0) {
           this.$router.push('/reportQuery');
         } else if (index === 1) {
-          this.$router.push('/order');
-          /*if (userId) {
+          //this.$router.push('/order');
+          if (userId) {
             this.$router.push('/order');
           } else {
             this.$router.push('/login');
-          }*/
+          }
         } else if (index === 2) {
           if (userId) {
             this.$router.push('/personalCenter');
