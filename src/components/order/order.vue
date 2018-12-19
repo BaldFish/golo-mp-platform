@@ -37,6 +37,9 @@
     },
     created() {
     },
+    beforeMount(){
+      this.$utils.setTitle("订单列表");
+    },
     mounted() {
     },
     watch: {},
@@ -81,5 +84,8 @@
         }
       }
     }
+  }
+  .content{
+    padding-bottom 128px
   }
 </style>

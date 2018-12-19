@@ -45,6 +45,7 @@
     created() {
     },
     beforeMount() {
+      this.$utils.setTitle("登录");
       this.WXcode=this.getWXcode('code');
       if(this.WXcode===null||this.WXcode===""){
         let AppId="wx8ed85ed5c5f4ed96";

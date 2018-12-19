@@ -112,6 +112,7 @@
     created() {
     },
     beforeMount() {
+      this.$utils.setTitle("新增车辆");
       this.userId = this.$utils.getCookie("userId");
       this.token = this.$utils.getCookie("token");
     },

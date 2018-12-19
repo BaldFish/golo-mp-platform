@@ -91,6 +91,7 @@
     created() {
     },
     beforeMount() {
+      this.$utils.setTitle("我的");
       this.userId = this.$utils.getCookie("userId");
       this.token = this.$utils.getCookie("token");
       this.userPhone = this.$utils.getCookie("userPhone").substr(3);

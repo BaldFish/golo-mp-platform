@@ -102,6 +102,9 @@
     },
     created() {
     },
+    beforeMount(){
+      this.$utils.setTitle("订单详情");
+    },
     mounted() {
       this.order_id = JSON.parse(localStorage.getItem("vehicleConditionSingleOrder")).order_id;
       let order_status = JSON.parse(localStorage.getItem("vehicleConditionSingleOrder")).order_status;
