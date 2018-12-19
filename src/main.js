@@ -37,6 +37,10 @@ Vue.prototype.$axios= axios;
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts;
 
+//引入时间选择器
+import Calendar from 'vue2-datepick';
+Vue.use(Calendar);
+
 import {baseURL,} from '@/common/js/public.js';
 Vue.prototype.$baseURL=baseURL;
 
