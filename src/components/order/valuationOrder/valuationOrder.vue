@@ -39,11 +39,11 @@
       return {
         errorMessage: "",//错误提示信息
         errorTip: false,//提示框显示、隐藏
-        mileage:"",
+        mileage: "",
         checked: "checked",
         valuationOrderList: [],
-        page:1,
-        limit:1000
+        page: 1,
+        limit: 1000
       }
     },
     created() {
@@ -57,17 +57,21 @@
     computed: {},
     methods: {
       //校验里程数
-      checkMileage(event,item){
-        let reg=/^0$|^0\.$|^0\.[0-9]{1,2}$|^[1-9]\d{0,1}\.$|^[1-9]\d{0,1}(\.\d{1,2}){0,1}$|^100\.$|^100(\.0{1,2}){0,1}$/;
+      checkMileage(event, item) {
+        item.mileage = event.target.value;
+        let reg = /^0$|^0\.$|^0\.[0-9]{1,2}$|^[1-9]\d{0,1}\.$|^[1-9]\d{0,1}(\.\d{1,2}){0,1}$|^100\.$|^100(\.0{1,2}){0,1}$/;
         if (!reg.test(event.target.value)) {
           event.target.value = event.target.value.slice(0, event.target.value.length - 1);
-          item.mileage=event.target.value
+          item.mileage = event.target.value
         }
+        console.log(item.mileage)
       },
       //获取估价列表
       getValuationOrderList() {
         let openId = this.$utils.getCookie("openId");
         let token = this.$utils.getCookie("token");
+        /*let openId = "oz0nHv79Cls4rkLTWQv7zxsmEHc0";
+        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDU5MDQwMjYsInVzZXJfaWQiOiI1YzExMDVlY2IxODQzNTAwMDE5ZGE0NTUiLCJkZXZpY2VfaWQiOiI3MTM3MzMwZC05ZmFhLTQ1NDYtYTY3Yi05ZDllMTkwOGYyYTkifQ.x2jdmh4d7dSUdrS1TZagciZw5FKDkyheqJpn21eC3go";*/
         this.$axios({
           method: "GET",
           url: `${this.$baseURL}/v1/golo/getOrderList/${openId}?page=${this.page}&limit=${this.limit}`,
@@ -79,7 +83,7 @@
           this.valuationOrderList = res.data.data.res_list;
           this.valuationOrderList.forEach(function (item) {
             item.queryTime = that.$utils.formatDate(new Date(item.queryTime), "yyyy-MM-dd hh:mm:ss");
-            item.mileage="";
+            item.mileage = "";
           });
         }).catch(error => {
           console.log(error)
@@ -92,9 +96,9 @@
         let userPhone = this.$utils.getCookie("userPhone").substr(3);
         if (token) {
           let verifyData = {
-            vin:item.vin,//车架号
+            vin: item.vin,//车架号
             hp: item.hp, //车牌号
-            regTime:item.regDate,//上牌时间
+            regTime: item.regDate,//上牌时间
             mileage: item.mileage, //行驶里程
             openid: openId, //用户信息
             phone: userPhone,//手机号
@@ -150,15 +154,18 @@
     
     .query-detail {
       padding-top 15px
+      
       .car-text {
-        font-size 26px;/*px*/
+        font-size 26px; /*px*/
         color #333333
         opacity 0.9
-        p{
+        
+        p {
           height 60px
           line-height 60px
           overflow hidden
-          span{
+          
+          span {
             color #666666
           }
         }
@@ -166,22 +173,26 @@
       
       .car-mileage {
         padding-top 17px
-        span{
-          font-size: 26px;/*px*/
+        
+        span {
+          font-size: 26px; /*px*/
           color: #333333;
           font-weight bold
         }
-        label{
-          border-bottom 1px solid #eeeeee;/*no*/
+        
+        label {
+          border-bottom 1px solid #eeeeee; /*no*/
           padding-right 20px
           padding-bottom 14px
-          input{
-            font-size: 24px;/*px*/
+          
+          input {
+            font-size: 24px; /*px*/
             width 400px
             padding-left 7px
           }
-          span{
-            font-size: 24px;/*px*/
+          
+          span {
+            font-size: 24px; /*px*/
             color: #5226f3;
           }
         }
@@ -234,14 +245,14 @@
       outline none
     }
   }
-
+  
   .errorTip_wrap {
     width 100%
     text-align center
     font-size 0
     position fixed
     top 50%
-  
+    
     .errorTip {
       display inline-block
       box-sizing border-box
