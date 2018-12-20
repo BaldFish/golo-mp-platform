@@ -186,9 +186,8 @@
           padding-bottom 14px
           
           input {
-            box-sizing border-box
             font-size: 24px; /*px*/
-            //width 400px
+            width 375px
             padding-left 7px
           }
           
