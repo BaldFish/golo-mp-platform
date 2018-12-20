@@ -64,14 +64,11 @@
           event.target.value = event.target.value.slice(0, event.target.value.length - 1);
           item.mileage = event.target.value
         }
-        console.log(item.mileage)
       },
       //获取估价列表
       getValuationOrderList() {
         let openId = this.$utils.getCookie("openId");
         let token = this.$utils.getCookie("token");
-        /*let openId = "oz0nHv79Cls4rkLTWQv7zxsmEHc0";
-        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDU5MDQwMjYsInVzZXJfaWQiOiI1YzExMDVlY2IxODQzNTAwMDE5ZGE0NTUiLCJkZXZpY2VfaWQiOiI3MTM3MzMwZC05ZmFhLTQ1NDYtYTY3Yi05ZDllMTkwOGYyYTkifQ.x2jdmh4d7dSUdrS1TZagciZw5FKDkyheqJpn21eC3go";*/
         this.$axios({
           method: "GET",
           url: `${this.$baseURL}/v1/golo/getOrderList/${openId}?page=${this.page}&limit=${this.limit}`,
