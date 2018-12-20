@@ -562,7 +562,7 @@
 
   .errorTip_wrap {
     width 100%
-    text-align center
+    text-align left
     font-size 0
     position fixed
     top 50%
