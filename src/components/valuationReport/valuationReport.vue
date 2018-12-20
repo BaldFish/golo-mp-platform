@@ -1,14 +1,16 @@
 <template>
   <div class="valuationReport">
     <div class="tittle_info">
-      <div class="tittle" v-if="valuationDetails.styleName">
-        <p>{{valuationDetails.styleName}}</p>
-        <p>该车型厂商指导价：<span>{{valuationDetails.originPrice}}万</span></p>
+      <div class="tittle">
+        <p v-if="valuationDetails.styleName">{{valuationDetails.styleName}}</p>
+        <p v-if="!valuationDetails.styleName">车架号码：{{valuationDetails.vin}}</p>
+        <p v-if="valuationDetails.originPrice!=='0.00'">该车型厂商指导价：<span>{{valuationDetails.originPrice}}万</span></p>
+        <p v-if="valuationDetails.originPrice==='0.00'"></p>
       </div>
-      <div class="tittle" v-if="!valuationDetails.styleName">
+      <!--<div class="tittle" v-if="!valuationDetails.styleName">
         <p>车架号码：{{valuationDetails.vin}}</p>
         <p></p>
-      </div>
+      </div>-->
       <div class="body">
         <ul>
           <li>
@@ -30,7 +32,7 @@
     </div>
     <div class="second_hand">
       <p>二手车估价</p>
-      <p v-if="valuationDetails.salePrice1='0.00'">{{valuationDetails.salePrice}}万</p>
+      <p v-if="valuationDetails.salePrice1!=='0.00'">{{valuationDetails.salePrice}}万</p>
       <p v-if="valuationDetails.salePrice==='0.00'">暂未查询到价格</p>
     </div>
     <div class="search" @click="searchVehicleCondition">

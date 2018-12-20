@@ -255,9 +255,6 @@
       },
       //校验和查违章
       verify(orderType) {
-        /*let openid = "oz0nHv5GBh5ZHDzscg7QcP8YwwoE";
-        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDU3MjkxNDMsInVzZXJfaWQiOiI1YmVlOTFlODFmODEwYzAwMDFjZGUyMmUiLCJkZXZpY2VfaWQiOiI5MDcxOWE0Mi05MjY5LTRiNjAtYmU4Zi1kMGMyYmQ0MmZhYzgifQ.a1JqhlZfC2yA6bjAWY9nUE1JH-tdmRQ6Ern5vx8LIlk";
-        let phone = "+8613512243427";*/
         let openid = this.$utils.getCookie("openId");
         let token = this.$utils.getCookie("token");
         let phone = this.$utils.getCookie("userPhone");
