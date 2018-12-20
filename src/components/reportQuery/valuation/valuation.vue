@@ -266,7 +266,7 @@
             hp: this.plateNumber,//车牌号
             regTime: this.regTime,//上牌时间
             mileage: this.mileage,//行驶里程，单位万公里
-            order_type: orderType, //查询类型1-维保 2-里程 3-估价 4-违章
+            //order_type: orderType, //查询类型1-维保 2-里程 3-估价 4-违章
             flag: this.checked,//免责声明
           };
           this.$axios({
