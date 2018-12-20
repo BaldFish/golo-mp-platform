@@ -187,7 +187,7 @@
           
           input {
             font-size: 24px; /*px*/
-            width 400px
+            width 375px
             padding-left 7px
           }
           
