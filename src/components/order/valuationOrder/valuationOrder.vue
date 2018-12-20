@@ -13,14 +13,14 @@
         <div class="car-mileage">
           <span>行驶里程：</span>
           <label>
-            <input type="text" placeholder="请输入当前行驶里程" v-model="item.mileage">
+            <input type="text" placeholder="请输入当前行驶里程" v-bind:value="item.mileage" v-on:input="checkMileage($event)">
             <span>万公里</span>
           </label>
         </div>
       </div>
       <input class="submit" type="button" value="免费估价" @click="verify(item)">
     </section>
-    <section class="none-order" v-if="valuationOrderList===null">
+    <section class="none-order" v-if="!valuationOrderList.length">
       <img src="@/common/images/empty.png" alt="">
       <p>暂无查估价订单</p>
       <input type="button" value="免费估价">
@@ -42,7 +42,7 @@
         mileage:"",
         checked: "checked",
         valuationOrderList: [],
-        page:0,
+        page:1,
         limit:1000
       }
     },
@@ -56,6 +56,13 @@
     watch: {},
     computed: {},
     methods: {
+      //校验里程数
+      checkMileage(event){
+        let reg=/^0$|^0\.$|^0\.[0-9]{1,2}$|^[1-9]\d{0,1}\.$|^[1-9]\d{0,1}(\.\d{1,2}){0,1}$|^100\.$|^100(\.0{1,2}){0,1}$/;
+        if (!reg.test(event.target.value)) {
+          event.target.value = event.target.value.slice(0, event.target.value.length - 1)
+        }
+      },
       //获取估价列表
       getValuationOrderList() {
         let openId = this.$utils.getCookie("openId");

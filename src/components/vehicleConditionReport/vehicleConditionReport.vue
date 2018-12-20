@@ -304,7 +304,7 @@
     created() {
     },
     beforeMount(){
-      this.$utils.setTitle("评估报告");
+      this.$utils.setTitle("车况报告");
     },
     mounted() {
       this.drawLine();

@@ -97,7 +97,7 @@
     created() {
     },
     beforeMount(){
-      this.$utils.setTitle("查里程");
+      this.$utils.setTitle("里程报告");
     },
     mounted() {
       this.order_id = JSON.parse(localStorage.getItem("vehicleConditionSingleOrder")).order_id;

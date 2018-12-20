@@ -66,7 +66,7 @@
     created() {
     },
     beforeMount(){
-      this.$utils.setTitle("查违章");
+      this.$utils.setTitle("违章报告");
       this.violationVerifyData = JSON.parse(localStorage.getItem("violationVerifyData"));
     },
     mounted() {
