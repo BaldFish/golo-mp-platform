@@ -286,6 +286,8 @@
           }).then(res => {
             verifyData.check_time=this.$utils.formatDate(new Date(res.data.data.check_time), "yyyy-MM-dd hh:mm:ss");
             verifyData.lists=res.data.data.res_data.result.lists;
+            verifyData.car_type==="02"?verifyData.car_type="小型车":verifyData.car_type="大型车";
+            //verifyData.car_type=res.data.data.res_data.result.hpzl;
             window.localStorage.setItem("violationVerifyData", JSON.stringify(verifyData));
             this.$router.push('/violationReport')
           }).catch(error => {

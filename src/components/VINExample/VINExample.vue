@@ -24,6 +24,9 @@
     },
     created() {
     },
+    beforeMount(){
+      this.$utils.setTitle("车架号从哪里查");
+    },
     mounted() {
     },
     watch: {},

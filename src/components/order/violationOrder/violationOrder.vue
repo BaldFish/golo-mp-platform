@@ -69,14 +69,10 @@
     created() {
     },
     beforeMount() {
-      let userId = this.$utils.getCookie("userId");
-      if (!userId) {
-        this.$router.push('/login');
-      }
-    },
-    mounted() {
       this.userId = this.$utils.getCookie("userId");
       this.getViolationDetails()
+    },
+    mounted() {
     },
     watch: {},
     computed: {},
@@ -87,7 +83,7 @@
           method: 'GET',
           url: `${this.$baseURL}/v1/golo/violation/query/info/${this.userId}`
         }).then(res => {
-          if(res.data.data.res_count){
+          if(res.data.data.res_list!==null){
             this.isData = true;
             let self = this;
             res.data.data.res_list.forEach(function (item) {
@@ -143,6 +139,8 @@
           }).then(res => {
             verifyData.check_time=this.$utils.formatDate(new Date(res.data.data.check_time), "yyyy-MM-dd hh:mm:ss");
             verifyData.lists=res.data.data.res_data.result.lists;
+            verifyData.car_type==="02"?verifyData.car_type="小型车":verifyData.car_type="大型车";
+            //verifyData.car_type=res.data.data.res_data.result.hpzl;
             window.localStorage.setItem("violationVerifyData", JSON.stringify(verifyData));
             this.$router.push('/violationReport')
           }).catch(error => {
@@ -164,7 +162,6 @@
 <style scoped lang="stylus">
 .violationOrder{
   width 750px
-  padding-bottom 128px
   .query-container{
     width: 628px;
     height: 592px;
@@ -267,10 +264,6 @@
       color: #ffffff;
       outline none
     }
-  }
-
-  section:last-child{
-    margin-bottom 200px
   }
   .errorTip_wrap {
     width 100%

@@ -45,11 +45,12 @@
     created() {
     },
     beforeMount() {
+      this.$utils.setTitle("登录");
       this.WXcode=this.getWXcode('code');
       if(this.WXcode===null||this.WXcode===""){
         let AppId="wx8ed85ed5c5f4ed96";
         let local=window.location.href;
-        window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+AppId+"&redirect_uri="+encodeURIComponent(local)+"&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
+        window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+AppId+"&redirect_uri="+encodeURIComponent(local)+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
       }
       this.getCaptcha();
     },
@@ -232,7 +233,7 @@
 <style scoped lang="stylus">
   .login{
     width 750px
-    padding-bottom 500px
+    padding-bottom 600px
     .login-container {
       width: 700px;
       height: 878px;

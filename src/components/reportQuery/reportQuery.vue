@@ -6,8 +6,8 @@
           <img :src="slide.url" alt="">
         </wc-slide>
       </wc-swiper>-->
-      <swiper :options="swiperOption" class="awesome_swiper">
-        <swiper-slide v-for="(slide, index) in slides" :key="index">
+      <swiper :options="swiperOption" class="awesome_swiper" ref="swiperOption" >
+        <swiper-slide v-for="(slide, index) in slides" :key="index" v-if="slides.length">
           <img :src="slide.url" alt="">
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
@@ -22,17 +22,17 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/reportQuery/kilometre" @click.native="acquireCarouselClick(2,1,1)">
+          <router-link to="/reportQuery/kilometre" @click.native="acquireCarouselClick(2,1,2)">
             <div class="img"></div>
             <span class="text">查里程</span>
           </router-link>
         </li>
-        <!--<li>
+        <li>
           <router-link to="/reportQuery/valuation" @click.native="acquireCarouselClick(3,1,1)">
             <div class="img"></div>
             <span class="text">查估价</span>
           </router-link>
-        </li>-->
+        </li>
         <li>
           <router-link to="/reportQuery/violation" @click.native="acquireCarouselClick(4,1,1)">
             <div class="img"></div>
@@ -54,25 +54,26 @@
       return {
         slides: [],
         swiperOption: {
-          pagination: {
-            el: '.swiper-pagination'
-          },
-          loop : true,
           autoplay: {
             delay: 2000,
             stopOnLastSlide: false,
             disableOnInteraction: false,
+            loop : true,
+          },
+          pagination: {
+            el: '.swiper-pagination'
           },
         },
       }
     },
     beforeMount() {
+      this.$utils.setTitle("首页");
       //根据路由判断应该请求哪个tab的轮播数据
       let path = this.$route.path;
       if (_.includes(path, "/reportQuery/vehicleCondition")) {
         this.acquireCarousel(1, 1, 1)
       } else if (_.includes(path, "/reportQuery/kilometre")) {
-        this.acquireCarousel(2, 1, 1)
+        this.acquireCarousel(2, 1, 2)
       } else if (_.includes(path, "/reportQuery/valuation")) {
         this.acquireCarousel(3, 1, 1)
       } else if (_.includes(path, "/reportQuery/violation")) {
@@ -125,7 +126,7 @@
         width 750px
         li {
           display inline-block
-          width 33.333%
+          width 25%
           font-size 0
           
           a {

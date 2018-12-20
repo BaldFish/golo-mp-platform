@@ -45,7 +45,7 @@ export default new Router({
       children:[
         {
           path:'',
-          redirect: '/reportQuery/vehicleCondition'
+          redirect: '/reportQuery/vehicleCondition',
         },
         {
           path:'/reportQuery/vehicleCondition',
@@ -199,6 +199,6 @@ export default new Router({
       name: 'disclaimer',
       component: myDisclaimer
     },
-    
   ]
 })
+

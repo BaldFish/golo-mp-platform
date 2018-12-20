@@ -27,7 +27,7 @@ Vue.use(wcSwiper);
 
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
-Vue.use(VueAwesomeSwiper)
+Vue.use(VueAwesomeSwiper);
 
 
 import axios from 'axios';
@@ -36,6 +36,10 @@ Vue.prototype.$axios= axios;
 // 引入echarts
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts;
+
+//引入时间选择器
+import Calendar from 'vue2-datepick';
+Vue.use(Calendar);
 
 import {baseURL,} from '@/common/js/public.js';
 Vue.prototype.$baseURL=baseURL;
@@ -66,3 +70,5 @@ new Vue({
   components: {App},
   template: '<App/>'
 });
+// 全局配置
+

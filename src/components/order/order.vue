@@ -12,11 +12,11 @@
             <span class="text">查里程</span>
           </router-link>
         </li>
-        <!--<li>
+        <li>
           <router-link to="/order/valuationOrder">
             <span class="text">查估价</span>
           </router-link>
-        </li>-->
+        </li>
         <li>
           <router-link to="/order/violationOrder">
             <span class="text">查违章</span>
@@ -37,6 +37,9 @@
     },
     created() {
     },
+    beforeMount(){
+      this.$utils.setTitle("订单列表");
+    },
     mounted() {
     },
     watch: {},
@@ -54,7 +57,7 @@
       height 90px
       li{
         display inline-block
-        width 33.333%
+        width 25%
         font-size 0
         a{
           display inline-block
@@ -81,5 +84,8 @@
         }
       }
     }
+  }
+  .content{
+    padding-bottom 128px
   }
 </style>

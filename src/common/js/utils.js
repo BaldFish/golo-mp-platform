@@ -158,6 +158,27 @@ let utils = {
  */
   unsetCookie:function (name) {
   document.cookie = name + "= ; expires=" + new Date(0);
-}
+},
+  /*
+   1. 设置title，解决微信改不了title的bug
+   */
+  setTitle:function (title) {
+    document.title = title;
+    let userAgent = window.navigator.userAgent.toLowerCase();
+    let isiOS = userAgent.indexOf('applewebkit') >= 0;
+    let isWechat = userAgent.indexOf('micromessenger') >= 0;
+    if (isiOS && isWechat) {
+      let iframe = document.createElement('iframe');
+      iframe.src = '';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+      iframe.onload = function() {
+        setTimeout(function() {
+          iframe.remove();
+        }, 0)
+      }
+    }
+  }
+
 };
 export default utils
