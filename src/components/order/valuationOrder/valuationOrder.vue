@@ -23,7 +23,7 @@
     <section class="none-order" v-if="!valuationOrderList.length">
       <img src="@/common/images/empty.png" alt="">
       <p>暂无查估价订单</p>
-      <input type="button" value="免费估价">
+      <input type="button" value="免费估价" @click="turnValuation">
     </section>
     <div class="errorTip_wrap">
       <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
@@ -56,6 +56,9 @@
     watch: {},
     computed: {},
     methods: {
+      turnValuation(){
+        this.$router.push('/reportQuery/valuation')
+      },
       //校验里程数
       checkMileage(event, item) {
         item.mileage = event.target.value;
