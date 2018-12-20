@@ -17,12 +17,12 @@
             <p>车牌号码</p>
             <p>{{valuationDetails.hp}}</p>
           </li>
-          <li></li>
+          <!--<li></li>-->
           <li>
             <p>上牌时间</p>
             <p>{{valuationDetails.regDate}}</p>
           </li>
-          <li></li>
+          <!--<li></li>-->
           <li>
             <p>行驶里程</p>
             <p>{{valuationDetails.mileage}}万公里</p>
@@ -164,6 +164,7 @@
             color: #666666;
             text-align center
             vertical-align top
+            width 33.33%
             
             p:nth-child(1) {
               font-size: 26px; /*px*/
@@ -175,23 +176,26 @@
             }
           }
           
-          li:nth-child(1) {
+          /*li:nth-child(1) {
             width 250px
-          }
+          }*/
           
           li:nth-child(2) {
-            width 1px; /*no*/
+            box-sizing border-box
+            border-left 1px solid  #eeeeee;/*no*/
+            border-right 1px solid  #eeeeee;/*no*/
+            /*width 1px; !*no*!
             height 48px
             background-color #eeeeee
-            margin-top 12px
+            margin-top 12px*/
           }
           
-          li:nth-child(3) {
+          /*li:nth-child(3) {
             width 248px
           }
           
           li:nth-child(4) {
-            width 1px; /*no*/
+            width 1px; !*no*!
             height 48px
             background-color #eeeeee
             margin-top 12px
@@ -199,7 +203,7 @@
           
           li:nth-child(5) {
             width 250px
-          }
+          }*/
         }
       }
     }
