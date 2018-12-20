@@ -20,7 +20,7 @@
       </div>
       <input class="submit" type="button" value="免费估价" @click="verify(item)">
     </section>
-    <section class="none-order" v-if="valuationOrderList.length===0">
+    <section class="none-order" v-if="valuationOrderList===null">
       <img src="@/common/images/empty.png" alt="">
       <p>暂无查估价订单</p>
       <input type="button" value="免费估价">
