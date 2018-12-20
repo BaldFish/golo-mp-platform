@@ -38,8 +38,8 @@
             </li>
             <li class="engine-li">
               <label>上牌时间</label>
-              <input type="text" placeholder="请输入上牌时间" v-model="regTime" readonly @click="setDate">
-              <img src="@/common/images/next.png" alt="">
+              <input type="text" placeholder="请选择上牌时间" v-model="regTime" readonly @click="setDate">
+              <img src="@/common/images/next.png" alt="" @click="setDate">
             </li>
             <li class="carType-li">
               <label>行驶里程</label>
@@ -148,12 +148,12 @@
           this.carFrame = this.carFrame.slice(0, this.carFrame.length - 1)
         }
       },
-      //行驶里程去除非法字段
+      //行驶里程0.01—99.99万公里之间
       mileage: function (val) {
-        if (!/^[0-9]+$/.test(val)) {
+        if (!/^0$|^0\.$|^0\.[0-9]{1,2}$|^[1-9]\d{0,1}\.$|^[1-9]\d{0,1}(\.\d{1,2}){0,1}$|^100\.$|^100(\.0{1,2}){0,1}$/.test(val)) {
           this.mileage = this.mileage.slice(0, this.mileage.length - 1)
         }
-      },
+      }
     },
     computed: {
       //车架号转换
@@ -248,6 +248,9 @@
             this.regTime = date
           }
         });
+        //隐藏自定义软键盘
+        this.txtboardshow = false;
+        this.numboardshow = false;
       },
       //校验和查违章
       verify(orderType) {
@@ -291,6 +294,7 @@
           this.$router.push('/login')
         }
       },
+      //关闭拍照提示
       closeNotice() {
         this.isHidden = true;
       },
@@ -480,6 +484,10 @@
             height: 29px;
             float right
             margin-right 20px
+          }
+
+          input{
+            width: 380px
           }
         }
 
