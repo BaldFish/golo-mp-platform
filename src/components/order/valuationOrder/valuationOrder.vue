@@ -13,7 +13,7 @@
         <div class="car-mileage">
           <span>行驶里程：</span>
           <label>
-            <input type="text" placeholder="请输入当前行驶里程" v-bind:value="item.mileage" v-on:input="checkMileage($event)">
+            <input type="text" placeholder="请输入当前行驶里程" v-bind:value="item.mileage" v-on:input="checkMileage($event,item)">
             <span>万公里</span>
           </label>
         </div>
@@ -57,10 +57,11 @@
     computed: {},
     methods: {
       //校验里程数
-      checkMileage(event){
+      checkMileage(event,item){
         let reg=/^0$|^0\.$|^0\.[0-9]{1,2}$|^[1-9]\d{0,1}\.$|^[1-9]\d{0,1}(\.\d{1,2}){0,1}$|^100\.$|^100(\.0{1,2}){0,1}$/;
         if (!reg.test(event.target.value)) {
-          event.target.value = event.target.value.slice(0, event.target.value.length - 1)
+          event.target.value = event.target.value.slice(0, event.target.value.length - 1);
+          item.mileage=event.target.value
         }
       },
       //获取估价列表
