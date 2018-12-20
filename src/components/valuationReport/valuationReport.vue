@@ -33,7 +33,7 @@
     <div class="second_hand">
       <p>二手车估价</p>
       <p v-if="valuationDetails.salePrice!=='0.00'">{{valuationDetails.salePrice}}万</p>
-      <p v-if="valuationDetails.salePrice==='0.00'">暂未查询到价格</p>
+      <p v-if="valuationDetails.salePrice==='0.00'">暂无估价</p>
     </div>
     <div class="search" @click="searchVehicleCondition">
       <p>获取该车型车况故障详情</p>
