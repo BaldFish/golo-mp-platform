@@ -214,11 +214,10 @@
         }
         li:nth-child(1){
           border: solid 1px #76f299;
-          margin-right 106px
         }
         li:nth-child(2){
           border: solid 1px #f29b76;
-          margin-right 106px
+          margin: 0 102px
         }
         li:nth-child(3){
           border: solid 1px #ce76f2;
@@ -271,7 +270,7 @@
     font-size 0
     position fixed
     top 50%
-    
+
     .errorTip {
       display inline-block
       box-sizing border-box
