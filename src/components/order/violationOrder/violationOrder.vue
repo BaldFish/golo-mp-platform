@@ -64,12 +64,14 @@
         isData: true,
         violationDetails:[],
         userId:"",
+        openId:"",
       }
     },
     created() {
     },
     beforeMount() {
       this.userId = this.$utils.getCookie("userId");
+      this.openId = this.$utils.getCookie("openId");
       this.getViolationDetails()
     },
     mounted() {
@@ -81,7 +83,7 @@
       getViolationDetails(){
         this.$axios({
           method: 'GET',
-          url: `${this.$baseURL}/v1/golo/violation/query/info/${this.userId}`
+          url: `${this.$baseURL}/v1/golo/violation/query/info/${this.openId}`
         }).then(res => {
           if(res.data.data.res_list!==null){
             this.isData = true;
