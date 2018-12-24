@@ -26,10 +26,10 @@
       </p>
     </div>
     <div class="h20"></div>
-    <div class="violationTittle">
+    <div class="violationTittle" :class="{'border-none': violationVerifyData.lists.length == 0}">
       <p>违章信息</p>
     </div>
-    <div class="violation-info">
+    <div class="violation-info" v-if="violationVerifyData.lists.length != 0">
       <p class="analysis-tips">截止目前未处理的违章数量：&nbsp;<span>{{violationVerifyData.lists.length}}</span></p>
       <div class="violation-box" v-if="isData">
         <ul v-for="(item,index) of violationVerifyData.lists">
@@ -44,6 +44,12 @@
           </li>
         </ul>
       </div>
+    </div>
+    <div class="violation-empty" v-else>
+      <p>暂无结果，您可获取该车型车况故障详情</p>
+      <router-link to="/reportQuery/vehicleCondition">
+        <input type="button" value="查车况">
+      </router-link>
     </div>
     <div class="qrcode">
       <p>轱辘二手车评估</p>
@@ -155,6 +161,9 @@
         border-bottom 1px solid #eeeeee; /*no*/
       }
     }
+    .border-none p{
+      border-bottom none
+    }
     .violation-info{
       padding-bottom 36px
       .analysis-tips{
@@ -213,6 +222,28 @@
             }
           }
         }
+      }
+    }
+    .violation-empty{
+      height: 350px;
+      background-color: #f7f7f7;
+      margin-bottom 52px
+      p{
+        text-align center
+        font-size: 25px; /*px*/
+        color: #999999;
+        padding-top 104px
+      }
+      input{
+        width: 630px;
+        height: 84px;
+        background-color: #5226f3;
+        border-radius: 36px;
+        margin: 34px 60px 0 60px
+        line-height 84px
+        outline none
+        color: #fff
+        font-size: 35px; /*px*/
       }
     }
     .qrcode{
