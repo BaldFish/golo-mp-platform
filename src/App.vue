@@ -164,11 +164,10 @@
 
 <style scoped lang="stylus">
   #app {
-    min-height: 100vh-98px;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
-    padding-bottom 98px
     .main_wrap {
       display: flex;
       flex: 1;
@@ -176,6 +175,7 @@
       margin: 0 auto;
       width 100%
       min-width 640px
+      padding-bottom 98px
       /*overflow: auto;
       -webkit-overflow-scrolling: touch;*/
       .main {
