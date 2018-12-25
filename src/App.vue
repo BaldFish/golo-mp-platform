@@ -130,6 +130,14 @@
 
 <style scoped lang="stylus">
   #app {
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    position: absolute;
+    left:0;
+    top:0;
+  
     min-height: 100vh;
     display: flex;
     flex-direction: column;

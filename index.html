@@ -6,6 +6,15 @@
   <!--[if lt IE 9]>
   <script src="./src/common/js/html5shiv.js"></script>
   <![endif]-->
+  <style>
+    html,body{
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+  </style>
   <script>
     var _hmt = _hmt || [];
     (function () {
@@ -19,21 +28,5 @@
 <body>
 <div id="app"></div>
 <!-- built files will be auto injected -->
-<script>
-  //	监听window的resize事件，简单的讲就是在整个document的高度变化时将底部的footer隐藏掉
-  /*let oHeight = window.outerHeight; //屏幕当前的高度
-  console.log(oHeight);
-  window.onresize = function () {
-    console.log(oHeight);
-    console.log(123)
-    let oFooter = document.querySelectorAll("#footer");
-    oFooter.style = "display:none";
-    if (window.outerHeight < oHeight) {
-      let oFooter = document.querySelectorAll("#footer");
-      oFooter.style = "display:none";
-    }
-  };*/
-
-</script>
 </body>
 </html>

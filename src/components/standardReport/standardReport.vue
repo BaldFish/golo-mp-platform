@@ -289,7 +289,7 @@
     data() {
       return {
         activeNames: ['1'],
-        order_id: "YZRRD18121344709953",
+        order_id: "YZRRD18122545707801",
         reportDetails: {
           repair:"",
           order_info:"",
