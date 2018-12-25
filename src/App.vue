@@ -84,8 +84,9 @@
          */
         ;(/iphone|ipod|ipad/i.test(navigator.appVersion)) && document.addEventListener('blur', (e) => {
         // 这里加了个类型判断，因为a等元素也会触发blur事件
-        //console.log(e.target.localName)
-        ['input', 'textarea'].includes(e.target.localName) && document.body.scrollIntoView({behavior: "smooth"})
+        console.log(e.target)
+        ['input', 'textarea'].includes(e.target.localName) && document.body.scrollIntoView({block: 'center',
+          behavior: 'smooth' })
       }, true)
     },
     beforeUpdate() {
