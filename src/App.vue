@@ -30,7 +30,7 @@
       }
     },
     beforeMount() {
-      let u = navigator.userAgent;
+      /*let u = navigator.userAgent;
       let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
       let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
       if (isAndroid) {
@@ -38,14 +38,14 @@
         let height = window.innerHeight;
         window.onresize = function windowResize() {
           // 通过捕获系统的onresize事件触发我们需要执行的事件
-          this.myWidth = window.innerHeight
+          this.myWidth = window.innerHeight;
           if (this.myWidth < height) {
             document.querySelectorAll('#footer')[0].style = "position:static"
           } else {
             document.querySelectorAll('#footer')[0].style = "position:fixed;bottom:0"
           }
-        }
-      }
+        };
+      }*/
       /*window.addEventListener('resize', function () {
         if (document.activeElement.tagName === 'INPUT') {
           document.activeElement.scrollIntoView({behavior: "smooth"})
@@ -54,7 +54,31 @@
       this.getPath();
     },
     mounted() {
-    
+      let u = navigator.userAgent;
+      let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+      let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+      /*const h = document.body.scrollHeight;  // 用onresize事件监控窗口或框架被调整大小，先把一开始的高度记录下来
+      window.onresize = function () { // 如果当前窗口小于一开始记录的窗口高度，那就让当前窗口等于一开始窗口的高度
+        if (document.body.scrollHeight < h) {
+          document.body.style.height = h
+        }
+      }*/
+      //if (isAndroid) {
+        // 注：window.onresize只能在项目内触发1次
+        let height = window.innerHeight;
+        window.onresize = function () {
+          // 通过捕获系统的onresize事件触发我们需要执行的事件
+          this.myWidth = window.innerHeight;
+          if (this.myWidth < height) {
+            document.querySelectorAll('#footer')[0].style = "position:static"
+          } else {
+            document.querySelectorAll('#footer')[0].style = "position:fixed;bottom:0"
+          }
+          if (document.activeElement.tagName === 'INPUT') {
+            document.activeElement.scrollIntoView({behavior: "smooth"})
+          }
+        }
+      //}
     },
     beforeUpdate() {
     },
