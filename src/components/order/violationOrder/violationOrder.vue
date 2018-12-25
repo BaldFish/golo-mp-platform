@@ -64,6 +64,7 @@
         isData: true,
         violationDetails:[],
         userId:"",
+        openId:"",
       }
     },
     created() {
