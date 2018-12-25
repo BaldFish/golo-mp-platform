@@ -46,11 +46,11 @@
           }
         }
       }
-      window.addEventListener('resize', function () {
+      /*window.addEventListener('resize', function () {
         if (document.activeElement.tagName === 'INPUT') {
           document.activeElement.scrollIntoView({behavior: "smooth"})
         }
-      });
+      });*/
       this.getPath();
     },
     mounted() {
