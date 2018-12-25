@@ -168,9 +168,12 @@
       margin: 0 auto;
       width 100%
       min-width 640px
-      
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
       .main {
         flex: 1;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
       }
     }
     
