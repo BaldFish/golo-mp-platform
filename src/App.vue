@@ -62,7 +62,9 @@
     watch: {
       //监听路由变化执行方法
       $route(to, from) {
-        this.getPath()
+        this.getPath();
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
       }
     },
     methods: {
