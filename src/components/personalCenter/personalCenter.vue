@@ -238,7 +238,7 @@
 <style scoped lang="stylus">
   .personalCenter{
     width 750px
-    padding-bottom 728px
+    padding-bottom 128px
     .personal-user {
       box-sizing border-box
       position relative

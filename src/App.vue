@@ -171,7 +171,7 @@
       overflow: auto;
       -webkit-overflow-scrolling: touch;
       .main {
-        flex: 1;
+        //flex: 1;
         overflow: auto;
         -webkit-overflow-scrolling: touch;
       }

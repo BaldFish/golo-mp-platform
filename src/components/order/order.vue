@@ -49,6 +49,9 @@
 </script>
 
 <style scoped lang="stylus">
+  .order{
+    padding-bottom 128px
+  }
   .tabs_wrap{
     ul{
       font-size 0
@@ -85,7 +88,7 @@
       }
     }
   }
-  .content{
+  /*.content{
     padding-bottom 128px
-  }
+  }*/
 </style>
