@@ -63,7 +63,7 @@
           document.body.style.height = h
         }
       }*/
-      //if (isAndroid) {
+      if (isAndroid) {
         // 注：window.onresize只能在项目内触发1次
         let height = window.innerHeight;
         window.onresize = function () {
@@ -78,7 +78,7 @@
             document.activeElement.scrollIntoView({behavior: "smooth"})
           }
         }
-      //}
+      }
         /**
          * 处理iOS 微信客户端6.7.4 键盘收起页面未下移bug
          */
