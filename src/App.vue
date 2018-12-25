@@ -144,12 +144,12 @@
         if (index === 0) {
           this.$router.push('/reportQuery');
         } else if (index === 1) {
-          //this.$router.push('/order');
-          if (userId) {
+          this.$router.push('/order');
+          /*if (userId) {
             this.$router.push('/order');
           } else {
             this.$router.push('/login');
-          }
+          }*/
         } else if (index === 2) {
           if (userId) {
             this.$router.push('/personalCenter');
@@ -164,11 +164,11 @@
 
 <style scoped lang="stylus">
   #app {
-    min-height: 100vh;
+    min-height: 100vh-98px;
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
-    
+    padding-bottom 98px
     .main_wrap {
       display: flex;
       flex: 1;
@@ -176,12 +176,12 @@
       margin: 0 auto;
       width 100%
       min-width 640px
-      overflow: auto;
-      -webkit-overflow-scrolling: touch;
+      /*overflow: auto;
+      -webkit-overflow-scrolling: touch;*/
       .main {
-        //flex: 1;
-        overflow: auto;
-        -webkit-overflow-scrolling: touch;
+        flex: 1;
+        /*overflow: auto;
+        -webkit-overflow-scrolling: touch;*/
       }
     }
     
