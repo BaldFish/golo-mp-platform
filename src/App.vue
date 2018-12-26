@@ -30,39 +30,12 @@
       }
     },
     beforeMount() {
-      /*let u = navigator.userAgent;
-      let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-      let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-      if (isAndroid) {
-        // 注：window.onresize只能在项目内触发1次
-        let height = window.innerHeight;
-        window.onresize = function windowResize() {
-          // 通过捕获系统的onresize事件触发我们需要执行的事件
-          this.myWidth = window.innerHeight;
-          if (this.myWidth < height) {
-            document.querySelectorAll('#footer')[0].style = "position:static"
-          } else {
-            document.querySelectorAll('#footer')[0].style = "position:fixed;bottom:0"
-          }
-        };
-      }*/
-      /*window.addEventListener('resize', function () {
-        if (document.activeElement.tagName === 'INPUT') {
-          document.activeElement.scrollIntoView({behavior: "smooth"})
-        }
-      });*/
       this.getPath();
     },
     mounted() {
       let u = navigator.userAgent;
       let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
       let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-      /*const h = document.body.scrollHeight;  // 用onresize事件监控窗口或框架被调整大小，先把一开始的高度记录下来
-      window.onresize = function () { // 如果当前窗口小于一开始记录的窗口高度，那就让当前窗口等于一开始窗口的高度
-        if (document.body.scrollHeight < h) {
-          document.body.style.height = h
-        }
-      }*/
       if (isAndroid) {
         // 注：window.onresize只能在项目内触发1次
         let height = window.innerHeight;
@@ -87,7 +60,7 @@
         setTimeout(function () {
           //['input', 'textarea'].includes(e.target.localName) && e.target.scrollIntoView()
             if(['input', 'textarea'].includes(e.target.localName)){
-              document.body.scrollTop = document.body.scrollTop
+              document.body.scrollTop = document.body.scrollTop;
             }
         },100)
       }, true)
@@ -99,8 +72,6 @@
       //监听路由变化执行方法
       $route(to, from) {
         this.getPath();
-        /*document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;*/
       }
     },
     methods: {
@@ -180,12 +151,8 @@
       width 100%
       min-width 640px
       padding-bottom 98px
-      /*overflow: auto;
-      -webkit-overflow-scrolling: touch;*/
       .main {
         flex: 1;
-        /*overflow: auto;
-        -webkit-overflow-scrolling: touch;*/
       }
     }
     

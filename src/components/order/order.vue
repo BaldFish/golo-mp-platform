@@ -68,14 +68,11 @@
             font-size 0
             width 100px
             .text{
-              //box-sizing border-box
               display inline-block
               font-size: 28px;/*px*/
               color: #222222;
               padding-top 30px
               padding-bottom 30px
-              /*height 90px
-              line-height 90px*/
             }
           }
           .router-link-active{

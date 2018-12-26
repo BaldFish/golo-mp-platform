@@ -234,7 +234,6 @@
   .login{
     width 750px
     padding-bottom 30px
-    //padding-bottom 600px
     .login-container {
       width: 700px;
       height: 878px;
