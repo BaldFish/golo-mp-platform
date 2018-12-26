@@ -85,7 +85,8 @@
         ;(/iphone|ipod|ipad/i.test(navigator.appVersion)) && document.addEventListener('blur', (e) => {
         // 这里加了个类型判断，因为a等元素也会触发blur事件
         setTimeout(function () {
-          ['input', 'textarea'].includes(e.target.localName) && e.target.scrollIntoView()
+          document.body.scrollTop = document.body.scrollTop
+          //['input', 'textarea'].includes(e.target.localName) && e.target.scrollIntoView()
         },100)
       }, true)
     },
