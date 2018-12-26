@@ -49,43 +49,45 @@
 </script>
 
 <style scoped lang="stylus">
-  .tabs_wrap{
-    ul{
-      font-size 0
-      text-align center
-      background-color: #f8f8f8;
-      height 90px
-      li{
-        display inline-block
-        width 25%
+  .order{
+    width 750px
+    padding-bottom 30px
+    .tabs_wrap{
+      ul{
         font-size 0
-        a{
+        text-align center
+        background-color: #f8f8f8;
+        height 90px
+        li{
           display inline-block
-          text-align center
+          width 25%
           font-size 0
-          width 100px
-          .text{
-            //box-sizing border-box
+          a{
             display inline-block
-            font-size: 28px;/*px*/
-            color: #222222;
-            padding-top 30px
-            padding-bottom 30px
-            /*height 90px
-            line-height 90px*/
+            text-align center
+            font-size 0
+            width 100px
+            .text{
+              display inline-block
+              font-size: 28px;/*px*/
+              color: #222222;
+              padding-top 30px
+              padding-bottom 30px
+            }
           }
-        }
-        .router-link-active{
-          .text{
-            color: #5226f3;
-            border-bottom 2px solid #5226f3;/*no*/
-
+          .router-link-active{
+            .text{
+              color: #5226f3;
+              border-bottom 2px solid #5226f3;/*no*/
+            
+            }
           }
         }
       }
     }
   }
-  .content{
+  
+  /*.content{
     padding-bottom 128px
-  }
+  }*/
 </style>

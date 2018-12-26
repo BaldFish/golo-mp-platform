@@ -30,31 +30,40 @@
       }
     },
     beforeMount() {
+      this.getPath();
+    },
+    mounted() {
       let u = navigator.userAgent;
       let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
       let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
       if (isAndroid) {
         // 注：window.onresize只能在项目内触发1次
         let height = window.innerHeight;
-        window.onresize = function windowResize() {
+        window.onresize = function () {
           // 通过捕获系统的onresize事件触发我们需要执行的事件
-          this.myWidth = window.innerHeight
+          this.myWidth = window.innerHeight;
           if (this.myWidth < height) {
             document.querySelectorAll('#footer')[0].style = "position:static"
           } else {
             document.querySelectorAll('#footer')[0].style = "position:fixed;bottom:0"
           }
+          if (document.activeElement.tagName === 'INPUT') {
+            document.activeElement.scrollIntoView({behavior: "smooth"})
+          }
         }
       }
-      window.addEventListener('resize', function () {
-        if (document.activeElement.tagName === 'INPUT') {
-          document.activeElement.scrollIntoView({behavior: "smooth"})
-        }
-      });
-      this.getPath();
-    },
-    mounted() {
-    
+        /**
+         * 处理iOS 微信客户端6.7.4 键盘收起页面未下移bug
+         */
+        ;(/iphone|ipod|ipad/i.test(navigator.appVersion)) && document.addEventListener('blur', (e) => {
+        // 这里加了个类型判断，因为a等元素也会触发blur事件
+        setTimeout(function () {
+          //['input', 'textarea'].includes(e.target.localName) && e.target.scrollIntoView()
+            if(['input', 'textarea'].includes(e.target.localName)){
+              document.body.scrollTop = document.body.scrollTop;
+            }
+        },100)
+      }, true)
     },
     beforeUpdate() {
     },
@@ -62,7 +71,7 @@
     watch: {
       //监听路由变化执行方法
       $route(to, from) {
-        this.getPath()
+        this.getPath();
       }
     },
     methods: {
@@ -134,7 +143,6 @@
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
-    
     .main_wrap {
       display: flex;
       flex: 1;
@@ -142,7 +150,7 @@
       margin: 0 auto;
       width 100%
       min-width 640px
-      
+      padding-bottom 98px
       .main {
         flex: 1;
       }

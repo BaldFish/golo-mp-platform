@@ -76,30 +76,10 @@
       this.violationVerifyData = JSON.parse(localStorage.getItem("violationVerifyData"));
     },
     mounted() {
-      /*this.userId = this.$utils.getCookie("userId");
-      this.violationVerifyData = JSON.parse(localStorage.getItem("violationVerifyData"));
-      this.vin = this.violationDetails.query_info.vin;
-      this.getViolationInfo()*/
     },
     watch: {},
     computed: {},
     methods: {
-      //获取违章详细信息
-      /*getViolationInfo(){
-        this.$axios({
-          method: 'GET',
-          url: `${this.$baseURL}/v1/golo/violation/info/${this.userId}/${this.vin}`
-        }).then(res => {
-          if(res.data.data){
-            this.isData = true;
-            this.violationInfo = res.data.data;
-          }else{
-            this.isData = false
-          }
-        }).catch(error => {
-          console.log(error)
-        });
-      }*/
     },
   }
 </script>
