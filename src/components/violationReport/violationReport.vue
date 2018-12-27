@@ -47,8 +47,8 @@
     </div>
     <div class="violation-empty" v-else>
       <p>暂无结果，您可获取该车型车况故障详情</p>
-      <router-link to="/reportQuery/vehicleCondition" @click="buryingPoint('reportPage','violation','7')">
-        <input type="button" value="查车况">
+      <router-link to="/reportQuery/vehicleCondition">
+        <input type="button" value="查车况" @click="buryingPoint('reportPage','violation','7')">
       </router-link>
     </div>
     <div class="qrcode">
