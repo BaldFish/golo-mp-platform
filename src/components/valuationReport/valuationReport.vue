@@ -68,8 +68,22 @@
     watch: {},
     computed: {},
     methods: {
+      //埋点
+      buryingPoint(firstLevel,secondLevel,apiId){
+        let parameter={
+          first_level:firstLevel,
+          second_level:secondLevel,
+          api_id:apiId,
+        };
+        this.$axios({
+          method:'POST',
+          url:`${this.$baseURL}/v1/golo-buried-point-record`,
+          data: this.$querystring.stringify(parameter)
+        }).then(res=>{}).catch(error=>{})
+      },
       //跳转到查车况
       searchVehicleCondition() {
+        this.buryingPoint('reportPage','appraisal','7');
         this.$router.push('/reportQuery/vehicleCondition')
       },
       //一键卖车

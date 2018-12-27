@@ -13,7 +13,8 @@
         <div class="car-mileage">
           <span>行驶里程：</span>
           <label>
-            <input type="text" placeholder="请输入当前行驶里程" v-bind:value="item.mileage" v-on:input="checkMileage($event,item)">
+            <input type="text" placeholder="请输入当前行驶里程" v-bind:value="item.mileage" v-on:input="checkMileage($event,item)"
+                   @focus="buryingPoint('orderListPage','appraisal','8')">
             <span>万公里</span>
           </label>
         </div>
@@ -56,7 +57,22 @@
     watch: {},
     computed: {},
     methods: {
+      //埋点
+      buryingPoint(firstLevel,secondLevel,apiId){
+        let parameter={
+          first_level:firstLevel,
+          second_level:secondLevel,
+          api_id:apiId,
+        };
+        this.$axios({
+          method:'POST',
+          url:`${this.$baseURL}/v1/golo-buried-point-record`,
+          data: this.$querystring.stringify(parameter)
+        }).then(res=>{}).catch(error=>{})
+      },
+      //跳转首页查估价
       turnValuation(){
+        this.buryingPoint('orderListPage','appraisal','4');
         this.$router.push('/reportQuery/valuation')
       },
       //校验里程数

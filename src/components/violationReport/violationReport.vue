@@ -47,7 +47,7 @@
     </div>
     <div class="violation-empty" v-else>
       <p>暂无结果，您可获取该车型车况故障详情</p>
-      <router-link to="/reportQuery/vehicleCondition">
+      <router-link to="/reportQuery/vehicleCondition" @click="buryingPoint('reportPage','violation','7')">
         <input type="button" value="查车况">
       </router-link>
     </div>
@@ -80,6 +80,19 @@
     watch: {},
     computed: {},
     methods: {
+      //埋点
+      buryingPoint(firstLevel,secondLevel,apiId){
+        let parameter={
+          first_level:firstLevel,
+          second_level:secondLevel,
+          api_id:apiId,
+        };
+        this.$axios({
+          method:'POST',
+          url:`${this.$baseURL}/v1/golo-buried-point-record`,
+          data: this.$querystring.stringify(parameter)
+        }).then(res=>{}).catch(error=>{})
+      },
     },
   }
 </script>
