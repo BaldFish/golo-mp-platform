@@ -80,7 +80,6 @@
           url:`${this.$baseURL}/v1/golo-buried-point-record`,
           data: this.$querystring.stringify(parameter)
         }).then(res=>{
-          alert("200")
         }).catch(error=>{})
       },
       //跳转到查车况
