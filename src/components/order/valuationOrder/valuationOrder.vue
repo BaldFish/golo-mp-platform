@@ -70,11 +70,11 @@
       },
       //获取估价列表
       getValuationOrderList() {
-        let openId = this.$utils.getCookie("openId");
+        let userId = this.$utils.getCookie("userId");
         let token = this.$utils.getCookie("token");
         this.$axios({
           method: "GET",
-          url: `${this.$baseURL}/v1/golo/getOrderList/${openId}?page=${this.page}&limit=${this.limit}`,
+          url: `${this.$baseURL}/v1/golo/getOrderList/${userId}?page=${this.page}&limit=${this.limit}`,
           headers: {
             'X-Access-Token': `${token}`,
           }
@@ -89,11 +89,12 @@
           console.log(error)
         })
       },
-      //校验和查询
+      //校验和查估价
       verify(item) {
         let openId = this.$utils.getCookie("openId");
         let token = this.$utils.getCookie("token");
         let userPhone = this.$utils.getCookie("userPhone").substr(3);
+        let userId = this.$utils.getCookie("userId");
         if (token) {
           let verifyData = {
             vin: item.vin,//车架号
@@ -103,6 +104,7 @@
             openid: openId, //用户信息
             phone: userPhone,//手机号
             flag: this.checked,//免责声明
+            user_id:userId,
           };
           this.$axios({
             method: 'POST',

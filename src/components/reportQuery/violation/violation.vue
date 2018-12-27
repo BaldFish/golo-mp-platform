@@ -193,8 +193,22 @@
       }
     },
     methods: {
+      //埋点
+      buryingPoint(firstLevel,secondLevel,apiId){
+        let parameter={
+          first_level:firstLevel,
+          second_level:secondLevel,
+          api_id:apiId,
+        };
+        this.$axios({
+          method:'POST',
+          url:`${this.$baseURL}/v1/golo-buried-point-record`,
+          data: this.$querystring.stringify(parameter)
+        }).then(res=>{}).catch(error=>{})
+      },
       //上传图片获取车架号
       uploadPhoto(e) {
+        this.buryingPoint('homePage','violation','1');
         let that = this;
         let token = that.$utils.getCookie("token");
         let userId = that.$utils.getCookie("userId");
@@ -302,44 +316,6 @@
           this.$router.push('/login')
         }
       },
-      //违章查询
-      /*violationQuery() {
-        let token = this.$utils.getCookie("token");
-        let userId = this.$utils.getCookie("userId");
-        let createOrderData = {};
-        createOrderData.hphm = this.plateNumber;
-        createOrderData.hpzl = this.carType;
-        createOrderData.engineno = this.engineNumber;
-        createOrderData.classno = this.carFrameNum;
-        createOrderData.userid = userId;
-        this.$axios({
-          method: 'POST',
-          url: `${this.$baseURL}/v1/golo/violation/query`,
-          data: this.$querystring.stringify(createOrderData),
-          headers: {
-            'X-Access-Token': token,
-          },
-        }).then(res => {
-          let violationSingleOrder = {
-            query_info:{},
-          };
-          violationSingleOrder.query_info.vin = this.carFrameNum;
-          violationSingleOrder.query_info.plate_num = this.plateNumber;
-          violationSingleOrder.query_info.engineno = this.engineNumber;
-          violationSingleOrder.query_info.car_type = this.carType;
-          violationSingleOrder.query_info.updated_at = "";
-          window.localStorage.setItem("violationSingleOrder", JSON.stringify(violationSingleOrder));
-          this.$router.push('/violationReport')
-        }).catch(error => {
-          console.log(error);
-          this.errorMessage = error.response.data.message;
-          this.errorTip = true;
-          let that = this;
-          window.setTimeout(function () {
-            that.errorTip = false;
-          }, 2000);
-        })
-      },*/
       closeNotice() {
         this.isHidden = true;
       },
