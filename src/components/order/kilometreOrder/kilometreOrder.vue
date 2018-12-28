@@ -63,6 +63,7 @@
         status: 5,
         orderList:'',
         userId:"",
+        openId:"",
         timer:"",
       }
     },
@@ -229,7 +230,7 @@
       getOrderList() {
         this.$axios({
           method: 'GET',
-          url: `${this.$baseURL}/v1/golo-order/list/${this.openId}?order_type=2&status=${this.status}&limit=1000`
+          url: `${this.$baseURL}/v1/golo-order/list/${this.userId}?order_type=2&status=${this.status}&limit=1000`
         }).then(res => {
           if(res.data.data.res_list){
             this.isData = true;
