@@ -218,8 +218,22 @@
       }
     },
     methods: {
+      //埋点
+      buryingPoint(firstLevel,secondLevel,apiId){
+        let parameter={
+          first_level:firstLevel,
+          second_level:secondLevel,
+          api_id:apiId,
+        };
+        this.$axios({
+          method:'POST',
+          url:`${this.$baseURL}/v1/golo-buried-point-record`,
+          data: this.$querystring.stringify(parameter)
+        }).then(res=>{}).catch(error=>{})
+      },
       //上传图片获取车架号
       uploadPhoto(e) {
+        this.buryingPoint('homePage','carCondition','1');
         let that = this;
         let token = that.$utils.getCookie("token");
         let userId = that.$utils.getCookie("userId");

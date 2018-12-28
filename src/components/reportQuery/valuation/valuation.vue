@@ -172,8 +172,22 @@
       }
     },
     methods: {
+      //埋点
+      buryingPoint(firstLevel,secondLevel,apiId){
+        let parameter={
+          first_level:firstLevel,
+          second_level:secondLevel,
+          api_id:apiId,
+        };
+        this.$axios({
+          method:'POST',
+          url:`${this.$baseURL}/v1/golo-buried-point-record`,
+          data: this.$querystring.stringify(parameter)
+        }).then(res=>{}).catch(error=>{})
+      },
       //上传图片获取车架号
       uploadPhoto(e) {
+        this.buryingPoint('homePage','appraisal','1');
         let that = this;
         let token = that.$utils.getCookie("token");
         let userId = that.$utils.getCookie("userId");
@@ -253,11 +267,12 @@
         this.txtboardshow = false;
         this.numboardshow = false;
       },
-      //校验和查违章
+      //校验和查估价
       verify(orderType) {
         let openid = this.$utils.getCookie("openId");
         let token = this.$utils.getCookie("token");
         let phone = this.$utils.getCookie("userPhone");
+        let userId = this.$utils.getCookie("userId");
         if (token) {
           let verifyData = {
             openid: openid,//用户ID
@@ -268,6 +283,7 @@
             mileage: this.mileage,//行驶里程，单位万公里
             //order_type: orderType, //查询类型1-维保 2-里程 3-估价 4-违章
             flag: this.checked,//免责声明
+            user_id:userId,//用户ID
           };
           this.$axios({
             method: 'POST',

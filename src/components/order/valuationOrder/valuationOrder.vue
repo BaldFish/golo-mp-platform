@@ -13,7 +13,8 @@
         <div class="car-mileage">
           <span>行驶里程：</span>
           <label>
-            <input type="text" placeholder="请输入当前行驶里程" v-bind:value="item.mileage" v-on:input="checkMileage($event,item)">
+            <input type="text" placeholder="请输入当前行驶里程" v-bind:value="item.mileage" v-on:input="checkMileage($event,item)"
+                   @focus="buryingPoint('orderListPage','appraisal','8')">
             <span>万公里</span>
           </label>
         </div>
@@ -56,7 +57,22 @@
     watch: {},
     computed: {},
     methods: {
+      //埋点
+      buryingPoint(firstLevel,secondLevel,apiId){
+        let parameter={
+          first_level:firstLevel,
+          second_level:secondLevel,
+          api_id:apiId,
+        };
+        this.$axios({
+          method:'POST',
+          url:`${this.$baseURL}/v1/golo-buried-point-record`,
+          data: this.$querystring.stringify(parameter)
+        }).then(res=>{}).catch(error=>{})
+      },
+      //跳转首页查估价
       turnValuation(){
+        this.buryingPoint('orderListPage','appraisal','4');
         this.$router.push('/reportQuery/valuation')
       },
       //校验里程数
@@ -70,11 +86,11 @@
       },
       //获取估价列表
       getValuationOrderList() {
-        let openId = this.$utils.getCookie("openId");
+        let userId = this.$utils.getCookie("userId");
         let token = this.$utils.getCookie("token");
         this.$axios({
           method: "GET",
-          url: `${this.$baseURL}/v1/golo/getOrderList/${openId}?page=${this.page}&limit=${this.limit}`,
+          url: `${this.$baseURL}/v1/golo/getOrderList/${userId}?page=${this.page}&limit=${this.limit}`,
           headers: {
             'X-Access-Token': `${token}`,
           }
@@ -89,11 +105,12 @@
           console.log(error)
         })
       },
-      //校验和查询
+      //校验和查估价
       verify(item) {
         let openId = this.$utils.getCookie("openId");
         let token = this.$utils.getCookie("token");
         let userPhone = this.$utils.getCookie("userPhone").substr(3);
+        let userId = this.$utils.getCookie("userId");
         if (token) {
           let verifyData = {
             vin: item.vin,//车架号
@@ -103,6 +120,7 @@
             openid: openId, //用户信息
             phone: userPhone,//手机号
             flag: this.checked,//免责声明
+            user_id:userId,
           };
           this.$axios({
             method: 'POST',

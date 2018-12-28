@@ -190,8 +190,22 @@
       }
     },
     methods: {
+      //埋点
+      buryingPoint(firstLevel,secondLevel,apiId){
+        let parameter={
+          first_level:firstLevel,
+          second_level:secondLevel,
+          api_id:apiId,
+        };
+        this.$axios({
+          method:'POST',
+          url:`${this.$baseURL}/v1/golo-buried-point-record`,
+          data: this.$querystring.stringify(parameter)
+        }).then(res=>{}).catch(error=>{})
+      },
       //上传图片获取车架号
       uploadPhoto(e) {
+        this.buryingPoint('homePage','mileage','1');
         let that = this;
         let token = that.$utils.getCookie("token");
         let userId = that.$utils.getCookie("userId");
@@ -259,7 +273,7 @@
       turnDisclaimer() {
         this.$router.push('/disclaimer')
       },
-      //校验
+      //校验和查里程
       verify(orderType) {
         let userId = this.$utils.getCookie("userId");
         let token = this.$utils.getCookie("token");

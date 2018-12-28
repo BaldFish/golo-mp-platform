@@ -34,7 +34,7 @@
       <img src="@/common/images/empty.png" alt="">
       <p>暂无查里程订单</p>
       <router-link to="/reportQuery/kilometre">
-        <input type="button" value="新建订单">
+        <input type="button" value="新建订单" @click="buryingPoint('orderListPage','mileage','4')">
       </router-link>
     </section>
     <div class="errorTip_wrap" >
@@ -78,11 +78,28 @@
     watch: {},
     computed: {},
     methods: {
+      //埋点
+      buryingPoint(firstLevel,secondLevel,apiId){
+        let parameter={
+          first_level:firstLevel,
+          second_level:secondLevel,
+          api_id:apiId,
+        };
+        this.$axios({
+          method:'POST',
+          url:`${this.$baseURL}/v1/golo-buried-point-record`,
+          data: this.$querystring.stringify(parameter)
+        }).then(res=>{}).catch(error=>{})
+      },
       //提交订单
       submitOrder(orderNum){
         let token=this.$utils.getCookie("token");
-        let orderId={};
-        orderId.order_id=orderNum;
+        let orderId = {
+          order_id:orderNum,
+          first_level:"orderListPage",
+          second_level:"mileage",
+          api_id:"3",
+        };
         this.$axios({
           method: 'POST',
           url: `${this.$baseURL}/v1/golo-order/pay`,
