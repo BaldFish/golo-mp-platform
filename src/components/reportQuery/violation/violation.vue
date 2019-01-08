@@ -100,7 +100,7 @@
         </div>
       </section>
     </section>
-    <p class="cooperation">商务合作联系电话：18801370245</p>
+    <p class="cooperation">商务合作联系电话：13550564629</p>
     <el-dialog top="35vh" :visible.sync="centerDialogVisible" center :show-close="false" custom-class="fadongji">
       <img src="@/common/images/fadongji.png" alt="">
     </el-dialog>
