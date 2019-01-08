@@ -90,7 +90,7 @@
         </div>
       </section>
     </section>
-    <p class="cooperation">商务合作联系电话：13550564629</p>
+    <p class="cooperation">商务合作联系电话：13550564629（同微信）</p>
     <div class="errorTip_wrap">
       <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
     </div>
