@@ -97,7 +97,7 @@
         </div>
       </div>
     </section>
-    <p class="cooperation">商务合作联系电话：13550564629</p>
+    <p class="cooperation">商务合作联系电话：13550564629（同微信）</p>
     <el-dialog top="35vh" :visible.sync="centerDialogVisible" center :show-close="false" custom-class="fadongji">
       <img src="@/common/images/fadongji.png" alt="">
     </el-dialog>
