@@ -136,8 +136,6 @@
 </template>
 
 <script>
-  import {commonShare, shareTitle, shareUrl, shareImg, shareDesc} from "../../../common/js/share";
-  
   export default {
     inject: ['reload'],
     name: "vehicleCondition",
@@ -172,7 +170,7 @@
       }
     },
     created() {
-      commonShare(this, "shareTitle", "shareUrl", "shareImg", "shareDesc");
+      this.$wxShare(this,"测试", "测试","测试","测试")
     },
     mounted() {
       window.clearTimeout(timeOut);

@@ -1,11 +1,5 @@
 import axios from "axios";
-import {baseURL} from '@/common/js/public.js';
 import wx from 'weixin-js-sdk'
-
-export const shareTitle = '测试';
-export const shareUrl = '测试连接';
-export const shareImg = '测试图片';
-export const shareDesc = '测试详情';
 
 /**
  *分享
@@ -15,28 +9,29 @@ export const shareDesc = '测试详情';
  * @param shareImg 图片
  * @param shareDesc 描述
  */
-export const commonShare = (_this, shareTitle, shareUrl, shareImg, shareDesc) => {
+export default function wxShare(_this, shareTitle, shareUrl, shareImg, shareDesc) {
   let url = window.location.href;
   let data = {
     url: url
   };
   axios({
-    method:'POST',
-    url:`${baseURL}`,
-    data:data,
+    method: 'POST',
+    url: `https://wallet-api-test.launchain.org`,
+    data: data,
   }).then(res => {
     if (res.status == 1) {
       let data = res.data;
       wx.config({
-        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
         appId: data.appId, // 必填，公众号的唯一标识
         timestamp: data.timestamp, // 必填，生成签名的时间戳
         nonceStr: data.nonceStr, // 必填，生成签名的随机串
         signature: data.signature, // 必填，签名，见附录1
-        jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        jsApiList: ["updateAppMessageShareData", "updateTimelineShareData"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
       });
       wx.ready(function () {
-        wx.onMenuShareTimeline({
+        //自定义“分享给朋友”及“分享到QQ”按钮的分享内容（1.4.0）
+        wx.updateAppMessageShareData({
           title: shareTitle, // 分享标题
           link: shareUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           imgUrl: shareImg, // 分享图标
@@ -47,13 +42,12 @@ export const commonShare = (_this, shareTitle, shareUrl, shareImg, shareDesc) =>
             // 用户取消分享后执行的回调函数
           }
         });
-        wx.onMenuShareAppMessage({
+        //自定义“分享到朋友圈”及“分享到QQ空间”按钮的分享内容（1.4.0）
+        wx.updateTimelineShareData({
           title: shareTitle, // 分享标题
           desc: shareDesc, // 分享描述
           link: shareUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
           imgUrl: shareImg, // 分享图标
-          type: "", // 分享类型,music、video或link，不填默认为link
-          dataUrl: "", // 如果type是music或video，则要提供数据链接，默认为空
           success: function () {
             // 用户确认分享后执行的回调函数
           },
@@ -66,4 +60,4 @@ export const commonShare = (_this, shareTitle, shareUrl, shareImg, shareDesc) =>
   }).catch(err => {
     console.log(err)
   })
-};
+}
