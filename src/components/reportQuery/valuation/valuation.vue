@@ -574,6 +574,10 @@
     font-weight 700
     font-size: 30px; /*px*/
     color #333333
+    a{
+      font-weight 700
+      color #333333
+    }
   }
 
   .errorTip_wrap {

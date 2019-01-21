@@ -136,6 +136,8 @@
 </template>
 
 <script>
+  import {commonShare, shareTitle, shareUrl, shareImg, shareDesc} from "../../../common/js/share";
+  
   export default {
     inject: ['reload'],
     name: "vehicleCondition",
@@ -170,6 +172,7 @@
       }
     },
     created() {
+      commonShare(this, "shareTitle", "shareUrl", "shareImg", "shareDesc");
     },
     mounted() {
       window.clearTimeout(timeOut);
@@ -714,6 +717,10 @@
       font-weight 700
       font-size: 30px; /*px*/
       color #333333
+      a{
+        font-weight 700
+        color #333333
+      }
     }
   
     .errorTip_wrap {

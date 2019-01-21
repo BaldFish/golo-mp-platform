@@ -150,9 +150,9 @@
       margin: 0 auto;
       width 100%
       min-width 640px
-      padding-bottom 98px
       .main {
         flex: 1;
+        padding-bottom 98px
       }
     }
     

@@ -398,6 +398,7 @@
 <style scoped lang="stylus">
   .vehicleConditionReport {
     width 750px
+    padding-bottom 0 !important
     .top-bg{
       margin 0 auto
       height: 400px
