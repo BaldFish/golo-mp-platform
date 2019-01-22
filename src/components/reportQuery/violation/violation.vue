@@ -313,6 +313,7 @@
             }, 2000);
           })
         } else {
+          window.sessionStorage.setItem('url', '/reportQuery/violationReport');
           this.$router.push('/login')
         }
       },

@@ -305,6 +305,7 @@
             }, 2000);
           })
         } else {
+          window.sessionStorage.setItem('url', '/reportQuery/valuationReport');
           this.$router.push('/login')
         }
       },

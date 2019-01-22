@@ -336,6 +336,7 @@
             }, 2000);
           })
         } else {
+          window.sessionStorage.setItem('url', '/reportQuery/vehicleCondition');
           this.$router.push('/login')
         }
       },
