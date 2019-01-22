@@ -170,7 +170,7 @@
       }
     },
     created() {
-      this.$wxShare(this,"测试", "测试","测试","测试")
+      this.$wxShare.wxShare(this,"测试", "测试","测试","测试")
     },
     mounted() {
       window.clearTimeout(timeOut);

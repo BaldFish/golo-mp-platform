@@ -202,7 +202,8 @@
           document.cookie = `token=${res.data.data.token}`;
           document.cookie = `userPhone=${res.data.data.phone}`;
           document.cookie = `userImgUrl=${res.data.data.imgurl}`;
-          this.$router.push('/personalCenter');
+          let url=window.sessionStorage.getItem('url');
+          this.$router.push(url);
         }).catch(error => {
           this.getCaptcha();
           this.errorMessage=error.response.data.code;
