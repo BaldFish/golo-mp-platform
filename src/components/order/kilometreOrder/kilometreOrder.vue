@@ -258,10 +258,7 @@
       },
       routerToDetails(item){
         if(item.order_status == '待支付'){
-          //return
           this.submitOrder(item.order_id)
-          /*window.localStorage.setItem("vehicleConditionVerifyData", JSON.stringify(item));
-          this.$router.push('/submitVehicleCondition');*/
         } else {
           window.localStorage.setItem("kilometreSingleOrder", JSON.stringify(item));
           this.$router.push('/kilometreOrderDetails');

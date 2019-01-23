@@ -35,7 +35,7 @@
       <p v-if="valuationDetails.salePrice!=='0.00'">{{valuationDetails.salePrice}}万</p>
       <p v-if="valuationDetails.salePrice==='0.00'">暂无估价</p>
     </div>
-    <div class="search" @click="searchVehicleCondition">
+    <div class="search" @click="searchVehicleCondition(valuationDetails)">
       <p>获取该车型车况故障详情</p>
       <div>查车况</div>
     </div>
@@ -83,7 +83,16 @@
         }).catch(error=>{})
       },
       //跳转到查车况
-      searchVehicleCondition() {
+      searchVehicleCondition(val) {
+        let inputData = {
+          vin: val.vin,//车架号
+          plat:val.hp.substr(0,1),//车牌号文字
+          plateNum:val.hp.substr(1),//车牌号字母
+          engine_no: '', //发动机号
+          car_type:'',//维保跟估价必传  01-大型车  02-小型车
+          check_status: 'checked',//免责声明
+        };
+        window.sessionStorage.setItem("vehicleConditionVerifyData", JSON.stringify(inputData));
         this.buryingPoint('reportPage','appraisal','7');
         this.$router.push('/reportQuery/vehicleCondition')
       },

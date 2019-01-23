@@ -61,7 +61,7 @@
         <input class="submit" type="button" value="开始查询" @click="verify(4)">
         <div class="agree-contract">
           <label>
-            <input type="checkbox" v-model="checked" value="true">
+            <input type="checkbox" v-model="checked">
             <i></i>
             <p>使用本服务证明您已阅读并同意<span @click="turnDisclaimer">《免责声明》</span></p>
           </label>
@@ -147,6 +147,14 @@
     created() {
     },
     mounted() {
+      if(window.sessionStorage.violationVerifyData){
+        this.carFrameNum=JSON.parse(window.sessionStorage.getItem('violationVerifyData')).vin;
+        this.plat=JSON.parse(window.sessionStorage.getItem('violationVerifyData')).plat;
+        this.plateNum=JSON.parse(window.sessionStorage.getItem('violationVerifyData')).plateNum;
+        this.engineNumber=JSON.parse(window.sessionStorage.getItem('violationVerifyData')).engine_no;
+        this.carType=JSON.parse(window.sessionStorage.getItem('violationVerifyData')).car_type;
+        this.checked=JSON.parse(window.sessionStorage.getItem('violationVerifyData')).check_status;
+      }
       window.clearTimeout(timeOut);
       //拍照提示20秒消失
       let that = this;
@@ -280,6 +288,15 @@
       verify(orderType) {
         let userId = this.$utils.getCookie("userId");
         let token = this.$utils.getCookie("token");
+        let inputData = {
+          vin: this.carFrameNum,//车架号
+          plat:this.plate,//车牌号文字
+          plateNum:this.plateNum,//车牌号字母
+          engine_no: this.engineNumber, //发动机号
+          car_type: this.carType,//维保跟估价必传  01-大型车  02-小型车
+          check_status: this.checked,//免责声明
+        };
+        window.sessionStorage.setItem("violationVerifyData", JSON.stringify(inputData));
         if (token) {
           let verifyData = {
             user_id: userId,//用户ID

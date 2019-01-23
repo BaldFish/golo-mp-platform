@@ -61,7 +61,7 @@
         <input class="submit" type="button" value="开始查询" @click="verify(1)">
         <div class="agree-contract">
           <label>
-            <input type="checkbox" v-model="checked" value="true">
+            <input type="checkbox" v-model="checked">
             <i></i>
             <p>使用本服务证明您已阅读并同意<span @click="turnDisclaimer">《免责声明》</span></p>
           </label>
@@ -148,11 +148,10 @@
         carType: "02",
         errorMessage: "",//错误提示信息
         errorTip: false,//提示框显示、隐藏
-        checked: "true",
+        checked: 'checked',
         isHidden: false,
         carFrame: '',
         centerDialogVisible: false,
-
         txtboardshow: false,
         numboardshow: false,
         cartxt: [
@@ -173,6 +172,14 @@
       this.$wxShare.wxShare(this,"测试", "测试","测试","测试")
     },
     mounted() {
+      if(window.sessionStorage.vehicleConditionVerifyData){
+        this.carFrameNum=JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).vin;
+        this.plat=JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).plat;
+        this.plateNum=JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).plateNum;
+        this.engineNumber=JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).engine_no;
+        this.carType=JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).car_type;
+        this.checked=JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).check_status;
+      }
       window.clearTimeout(timeOut);
       //拍照提示20秒消失
       let that = this;
@@ -306,6 +313,15 @@
       verify(orderType) {
         let userId = this.$utils.getCookie("userId");
         let token = this.$utils.getCookie("token");
+        let inputData = {
+          vin: this.carFrameNum,//车架号
+          plat:this.plate,//车牌号文字
+          plateNum:this.plateNum,//车牌号字母
+          engine_no: this.engineNumber, //发动机号
+          car_type: this.carType,//维保跟估价必传  01-大型车  02-小型车
+          check_status: this.checked,//免责声明
+        };
+        window.sessionStorage.setItem("vehicleConditionVerifyData", JSON.stringify(inputData));
         if (token) {
           let verifyData = {
             user_id: userId,//用户ID

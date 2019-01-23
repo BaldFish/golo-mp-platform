@@ -47,7 +47,7 @@
     </div>
     <div class="violation-empty" v-else>
       <p>暂无结果，您可获取该车型车况故障详情</p>
-      <router-link to="/reportQuery/vehicleCondition">
+      <router-link to="/reportQuery/vehicleCondition" @click.native="getInfo(violationVerifyData)">
         <input type="button" value="查车况" @click="buryingPoint('reportPage','violation','7')">
       </router-link>
     </div>
@@ -92,6 +92,18 @@
           url:`${this.$baseURL}/v1/golo-buried-point-record`,
           data: this.$querystring.stringify(parameter)
         }).then(res=>{}).catch(error=>{})
+      },
+      //获取代入查车况页面的数据
+      getInfo(val){
+        let inputData = {
+          vin: val.vin,//车架号
+          plat:val.plat_num.substr(0,1),//车牌号文字
+          plateNum:val.plat_num.substr(1),//车牌号字母
+          engine_no: val.engine_no, //发动机号
+          car_type:val.car_type==="小型车"?"02":"01",//维保跟估价必传  01-大型车  02-小型车
+          check_status: val.check_status,//免责声明
+        };
+        window.sessionStorage.setItem("vehicleConditionVerifyData", JSON.stringify(inputData));
       },
     },
   }

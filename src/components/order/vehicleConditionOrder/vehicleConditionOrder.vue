@@ -259,17 +259,8 @@
       },
       routerToDetails(item) {
         if (item.order_status == '待支付') {
-          //return
           this.submitOrder(item.order_id)
-          /*window.localStorage.setItem("vehicleConditionVerifyData", JSON.stringify(item));
-          this.$router.push('/submitVehicleCondition');*/
-        } /*else if(item.order_status == '查询中' || item.order_status == '查询失败'){
-          window.localStorage.setItem("vehicleConditionFailOrder", JSON.stringify(item));
-          this.$router.push('/vehicleConditionOrderDetails');
-        } else if(item.order_status == '查询成功'){
-          window.localStorage.setItem("vehicleConditionSuccessOrder", JSON.stringify(item));
-          this.$router.push('/vehicleConditionOrderDetails');
-        }*/ else {
+        } else {
           window.localStorage.setItem("vehicleConditionSingleOrder", JSON.stringify(item));
           this.$router.push('/vehicleConditionOrderDetails');
         }
