@@ -11,7 +11,7 @@ import wx from 'weixin-js-sdk'
  */
 export default {
   wxShare: function (_this,shareTitle, shareUrl, shareImg, shareDesc) {
-    let url = window.location.href;
+    let url = encodeURIComponent(window.location.href);
     axios({
       method: 'GET',
       url: `https://wallet-api-test.launchain.org/v1/weixin/auth/share?url=${url}`,
