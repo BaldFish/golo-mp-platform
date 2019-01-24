@@ -26,7 +26,7 @@ export default {
           timestamp: data.timestamp, // 必填，生成签名的时间戳
           nonceStr: data.nonceStr, // 必填，生成签名的随机串
           signature: data.signature, // 必填，签名，见附录1
-          jsApiList: ["updateAppMessageShareData","updateTimelineShareData"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+          jsApiList: data.jsApiList // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
         });
         //自定义“分享给朋友”及“分享到QQ”按钮的分享内容（1.4.0）
         wx.ready(function () {
