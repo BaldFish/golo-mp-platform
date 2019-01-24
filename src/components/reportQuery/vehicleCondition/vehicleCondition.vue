@@ -169,7 +169,7 @@
       }
     },
     created() {
-      this.$wxShare.wxShare(this,"测试", "测试","测试","测试")
+      this.$wxShare.wxShare("维保记录、里程分析、违章查询，你想查的车况信息我都有", "http://pinggu-test.goloiov.com/reportQuery/vehicleCondition","测试","测试")
     },
     mounted() {
       if(window.sessionStorage.vehicleConditionVerifyData){
