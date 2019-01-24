@@ -166,10 +166,11 @@
           ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
           ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
         ],
+        shareImg:require("@/common/images/baogaochaxun_dj.png"),
       }
     },
     created() {
-      this.$wxShare.wxShare("维保记录、里程分析、违章查询，你想查的车况信息我都有", "http://pinggu-test.goloiov.com/reportQuery/vehicleCondition","测试","测试")
+      this.$wxShare.wxShare(this,"维保记录、里程分析、违章查询，你想查的车况信息我都有", "http://pinggu-test.goloiov.com/reportQuery/vehicleCondition",this.shareImg,"测试")
     },
     mounted() {
       if(window.sessionStorage.vehicleConditionVerifyData){

@@ -10,17 +10,16 @@ import wx from 'weixin-js-sdk'
  * @param shareDesc 描述
  */
 export default {
-  wxShare: function (shareTitle, shareUrl, shareImg, shareDesc) {
+  wxShare: function (_this,shareTitle, shareUrl, shareImg, shareDesc) {
     let url = "http://pinggu-test.goloiov.com/reportQuery/vehicleCondition"//window.location.href;
     axios({
       method: 'GET',
       url: `https://wallet-api-test.launchain.org/v1/weixin/auth/share?url=${url}`,
     }).then(res => {
-      console.log(res.data);
       if (res.data.code === "200") {
         let data = res.data.data;
         wx.config({
-          debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+          debug: data.debug, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
           appId: data.appId, // 必填，公众号的唯一标识
           timestamp: data.timestamp, // 必填，生成签名的时间戳
           nonceStr: data.nonceStr, // 必填，生成签名的随机串
@@ -35,11 +34,11 @@ export default {
             imgUrl: shareImg, // 分享图标
             success: function () {
               // 用户确认分享后执行的回调函数
-              //console.log("确认")
+              console.log("确认")
             },
             cancel: function () {
               // 用户取消分享后执行的回调函数
-              //console.log("取消")
+              console.log("取消")
             }
           });
         });
@@ -52,11 +51,11 @@ export default {
             imgUrl: shareImg, // 分享图标
             success: function () {
               // 用户确认分享后执行的回调函数
-              //console.log("确认")
+              console.log("确认")
             },
             cancel: function () {
               // 用户取消分享后执行的回调函数
-              //console.log("取消")
+              console.log("取消")
             }
           });
         })
