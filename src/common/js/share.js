@@ -1,14 +1,6 @@
 import axios from "axios";
 import wx from 'weixin-js-sdk'
 
-/**
- *分享
- * @param _this
- * @param shareTitle 标题
- * @param shareUrl 链接
- * @param shareImg 图片
- * @param shareDesc 描述
- */
 export default {
   wxShare: function (_this,shareTitle, shareUrl, shareImg, shareDesc) {
     let url = encodeURIComponent(window.location.href);
@@ -28,7 +20,9 @@ export default {
         });
         //自定义“分享给朋友”及“分享到QQ”按钮的分享内容（1.4.0）
         wx.ready(function () {
-          alert(_this,shareTitle,shareUrl,shareImg,shareDesc)
+          alert(shareTitle)
+          alert(shareUrl)
+          alert(shareImg)
           wx.updateAppMessageShareData({
             title: shareTitle, // 分享标题
             link: shareUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
