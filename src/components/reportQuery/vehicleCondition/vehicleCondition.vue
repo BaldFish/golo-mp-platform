@@ -166,11 +166,14 @@
           ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
           ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
         ],
+        shareTitle:"查车况",
+        shareDesc:"维保记录、里程分析、违章查询，你想查的车况信息我都有",
+        shareUrl:location.origin+"/reportQuery/vehicleCondition",
         shareImg:location.origin+"/static/images/fxchk.jpg",
       }
     },
     created() {
-      this.$wxShare.wxShare(this,"查车况", "http://pinggu-test.goloiov.com/reportQuery/vehicleCondition",this.shareImg,"维保记录、里程分析、违章查询，你想查的车况信息我都有")
+      this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg,)
     },
     mounted() {
       if(window.sessionStorage.vehicleConditionVerifyData){
