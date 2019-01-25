@@ -22,7 +22,7 @@ export default {
           ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
         });
         //自定义“分享给朋友”及“分享到QQ”按钮的分享内容（1.4.0）
-        wx.ready(function () {
+        //wx.ready(function () {
           alert(shareTitle)
           alert(shareDesc)
           alert(shareUrl)
@@ -57,7 +57,7 @@ export default {
       
             }
           });
-        });
+        //});
       }
     }).catch(err => {
       console.log(err)
