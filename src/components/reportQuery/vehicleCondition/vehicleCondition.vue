@@ -170,7 +170,7 @@
       }
     },
     created() {
-      this.$wxShare.wxShare(this,"维保记录、里程分析、违章查询，你想查的车况信息我都有", "http://pinggu-test.goloiov.com/reportQuery/kilometre","http://qiniu-assets.xinxicdn.com/test.jpg","测试")
+      this.$wxShare.wxShare(this,"维保记录", "/reportQuery/kilometre","/static/images/fxchk.jpg","测试")
     },
     mounted() {
       if(window.sessionStorage.vehicleConditionVerifyData){
