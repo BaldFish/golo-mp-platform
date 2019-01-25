@@ -166,7 +166,7 @@
           ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
           ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
         ],
-        shareImg:location.origin+"/@/common/images/fxchk.jpg",
+        shareImg:location.origin+"/static/images/fxchk.jpg",
       }
     },
     created() {
