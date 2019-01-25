@@ -1,12 +1,13 @@
 import axios from "axios";
 import wx from 'weixin-js-sdk'
+import {baseURL,} from '@/common/js/public.js';
 
 export default {
   wxShare: function (_this, shareTitle, shareDesc, shareUrl, shareImg) {
     let url = encodeURIComponent(window.location.href);
     axios({
       method: 'GET',
-      url: `https://wallet-api-test.launchain.org/v1/weixin/auth/share?url=${url}`,
+      url: `${baseURL}/v1/weixin/auth/share?url=${url}`,
     }).then(res => {
       if (res.data.code === "200") {
         let data = res.data.data;
