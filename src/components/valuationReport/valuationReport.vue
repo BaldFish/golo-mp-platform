@@ -87,7 +87,7 @@
         }).then(res=>{
         }).catch(error=>{})
       },
-      //跳转到查车况
+      //跳转到查车况获取代入查车况页面的数据
       searchVehicleCondition(val) {
         let inputData = {
           vin: val.vin,//车架号

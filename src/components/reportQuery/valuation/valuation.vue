@@ -203,6 +203,15 @@
         let that = this;
         let token = that.$utils.getCookie("token");
         let userId = that.$utils.getCookie("userId");
+        let inputData = {
+          vin: this.carFrameNum,//车架号
+          plat:this.plate,//车牌号文字
+          plateNum:this.plateNum,//车牌号字母
+          regTime: this.regTime,//上牌时间
+          mileage: this.mileage,//行驶里程，单位万公里
+          check_status: this.checked,//免责声明
+        };
+        window.sessionStorage.setItem("valuationVerifyData", JSON.stringify(inputData));
         if (token) {
           e.target.addEventListener("change", function () {
             let file = e.target.files[0];
@@ -260,6 +269,7 @@
           })
         } else {
           e.preventDefault();
+          window.sessionStorage.setItem('url', '/reportQuery/valuation');
           this.$router.push('/login')
         }
       },
@@ -326,7 +336,7 @@
             }, 2000);
           })
         } else {
-          window.sessionStorage.setItem('url', '/reportQuery/valuationReport');
+          window.sessionStorage.setItem('url', '/reportQuery/valuation');
           this.$router.push('/login')
         }
       },

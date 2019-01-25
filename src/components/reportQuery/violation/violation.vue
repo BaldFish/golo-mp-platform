@@ -224,6 +224,15 @@
         let that = this;
         let token = that.$utils.getCookie("token");
         let userId = that.$utils.getCookie("userId");
+        let inputData = {
+          vin: this.carFrameNum,//车架号
+          plat:this.plate,//车牌号文字
+          plateNum:this.plateNum,//车牌号字母
+          engine_no: this.engineNumber, //发动机号
+          car_type: this.carType,//维保跟估价必传  01-大型车  02-小型车
+          check_status: this.checked,//免责声明
+        };
+        window.sessionStorage.setItem("violationVerifyData", JSON.stringify(inputData));
         if (token) {
           e.target.addEventListener("change", function () {
             let file = e.target.files[0];
@@ -281,6 +290,7 @@
           })
         } else {
           e.preventDefault();
+          window.sessionStorage.setItem('url', '/reportQuery/violation');
           this.$router.push('/login')
         }
       },
@@ -334,7 +344,7 @@
             }, 2000);
           })
         } else {
-          window.sessionStorage.setItem('url', '/reportQuery/violationReport');
+          window.sessionStorage.setItem('url', '/reportQuery/violation');
           this.$router.push('/login')
         }
       },
