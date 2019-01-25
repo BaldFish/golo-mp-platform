@@ -19,7 +19,7 @@ export default {
           jsApiList: data.jsApiList // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
         });
         //自定义“分享给朋友”及“分享到QQ”按钮的分享内容（1.4.0）
-        wx.ready(function () {
+        //wx.ready(function () {
           alert(shareTitle)
           alert(shareUrl)
           alert(shareImg)
@@ -36,9 +36,7 @@ export default {
               alert("取消")
             }
           });
-        });
-        //自定义“分享到朋友圈”及“分享到QQ空间”按钮的分享内容（1.4.0）
-        wx.ready(function () {
+          //自定义“分享到朋友圈”及“分享到QQ空间”按钮的分享内容（1.4.0）
           wx.updateTimelineShareData({
             title: shareTitle, // 分享标题
             desc: shareDesc, // 分享描述
@@ -51,10 +49,10 @@ export default {
             cancel: function () {
               // 用户取消分享后执行的回调函数
               alert("取消")
-              
+      
             }
           });
-        })
+        //});
       }
     }).catch(err => {
       console.log(err)
