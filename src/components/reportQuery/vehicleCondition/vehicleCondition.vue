@@ -166,7 +166,7 @@
           ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
           ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
         ],
-        shareImg:"http://qiniu-assets.xinxicdn.com/test.jpg",
+        shareImg:location.origin+"@/common/images/fxchk.jpg",
       }
     },
     created() {
