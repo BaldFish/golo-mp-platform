@@ -44,10 +44,15 @@
         checked: "checked",
         valuationOrderList: [],
         page: 1,
-        limit: 1000
+        limit: 1000,
+        shareTitle:"查估价",
+        shareDesc:"想了解座驾值多少钱？进来就知道了",
+        shareUrl:location.origin+"/reportQuery/valuation",
+        shareImg:location.origin+"/static/images/fxgj.jpg",
       }
     },
     created() {
+      this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
     },
     beforeMount() {
       this.getValuationOrderList()

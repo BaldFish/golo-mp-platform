@@ -66,10 +66,15 @@
     data() {
       return {
         violationVerifyData:{},
-        isData: true
+        isData: true,
+        shareTitle:"查违章",
+        shareDesc:"该查违章了！这里免费的~",
+        shareUrl:location.origin+"/reportQuery/violation",
+        shareImg:location.origin+"/static/images/fxwz.jpg",
       }
     },
     created() {
+      this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
     },
     beforeMount(){
       this.$utils.setTitle("违章报告");

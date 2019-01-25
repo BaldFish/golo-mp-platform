@@ -55,9 +55,14 @@
         valuationDetails: {},
         errorMessage: "",//错误提示信息
         errorTip: false,//提示框显示、隐藏
+        shareTitle:"查估价",
+        shareDesc:"想了解座驾值多少钱？进来就知道了",
+        shareUrl:location.origin+"/reportQuery/valuation",
+        shareImg:location.origin+"/static/images/fxgj.jpg",
       }
     },
     created() {
+      this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
     },
     beforeMount() {
       this.$utils.setTitle("估价报告");

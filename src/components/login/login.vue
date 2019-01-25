@@ -40,9 +40,14 @@
         errorMessage:"",//错误提示信息
         errorTip:false,
         WXcode:"",
+        shareTitle:"查车况",
+        shareDesc:"维保记录、里程分析、违章查询，你想查的车况信息我都有",
+        shareUrl:location.origin+"/reportQuery/vehicleCondition",
+        shareImg:location.origin+"/static/images/fxchk.jpg",
       }
     },
     created() {
+      this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
     },
     beforeMount() {
       this.$utils.setTitle("登录");
