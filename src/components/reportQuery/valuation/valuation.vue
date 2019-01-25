@@ -51,7 +51,7 @@
         <input class="submit" type="button" value="免费估价" @click="verify(3)">
         <div class="agree-contract">
           <label>
-            <input type="checkbox" v-model="checked" value="true">
+            <input type="checkbox" v-model="checked">
             <i></i>
             <p>使用本服务证明您已阅读并同意<span @click="turnDisclaimer">《免责声明》</span></p>
           </label>
@@ -90,7 +90,7 @@
         </div>
       </section>
     </section>
-    <p class="cooperation">商务合作联系电话：13550564629（同微信）</p>
+    <p class="cooperation">商务合作联系电话：<a href="tel:13550564629">13550564629</a>（同微信）</p>
     <div class="errorTip_wrap">
       <div class="errorTip" v-if="errorTip">{{errorMessage}}</div>
     </div>
@@ -114,7 +114,6 @@
         carFrame: '',
         regTime: "", //上牌时间
         mileage: "", //行驶里程
-
         txtboardshow: false,
         numboardshow: false,
         cartxt: [
@@ -129,11 +128,24 @@
           ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
           ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
         ],
+        shareTitle:"查估价",
+        shareDesc:"想了解座驾值多少钱？进来就知道了",
+        shareUrl:location.origin+"/reportQuery/valuation",
+        shareImg:location.origin+"/static/images/fxgj.jpg",
       }
     },
     created() {
+      this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
     },
     mounted() {
+      if(window.sessionStorage.valuationVerifyData){
+        this.carFrameNum=JSON.parse(window.sessionStorage.getItem('valuationVerifyData')).vin;
+        this.plat=JSON.parse(window.sessionStorage.getItem('valuationVerifyData')).plat;
+        this.plateNum=JSON.parse(window.sessionStorage.getItem('valuationVerifyData')).plateNum;
+        this.regTime=JSON.parse(window.sessionStorage.getItem('valuationVerifyData')).regTime;
+        this.mileage=JSON.parse(window.sessionStorage.getItem('valuationVerifyData')).mileage;
+        this.checked=JSON.parse(window.sessionStorage.getItem('valuationVerifyData')).check_status;
+      }
       window.clearTimeout(timeOut);
       //拍照提示20秒消失
       let that = this;
@@ -191,6 +203,15 @@
         let that = this;
         let token = that.$utils.getCookie("token");
         let userId = that.$utils.getCookie("userId");
+        let inputData = {
+          vin: this.carFrameNum,//车架号
+          plat:this.plate,//车牌号文字
+          plateNum:this.plateNum,//车牌号字母
+          regTime: this.regTime,//上牌时间
+          mileage: this.mileage,//行驶里程，单位万公里
+          check_status: this.checked,//免责声明
+        };
+        window.sessionStorage.setItem("valuationVerifyData", JSON.stringify(inputData));
         if (token) {
           e.target.addEventListener("change", function () {
             let file = e.target.files[0];
@@ -248,6 +269,7 @@
           })
         } else {
           e.preventDefault();
+          window.sessionStorage.setItem('url', '/reportQuery/valuation');
           this.$router.push('/login')
         }
       },
@@ -273,6 +295,15 @@
         let token = this.$utils.getCookie("token");
         let phone = this.$utils.getCookie("userPhone");
         let userId = this.$utils.getCookie("userId");
+        let inputData = {
+          vin: this.carFrameNum,//车架号
+          plat:this.plate,//车牌号文字
+          plateNum:this.plateNum,//车牌号字母
+          regTime: this.regTime,//上牌时间
+          mileage: this.mileage,//行驶里程，单位万公里
+          check_status: this.checked,//免责声明
+        };
+        window.sessionStorage.setItem("valuationVerifyData", JSON.stringify(inputData));
         if (token) {
           let verifyData = {
             openid: openid,//用户ID
@@ -305,6 +336,7 @@
             }, 2000);
           })
         } else {
+          window.sessionStorage.setItem('url', '/reportQuery/valuation');
           this.$router.push('/login')
         }
       },
@@ -574,6 +606,10 @@
     font-weight 700
     font-size: 30px; /*px*/
     color #333333
+    a{
+      font-weight 700
+      color #ff0000
+    }
   }
 
   .errorTip_wrap {

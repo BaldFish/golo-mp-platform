@@ -123,12 +123,14 @@
           if (userId) {
             this.$router.push('/order');
           } else {
+            window.sessionStorage.setItem('url', '/order');
             this.$router.push('/login');
           }
         } else if (index === 2) {
           if (userId) {
             this.$router.push('/personalCenter');
           } else {
+            window.sessionStorage.setItem('url', '/personalCenter');
             this.$router.push('/login');
           }
         }
@@ -150,9 +152,9 @@
       margin: 0 auto;
       width 100%
       min-width 640px
-      padding-bottom 98px
       .main {
         flex: 1;
+        padding-bottom 98px
       }
     }
     

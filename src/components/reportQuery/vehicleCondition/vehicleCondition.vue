@@ -61,7 +61,7 @@
         <input class="submit" type="button" value="开始查询" @click="verify(1)">
         <div class="agree-contract">
           <label>
-            <input type="checkbox" v-model="checked" value="true">
+            <input type="checkbox" v-model="checked">
             <i></i>
             <p>使用本服务证明您已阅读并同意<span @click="turnDisclaimer">《免责声明》</span></p>
           </label>
@@ -125,7 +125,7 @@
         </div>
       </div>
     </section>
-    <p class="cooperation">商务合作联系电话：13550564629（同微信）</p>
+    <p class="cooperation">商务合作联系电话：<a href="tel:13550564629">13550564629</a>（同微信）</p>
     <el-dialog top="35vh" :visible.sync="centerDialogVisible" center :show-close="false" custom-class="fadongji">
       <img src="@/common/images/fadongji.png" alt="">
     </el-dialog>
@@ -148,11 +148,10 @@
         carType: "02",
         errorMessage: "",//错误提示信息
         errorTip: false,//提示框显示、隐藏
-        checked: "true",
+        checked: 'checked',
         isHidden: false,
         carFrame: '',
         centerDialogVisible: false,
-
         txtboardshow: false,
         numboardshow: false,
         cartxt: [
@@ -167,11 +166,24 @@
           ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
           ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
         ],
+        shareTitle:"查车况",
+        shareDesc:"维保记录、里程分析、违章查询，你想查的车况信息我都有",
+        shareUrl:location.origin+"/reportQuery/vehicleCondition",
+        shareImg:location.origin+"/static/images/fxchk.jpg",
       }
     },
     created() {
+      this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
     },
     mounted() {
+      if(window.sessionStorage.vehicleConditionVerifyData){
+        this.carFrameNum=JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).vin;
+        this.plat=JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).plat;
+        this.plateNum=JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).plateNum;
+        this.engineNumber=JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).engine_no;
+        this.carType=JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).car_type;
+        this.checked=JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).check_status;
+      }
       window.clearTimeout(timeOut);
       //拍照提示20秒消失
       let that = this;
@@ -237,6 +249,15 @@
         let that = this;
         let token = that.$utils.getCookie("token");
         let userId = that.$utils.getCookie("userId");
+        let inputData = {
+          vin: this.carFrameNum,//车架号
+          plat:this.plate,//车牌号文字
+          plateNum:this.plateNum,//车牌号字母
+          engine_no: this.engineNumber, //发动机号
+          car_type: this.carType,//维保跟估价必传  01-大型车  02-小型车
+          check_status: this.checked,//免责声明
+        };
+        window.sessionStorage.setItem("vehicleConditionVerifyData", JSON.stringify(inputData));
         if (token) {
           e.target.addEventListener("change", function () {
             let file = e.target.files[0];
@@ -294,6 +315,7 @@
           })
         } else {
           e.preventDefault();
+          window.sessionStorage.setItem('url', '/reportQuery/vehicleCondition');
           this.$router.push('/login')
         }
       },
@@ -305,6 +327,15 @@
       verify(orderType) {
         let userId = this.$utils.getCookie("userId");
         let token = this.$utils.getCookie("token");
+        let inputData = {
+          vin: this.carFrameNum,//车架号
+          plat:this.plate,//车牌号文字
+          plateNum:this.plateNum,//车牌号字母
+          engine_no: this.engineNumber, //发动机号
+          car_type: this.carType,//维保跟估价必传  01-大型车  02-小型车
+          check_status: this.checked,//免责声明
+        };
+        window.sessionStorage.setItem("vehicleConditionVerifyData", JSON.stringify(inputData));
         if (token) {
           let verifyData = {
             user_id: userId,//用户ID
@@ -335,6 +366,7 @@
             }, 2000);
           })
         } else {
+          window.sessionStorage.setItem('url', '/reportQuery/vehicleCondition');
           this.$router.push('/login')
         }
       },
@@ -714,6 +746,10 @@
       font-weight 700
       font-size: 30px; /*px*/
       color #333333
+      a{
+        font-weight 700
+        color #ff0000
+      }
     }
   
     .errorTip_wrap {

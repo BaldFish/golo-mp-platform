@@ -28,7 +28,7 @@
           <p>{{item.vin}}</p>
         </li>
       </ul>
-      <input class="submit" type="button" value="开始查询" @click="startSearch">
+      <input class="submit" type="button" value="开始查询" @click="startSearch(item)">
     </section>
     <router-link class="add-car" to="/addCar">
       <i></i>
@@ -86,9 +86,14 @@
         errorTip: false,
         isShow: false,
         WXcode:"",
+        shareTitle:"查车况",
+        shareDesc:"维保记录、里程分析、违章查询，你想查的车况信息我都有",
+        shareUrl:location.origin+"/reportQuery/vehicleCondition",
+        shareImg:location.origin+"/static/images/fxchk.jpg",
       }
     },
     created() {
+      this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
     },
     beforeMount() {
       this.$utils.setTitle("个人中心");
@@ -121,7 +126,7 @@
       turnDiscountCoupon(){
         this.$router.push('/discountCoupon')
       },
-      //获取图形验证码
+     /* //获取图形验证码
       getCaptcha() {
         this.$axios({
           method: 'POST',
@@ -193,7 +198,7 @@
             that.errorTip = false;
           }, 2000);
         })
-      },
+      },*/
       //获取车辆列表
       getCarList() {
         this.$axios({
@@ -221,7 +226,16 @@
         });
       },
       //开始查询按钮跳转
-      startSearch(){
+      startSearch(val){
+        let inputData = {
+          vin: val.vin,//车架号
+          plat:val.plat_num.substr(0,1),//车牌号文字
+          plateNum:val.plat_num.substr(1),//车牌号字母
+          engine_no: '', //发动机号
+          car_type:'',//维保跟估价必传  01-大型车  02-小型车
+          check_status: 'checked',//免责声明
+        };
+        window.sessionStorage.setItem("vehicleConditionVerifyData", JSON.stringify(inputData));
         this.$router.push('/reportQuery')
       },
       tabAccount() {

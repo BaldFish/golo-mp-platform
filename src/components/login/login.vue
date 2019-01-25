@@ -40,9 +40,14 @@
         errorMessage:"",//错误提示信息
         errorTip:false,
         WXcode:"",
+        shareTitle:"查车况",
+        shareDesc:"维保记录、里程分析、违章查询，你想查的车况信息我都有",
+        shareUrl:location.origin+"/reportQuery/vehicleCondition",
+        shareImg:location.origin+"/static/images/fxchk.jpg",
       }
     },
     created() {
+      this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
     },
     beforeMount() {
       this.$utils.setTitle("登录");
@@ -202,7 +207,12 @@
           document.cookie = `token=${res.data.data.token}`;
           document.cookie = `userPhone=${res.data.data.phone}`;
           document.cookie = `userImgUrl=${res.data.data.imgurl}`;
-          this.$router.push('/personalCenter');
+          let url=window.sessionStorage.getItem('url');
+          if(url){
+            this.$router.push(url);
+          }else{
+            this.$router.push("/personalCenter")
+          }
         }).catch(error => {
           this.getCaptcha();
           this.errorMessage=error.response.data.code;

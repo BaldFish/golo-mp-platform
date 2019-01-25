@@ -65,9 +65,14 @@
         userId: "",
         openId:"",
         timer:"",
+        shareTitle:"查车况",
+        shareDesc:"维保记录、里程分析、违章查询，你想查的车况信息我都有",
+        shareUrl:location.origin+"/reportQuery/vehicleCondition",
+        shareImg:location.origin+"/static/images/fxchk.jpg",
       }
     },
     created() {
+      this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
     },
     beforeMount() {
       this.userId = this.$utils.getCookie("userId");
@@ -259,17 +264,8 @@
       },
       routerToDetails(item) {
         if (item.order_status == '待支付') {
-          //return
           this.submitOrder(item.order_id)
-          /*window.localStorage.setItem("vehicleConditionVerifyData", JSON.stringify(item));
-          this.$router.push('/submitVehicleCondition');*/
-        } /*else if(item.order_status == '查询中' || item.order_status == '查询失败'){
-          window.localStorage.setItem("vehicleConditionFailOrder", JSON.stringify(item));
-          this.$router.push('/vehicleConditionOrderDetails');
-        } else if(item.order_status == '查询成功'){
-          window.localStorage.setItem("vehicleConditionSuccessOrder", JSON.stringify(item));
-          this.$router.push('/vehicleConditionOrderDetails');
-        }*/ else {
+        } else {
           window.localStorage.setItem("vehicleConditionSingleOrder", JSON.stringify(item));
           this.$router.push('/vehicleConditionOrderDetails');
         }

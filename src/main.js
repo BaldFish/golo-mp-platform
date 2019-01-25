@@ -53,6 +53,11 @@ Vue.prototype.$_=_;
 import utils from '@/common/js/utils';
 Vue.prototype.$utils=utils;
 
+import wx from 'weixin-js-sdk'
+import wxShare from './common/js/share'
+Vue.prototype.$wxShare=wxShare;
+
+
 Vue.config.productionTip = false;
 /* eslint-disable no-new */
 const store = new Vuex.Store({

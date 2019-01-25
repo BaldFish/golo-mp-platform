@@ -79,9 +79,14 @@
         version:"full",
         carInfo:{},
         timer:"",
+        shareTitle:"查里程",
+        shareDesc:"你以为的汽车里程数真的是你以为的吗？",
+        shareUrl:location.origin+"/reportQuery/kilometre",
+        shareImg:location.origin+"/static/images/fxlch.jpg",
       }
     },
     created() {
+      this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
     },
     beforeMount(){
       this.$utils.setTitle("确认订单");

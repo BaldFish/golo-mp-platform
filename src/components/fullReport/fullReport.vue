@@ -298,10 +298,15 @@
         violationInfo: "",
         kilometreInfo: "",
         res_mileage:"",
-        res_time: ""
+        res_time: "",
+        shareTitle:"查车况",
+        shareDesc:"维保记录、里程分析、违章查询，你想查的车况信息我都有",
+        shareUrl:location.origin+"/reportQuery/vehicleCondition",
+        shareImg:location.origin+"/static/images/fxchk.jpg",
       }
     },
     created() {
+      this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
     },
     beforeMount(){
     },
@@ -398,6 +403,7 @@
 <style scoped lang="stylus">
   .vehicleConditionReport {
     width 750px
+    padding-bottom 0 !important
     .top-bg{
       margin 0 auto
       height: 400px

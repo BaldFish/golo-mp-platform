@@ -35,7 +35,7 @@
       <p v-if="valuationDetails.salePrice!=='0.00'">{{valuationDetails.salePrice}}万</p>
       <p v-if="valuationDetails.salePrice==='0.00'">暂无估价</p>
     </div>
-    <div class="search" @click="searchVehicleCondition">
+    <div class="search" @click="searchVehicleCondition(valuationDetails)">
       <p>获取该车型车况故障详情</p>
       <div>查车况</div>
     </div>
@@ -55,9 +55,14 @@
         valuationDetails: {},
         errorMessage: "",//错误提示信息
         errorTip: false,//提示框显示、隐藏
+        shareTitle:"查估价",
+        shareDesc:"想了解座驾值多少钱？进来就知道了",
+        shareUrl:location.origin+"/reportQuery/valuation",
+        shareImg:location.origin+"/static/images/fxgj.jpg",
       }
     },
     created() {
+      this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
     },
     beforeMount() {
       this.$utils.setTitle("估价报告");
@@ -82,8 +87,17 @@
         }).then(res=>{
         }).catch(error=>{})
       },
-      //跳转到查车况
-      searchVehicleCondition() {
+      //跳转到查车况获取代入查车况页面的数据
+      searchVehicleCondition(val) {
+        let inputData = {
+          vin: val.vin,//车架号
+          plat:val.hp.substr(0,1),//车牌号文字
+          plateNum:val.hp.substr(1),//车牌号字母
+          engine_no: '', //发动机号
+          car_type:'',//维保跟估价必传  01-大型车  02-小型车
+          check_status: 'checked',//免责声明
+        };
+        window.sessionStorage.setItem("vehicleConditionVerifyData", JSON.stringify(inputData));
         this.buryingPoint('reportPage','appraisal','7');
         this.$router.push('/reportQuery/vehicleCondition')
       },
