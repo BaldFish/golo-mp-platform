@@ -93,7 +93,7 @@
         };
         this.$axios({
           method:'POST',
-          url:`${this.$baseURL}/v1/golo-buried-point-record`,
+          url:`${this.$baseURL}/v2/golo-buried-point-record`,
           data: this.$querystring.stringify(parameter)
         }).then(res=>{}).catch(error=>{})
       },
@@ -108,7 +108,7 @@
         };
         this.$axios({
           method: 'POST',
-          url: `${this.$baseURL}/v1/golo-order/pay`,
+          url: `${this.$baseURL}/v2/golo-order/pay`,
           data: this.$querystring.stringify(orderId),
           headers: {
             'X-Access-Token': token,
@@ -161,7 +161,7 @@
               }
             });
         }
-        
+
         //判断是否在微信内部浏览器
         if (typeof WeixinJSBridge == "undefined") {
           if (document.addEventListener) {
@@ -173,7 +173,7 @@
         } else {
           onBridgeReady(requiredParameter);
         }
-        
+
       },
       //查询订单支付状态
       checkOrderStatus(orderNum){
@@ -186,7 +186,7 @@
         });
         this.$axios({
           method:"get",
-          url:`${this.$baseURL}/v1/golo-order/info/${orderNum}`
+          url:`${this.$baseURL}/v2/golo-order/info/${orderNum}`
         }).then(res=>{
           let status=res.data.data.order_status;
           let that=this;
@@ -236,7 +236,7 @@
       getOrderList() {
         this.$axios({
           method: 'GET',
-          url: `${this.$baseURL}/v1/golo-order/list/${this.userId}?order_type=1&status=${this.status}&limit=1000`
+          url: `${this.$baseURL}/v2/golo-order/list/${this.userId}?order_type=1&status=${this.status}&limit=1000`
         }).then(res => {
           if (res.data.data.res_list) {
             this.isData = true;
@@ -286,7 +286,7 @@
       width: 686px
       margin 0 auto
       margin-top 27px
-      
+
       li {
         width: 110px;
         height: 46px;
@@ -300,22 +300,22 @@
         margin-right 31px
         box-sizing border-box
       }
-      
+
       li:last-child {
         margin-right 0
       }
-      
+
       .active {
         background-color: #5226f3;
         color #ffffff
         border: none
-        
+
         p {
           font-weight bold
         }
       }
     }
-    
+
     .car-condition-list {
       margin: 0 auto
       li {
@@ -326,7 +326,7 @@
         border-radius: 30px;
         margin: 0 auto
         margin-top 32px
-        
+
         .order-num {
           font-size: 26px; /*px*/
           color: #333333;
@@ -335,42 +335,42 @@
           margin: 0 20px;
           padding-top: 34px;
           padding-right 6px
-          
+
           p:nth-child(1) {
             float left
             font-weight bold
           }
-          
+
           p:nth-child(2) {
             float right
             color: #5226f3;
           }
         }
-        
+
         .order-details {
           font-size: 26px; /*px*/
           color: #333333;
           margin: 0 20px;
-          
+
           label {
             color: #666666;
           }
-          
+
           p {
             margin-top 35px
           }
-          
+
           .order-time {
             p {
               float left
             }
-            
+
             a {
               float right
               margin-top 35px
               font-size: 24px; /*px*/
               color: #333333;
-              
+
               .to-pay {
                 font-weight bold
                 color red
@@ -379,12 +379,12 @@
           }
         }
       }
-      
+
       li:last-child {
         margin-bottom 150px
       }
     }
-    
+
     .none-order {
       width: 360px;
       height: 360px;
@@ -394,20 +394,20 @@
       margin: 0 auto
       margin-top 303px
       text-align center
-      
+
       img {
         width: 86px;
         height: 82px;
         margin-top 67px
         margin-bottom 20px
       }
-      
+
       p {
         font-size: 28px; /*px*/
         color: #666666;
         margin-bottom 56px
       }
-      
+
       input {
         width: 220px;
         height: 64px;
@@ -418,14 +418,14 @@
         outline none
       }
     }
-    
+
     .errorTip_wrap {
       width 100%
       text-align center
       font-size 0
       position fixed
       top 50%
-      
+
       .errorTip {
         display inline-block
         box-sizing border-box

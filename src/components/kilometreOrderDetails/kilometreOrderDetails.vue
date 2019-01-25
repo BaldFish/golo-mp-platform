@@ -120,7 +120,7 @@
       getOrderDetails() {
         this.$axios({
           method: 'GET',
-          url: `${this.$baseURL}/v1/golo-order/info/${this.order_id}`
+          url: `${this.$baseURL}/v2/golo-order/info/${this.order_id}`
         }).then(res => {
           let singleOrder = res.data.data;
           singleOrder.created_at = this.$utils.formatDate(new Date(singleOrder.created_at), "yyyy-MM-dd hh:mm:ss");

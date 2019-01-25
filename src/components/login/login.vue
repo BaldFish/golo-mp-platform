@@ -198,7 +198,7 @@
         };
         this.$axios({
           method: 'POST',
-          url: `${this.$baseURL}/v1/golo-user/login`,
+          url: `${this.$baseURL}/v2/golo-user/login`,
           data: this.$querystring.stringify(loginFormData)
         }).then(res => {
           document.cookie = `userId=${res.data.data.userId}`;

@@ -82,7 +82,7 @@
         };
         this.$axios({
           method:'POST',
-          url:`${this.$baseURL}/v1/golo-buried-point-record`,
+          url:`${this.$baseURL}/v2/golo-buried-point-record`,
           data: this.$querystring.stringify(parameter)
         }).then(res=>{
         }).catch(error=>{})
@@ -112,7 +112,7 @@
         sellData.contactsPhone = this.valuationDetails.phone;
         this.$axios({
           method: "POST",
-          url: `${this.$baseURL}/v1/golo/salecar`,
+          url: `${this.$baseURL}/v2/golo/salecar`,
           data: this.$querystring.stringify(sellData),
           headers: {
             'X-Access-Token': `${token}`,
@@ -157,7 +157,7 @@
   .valuationReport {
     width 100%
     padding-top 60px
-    
+
     .tittle_info {
       .tittle {
         p {
@@ -166,49 +166,49 @@
           font-weight bold
           text-align center
         }
-        
+
         p:nth-child(2) {
           height 30px
           line-height 30px
           font-size: 24px; /*px*/
           color: #666666;
           margin-top 24px
-          
+
           span {
             font-size: 30px; /*px*/
             color: #5226f3;
           }
         }
       }
-      
+
       .body {
         margin-top 50px
-        
+
         ul {
           font-size 0
           text-align center
-          
+
           li {
             display inline-block
             color: #666666;
             text-align center
             vertical-align top
             width 33.33%
-            
+
             p:nth-child(1) {
               font-size: 26px; /*px*/
               margin-bottom 20px
             }
-            
+
             p:nth-child(2) {
               font-size: 22px; /*px*/
             }
           }
-          
+
           /*li:nth-child(1) {
             width 250px
           }*/
-          
+
           li:nth-child(2) {
             box-sizing border-box
             border-left 1px solid  #eeeeee;/*no*/
@@ -218,25 +218,25 @@
             background-color #eeeeee
             margin-top 12px*/
           }
-          
+
           /*li:nth-child(3) {
             width 248px
           }
-          
+
           li:nth-child(4) {
             width 1px; !*no*!
             height 48px
             background-color #eeeeee
             margin-top 12px
           }
-          
+
           li:nth-child(5) {
             width 250px
           }*/
         }
       }
     }
-    
+
     .second_hand {
       box-sizing border-box
       width: 690px;
@@ -247,32 +247,32 @@
       box-shadow: 1px -1px 18px 3px rgba(0, 0, 0, 0.09);
       border-radius: 30px;
       padding-top 40px
-      
+
       p:nth-child(1) {
         font-size: 30px; /*px*/
         color: #222222;
         text-align center
         margin-bottom 40px
       }
-      
+
       p:nth-child(2) {
         font-size: 60px; /*px*/
         color: #222222;
         text-align center
       }
     }
-    
+
     .search {
       padding-top 84px
       margin-bottom 300px
-      
+
       p {
         font-size: 26px; /*px*/
         color: #999999;
         text-align center
         margin-bottom 35px
       }
-      
+
       div {
         margin 0 auto
         text-align center
@@ -286,7 +286,7 @@
         color: #5342f6;
       }
     }
-    
+
     .sell {
       width 100%
       height 110px
@@ -298,14 +298,14 @@
       text-align center
       color: #ffffff;
     }
-    
+
     .errorTip_wrap {
       width 100%
       text-align center
       font-size 0
       position fixed
       top 50%
-      
+
       .errorTip {
         display inline-block
         box-sizing border-box

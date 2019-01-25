@@ -203,7 +203,7 @@
       getCarList() {
         this.$axios({
           method: 'GET',
-          url: `${this.$baseURL}/v1/golo-carinfo/list/${this.userId}?page=1&limit=20`
+          url: `${this.$baseURL}/v2/golo-carinfo/list/${this.userId}?page=1&limit=20`
         }).then(res => {
           this.carList = res.data.data.res_list;
         }).catch(error => {
@@ -214,7 +214,7 @@
       deleteCar(id) {
         this.$axios({
           method: 'DELETE',
-          url: `${this.$baseURL}/v1/golo-carinfo/${id}`,
+          url: `${this.$baseURL}/v2/golo-carinfo/${id}`,
           headers: {
             'X-Access-Token': `${this.token}`,
           }
@@ -277,7 +277,7 @@
         top 50px
         right 50px
       }
-    
+
       .user-phone {
         font-size: 32px; /*px*/
         color: #222222;
@@ -285,32 +285,32 @@
         margin-bottom: 50px
         padding-top 140px
       }
-    
+
       .user-account {
         text-align center
         width: 370px;
         margin: 0 auto
-      
+
         span {
           font-size: 32px; /*px*/
           color: #333333;
           display inline-block
           margin-bottom 24px
         }
-      
+
         p {
           font-size: 26px; /*px*/
           color: #666666;
         }
       }
     }
-  
+
     .car-info {
       font-size: 30px; /*px*/
       color: #222222;
       margin: 70px 0 46px 30px
     }
-  
+
     .user-car {
       width: 630px;
       background-color: #ffffff;
@@ -323,19 +323,19 @@
         height: 50px;
         line-height 50px
         margin-bottom 16px
-      
+
         label {
           font-size: 26px; /*px*/
           color: #222222;
           float left
         }
-      
+
         p {
           font-size: 24px; /*px*/
           color: #666666;
           float left
         }
-      
+
         span {
           width: 120px;
           height: 50px;
@@ -348,7 +348,7 @@
           text-align center
         }
       }
-    
+
       .submit {
         width: 630px;
         height: 84px;
@@ -359,7 +359,7 @@
         margin-top 32px
       }
     }
-  
+
     .add-car {
       width: 248px;
       height: 70px;
@@ -372,7 +372,7 @@
       margin-left 251px
       font-size: 28px; /*px*/
       color: #5226f3;
-    
+
       i {
         width: 25px;
         height: 25px;
@@ -384,7 +384,7 @@
         margin-right 8px
       }
     }
-  
+
 /*    #mask {
       background-color: rgba(0, 0, 0, 0.5);
       position: fixed;
@@ -397,34 +397,34 @@
       vertical-align: bottom;
       overflow: hidden;
     }
-  
+
     .login-container {
       width: 100%;
       height: 560px;
       background-color #ffffff
-    
+
       .modal-notice {
         text-align center
         font-size: 24px; !*px*!
         color: #333333;
         padding-top 27px
       }
-    
+
       ul {
         width 620px
         margin: 0 auto;
-      
+
         li {
           border-bottom: solid 1px #bfbfbf; !*no*!
           font-size: 24px; !*px*!
-        
+
           input {
             margin-left 12px
             margin-bottom 20px
             margin-top 76px
             outline none
           }
-        
+
           img {
             width: 143px;
             height: 64px;
@@ -432,7 +432,7 @@
             margin-top 38px
             margin-right 12px
           }
-        
+
           div {
             float right
             width: 180px;
@@ -446,7 +446,7 @@
             margin-top 54px
             margin-right 12px
           }
-        
+
           .count_down {
             background-color: #7d7d7d;
             color: #ffffff;
@@ -454,13 +454,13 @@
           }
         }
       }
-    
+
       .btn-box {
         font-size: 28px; !*px*!
         height: 88px
         border-top solid 1px #5226f3; !*no*!
         margin-top 68px
-      
+
         input {
           width: 375px
           height: 88px
@@ -469,13 +469,13 @@
           color: #5226f3;
           outline none
         }
-      
+
         input:nth-child(2) {
           background-color: #5226f3;
           color: #ffffff
         }
       }
-    
+
     }*/
     .errorTip_wrap{
       width 100%

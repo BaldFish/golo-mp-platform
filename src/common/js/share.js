@@ -7,7 +7,7 @@ export default {
     let url = encodeURIComponent(window.location.href);
     axios({
       method: 'GET',
-      url: `${baseURL}/v1/weixin/auth/share?url=${url}`,
+      url: `${baseURL}/v2/weixin/auth/share?url=${url}`,
     }).then(res => {
       if (res.data.code === "200") {
         let data = res.data.data;

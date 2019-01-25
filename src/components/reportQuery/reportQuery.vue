@@ -89,7 +89,7 @@
       acquireCarousel(type, page, limit) {
         this.$axios({
           method: "GET",
-          url: `${this.$baseURL}/v1/golo-slideshow/${type}?page=${page}&limit=${limit}`
+          url: `${this.$baseURL}/v2/golo-slideshow/${type}?page=${page}&limit=${limit}`
         }).then(res => {
           this.slides=res.data.data.res_list;
         }).catch(err=>{
@@ -99,7 +99,7 @@
       acquireCarouselClick(type, page, limit) {
         this.$axios({
           method: "GET",
-          url: `${this.$baseURL}/v1/golo-slideshow/${type}?page=${page}&limit=${limit}`
+          url: `${this.$baseURL}/v2/golo-slideshow/${type}?page=${page}&limit=${limit}`
         }).then(res => {
           this.slides=res.data.data.res_list;
           this.reload()
@@ -127,13 +127,13 @@
           display inline-block
           width 25%
           font-size 0
-          
+
           a {
             display inline-block
             text-align center
             font-size 0
             width 100px
-            
+
             .img {
               display inline-block
               width 80px
@@ -144,70 +144,70 @@
               margin 0 auto
               margin-bottom 30px
             }
-            
+
             .text {
               display inline-block
               font-size: 26px; /*px*/
               color: #222222;
             }
           }
-          
+
           /*.router-link-active{
             .text{
               color: #5226f3;
             }
           }*/
         }
-        
+
         li:nth-child(1) {
           a {
             .img {
               background-image url("./images/chekuang_mr.png")
             }
           }
-          
+
           .router-link-active {
             .img {
               background-image url("./images/chekuang_dj.png")
             }
           }
         }
-        
+
         li:nth-child(2) {
           a {
             .img {
               background-image url("./images/licheng_mr.png")
             }
           }
-          
+
           .router-link-active {
             .img {
               background-image url("./images/licheng_dj.png")
             }
           }
         }
-        
+
         li:nth-child(3) {
           a {
             .img {
               background-image url("./images/gujia_mr.png")
             }
           }
-          
+
           .router-link-active {
             .img {
               background-image url("./images/gujia_dj.png")
             }
           }
         }
-        
+
         li:nth-child(4) {
           a {
             .img {
               background-image url("./images/weizhang_mr.png")
             }
           }
-          
+
           .router-link-active {
             .img {
               background-image url("./images/weizhang_dj.png")
@@ -232,10 +232,10 @@
           height 320px
         }
       }
-      
+
       .wc-pagination {
         bottom 16px
-        
+
         .wc-dot {
           height: 14px;
           width: 14px;
@@ -244,7 +244,7 @@
           margin: 0 9px;
           border-radius: 50%;
         }
-        
+
         .wc-dot-active {
           opacity: 1;
           background: #5226f3;

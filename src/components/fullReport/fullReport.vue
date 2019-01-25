@@ -99,7 +99,7 @@
               </div>
             </template>
             <div class="collapse-content"  v-if="reportDetails.compent_repair_detail">
-              
+
               <p class="table-title">重要部件</p>
               <table>
                 <thead>
@@ -116,7 +116,7 @@
                 </tbody>
               </table>
               <p style="visibility: hidden">占位</p>
-            
+
             </div>
             <div class="system-error" v-else>无异常</div>
           </el-collapse-item>
@@ -129,7 +129,7 @@
               </div>
             </template>
             <div class="collapse-content"  v-if="reportDetails.construct_repair_detail">
-              
+
               <p class="table-title">结构部件</p>
               <table>
                 <thead>
@@ -153,7 +153,7 @@
                    <li>2:更换挡风玻璃</li>
                  </ul>
                </div>-->
-            
+
             </div>
             <div class="system-error" v-else>无异常</div>
           </el-collapse-item>
@@ -166,7 +166,7 @@
               </div>
             </template>
             <div class="collapse-content" v-if="reportDetails.nromal_repair_detail">
-              
+
               <p class="table-title">保养记录</p>
               <table>
                 <thead>
@@ -183,7 +183,7 @@
                 </tbody>
               </table>
               <p style="visibility: hidden">占位</p>
-            
+
             </div>
             <div class="system-error" v-else>无异常</div>
           </el-collapse-item>
@@ -196,7 +196,7 @@
               </div>
             </template>
             <div class="collapse-content" v-if="reportDetails.outside_repair_detail">
-              
+
               <p class="table-title">外观</p>
               <table>
                 <thead>
@@ -213,7 +213,7 @@
                 </tbody>
               </table>
               <p style="visibility: hidden">占位</p>
-            
+
             </div>
             <div class="system-error">无异常</div>
           </el-collapse-item>
@@ -315,13 +315,13 @@
       //this.order_id = JSON.parse(localStorage.getItem("vehicleConditionSingleOrder")).order_id;
       this.getReportDetails();
       this.getKilometreDetails();
-      
+
       //延迟渲染
       let self = this;
       setTimeout(function () {
         self.drawLine();
       },500)
-      
+
     },
     watch: {},
     computed: {},
@@ -354,12 +354,12 @@
             }
           ]
         });
-        
+
       },
       getReportDetails(){
         this.$axios({
           method: 'GET',
-          url: `${this.$baseURL}/v1/golo-report/repair/${this.order_id}`
+          url: `${this.$baseURL}/v2/golo-report/repair/${this.order_id}`
         }).then(res => {
           let reportDetails = res.data.data;
           reportDetails.repair.updated_at = this.$utils.formatDate(new Date(reportDetails.repair.updated_at), "yyyy-MM-dd hh:mm:ss");
@@ -373,10 +373,10 @@
           }
           //里程信息
           this.kilometreInfo = reportDetails.nromal_repair_detail;
-          
+
           //console.log(this.kilometreInfo,"kilometreInfo")
           //console.log(this.reportDetails,"reportDetails")
-          
+
         }).catch(error => {
           console.log(error)
         })
@@ -384,14 +384,14 @@
       getKilometreDetails(){
         this.$axios({
           method: 'GET',
-          url: `${this.$baseURL}/v1/golo-report/mileage/${this.order_id}`
+          url: `${this.$baseURL}/v2/golo-report/mileage/${this.order_id}`
         }).then(res => {
           this.res_mileage = res.data.data.res_mileage.reverse();
           this.res_time = res.data.data.res_time.reverse();
-          
+
           //console.log(this.res_mileage,"res_mileage")
           //console.log(this.res_time,"res_time")
-          
+
         }).catch(error => {
           console.log(error)
         })
@@ -568,7 +568,7 @@
             color: #999999;
           }
         }
-        
+
         .mileage-analysis{
           .analysis-tips{
             font-size: 26px; /*px*/
@@ -644,7 +644,7 @@
               color: #f30808;
             }
           }
-          
+
           .violation-box{
             width: 655px;
             height: auto;

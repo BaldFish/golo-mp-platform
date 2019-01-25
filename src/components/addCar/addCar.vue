@@ -233,7 +233,7 @@
         let that =this;
         this.$axios({
           method: 'POST',
-          url: `${this.$baseURL}/v1/golo-carinfo`,
+          url: `${this.$baseURL}/v2/golo-carinfo`,
           data: this.$querystring.stringify(addData),
           headers: {
             'X-Access-Token': `${this.token}`,

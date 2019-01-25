@@ -126,7 +126,7 @@
           createOrderData.openid=openId;
           this.$axios({
             method: 'POST',
-            url: `${this.$baseURL}/v1/golo-order`,
+            url: `${this.$baseURL}/v2/golo-order`,
             data: this.$querystring.stringify(createOrderData),
             headers:{
               'X-Access-Token': token,
@@ -158,7 +158,7 @@
         let token=this.$utils.getCookie("token");
         this.$axios({
           method: 'POST',
-          url: `${this.$baseURL}/v1/golo-order/pay`,
+          url: `${this.$baseURL}/v2/golo-order/pay`,
           data: this.$querystring.stringify(orderNum),
           headers:{
             'X-Access-Token': token,
@@ -221,7 +221,7 @@
         }else{
           onBridgeReady(requiredParameter);
         }
-  
+
       },
       //查询订单支付状态
       checkOrderStatus(orderNum){
@@ -234,7 +234,7 @@
         });
         this.$axios({
           method:"get",
-          url:`${this.$baseURL}/v1/golo-order/info/${orderNum}`
+          url:`${this.$baseURL}/v2/golo-order/info/${orderNum}`
         }).then(res=>{
           let status=res.data.data.order_status;
           let that=this;
@@ -278,7 +278,7 @@
     .carTittle {
       padding 25px
       background-color #ffffff
-      
+
       p {
         font-weight bold
         box-sizing border-box
@@ -288,38 +288,38 @@
         border-bottom 1px solid #eeeeee; /*no*/
       }
     }
-    
+
     .carInfo {
       box-sizing border-box
       background-color #ffffff
       padding 0 25px 25px
       margin-bottom 20px
-      
+
       p {
         line-height 65px
-        
+
         span {
           font-size 26px; /*px*/
           color #222222;
         }
-        
+
         span:nth-child(2) {
           font-size 24px; /*px*/
           color #666666;
         }
       }
     }
-    
+
     .h20 {
       width 100%
       height 20px
       background-color: #f7f7f7;
     }
-    
+
     .reportTittle {
       padding 25px
       background-color #ffffff
-      
+
       p {
         font-weight bold
         box-sizing border-box
@@ -329,26 +329,26 @@
         border-bottom 1px solid #eeeeee; /*no*/
       }
     }
-    
+
     .reportVersion {
       box-sizing border-box
       background-color #ffffff
       padding 0 25px 25px
-      
+
       p {
         line-height 65px
         font-size 26px; /*px*/
         color #222222;
-        
+
         span {
           font-weight: bold;
         }
-        
+
         label {
           input {
             display none
           }
-          
+
           i {
             width: 40px;
             height: 40px;
@@ -359,29 +359,29 @@
             float left
             margin-top 12px
           }
-          
+
           span {
             font-weight: normal;
-            
+
             span {
               font-size 23px; /*px*/
               color #666666;
             }
           }
-          
+
           input:checked + i {
             background: url("../../common/images/checked.png") no-repeat center;
             background-size 100% 100%
           }
         }
-        
+
       }
     }
-    
+
     .costTittle {
       padding 25px
       background-color #ffffff
-      
+
       p {
         font-weight bold
         box-sizing border-box
@@ -391,38 +391,38 @@
         border-bottom 1px solid #eeeeee; /*no*/
       }
     }
-    
+
     .costInfo {
       box-sizing border-box
       height 155px
       background-color #ffffff
       padding 0 25px 25px
       margin-bottom 20px
-      
+
       p {
         line-height 65px
-        
+
         span {
           font-size 26px; /*px*/
           color #222222;
         }
-        
+
         span:nth-child(2) {
           font-weight bold
         }
       }
-      
+
       p:nth-child(2) {
         span:nth-child(2) {
           font-size 0
-          
+
           span {
             font-size 24px; /*px*/
             color #666666;
             font-weight normal
             vertical-align middle
         }
-          
+
           img {
             width 18px
             height 31px
@@ -432,7 +432,7 @@
         }
       }
     }
-    
+
     .submitOrder {
       box-sizing border-box
       background-color #ffffff
@@ -440,7 +440,7 @@
       margin-bottom 30px
       p {
         padding-top 50px
-        
+
         span {
           font-size 30px; /*px*/
           color #222222;
@@ -448,19 +448,19 @@
           vertical-align middle
           line-height 42px
         }
-        
+
         span:nth-child(2) {
           font-size 42px; /*px*/
           font-weight bold
           vertical-align middle
         }
       }
-      
+
       p:nth-child(2) {
         font-size 0
         text-align center
         padding-top 66px
-        
+
         span {
           display inline-block
           background-color: #5226f3;
@@ -476,7 +476,7 @@
         }
       }
     }
-    
+
     .errorTip_wrap{
       width 100%
       text-align center

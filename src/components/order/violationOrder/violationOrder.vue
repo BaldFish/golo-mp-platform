@@ -87,7 +87,7 @@
       getViolationDetails(){
         this.$axios({
           method: 'GET',
-          url: `${this.$baseURL}/v1/golo/violation/query/info/${this.userId}`
+          url: `${this.$baseURL}/v2/golo/violation/query/info/${this.userId}`
         }).then(res => {
           if(res.data.data.res_list!==null){
             this.isData = true;
@@ -137,7 +137,7 @@
           };
           this.$axios({
             method: 'POST',
-            url: `${this.$baseURL}/v1/golo-order/check`,
+            url: `${this.$baseURL}/v2/golo-order/check`,
             data: this.$querystring.stringify(verifyData),
             headers: {
               'X-Access-Token': `${token}`,

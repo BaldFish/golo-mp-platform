@@ -94,7 +94,7 @@
         };
         this.$axios({
           method:'POST',
-          url:`${this.$baseURL}/v1/golo-buried-point-record`,
+          url:`${this.$baseURL}/v2/golo-buried-point-record`,
           data: this.$querystring.stringify(parameter)
         }).then(res=>{}).catch(error=>{})
       },

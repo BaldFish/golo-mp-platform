@@ -93,7 +93,7 @@
         };
         this.$axios({
           method:'POST',
-          url:`${this.$baseURL}/v1/golo-buried-point-record`,
+          url:`${this.$baseURL}/v2/golo-buried-point-record`,
           data: this.$querystring.stringify(parameter)
         }).then(res=>{}).catch(error=>{})
       },
@@ -108,7 +108,7 @@
         };
         this.$axios({
           method: 'POST',
-          url: `${this.$baseURL}/v1/golo-order/pay`,
+          url: `${this.$baseURL}/v2/golo-order/pay`,
           data: this.$querystring.stringify(orderId),
           headers:{
             'X-Access-Token': token,
@@ -185,7 +185,7 @@
         });
         this.$axios({
           method:"get",
-          url:`${this.$baseURL}/v1/golo-order/info/${orderNum}`
+          url:`${this.$baseURL}/v2/golo-order/info/${orderNum}`
         }).then(res=>{
           let status=res.data.data.order_status;
           let that=this;
@@ -235,7 +235,7 @@
       getOrderList() {
         this.$axios({
           method: 'GET',
-          url: `${this.$baseURL}/v1/golo-order/list/${this.userId}?order_type=2&status=${this.status}&limit=1000`
+          url: `${this.$baseURL}/v2/golo-order/list/${this.userId}?order_type=2&status=${this.status}&limit=1000`
         }).then(res => {
           if(res.data.data.res_list){
             this.isData = true;
@@ -398,7 +398,7 @@
         outline none
       }
     }
-  
+
     .errorTip_wrap{
       width 100%
       text-align center

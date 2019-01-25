@@ -360,7 +360,7 @@
       getReportDetails(){
         this.$axios({
           method: 'GET',
-          url: `${this.$baseURL}/v1/golo-report/repair/${this.order_id}`
+          url: `${this.$baseURL}/v2/golo-report/repair/${this.order_id}`
         }).then(res => {
           let reportDetails = res.data.data;
           reportDetails.repair.updated_at = this.$utils.formatDate(new Date(reportDetails.repair.updated_at), "yyyy-MM-dd hh:mm:ss");
@@ -385,7 +385,7 @@
       getKilometreDetails(){
         this.$axios({
           method: 'GET',
-          url: `${this.$baseURL}/v1/golo-report/mileage/${this.order_id}`
+          url: `${this.$baseURL}/v2/golo-report/mileage/${this.order_id}`
         }).then(res => {
           this.res_mileage = res.data.data.res_mileage.reverse();
           this.res_time = res.data.data.res_time.reverse();

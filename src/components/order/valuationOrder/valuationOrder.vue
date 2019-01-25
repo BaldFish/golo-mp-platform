@@ -71,7 +71,7 @@
         };
         this.$axios({
           method:'POST',
-          url:`${this.$baseURL}/v1/golo-buried-point-record`,
+          url:`${this.$baseURL}/v2/golo-buried-point-record`,
           data: this.$querystring.stringify(parameter)
         }).then(res=>{}).catch(error=>{})
       },
@@ -95,7 +95,7 @@
         let token = this.$utils.getCookie("token");
         this.$axios({
           method: "GET",
-          url: `${this.$baseURL}/v1/golo/getOrderList/${userId}?page=${this.page}&limit=${this.limit}`,
+          url: `${this.$baseURL}/v2/golo/getOrderList/${userId}?page=${this.page}&limit=${this.limit}`,
           headers: {
             'X-Access-Token': `${token}`,
           }
@@ -129,7 +129,7 @@
           };
           this.$axios({
             method: 'POST',
-            url: `${this.$baseURL}/v1/golo/getEvaluate`,
+            url: `${this.$baseURL}/v2/golo/getEvaluate`,
             data: this.$querystring.stringify(verifyData),
             headers: {
               'X-Access-Token': `${token}`,
@@ -163,57 +163,57 @@
     margin-top 40px
     margin-bottom 40px
     padding: 34px 30px
-    
+
     .query-time {
       font-size: 26px; /*px*/
       color: #333333;
       border-bottom 1px solid #eee; /*no*/
       padding-bottom 20px
-      
+
       p {
         font-weight bold
       }
     }
-    
+
     .query-detail {
       padding-top 15px
-      
+
       .car-text {
         font-size 26px; /*px*/
         color #333333
         opacity 0.9
-        
+
         p {
           height 60px
           line-height 60px
           overflow hidden
-          
+
           span {
             color #666666
           }
         }
       }
-      
+
       .car-mileage {
         padding-top 17px
-        
+
         span {
           font-size: 26px; /*px*/
           color: #333333;
           font-weight bold
         }
-        
+
         label {
           border-bottom 1px solid #eeeeee; /*no*/
           padding-right 20px
           padding-bottom 14px
-          
+
           input {
             font-size: 24px; /*px*/
             width 360px
             padding-left 7px
           }
-          
+
           span {
             font-size: 24px; /*px*/
             color: #5226f3;
@@ -221,7 +221,7 @@
         }
       }
     }
-    
+
     .submit {
       width: 630px;
       height: 84px;
@@ -234,7 +234,7 @@
       outline none
     }
   }
-  
+
   .none-order {
     width: 360px;
     height: 360px;
@@ -244,20 +244,20 @@
     margin: 0 auto
     margin-top 303px
     text-align center
-    
+
     img {
       width: 86px;
       height: 82px;
       margin-top 67px
       margin-bottom 20px
     }
-    
+
     p {
       font-size: 28px; /*px*/
       color: #666666;
       margin-bottom 56px
     }
-    
+
     input {
       width: 220px;
       height: 64px;
@@ -268,14 +268,14 @@
       outline none
     }
   }
-  
+
   .errorTip_wrap {
     width 100%
     text-align center
     font-size 0
     position fixed
     top 50%
-    
+
     .errorTip {
       text-align left
       display inline-block
