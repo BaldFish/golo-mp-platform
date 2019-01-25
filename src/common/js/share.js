@@ -36,8 +36,8 @@ export default {
           wx.updateTimelineShareData({
             title: shareTitle, // 分享标题
             desc: shareDesc, // 分享描述
-            link: location.origin+shareUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: location.origin+shareImg, // 分享图标
+            link: shareUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: shareImg, // 分享图标
             success: function () {
               // 用户确认分享后执行的回调函数
             },

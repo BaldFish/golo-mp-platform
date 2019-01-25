@@ -170,7 +170,7 @@
       }
     },
     created() {
-      this.$wxShare.wxShare(this,"查车况", "http://pinggu-test.goloiov.com/reportQuery/vehicleCondition","http://qiniu-assets.xinxicdn.com/test.jpg","维保记录、里程分析、违章查询，你想查的车况信息我都有")
+      this.$wxShare.wxShare(this,"查车况", "http://pinggu-test.goloiov.com/reportQuery/vehicleCondition",this.shareImg,"维保记录、里程分析、违章查询，你想查的车况信息我都有")
     },
     mounted() {
       if(window.sessionStorage.vehicleConditionVerifyData){
