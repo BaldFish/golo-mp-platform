@@ -173,7 +173,7 @@
       }
     },
     created() {
-      this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg,)
+      this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
     },
     mounted() {
       if(window.sessionStorage.vehicleConditionVerifyData){

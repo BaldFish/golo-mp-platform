@@ -114,7 +114,6 @@
         carFrame: '',
         regTime: "", //上牌时间
         mileage: "", //行驶里程
-
         txtboardshow: false,
         numboardshow: false,
         cartxt: [
@@ -129,9 +128,14 @@
           ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
           ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
         ],
+        shareTitle:"查估价",
+        shareDesc:"想了解座驾值多少钱？进来就知道了",
+        shareUrl:location.origin+"/reportQuery/valuation",
+        shareImg:location.origin+"/static/images/fxgj.jpg",
       }
     },
     created() {
+      this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
     },
     mounted() {
       if(window.sessionStorage.valuationVerifyData){
