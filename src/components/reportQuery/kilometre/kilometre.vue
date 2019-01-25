@@ -617,7 +617,7 @@
     color #333333
     a{
       font-weight 700
-      color #333333
+      color #ff0000
     }
   }
   
