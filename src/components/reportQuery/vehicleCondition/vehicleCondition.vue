@@ -172,6 +172,12 @@
         shareImg:location.origin+"/static/images/fxchk.jpg",
       }
     },
+    beforeRouteEnter (to, from, next) {
+      if(from.path.indexOf("/login")===-1&&from.path!=="/personalCenter"&&from.path!=="/valuationReport"&&from.path!=="/violationReport"){
+        window.sessionStorage.removeItem('vehicleConditionVerifyData');
+      }
+        next();
+    },
     created() {
       this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
     },
