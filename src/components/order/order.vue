@@ -51,7 +51,7 @@
 <style scoped lang="stylus">
   .order{
     width 750px
-    padding-bottom 30px
+    margin-bottom 30px
     .tabs_wrap{
       ul{
         font-size 0
