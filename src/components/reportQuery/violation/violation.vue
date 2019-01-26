@@ -148,7 +148,7 @@
       }
     },
     beforeRouteEnter (to, from, next) {
-      if(from.path!=="/login"){
+      if(from.path.indexOf("/login")===-1){
         window.sessionStorage.removeItem('violationVerifyData');
       }
       next();

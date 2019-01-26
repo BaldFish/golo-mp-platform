@@ -173,7 +173,7 @@
       }
     },
     beforeRouteEnter (to, from, next) {
-      if(from.path!=="/login"||from.path!=="/personalCenter"||from.path!=="/valuationReport"||from.path!=="/violationReport"){
+      if(from.path.indexOf("/login")===-1&&from.path!=="/personalCenter"&&from.path!=="/valuationReport"&&from.path!=="/violationReport"){
         window.sessionStorage.removeItem('vehicleConditionVerifyData');
       }
         next();
