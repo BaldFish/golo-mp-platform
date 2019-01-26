@@ -165,6 +165,8 @@
           },
         }).then(res => {
           let requiredParameter=res.data.data.prepay_info;
+          console.log(requiredParameter)
+          alert(JSON.stringify(requiredParameter))
           this.payOrder(requiredParameter);
         }).catch(error => {
           /*this.errorMessage=error.response.data.message;
