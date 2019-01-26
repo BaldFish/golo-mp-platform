@@ -161,7 +161,6 @@
     border-radius: 30px;
     margin: 0 auto
     margin-top 40px
-    margin-bottom 40px
     padding: 34px 30px
     
     .query-time {
