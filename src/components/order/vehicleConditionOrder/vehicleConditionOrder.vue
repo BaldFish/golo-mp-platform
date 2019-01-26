@@ -381,7 +381,7 @@
       }
       
       li:last-child {
-        margin-bottom 150px
+        //margin-bottom 150px
       }
     }
     
