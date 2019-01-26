@@ -147,6 +147,12 @@
         shareImg:location.origin+"/static/images/fxwz.jpg",
       }
     },
+    beforeRouteEnter (to, from, next) {
+      if(from.path!=="/login"){
+        window.sessionStorage.removeItem('violationVerifyData');
+      }
+      next();
+    },
     created() {
       this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
     },

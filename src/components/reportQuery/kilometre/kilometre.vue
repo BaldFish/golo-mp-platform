@@ -144,6 +144,12 @@
         shareImg:location.origin+"/static/images/fxlch.jpg",
       }
     },
+    beforeRouteEnter (to, from, next) {
+      if(from.path!=="/login"){
+        window.sessionStorage.removeItem('kilometreVerifyData');
+      }
+      next();
+    },
     created() {
       this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
     },
