@@ -134,6 +134,12 @@
         shareImg:location.origin+"/static/images/fxgj.jpg",
       }
     },
+    beforeRouteEnter (to, from, next) {
+      if(from.path.indexOf("/login")===-1){
+        window.sessionStorage.removeItem('valuationVerifyData');
+      }
+      next();
+    },
     created() {
       this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
     },
