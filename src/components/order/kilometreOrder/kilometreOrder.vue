@@ -364,9 +364,6 @@
           }
         }
       }
-      li:last-child{
-        margin-bottom 150px
-      }
     }
     .none-order{
       width: 360px;
