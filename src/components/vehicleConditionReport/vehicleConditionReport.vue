@@ -235,9 +235,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(item,index) of kilometreInfo">
+            <tr v-for="(item,index) of kilometreInfo" :key="index">
               <td>历史里程</td>
-              <td>{{item.mileage}}</td>
+              <td>{{item}}</td>
             </tr>
             </tbody>
           </table>
@@ -361,15 +361,18 @@
           method: 'GET',
           url: `${this.$baseURL}/v1/golo-report/repair/${this.order_id}`
         }).then(res => {
-          console.log(res.data)
           let reportDetails = res.data.data;
           reportDetails.repair.updated_at = this.$utils.formatDate(new Date(reportDetails.repair.updated_at), "yyyy-MM-dd hh:mm:ss");
           //车辆信息
           this.reportDetails = reportDetails;
           //里程信息
-          this.kilometreInfo = reportDetails.res_mileage.concat();
-          this.res_mileage = res.data.data.res_mileage.reverse();
-          this.res_time = res.data.data.res_time.reverse();
+          if(reportDetails.res_mileage!==null){
+            this.kilometreInfo = reportDetails.res_mileage.concat();
+            this.res_mileage = reportDetails.res_mileage.reverse();
+          }
+          if(reportDetails.res_time!==null){
+            this.res_time = reportDetails.res_time.reverse();
+          }
           //违章信息
           if (reportDetails.violation){
             this.violationInfo = reportDetails.violation
