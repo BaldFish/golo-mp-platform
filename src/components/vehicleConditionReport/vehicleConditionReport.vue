@@ -315,7 +315,6 @@
       this.drawLine();
       this.order_id = JSON.parse(localStorage.getItem("vehicleConditionSingleOrder")).order_id;
       this.getReportDetails();
-      this.getKilometreDetails();
 
       //延迟渲染
       let self = this;
@@ -367,36 +366,27 @@
           reportDetails.repair.updated_at = this.$utils.formatDate(new Date(reportDetails.repair.updated_at), "yyyy-MM-dd hh:mm:ss");
           //车辆信息
           this.reportDetails = reportDetails;
+          //里程信息
+          this.kilometreInfo = reportDetails.res_mileage.concat();
+          this.res_mileage = res.data.data.res_mileage.reverse();
+          this.res_time = res.data.data.res_time.reverse();
           //违章信息
           if (reportDetails.violation){
             this.violationInfo = reportDetails.violation
           } else {
             this.violationInfo = []
           }
-          //里程信息
-          this.kilometreInfo = reportDetails.nromal_repair_detail;
         }).catch(error => {
           console.log(error)
         })
       },
-      getKilometreDetails(){
-        this.$axios({
-          method: 'GET',
-          url: `${this.$baseURL}/v1/golo-report/mileage/${this.order_id}`
-        }).then(res => {
-          console.log(res.data)
-          this.res_mileage = res.data.data.res_mileage.reverse();
-          this.res_time = res.data.data.res_time.reverse();
-        }).catch(error => {
-          console.log(error)
-        })
-      }
     },
   }
 </script>
 
 <style scoped lang="stylus">
   .vehicleConditionReport {
+    padding-bottom 0 !important
     width 750px
     .top-bg{
       margin 0 auto

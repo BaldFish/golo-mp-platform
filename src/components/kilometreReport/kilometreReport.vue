@@ -148,13 +148,13 @@
           method: 'GET',
           url: `${this.$baseURL}/v1/golo-report/mileage/${this.order_id}`
         }).then(res => {
-          console.log(res.data)
+          console.log(res.data.data)
           let reportDetails = res.data.data;
           reportDetails.repair.updated_at = this.$utils.formatDate(new Date(reportDetails.repair.updated_at), "yyyy-MM-dd hh:mm:ss");
           //车辆信息
           this.reportDetails = reportDetails;
           //里程信息
-          this.kilometreInfo = reportDetails.res_mileage;
+          this.kilometreInfo = reportDetails.res_mileage.concat();
           this.res_mileage = res.data.data.res_mileage.reverse();
           this.res_time = res.data.data.res_time.reverse();
         }).catch(error => {
