@@ -164,7 +164,9 @@
           method: 'GET',
           url: `${this.$baseURL}/v1/golo-report/mileage/${this.order_id}`
         }).then(res => {
+          console.log(res)
           console.log(res.data)
+          console.log(res.data.data)
           let reportDetails = res.data.data;
           reportDetails.repair.updated_at = this.$utils.formatDate(new Date(reportDetails.repair.updated_at), "yyyy-MM-dd hh:mm:ss");
           //车辆信息
