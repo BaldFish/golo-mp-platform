@@ -106,7 +106,6 @@
     },
     mounted() {
       this.order_id = JSON.parse(localStorage.getItem("kilometreSingleOrder")).order_id;
-      //this.getReportDetails();
       this.getKilometreDetails();
 
       //延迟渲染
@@ -144,29 +143,11 @@
           ]
         });
       },
-      getReportDetails(){
-        this.$axios({
-          method: 'GET',
-          url: `${this.$baseURL}/v1/golo-report/repair/${this.order_id}`
-        }).then(res => {
-          let reportDetails = res.data.data;
-          reportDetails.repair.updated_at = this.$utils.formatDate(new Date(reportDetails.repair.updated_at), "yyyy-MM-dd hh:mm:ss");
-          //车辆信息
-          this.reportDetails = reportDetails;
-          //里程信息
-          this.kilometreInfo = reportDetails.nromal_repair_detail;
-        }).catch(error => {
-          console.log(error)
-        })
-      },
       getKilometreDetails(){
         this.$axios({
           method: 'GET',
           url: `${this.$baseURL}/v1/golo-report/mileage/${this.order_id}`
         }).then(res => {
-          console.log(res)
-          console.log(res.data)
-          console.log(res.data.data)
           let reportDetails = res.data.data;
           reportDetails.repair.updated_at = this.$utils.formatDate(new Date(reportDetails.repair.updated_at), "yyyy-MM-dd hh:mm:ss");
           //车辆信息
@@ -185,6 +166,7 @@
 
 <style scoped lang="stylus">
   .kilometreReport {
+    padding-bottom 0 !important
     width 750px
     .top-bg{
       margin 0 auto
