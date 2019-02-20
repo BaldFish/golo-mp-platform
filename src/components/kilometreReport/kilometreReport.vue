@@ -145,6 +145,7 @@
         });
       },
       getReportDetails(){
+        alert(1);
         this.$axios({
           method: 'GET',
           url: `${this.$baseURL}/v1/golo-report/repair/${this.order_id}`
@@ -164,6 +165,7 @@
         })
       },
       getKilometreDetails(){
+        alert(2);
         this.$axios({
           method: 'GET',
           url: `${this.$baseURL}/v1/golo-report/mileage/${this.order_id}`
