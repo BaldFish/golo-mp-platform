@@ -166,29 +166,29 @@
           ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
           ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
         ],
-        shareTitle:"查车况",
-        shareDesc:"维保记录、里程分析、违章查询，你想查的车况信息我都有",
-        shareUrl:location.origin+"/reportQuery/vehicleCondition",
-        shareImg:location.origin+"/static/images/fxchk.jpg",
+        shareTitle: "查车况",
+        shareDesc: "维保记录、里程分析、违章查询，你想查的车况信息我都有",
+        shareUrl: location.origin + "/reportQuery/vehicleCondition",
+        shareImg: location.origin + "/static/images/fxchk.jpg",
       }
     },
-    beforeRouteEnter (to, from, next) {
-      if(from.path.indexOf("/login")===-1&&from.path!=="/personalCenter"&&from.path!=="/valuationReport"&&from.path!=="/violationReport"){
+    beforeRouteEnter(to, from, next) {
+      if (from.path.indexOf("/login") === -1 && from.path !== "/personalCenter" && from.path !== "/valuationReport" && from.path !== "/violationReport") {
         window.sessionStorage.removeItem('vehicleConditionVerifyData');
       }
       next();
     },
     created() {
-      this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
+      this.$wxShare.wxShare(this, this.shareTitle, this.shareDesc, this.shareUrl, this.shareImg)
     },
     mounted() {
-      if(window.sessionStorage.vehicleConditionVerifyData){
-        this.carFrameNum=JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).vin;
-        this.plat=JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).plat;
-        this.plateNum=JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).plateNum;
-        this.engineNumber=JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).engine_no;
-        this.carType=JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).car_type;
-        this.checked=JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).check_status;
+      if (window.sessionStorage.vehicleConditionVerifyData) {
+        this.carFrameNum = JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).vin;
+        this.plat = JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).plat;
+        this.plateNum = JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).plateNum;
+        this.engineNumber = JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).engine_no;
+        this.carType = JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).car_type;
+        this.checked = JSON.parse(window.sessionStorage.getItem('vehicleConditionVerifyData')).check_status;
       }
       window.clearTimeout(timeOut);
       //拍照提示20秒消失
@@ -237,28 +237,30 @@
     },
     methods: {
       //埋点
-      buryingPoint(firstLevel,secondLevel,apiId){
-        let parameter={
-          first_level:firstLevel,
-          second_level:secondLevel,
-          api_id:apiId,
+      buryingPoint(firstLevel, secondLevel, apiId) {
+        let parameter = {
+          first_level: firstLevel,
+          second_level: secondLevel,
+          api_id: apiId,
         };
         this.$axios({
-          method:'POST',
-          url:`${this.$baseURL}/v2/golo-buried-point-record`,
+          method: 'POST',
+          url: `${this.$baseURL}/v2/golo-buried-point-record`,
           data: this.$querystring.stringify(parameter)
-        }).then(res=>{}).catch(error=>{})
+        }).then(res => {
+        }).catch(error => {
+        })
       },
       //上传图片获取车架号
       uploadPhoto(e) {
-        this.buryingPoint('homePage','carCondition','1');
+        this.buryingPoint('homePage', 'carCondition', '1');
         let that = this;
         let token = that.$utils.getCookie("token");
         let userId = that.$utils.getCookie("userId");
         let inputData = {
           vin: this.carFrameNum,//车架号
-          plat:this.plate,//车牌号文字
-          plateNum:this.plateNum,//车牌号字母
+          plat: this.plate,//车牌号文字
+          plateNum: this.plateNum,//车牌号字母
           engine_no: this.engineNumber, //发动机号
           car_type: this.carType,//维保跟估价必传  01-大型车  02-小型车
           check_status: this.checked,//免责声明
@@ -335,8 +337,8 @@
         let token = this.$utils.getCookie("token");
         let inputData = {
           vin: this.carFrameNum,//车架号
-          plat:this.plate,//车牌号文字
-          plateNum:this.plateNum,//车牌号字母
+          plat: this.plate,//车牌号文字
+          plateNum: this.plateNum,//车牌号字母
           engine_no: this.engineNumber, //发动机号
           car_type: this.carType,//维保跟估价必传  01-大型车  02-小型车
           check_status: this.checked,//免责声明
@@ -412,14 +414,14 @@
 </script>
 
 <style scoped lang="stylus">
-  .vehicleCondition{
+  .vehicleCondition {
     .sec-form {
       width: 688px;
       height: auto;
       box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.09);
       border-radius: 30px;
       margin: 0 auto;
-
+      
       .camera-notice {
         font-size: 20px; /*px*/
         color: #333333;
@@ -432,12 +434,12 @@
         position: relative;
         bottom: 24px;
         right: 16px;
-
+        
         p {
           float left
           margin-left 20px
         }
-
+        
         i {
           width: 17px;
           height: 17px;
@@ -450,31 +452,31 @@
           margin-left 14px
         }
       }
-
+      
       .hidden {
         visibility hidden
       }
-
+      
       .sec-container {
         height: auto;
         padding: 52px 30px 0 30px;
         position relative
         bottom: 60px
-
+        
         .car-frame {
           .car-frame-input {
             border-bottom 1px solid #e5e5e5; /*no*/
             padding-bottom 28px
-
+            
             .frame-input {
               float left
-
+              
               label {
                 font-size: 28px; /*px*/
                 color: #333333;
                 margin-right 64px
               }
-
+              
               input {
                 font-size: 26px; /*px*/
                 color: #333333;
@@ -482,56 +484,56 @@
                 width: 320px;
               }
             }
-
+            
             .camera-box {
               float right
               border-left 1px solid #bfbfbf; /*no*/
               margin-right 20px
-
+              
               label {
                 input {
                   display none
                 }
-
+                
                 img {
                   width: 46px;
                   height: 36px;
                   margin-left 32px
                 }
               }
-
+              
             }
           }
-
+          
           .car-frame-notice {
             font-size: 20px; /*px*/
             color: #999999;
             margin-top 24px
-
+            
             span {
               color: #5226f3;
             }
-
+            
             a {
               font-size: 20px; /*px*/
               color: #999999;
             }
           }
-
+          
         }
-
+        
         .sec-form-box {
           li {
             margin-top: 56px;
             padding-bottom 28px
             border-bottom 1px solid #e5e5e5; /*no*/
-
+            
             label {
               font-size: 28px; /*px*/
               color: #333333;
               margin-right 64px
             }
-
+            
             input {
               font-size: 26px; /*px*/
               color: #333333;
@@ -539,13 +541,13 @@
               width: 270px;
             }
           }
-
+          
           .license-li {
             label {
               float left
               margin-right 24px
             }
-
+            
             .license {
               float left
               width: 40px;
@@ -558,7 +560,7 @@
               margin-right: 7px;
             }
           }
-
+          
           .engine-li {
             img {
               width: 40px;
@@ -567,20 +569,20 @@
               margin-right 20px
             }
           }
-
+          
           .carType-li {
             border-bottom none
-
+            
             label {
               float left
               height: 40px;
               line-height 40px
             }
-
+            
             .radio-box {
               font-size: 24px; /*px*/
               color: #333333;
-
+              
               label {
                 margin: 0
                 width: 200px
@@ -589,11 +591,11 @@
                 display inline-block
                 float left
               }
-
+              
               input {
                 display none
               }
-
+              
               i {
                 width: 40px;
                 height: 40px;
@@ -603,7 +605,7 @@
                 background url("../../../common/images/radio_unchecked.png") no-repeat center
                 background-size 100% 100%
               }
-
+              
               input:checked + i {
                 background url("../../../common/images/radio_checked.png") no-repeat center
                 background-size 100% 100%
@@ -611,7 +613,7 @@
             }
           }
         }
-
+        
         .submit {
           width: 630px;
           height: 84px;
@@ -623,17 +625,17 @@
           outline none
           margin: 70px 0 32px 0;
         }
-
+        
         .agree-contract {
           line-height: 40px;
           height: 40px
           padding-left 45px
           margin: 0 auto
-
+          
           input {
             display none
           }
-
+          
           i {
             width: 40px;
             height: 40px;
@@ -643,35 +645,35 @@
             margin-right 20px
             float left
           }
-
+          
           input:checked + i {
             background: url("../../../common/images/checked.png") no-repeat center;
             background-size 100% 100%
           }
-
+          
           p {
             font-size: 22px; /*px*/
             color: #333333;
             float left
-
+            
             span {
               color: #5226f3;
             }
           }
         }
       }
-
+      
     }
-
+    
     .sec-notice {
       margin: 64px 23px 0 23px;
-
+      
       .report-title {
         font-size: 28px; /*px*/
         color: #5226f3;
         height: 40px;
         line-height 40px
-
+        
         i {
           width: 40px;
           height: 40px;
@@ -681,16 +683,16 @@
           float left
           margin-right 20px
         }
-
+        
         p {
           float left
         }
       }
-
+      
       .report-box {
         padding: 35px 35px 77px 35px
         text-align: center;
-
+        
         input {
           padding: 0 16px
           height: 60px;
@@ -702,18 +704,18 @@
           background-color #ffffff
           outline none
         }
-
+        
         .standard-report {
           margin-right 100px
         }
       }
-
+      
       .help-title {
         font-size: 28px; /*px*/
         color: #5226f3;
         height: 40px;
         line-height 40px
-
+        
         i {
           width: 40px;
           height: 40px;
@@ -723,12 +725,12 @@
           float left
           margin-right 20px
         }
-
+        
         p {
           float left
         }
       }
-
+      
       .help-box {
         width: 624px;
         height: auto;
@@ -739,32 +741,33 @@
         line-height normal
         padding: 36px 40px
         margin-top 30px
-
+        
         span {
           font-size: 24px; /*px*/
         }
       }
     }
-
+    
     .cooperation {
       margin: 50px 0
       text-align center
       font-weight 700
       font-size: 30px; /*px*/
       color #333333
-      a{
+      
+      a {
         font-weight 700
         color #ff0000
       }
     }
-
+    
     .errorTip_wrap {
       width 100%
       text-align center
       font-size 0
       position fixed
       top 50%
-
+      
       .errorTip {
         display inline-block
         box-sizing border-box
@@ -783,12 +786,12 @@
 <style scoped lang="stylus">
   .pkey-contain {
     width 750px
-
+    
     .pkey-keyboard {
       position fixed
       bottom: 0
       z-index: 10
-
+      
       header {
         font-size 28px; /*px*/
         color: #5226f3
@@ -796,22 +799,22 @@
         height: 75px
         line-height 75px
         padding: 0 40px
-
+        
         label:nth-child(1) {
           float left
         }
-
+        
         label:nth-child(2) {
           float right
         }
       }
-
+      
       .pkey-keyscontain {
         ul {
           height: 362px
           background-color #D1D5DA
           padding: 5px;
-
+          
           li {
             label {
               width: 64px
@@ -824,7 +827,7 @@
               text-align center
               font-size 26px; /*px*/
             }
-
+            
             span {
               color: #F9F9F9
               width: 98px
@@ -838,11 +841,11 @@
               margin-left 5px
               margin-top 5px
             }
-
+            
             .board-delete {
               margin-left 0
               margin-right 5px
-
+              
               img {
                 width: 42px
                 height: 32px
@@ -852,7 +855,7 @@
               }
             }
           }
-
+          
           .reset-mr {
             padding-left 36px
           }
@@ -870,18 +873,18 @@
     -webkit-appearance: none;
     border-radius 30px !important
     text-align center
-
+    
     .el-dialog__header {
       display none
     }
-
+    
     .el-dialog__body {
       width 431px !important
       height 296px !important
       margin 0 !important
       padding 0 !important
       font-size 0 !important
-
+      
       img {
         display inline-block
         width 431px
