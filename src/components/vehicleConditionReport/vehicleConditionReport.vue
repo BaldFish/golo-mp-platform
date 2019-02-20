@@ -362,6 +362,7 @@
           method: 'GET',
           url: `${this.$baseURL}/v1/golo-report/repair/${this.order_id}`
         }).then(res => {
+          console.log(res.data)
           let reportDetails = res.data.data;
           reportDetails.repair.updated_at = this.$utils.formatDate(new Date(reportDetails.repair.updated_at), "yyyy-MM-dd hh:mm:ss");
           //车辆信息
@@ -374,10 +375,6 @@
           }
           //里程信息
           this.kilometreInfo = reportDetails.nromal_repair_detail;
-
-          //console.log(this.kilometreInfo,"kilometreInfo")
-          //console.log(this.reportDetails,"reportDetails")
-
         }).catch(error => {
           console.log(error)
         })
@@ -387,12 +384,9 @@
           method: 'GET',
           url: `${this.$baseURL}/v1/golo-report/mileage/${this.order_id}`
         }).then(res => {
+          console.log(res.data)
           this.res_mileage = res.data.data.res_mileage.reverse();
           this.res_time = res.data.data.res_time.reverse();
-
-          //console.log(this.res_mileage,"res_mileage")
-          //console.log(this.res_time,"res_time")
-
         }).catch(error => {
           console.log(error)
         })
