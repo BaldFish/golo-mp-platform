@@ -55,9 +55,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(item,index) of kilometreInfo">
+            <tr v-for="(item,index) of kilometreInfo" :key="index">
               <td>历史里程</td>
-              <td>{{item.mileage}}</td>
+              <td>{{item}}</td>
             </tr>
             </tbody>
           </table>
@@ -154,7 +154,7 @@
           //车辆信息
           this.reportDetails = reportDetails;
           //里程信息
-          //this.kilometreInfo = reportDetails.nromal_repair_detail;
+          this.kilometreInfo = reportDetails.res_mileage;
           this.res_mileage = res.data.data.res_mileage.reverse();
           this.res_time = res.data.data.res_time.reverse();
         }).catch(error => {
