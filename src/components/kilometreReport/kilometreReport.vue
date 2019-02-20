@@ -105,7 +105,7 @@
       this.$utils.setTitle("里程报告");
     },
     mounted() {
-      this.order_id = JSON.parse(localStorage.getItem("vehicleConditionSingleOrder")).order_id;
+      this.order_id = JSON.parse(localStorage.getItem("kilometreSingleOrder")).order_id;
       this.getReportDetails();
       this.getKilometreDetails();
 
@@ -145,7 +145,6 @@
         });
       },
       getReportDetails(){
-        alert(1);
         this.$axios({
           method: 'GET',
           url: `${this.$baseURL}/v1/golo-report/repair/${this.order_id}`
@@ -165,7 +164,6 @@
         })
       },
       getKilometreDetails(){
-        alert(2);
         this.$axios({
           method: 'GET',
           url: `${this.$baseURL}/v1/golo-report/mileage/${this.order_id}`
