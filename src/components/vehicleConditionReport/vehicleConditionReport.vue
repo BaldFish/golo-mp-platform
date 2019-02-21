@@ -339,13 +339,16 @@
           title: { text: '里程（万KM）' },
           /*tooltip: {},*/
           xAxis: {
+            type: 'category',
             data: this.res_time,
             axisLabel: {
               interval:0,
               rotate:40
             }
           },
-          yAxis: {},
+          yAxis: {
+            type: 'value'
+          },
           series: [
             {
               name: '里程',
