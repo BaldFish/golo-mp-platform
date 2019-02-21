@@ -225,7 +225,7 @@
           <p>里程分析</p>
         </div>
         <div class="mileage-analysis">
-          <p class="analysis-tips">本车里程读数&nbsp;<span class="analysis-error" v-if="reportDetails.mileage_status === 1">异常</span></p>
+          <p class="analysis-tips" v-if="reportDetails.mileage_status === 1">本车里程读数&nbsp;<span class="analysis-error">异常</span></p>
           <p class="table-title">里程记录（倒叙排序）</p>
           <table>
             <thead>
