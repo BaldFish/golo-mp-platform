@@ -326,9 +326,6 @@
     watch: {},
     computed: {},
     methods: {
-      handleChange(val) {
-        console.log(val);
-      },
       drawLine(){
         // 基于准备好的dom，初始化echarts实例
         var bar_dv = document.getElementById('bar_dv');
@@ -339,13 +336,16 @@
           title: { text: '里程（万KM）' },
           /*tooltip: {},*/
           xAxis: {
+            type: 'category',
             data: this.res_time,
             axisLabel: {
               interval:0,
               rotate:40
             }
           },
-          yAxis: {},
+          yAxis: {
+            type: 'value'
+          },
           series: [
             {
               name: '里程',
