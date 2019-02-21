@@ -51,7 +51,8 @@
         <div class="car-analysis">
           <p class="analysis-tips">
             本车里程读数&nbsp;
-            <span :class="{'analysis-error': reportDetails.compent_repair_detail || reportDetails.construct_repair_detail || reportDetails.outside_repair_detail || reportDetails.repair.car_fire_flag == 1 || reportDetails.repair.car_water_flag == 1 || reportDetails.nromal_repair_detail}">异常</span>
+            <span
+              :class="{'analysis-error': reportDetails.compent_repair_detail || reportDetails.construct_repair_detail || reportDetails.outside_repair_detail || reportDetails.repair.car_fire_flag == 1 || reportDetails.repair.car_water_flag == 1 || reportDetails.nromal_repair_detail}">异常</span>
           </p>
           <ul class="car-li-01">
             <li :class="{'error': reportDetails.compent_repair_detail}">
@@ -89,7 +90,7 @@
           </ul>
         </div>
         <div class="grey-bar"></div>
-        <el-collapse accordion  v-model="activeNames" @change="handleChange">
+        <el-collapse accordion v-model="activeNames" @change="handleChange">
           <el-collapse-item>
             <template slot="title">
               重要部件
@@ -98,25 +99,25 @@
                 <span>{{reportDetails.compent_repair_detail.length}}</span>
               </div>
             </template>
-            <div class="collapse-content"  v-if="reportDetails.compent_repair_detail">
-
+            <div class="collapse-content" v-if="reportDetails.compent_repair_detail">
+              
               <p class="table-title">重要部件</p>
               <table>
                 <thead>
-                  <tr>
-                    <th>维修类型</th>
-                    <th>维修内容</th>
-                  </tr>
+                <tr>
+                  <th>维修类型</th>
+                  <th>维修内容</th>
+                </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(item,index) of reportDetails.compent_repair_detail">
-                    <td>{{item.type}}</td>
-                    <td>{{item.content}}</td>
-                  </tr>
+                <tr v-for="(item,index) of reportDetails.compent_repair_detail">
+                  <td>{{item.type}}</td>
+                  <td>{{item.content}}</td>
+                </tr>
                 </tbody>
               </table>
               <p style="visibility: hidden">占位</p>
-
+            
             </div>
             <div class="system-error" v-else>无异常</div>
           </el-collapse-item>
@@ -128,21 +129,21 @@
                 <span>{{reportDetails.construct_repair_detail.length}}</span>
               </div>
             </template>
-            <div class="collapse-content"  v-if="reportDetails.construct_repair_detail">
-
+            <div class="collapse-content" v-if="reportDetails.construct_repair_detail">
+              
               <p class="table-title">结构部件</p>
               <table>
                 <thead>
-                  <tr>
-                    <th>维修类型</th>
-                    <th>维修内容</th>
-                  </tr>
+                <tr>
+                  <th>维修类型</th>
+                  <th>维修内容</th>
+                </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(item,index) of reportDetails.construct_repair_detail">
-                    <td>{{item.type}}</td>
-                    <td>{{item.content}}</td>
-                  </tr>
+                <tr v-for="(item,index) of reportDetails.construct_repair_detail">
+                  <td>{{item.type}}</td>
+                  <td>{{item.content}}</td>
+                </tr>
                 </tbody>
               </table>
               <p style="visibility: hidden">占位</p>
@@ -153,7 +154,7 @@
                    <li>2:更换挡风玻璃</li>
                  </ul>
                </div>-->
-
+            
             </div>
             <div class="system-error" v-else>无异常</div>
           </el-collapse-item>
@@ -166,24 +167,24 @@
               </div>
             </template>
             <div class="collapse-content" v-if="reportDetails.nromal_repair_detail">
-
+              
               <p class="table-title">保养记录</p>
               <table>
                 <thead>
-                  <tr>
-                    <th>维修类型</th>
-                    <th>维修内容</th>
-                  </tr>
+                <tr>
+                  <th>维修类型</th>
+                  <th>维修内容</th>
+                </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(item,index) of reportDetails.nromal_repair_detail">
-                    <td>{{item.type}}</td>
-                    <td>{{item.content}}</td>
-                  </tr>
+                <tr v-for="(item,index) of reportDetails.nromal_repair_detail">
+                  <td>{{item.type}}</td>
+                  <td>{{item.content}}</td>
+                </tr>
                 </tbody>
               </table>
               <p style="visibility: hidden">占位</p>
-
+            
             </div>
             <div class="system-error" v-else>无异常</div>
           </el-collapse-item>
@@ -196,7 +197,7 @@
               </div>
             </template>
             <div class="collapse-content" v-if="reportDetails.outside_repair_detail">
-
+              
               <p class="table-title">外观</p>
               <table>
                 <thead>
@@ -213,7 +214,7 @@
                 </tbody>
               </table>
               <p style="visibility: hidden">占位</p>
-
+            
             </div>
             <div class="system-error">无异常</div>
           </el-collapse-item>
@@ -291,61 +292,61 @@
         activeNames: ['1'],
         order_id: "",
         reportDetails: {
-          repair:"",
-          order_info:"",
+          repair: "",
+          order_info: "",
         },
         isViolation: true,
         violationInfo: "",
         kilometreInfo: "",
-        res_mileage:"",
+        res_mileage: "",
         res_time: "",
-        shareTitle:"查车况",
-        shareDesc:"维保记录、里程分析、违章查询，你想查的车况信息我都有",
-        shareUrl:location.origin+"/reportQuery/vehicleCondition",
-        shareImg:location.origin+"/static/images/fxchk.jpg",
+        shareTitle: "查车况",
+        shareDesc: "维保记录、里程分析、违章查询，你想查的车况信息我都有",
+        shareUrl: location.origin + "/reportQuery/vehicleCondition",
+        shareImg: location.origin + "/static/images/fxchk.jpg",
       }
     },
     created() {
-      this.$wxShare.wxShare(this,this.shareTitle, this.shareDesc,this.shareUrl,this.shareImg)
+      this.$wxShare.wxShare(this, this.shareTitle, this.shareDesc, this.shareUrl, this.shareImg)
     },
-    beforeMount(){
+    beforeMount() {
       this.$utils.setTitle("车况报告");
     },
     mounted() {
       this.drawLine();
       this.order_id = JSON.parse(localStorage.getItem("vehicleConditionSingleOrder")).order_id;
       this.getReportDetails();
-
+      
       //延迟渲染
       let self = this;
       setTimeout(function () {
         self.drawLine();
-      },500)
-
+      }, 500)
+      
     },
     watch: {},
     computed: {},
     methods: {
-      handleChange(val) {
-        console.log(val);
-      },
-      drawLine(){
+      drawLine() {
         // 基于准备好的dom，初始化echarts实例
         var bar_dv = document.getElementById('bar_dv');
         //var bar_dv = this.$refs.chart;
         // 绘制图表
         let myChart = this.$echarts.init(bar_dv);
         myChart.setOption({
-          title: { text: '里程（万KM）' },
+          title: {text: '里程（万KM）'},
           /*tooltip: {},*/
           xAxis: {
+            type: 'category',
             data: this.res_time,
             axisLabel: {
-              interval:0,
-              rotate:40
+              interval: 0,
+              rotate: 40
             }
           },
-          yAxis: {},
+          yAxis: {
+            type: 'value'
+          },
           series: [
             {
               name: '里程',
@@ -354,9 +355,9 @@
             }
           ]
         });
-
+        
       },
-      getReportDetails(){
+      getReportDetails() {
         this.$axios({
           method: 'GET',
           url: `${this.$baseURL}/v2/golo-report/repair/${this.order_id}`
@@ -366,15 +367,15 @@
           //车辆信息
           this.reportDetails = reportDetails;
           //里程信息
-          if(reportDetails.res_mileage!==null){
+          if (reportDetails.res_mileage !== null) {
             this.kilometreInfo = reportDetails.res_mileage.concat();
             this.res_mileage = reportDetails.res_mileage.reverse();
           }
-          if(reportDetails.res_time!==null){
+          if (reportDetails.res_time !== null) {
             this.res_time = reportDetails.res_time.reverse();
           }
           //违章信息
-          if (reportDetails.violation){
+          if (reportDetails.violation) {
             this.violationInfo = reportDetails.violation
           } else {
             this.violationInfo = []
@@ -391,7 +392,8 @@
   .vehicleConditionReport {
     padding-bottom 0 !important
     width 750px
-    .top-bg{
+    
+    .top-bg {
       margin 0 auto
       height: 400px
       width: 100%
@@ -399,31 +401,37 @@
       background-size 100% 100%
       text-align center
       color: #ffffff;
-      p:nth-child(1){
+      
+      p:nth-child(1) {
         font-size: 48px; /*px*/
         padding: 128px 0 12px 0
       }
-      p:nth-child(2){
+      
+      p:nth-child(2) {
         font-size: 22px; /*px*/
       }
     }
-    .blue-bg{
+    
+    .blue-bg {
       background-color #5226f3
       margin 0 auto
-      .report-box{
+      
+      .report-box {
         width: 688px;
         height: auto;
         background-color: #ffffff;
         box-shadow: 0 2px 27px 7px rgba(14, 14, 14, 0.08);
         border-radius: 30px;
-        margin:0 auto
+        margin: 0 auto
         margin-top 20px
-        .report-box-title{
+        
+        .report-box-title {
           font-size: 34px; /*px*/
           color: #5126f1;
           padding-top: 20px;
           padding-left: 42px;
-          span{
+          
+          span {
             width: 10px;
             height: 10px;
             background-color: #5226f3;
@@ -434,49 +442,60 @@
             margin-right 16px
           }
         }
-        .car-info{
+        
+        .car-info {
           margin: 27px auto 0 60px
           padding-bottom 25px
-          li{
+          
+          li {
             line-height 48px
-            label{
+            
+            label {
               font-size: 28px; /*px*/
               color: #000000;
               float left
             }
-            p{
+            
+            p {
               font-size: 26px; /*px*/
               color: #666666;
               float left
             }
           }
         }
-        .car-analysis{
-          .analysis-tips{
+        
+        .car-analysis {
+          .analysis-tips {
             font-size: 26px; /*px*/
             color: #222222;
             margin: 46px 0 60px 64px
-            span{
+            
+            span {
               font-size: 30px; /*px*/
             }
-            .analysis-error{
+            
+            .analysis-error {
               color: #f30808;
             }
           }
-          ul{
+          
+          ul {
             width 688px
             height: 180px;
             margin: 0 auto;
-            li{
+            
+            li {
               float left
               font-size: 22px; /*px*/
               color: #666666;
               text-align center
               width: 229px
-              img{
+              
+              img {
                 margin-bottom 20px
               }
-              i{
+              
+              i {
                 width: 28px;
                 height: 35px;
                 display inline-block
@@ -487,9 +506,11 @@
                 left: 70px;
               }
             }
-            .error{
+            
+            .error {
               color: #f30808;
-              i{
+              
+              i {
                 width: 35px;
                 height: 35px;
                 background url("../../common/images/error.png") no-repeat center
@@ -497,88 +518,103 @@
               }
             }
           }
-          .car-li-01{
-            li:nth-child(1){
-              img{
-                width:63px
-                height:49px
+          
+          .car-li-01 {
+            li:nth-child(1) {
+              img {
+                width: 63px
+                height: 49px
               }
             }
-            li:nth-child(2){
-              img{
-                width:49px
-                height:49px
+            
+            li:nth-child(2) {
+              img {
+                width: 49px
+                height: 49px
               }
             }
-            li:nth-child(3){
-              img{
-                width:52px
-                height:48px
+            
+            li:nth-child(3) {
+              img {
+                width: 52px
+                height: 48px
               }
             }
           }
-          .car-li-02{
-            li:nth-child(1){
-              img{
-                width:60px
-                height:47px
+          
+          .car-li-02 {
+            li:nth-child(1) {
+              img {
+                width: 60px
+                height: 47px
               }
             }
-            li:nth-child(2){
-              img{
-                width:47px
-                height:47px
+            
+            li:nth-child(2) {
+              img {
+                width: 47px
+                height: 47px
               }
             }
-            li:nth-child(3){
-              img{
-                width:48px
-                height:45px
+            
+            li:nth-child(3) {
+              img {
+                width: 48px
+                height: 45px
               }
             }
           }
         }
-        .grey-bar{
+        
+        .grey-bar {
           width: 100%;
           height: 10px;
           background-color: #eeeeee;
         }
-        .table-supply{
+        
+        .table-supply {
           margin-left 18px
-          p{
+          
+          p {
             font-size: 24px; /*px*/
             color: #333333;
             margin: 20px 0 5px 0
           }
-          li{
+          
+          li {
             font-size: 22px; /*px*/
             color: #999999;
           }
         }
-
-        .mileage-analysis{
-          .analysis-tips{
+        
+        .mileage-analysis {
+          .analysis-tips {
             font-size: 26px; /*px*/
             color: #222222;
             margin: 20px 0 0 45px
-            span{
+            
+            span {
               font-size: 30px; /*px*/
             }
-            .analysis-error{
+            
+            .analysis-error {
               color: #f30808;
             }
           }
-          .table-title{
+          
+          .table-title {
             font-size: 26px; /*px*/
             color: #222222;
             margin: 20px 0 20px 45px
           }
-          table{
+          
+          table {
             width: 610px;
             text-align center
             margin 0 auto
-            thead{
-              th{
+            
+            thead {
+              th {
                 font-size: 26px; /*px*/
                 color: #222222;
                 height: 80px
@@ -587,10 +623,12 @@
                 border: 1px solid #d2d2d2; /*no*/
               }
             }
-            tbody{
+            
+            tbody {
               font-size: 22px; /*px*/
               color: #666666;
-              td{
+              
+              td {
                 font-size: 22px; /*px*/
                 color: #666666;
                 height: 55px
@@ -600,49 +638,59 @@
             }
           }
         }
-        .trend-analysis{
+        
+        .trend-analysis {
           padding-bottom: 20px;
-          .trend-title{
+          
+          .trend-title {
             font-size: 30px; /*px*/
             color: #222222;
             width: 656px;
             border-bottom: 1px solid #eeeeee;
-            margin:0 auto
+            margin: 0 auto
             margin-bottom 20px
-            p{
+            
+            p {
               margin: 40px 0 15px 30px
             }
           }
-          #bar_dv{
+          
+          #bar_dv {
             width: 650px
             height: 400px
             margin: 0 auto
             margin-left 40px
           }
         }
-        .violation-info{
+        
+        .violation-info {
           padding-bottom 36px
-          .analysis-tips{
+          
+          .analysis-tips {
             font-size: 26px; /*px*/
             color: #222222;
             margin: 20px 0 20px 45px
-            span{
+            
+            span {
               font-size: 30px; /*px*/
               color: #f30808;
             }
           }
-
-          .violation-box{
+          
+          .violation-box {
             width: 655px;
             height: auto;
             background-color: #f7f7f7;
-            margin:0 auto
-            ul{
+            margin: 0 auto
+            
+            ul {
               margin-left: 24px
               padding-bottom 35px
-              li{
+              
+              li {
                 padding-top 35px
-                span{
+                
+                span {
                   width: 30px;
                   height: 30px;
                   line-height 30px
@@ -654,26 +702,30 @@
                   float left
                   margin-right 16px
                 }
-                label{
+                
+                label {
                   font-size: 30px; /*px*/
                   color: #333333;
                   float left
                   margin-right 16px
                 }
-                .reason{
+                
+                .reason {
                   font-size: 24px; /*px*/
                   color: #666666;
                   float left
                   width: 410px
                 }
-                .penalty{
+                
+                .penalty {
                   font-size: 24px; /*px*/
                   color: #f30808;
                   line-height 26px
                 }
               }
-              li:nth-child(2){
-                label{
+              
+              li:nth-child(2) {
+                label {
                   margin-left 46px
                 }
               }
@@ -681,58 +733,68 @@
           }
         }
       }
-      .qrcode{
+      
+      .qrcode {
         text-align center
         color: #ffffff;
-        p:nth-child(1){
+        
+        p:nth-child(1) {
           font-size: 35px; /*px*/
           margin: 50px 0
         }
-        div{
+        
+        div {
           width: 200px;
           height: 200px;
           margin: 0 auto
           background-color: #ffffff;
           box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.09);
           border-radius: 10px;
-          img{
+          
+          img {
             width: 183px;
             height: 177px;
             margin: 0 auto
             margin-top 12px
           }
         }
-        p:nth-child(3){
+        
+        p:nth-child(3) {
           font-size: 23px; /*px*/
           margin-top 20px
         }
       }
     }
-    .fixed{
+    
+    .fixed {
       position: relative;
       top: -85px;
     }
-    .clear-margin-top{
+    
+    .clear-margin-top {
       margin-top 0 !important
     }
   }
 </style>
 <style lang="stylus">
-  .el-collapse{
+  .el-collapse {
     margin: 0 16px
     margin-top 53px
     border-top: none
     padding-bottom 50px
     border-bottom none
-    .el-collapse-item__header{
+    
+    .el-collapse-item__header {
       font-size: 28px; /*px*/
       color: #161616;
       border-bottom 1px solid #e5e5e5; /*no*/
-      .collapse-error{
+      
+      .collapse-error {
         float right
         font-size: 24px; /*px*/
         color: #f30808;
-        span:nth-child(2){
+        
+        span:nth-child(2) {
           width: 30px;
           height: 30px;
           line-height 30px
@@ -747,18 +809,22 @@
         }
       }
     }
-    .el-collapse-item__wrap{
-      .el-collapse-item__content{
+    
+    .el-collapse-item__wrap {
+      .el-collapse-item__content {
         font-size: 24px; /*px*/
         background-color: #f7f7f7;
-        .system-error{
+        
+        .system-error {
           color #666
           padding-top: 20px;
           padding-left 20px
         }
-        .collapse-content{
+        
+        .collapse-content {
           background-color: #f7f7f7;
-          .table-title{
+          
+          .table-title {
             font-size: 24px; /*px*/
             color: #333333;
             text-align center
@@ -766,28 +832,32 @@
             padding-top 28px
             font-weight 700
           }
-          table{
+          
+          table {
             font-size: 24px; /*px*/
             color: #666666;
             text-align center
             width: 620px;
             margin 0 auto
             table-layout: fixed;
-            .table-error{
+            
+            .table-error {
               color: #f30808;
             }
-            thead{
-              th{
-                width:155px
-                height:50px
+            
+            thead {
+              th {
+                width: 155px
+                height: 50px
                 line-height 50px
                 border: solid 1px #d2d2d2; /*no*/
               }
             }
-            tbody{
-              td{
-                width:155px
-                height:50px
+            
+            tbody {
+              td {
+                width: 155px
+                height: 50px
                 line-height 50px
                 border: solid 1px #d2d2d2; /*no*/
                 /*white-space: nowrap;
